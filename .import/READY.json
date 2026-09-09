@@ -1,0 +1,16 @@
+{
+  "format": 1,
+  "compression": "xz",
+  "archive_bytes": 242040,
+  "archive_sha256": "bbf3cedfbfd1c96f87e3016e114f9df8a479be93a19db0a6c4afacaf43a1caf8",
+  "total_files": 690,
+  "boost_url": "https://archives.boost.io/release/1.83.0/source/boost_1_83_0.tar.bz2",
+  "boost_sha256": "6478edfe2f3305127cffe8caf73ea0176c53769f4bf1585be237eb30798c3b8e",
+  "parts": [
+    {"file":"part-000.b64","chars":40000,"sha256":"ae32758c64bfd9cb9f41ae361803387cd94dcf06dfcf7fef7a740947783aa656"},
+    {"file":"part-001.b64","chars":80000,"sha256":"737a7d8c1bd351fa7b2df06e881c46b9fa00eee69e660db47c51da20a633b8f4"},
+    {"file":"part-002.b64","chars":80000,"sha256":"3536858a3f76cf109c914d12ec8fbff1de3e4436e92e515bad2e594d11a1a377"},
+    {"file":"part-003.b64","chars":80000,"sha256":"3351e2c32ba391329e6fe94c5eb8635ca18793acd5c3b3015e0f389023c7b1b5"},
+    {"file":"part-004.b64","chars":42720,"sha256":"230c3866768cd9cdefedd911aa6f26de12073159253f9914ef3fbf4994330869"}
+  ]
+}
