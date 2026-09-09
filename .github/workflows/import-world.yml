@@ -1,0 +1,31 @@
+name: Import prepared NPC World source
+on:
+  push:
+    branches: ['import/world-0.5']
+    paths: ['.import/READY.json']
+permissions:
+  contents: write
+jobs:
+  restore:
+    if: github.ref == 'refs/heads/import/world-0.5'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Restore verified source and exact vendored headers
+        run: python3 .import/restore.py
+      - name: Validate imported tree
+        run: |
+          sha256sum --quiet -c SHA256SUMS
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --parallel 2
+          ctest --test-dir build --output-on-failure
+      - name: Commit imported project without modifying workflows
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- . ':!.github' ':!.import'
+          git commit -m 'Import verified NPC World 0.5 source, tests, specifications and project context'
+          git push origin HEAD:refs/heads/import/world-0.5
