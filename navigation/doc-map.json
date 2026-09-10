@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "nodes": [
+    {"id": "repository_index", "path": "README.md", "status": "implemented"},
+    {"id": "rules", "path": "docs/rules/WORLD_0.5.md", "status": "normative"},
+    {"id": "actions", "path": "docs/rules/ACTIONS.md", "status": "normative", "depends_on": ["rules"]},
+    {"id": "parameters", "path": "docs/rules/PARAMETERS.md", "status": "normative", "depends_on": ["rules"]},
+    {"id": "api", "path": "docs/rules/API.md", "status": "normative", "depends_on": ["rules"]},
+    {"id": "mechanics", "path": "docs/game/mechanics/CURRENT_MECHANICS_T1.md", "status": "implemented", "depends_on": ["rules"]},
+    {"id": "personality", "path": "docs/game/personality/Модель_личности_и_выбора_действий_v0.1.md", "status": "historical"},
+    {"id": "implementation", "path": "docs/architecture/implementation/STATUS.md", "status": "implemented", "depends_on": ["rules"]},
+    {"id": "roadmap", "path": "docs/roadmap/autonomy_2026-09-10/00_README.md", "status": "planned", "depends_on": ["implementation"]},
+    {"id": "reports", "path": "docs/reports/VERIFICATION.md", "status": "historical", "depends_on": ["implementation"]},
+    {"id": "world_core_v04", "path": "docs/history/world_core_v0.4/00_Начать_здесь.md", "status": "historical"},
+    {"id": "math_v03", "path": "docs/history/math_v0.3/00_Начать_здесь.md", "status": "historical"},
+    {"id": "pre_t1", "path": "docs/history/pre_t1/PROJECT_CONTEXT.md", "status": "historical"},
+    {"id": "provenance", "path": "provenance/README.md", "status": "historical"},
+    {"id": "navigation_index", "path": "navigation/INDEX.md", "status": "implemented", "depends_on": ["repository_index", "rules", "mechanics", "implementation"]},
+    {"id": "game_flow", "path": "navigation/GAME_FLOW.md", "status": "implemented", "depends_on": ["rules", "mechanics", "api"]},
+    {"id": "maintenance", "path": "navigation/MAINTENANCE_RULES.md", "status": "implemented", "depends_on": ["navigation_index"]}
+  ]
+}
