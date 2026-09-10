@@ -9,7 +9,8 @@ jobs:
   formatter:
     runs-on: ubuntu-latest
     steps:
-      - run: python -m pip download --only-binary=:all: --no-deps clang-format==18.1.8 -d wheel
+      - run: |
+          python -m pip download --only-binary=:all: --no-deps clang-format==18.1.8 -d wheel
       - uses: actions/upload-artifact@v4
         with:
           name: formatter-wheel
