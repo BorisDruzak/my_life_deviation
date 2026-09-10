@@ -1,0 +1,180 @@
+{
+  "stage": "T1",
+  "verified_at_date": "2026-09-10",
+  "world_version": "WORLD-0.5.0",
+  "runtime_tests": {
+    "baseline-native.log": {
+      "passed": 122,
+      "failed": 0
+    },
+    "red-native.log": {
+      "passed": 122,
+      "failed": 21
+    },
+    "green-native-initial.log": {
+      "passed": 143,
+      "failed": 0
+    },
+    "review-red-native.log": {
+      "passed": 150,
+      "failed": 4
+    },
+    "review-green-native.log": {
+      "passed": 154,
+      "failed": 0
+    },
+    "inbox-red-native.log": {
+      "passed": 154,
+      "failed": 4
+    },
+    "inbox-green-native.log": {
+      "passed": 158,
+      "failed": 0
+    },
+    "final-native.log": {
+      "passed": 158,
+      "failed": 0
+    },
+    "sanitize-native.log": {
+      "passed": 158,
+      "failed": 0
+    }
+  },
+  "ctest_release": {
+    "passed": 3,
+    "failed": 0
+  },
+  "ctest_clang_asan_ubsan": {
+    "passed": 3,
+    "failed": 0
+  },
+  "new_native_cases": [
+    "PG_T1_P03_hidden_state_does_not_change_local_inputs_or_legacy_decision",
+    "PG_T1_projection_pages_are_bounded_and_resumable",
+    "PG_T1_projection_rejects_foreign_forged_and_oversized_cursors",
+    "PG_T1_out_of_order_delta_is_atomic_and_forks_are_independent",
+    "PG_T1_current_receipt_bypasses_history_backlog_without_private_fields",
+    "PG_T1_digital_delivery_does_not_reveal_unread_terms",
+    "PG_T1_truth_distinguishes_true_false_unknown_and_query_polarity",
+    "PG_T1_conflict_is_unknown_regardless_of_insertion_order",
+    "PG_T1_correlated_sources_do_not_accumulate_certainty",
+    "PG_T1_temporal_boundaries_and_history_are_not_rewritten",
+    "PG_T1_P13_legacy_open_ended_stock_is_not_current_availability",
+    "PG_T1_persistence_is_explicit_decaying_and_separate_from_observation",
+    "PG_T1_query_and_unprocessed_history_budgets_do_not_fabricate_certainty",
+    "PG_T1_G09_commitment_uses_signed_evidence_not_global_status",
+    "PG_T1_unsigned_foreign_or_conflicting_terms_are_not_silently_accepted",
+    "PG_T1_visible_completion_changes_known_commitment_only_after_ingest",
+    "PG_T1_G12_memory_roundtrip_preserves_waiting_state_and_next_sequence",
+    "PG_T1_memory_validates_versions_hashes_and_checksum",
+    "PG_T1_memory_rejects_unknown_goal_status_negative_ticks_and_duplicate_keys",
+    "PG_T1_memory_requires_complete_schema_and_valid_plan_links",
+    "PG_T1_goal_identity_uses_canonical_target_and_episode",
+    "PG_T1_real_loan_partial_repayment_and_resume",
+    "PG_T1_all_gc11_slots_roundtrip_without_reinterpretation",
+    "PG_T1_snapshot_rejects_edited_history_hash_at_write_boundary",
+    "PG_T1_receipt_observation_time_survives_delayed_ingest",
+    "PG_T1_first_terminal_session_proof_is_stable_and_versioned",
+    "PG_T1_local_view_requires_a_valid_builder_result",
+    "PG_T1_semantic_restore_validation_covers_nested_statuses_and_references",
+    "PG_T1_malformed_protocol_evidence_is_retained_but_not_a_commitment",
+    "PG_T1_invalid_page_does_not_leave_partially_indexed_evidence",
+    "PG_T1_appended_hypothesis_updates_only_own_cursor_and_not_old_view",
+    "PG_T1_unread_envelopes_are_visible_without_content_and_views_are_immutable",
+    "PG_T1_evidence_and_inbox_share_one_fair_page_budget",
+    "PG_T1_unread_body_changes_neither_cursor_nor_local_memory",
+    "PG_T1_memory_identity_and_goal_target_family_cannot_be_relabelled",
+    "PI_T1_persistent_index_matches_ordered_map_and_preserves_forks"
+  ],
+  "new_native_case_count": 36,
+  "baseline_native_case_count": 122,
+  "public_api_smoke": {
+    "continued_at": 2,
+    "initial_known_edge": {
+      "complete": true,
+      "confidence": 1.0,
+      "examined": 1,
+      "reason": "explicit_temporal_evidence",
+      "sources": [
+        {
+          "applies_at": 0,
+          "assumed": false,
+          "confidence": 1.0,
+          "id": "a-shop_home",
+          "observed_at": 0,
+          "roots": [
+            "a-shop_home"
+          ],
+          "source": "scenario_genesis"
+        }
+      ],
+      "truth": "KnownTrue"
+    },
+    "page_budget": 8,
+    "policy_hash": "0fad0d96c6a49780ed6ebdc9e7c989293f2d2d2a587897283ecf7d54861ef124",
+    "public_headers_only": true,
+    "status": "passed",
+    "world_and_policy_roundtrip_equal": true,
+    "world_hash": "9e7824d76ab09b4c2dadcced99eb80eabd6c22caa072b55aeb5707c1b0315155"
+  },
+  "baseline_runtime_data_tests_preserved": true,
+  "preserved_existing_paths_checked": 29,
+  "source_sha256": {
+    "CMakeLists.txt": "db7ac336bf932b246be045d0457ef484d3625e19431de409926deb090f6a75a1",
+    "include/npc/config.hpp": "5c7082facb4bd03b26175782b2f649b699ebbae9a4ccd256d402db836f78bc0e",
+    "include/npc/controller.hpp": "5c51434c0a782ccd58798bf62ad2e61c3017ed319a176e750e4bca80714258e8",
+    "include/npc/dynamics.hpp": "913ce0815abefde4b893290574202a246de4848f65f663b18108b1c915b849ac",
+    "include/npc/json.hpp": "d2bc9882ad069de9613b8784077530247ce0b7ffa0f68384f3eeaecf3070d325",
+    "include/npc/local_view.hpp": "8d2cade92892fd1c4727268aac9657935eb27ff04fcbc7c928166b77ddc820bd",
+    "include/npc/math.hpp": "ddfa03081250865c847aeb8f40f23f4f0efa0df8d70c55684befb27f53bac05f",
+    "include/npc/model.hpp": "fde6ad4469b7974e0c6a0275f29d36bc073b36944b7933f2663552ab0d1d53f1",
+    "include/npc/policy/knowledge_query.hpp": "9aa1ff21b331e6f067d5f4cd95d6a58e12f57c1b5624e4098a2469014c971e4e",
+    "include/npc/policy/types.hpp": "a746ca7bbdcd0b882ab302df4f70c4473f3f40979ef3fb28f79a3ef8e7d7c254",
+    "include/npc/world.hpp": "2bdfcb5694ab4bc1ba22a0f26c088478ec2ed4c3767ecdc840d24efd3a1e9356",
+    "src/action_commit.cpp": "29621bbcc50ae145d966a1362eaa4a364b839f08d78b9bc056e502be889d72e3",
+    "src/action_start.cpp": "de582e96e0a47426a3a3e4710b2234760d8120a86a8bf9660595fc9fcde2bfee",
+    "src/config.cpp": "476119875407cd6a1a3496ee3c587843a9f423726a7f0947e5340cf18bbe195c",
+    "src/controller.cpp": "0c5f00c8d20f1cc3cb334e82f996e832de984eaa4a64338ce54a045059e315df",
+    "src/dynamics.cpp": "943e5559ed59911dfbe521f9ea3d08d0ba5eebc3d22ae2da5e6ac01bbbebcc77",
+    "src/economy.cpp": "4d86655d1c51a15cbfdba6f5f43e2f2f5d47f683065972461f70e8b635972267",
+    "src/json.cpp": "c2127272900967d64aedfdf997fe98b8f08694f02cdcf92b2c98b362152bc06b",
+    "src/knowledge.cpp": "fe6afbe940e74e6d8a60313eb0a2d09a4064eb1d064d4e13f4826a5fd9396936",
+    "src/local_view.cpp": "5ac1fedec4711d7473dc9985a27ac84bd2d2f7a3da4eea3bfa4f7e5c847805cf",
+    "src/math.cpp": "959f12335d6edf7821cfa6cb4b451c97bdf35f26eea971a60304fd7f1517578b",
+    "src/persistence.cpp": "e98e3f70975704b581fdb0d41da9fe22635c94b400477567461b414ceee8a6fe",
+    "src/physical.cpp": "9cdc33325286d6971c9d48dc5ecebe7d801cb530e72a8f401a03b683a7459547",
+    "src/policy/commitments.cpp": "f30706413793f55f12a609adc4d74111d4eac32f204a6e6a2db8b0889c08287b",
+    "src/policy/knowledge_query.cpp": "d3db92a1717c00438db1b8f0b5857c515b5b06f19faa00d1ae1f1271c638b18b",
+    "src/policy/persistent_map.hpp": "3ba0f6a65741debbca36998841f9ea92a231ff19b6944d500c5ef74c60890999",
+    "src/policy/types.cpp": "a0e957f5d34ece0858da2170f6802931099b881d3586dd3e742d50d9cd30c8c4",
+    "src/policy/types_internal.hpp": "b5ad3f9fd14ff30ece3d6ec531aa05cfd3a1a194ef7437b47f28c5b3386fde11",
+    "src/policy/validation.cpp": "345c4a00b069ccfa66fc131b88a80024527d3d053415edf3b3b68236cdaf1682",
+    "src/social.cpp": "40d5823e02af021b7c2b963c5d387d9a312c4cd7e004aa7582f97cad6bb87439",
+    "src/spatial.cpp": "52bfa4eb647446093502367be85ead8ba872774ca2546eec56fc8fa6aea7c136",
+    "src/validation.cpp": "27186ccc18a8b5b9a69c28ed4ef6bd41a6d83cd2ffafbd2b673869e0b7e9dcdb",
+    "src/world.cpp": "c0a469b3ef6f5c79ab971da7e00cbdf7352601561c71e0fd66755142d12fc71e",
+    "tests/autonomy_cli_test.py": "7b110b7eedc02d99df75f66673be150dcd67f9495afbeb9d4d17ecd29e428097",
+    "tests/cli_test.py": "fdd2dc2edf7751d441e5d68731613d5aa6f398c988f237b43b6528858ecd405c",
+    "tests/controller_tests.cpp": "de53781db36e68abee6a4b8b8ae2cd387c03dca218ebc9cc5f402bfe0f7d94f5",
+    "tests/fixtures.hpp": "26644d1c3427f0424a1dd57e5ec67e596067c6d345968205c7ae7d4b70c9fd7d",
+    "tests/main.cpp": "a9851281a112b9f904b28bcdb3cc8517d5407ac877753dcd1ca57b51ad32b103",
+    "tests/math_tests.cpp": "f4b96cfc1afa35209ad90bd72920e27ada5d1cc0031d9e77e4dc2107a3839136",
+    "tests/model_tests.cpp": "d8e8ed60f81fc6155c9d356a072f7cf006a0814f3601fbcfae6b5bb8db614fe2",
+    "tests/policy_goals_tests.cpp": "f78449f291d23a674ffeaf144bf08d0010c1a580ec548a07285aaf7e91a3fdc3",
+    "tests/policy_index_tests.cpp": "7a792782b837db3b5323f6371c63a5551d07dbaae4f74cfe073be02cede0aa83",
+    "tests/regression_tests.cpp": "ed9a5d98f7a726d058653fbcbf40970ddfd3c637116287ddcbbba18a72e4ec4f",
+    "tests/social_tests.cpp": "861f115012d37969c882d206603210f8e2161ad89bd52212eda7a9e25793e629",
+    "tests/test.hpp": "29c94438a9e0b55da4654ee10f52566ab2c38041e10568dad63faa91e9c84280",
+    "tests/world_tests.cpp": "b4ed98b8d19eb21a56a5c837a5c524fcd67dbeff8a583152d735e73049b380c6"
+  },
+  "full_autonomy_design_cases_claimed_passed": false,
+  "independent_subagent_review_performed": false,
+  "github_modified": false,
+  "not_tested": [
+    "Windows build",
+    "1000 NPC load",
+    "week-long run",
+    "new goal-driven controller",
+    "atomic full SimulationCheckpoint"
+  ]
+}

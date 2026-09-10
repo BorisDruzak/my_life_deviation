@@ -1,0 +1,9 @@
+{
+  "source": "reports/implementation/T0/red/original_probes/interrupted_joint_retry/state.json",
+  "status": "PASS",
+  "begin": 20,
+  "end": 25,
+  "A15_count": 0,
+  "command_rejected": 0,
+  "state_hash": "dc82f7d17e64526816e27da143385c2a0afb5d924bbbc3acd9f5211e1d2af3a2"
+}

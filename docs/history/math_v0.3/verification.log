@@ -1,0 +1,72 @@
+test_01_clip (__main__.FormulaChecks.test_01_clip) ... ok
+test_02_nan_rejected (__main__.FormulaChecks.test_02_nan_rejected) ... ok
+test_03_full_need_no_loss (__main__.FormulaChecks.test_03_full_need_no_loss) ... ok
+test_04_target_no_loss (__main__.FormulaChecks.test_04_target_no_loss) ... ok
+test_05_need_monotonic (__main__.FormulaChecks.test_05_need_monotonic) ... ok
+test_06_critical_continuity (__main__.FormulaChecks.test_06_critical_continuity) ... ok
+test_07_critical_accelerates (__main__.FormulaChecks.test_07_critical_accelerates) ... ok
+test_08_meal_end (__main__.FormulaChecks.test_08_meal_end) ... ok
+test_09_meal_need_utility (__main__.FormulaChecks.test_09_meal_need_utility) ... ok
+test_10_threshold_crossing (__main__.FormulaChecks.test_10_threshold_crossing) ... ok
+test_11_sleep_net_recovery (__main__.FormulaChecks.test_11_sleep_net_recovery) ... ok
+test_12_pleasure_snapshot (__main__.FormulaChecks.test_12_pleasure_snapshot) ... ok
+test_13_repetition_reduces_pleasure (__main__.FormulaChecks.test_13_repetition_reduces_pleasure) ... ok
+test_14_low_novelty_ignores_repetition (__main__.FormulaChecks.test_14_low_novelty_ignores_repetition) ... ok
+test_15_trace_decays (__main__.FormulaChecks.test_15_trace_decays) ... ok
+test_16_segmentation_no_extra_reward (__main__.FormulaChecks.test_16_segmentation_no_extra_reward) ... ok
+test_17_real_pleasure_below_fixed_trace (__main__.FormulaChecks.test_17_real_pleasure_below_fixed_trace) ... ok
+test_18_nutrition_independent_repetition (__main__.FormulaChecks.test_18_nutrition_independent_repetition) ... ok
+test_19_stress_half_life (__main__.FormulaChecks.test_19_stress_half_life) ... ok
+test_20_rest_cannot_make_negative_stress (__main__.FormulaChecks.test_20_rest_cannot_make_negative_stress) ... ok
+test_21_contact_initiative_cost (__main__.FormulaChecks.test_21_contact_initiative_cost) ... ok
+test_22_barrier_no_random_probability (__main__.FormulaChecks.test_22_barrier_no_random_probability) ... ok
+test_23_discount_half_life (__main__.FormulaChecks.test_23_discount_half_life) ... ok
+test_24_patience_retains_late_value (__main__.FormulaChecks.test_24_patience_retains_late_value) ... ok
+test_25_stress_shortens_patience (__main__.FormulaChecks.test_25_stress_shortens_patience) ... ok
+test_26_telescoping (__main__.FormulaChecks.test_26_telescoping) ... ok
+test_27_commit_cost_once (__main__.FormulaChecks.test_27_commit_cost_once) ... ok
+test_28_high_acceptance_ask_wins (__main__.FormulaChecks.test_28_high_acceptance_ask_wins) ... ok
+test_29_low_acceptance_buy_wins (__main__.FormulaChecks.test_29_low_acceptance_buy_wins) ... ok
+test_30_caution_penalizes_downside (__main__.FormulaChecks.test_30_caution_penalizes_downside) ... ok
+test_31_invalid_probability_rejected (__main__.FormulaChecks.test_31_invalid_probability_rejected) ... ok
+test_32_money_gain_decreases (__main__.FormulaChecks.test_32_money_gain_decreases) ... ok
+test_33_purchase_money_cost (__main__.FormulaChecks.test_33_purchase_money_cost) ... ok
+test_34_belief_freshness (__main__.FormulaChecks.test_34_belief_freshness) ... ok
+test_35_categorical_freshness_normalized (__main__.FormulaChecks.test_35_categorical_freshness_normalized) ... ok
+test_36_bayes (__main__.FormulaChecks.test_36_bayes) ... ok
+test_37_impossible_evidence_rejected (__main__.FormulaChecks.test_37_impossible_evidence_rejected) ... ok
+test_38_beta_examples (__main__.FormulaChecks.test_38_beta_examples) ... ok
+test_39_same_terms_two_signatures (__main__.FormulaChecks.test_39_same_terms_two_signatures) ... ok
+test_40_normal_drive_does_not_grow (__main__.FormulaChecks.test_40_normal_drive_does_not_grow) ... ok
+test_41_drive_saturates (__main__.FormulaChecks.test_41_drive_saturates) ... ok
+test_42_success_relief_not_intensity_growth (__main__.FormulaChecks.test_42_success_relief_not_intensity_growth) ... ok
+test_43_social_effect_is_directed (__main__.FormulaChecks.test_43_social_effect_is_directed) ... ok
+test_44_social_attachment_bounded (__main__.FormulaChecks.test_44_social_attachment_bounded) ... ok
+test_45_joint_time_windows (__main__.FormulaChecks.test_45_joint_time_windows) ... ok
+test_46_touching_intervals_no_overlap (__main__.FormulaChecks.test_46_touching_intervals_no_overlap) ... ok
+test_47_money_ledger_conservation (__main__.FormulaChecks.test_47_money_ledger_conservation) ... ok
+test_48_forecast_no_rng_dependency (__main__.FormulaChecks.test_48_forecast_no_rng_dependency) ... ok
+test_49_value_of_information_example (__main__.FormulaChecks.test_49_value_of_information_example) ... ok
+test_50_counts (__main__.CatalogueChecks.test_50_counts) ... ok
+test_51_unique_type_ids (__main__.CatalogueChecks.test_51_unique_type_ids) ... ok
+test_52_action_event_references (__main__.CatalogueChecks.test_52_action_event_references) ... ok
+test_53_need_thresholds (__main__.CatalogueChecks.test_53_need_thresholds) ... ok
+test_54_instances_reference_types (__main__.CatalogueChecks.test_54_instances_reference_types) ... ok
+test_55_holder_location_exclusive (__main__.CatalogueChecks.test_55_holder_location_exclusive) ... ok
+test_56_graph_known_nodes_positive_durations (__main__.CatalogueChecks.test_56_graph_known_nodes_positive_durations) ... ok
+test_57_all_actors_have_valid_states (__main__.CatalogueChecks.test_57_all_actors_have_valid_states) ... ok
+test_58_full_action_cards (__main__.CatalogueChecks.test_58_full_action_cards) ... ok
+test_59_item_quantities (__main__.CatalogueChecks.test_59_item_quantities) ... ok
+test_60_fixture_references (__main__.CatalogueChecks.test_60_fixture_references) ... ok
+
+----------------------------------------------------------------------
+Ran 60 tests in 0.003s
+
+OK
+{
+  "checks_run": 60,
+  "failures": 0,
+  "errors": 0,
+  "successful": true,
+  "scope": "Reference arithmetic and catalogue checks only; NOT full simulation."
+}

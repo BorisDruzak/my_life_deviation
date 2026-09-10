@@ -1,0 +1,17 @@
+{
+  "package": "my_life_deviation_git_ready_0.5.1-t1",
+  "release_version": "0.5.1-t1",
+  "world_rules_version": "0.5.0",
+  "source_archive": "NPC_World_0.5_T1_completed.zip",
+  "verification": {
+    "cmake_configure": "PASS",
+    "cmake_build": "PASS",
+    "native_cpp_tests": "158/158 PASS",
+    "ctest": "3/3 PASS",
+    "drawio_xml": "2/2 parse PASS"
+  },
+  "notes": [
+    "Build/test verification was run on this curated directory before removing the temporary build directory.",
+    "This file does not assert that GitHub main has been updated."
+  ]
+}

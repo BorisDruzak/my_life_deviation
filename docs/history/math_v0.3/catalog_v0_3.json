@@ -1,0 +1,2294 @@
+{
+  "model": {
+    "schema_version": "0.3.0",
+    "status": "Предложенная формальная модель малого стенда. Не игровой баланс и не готовый симулятор.",
+    "time": {
+      "tick_minutes": 1,
+      "forecast_horizons_minutes": [
+        60,
+        240,
+        720
+      ],
+      "world_event_order": [
+        "advance_interval",
+        "commit_finished_actions",
+        "environment_and_deadlines",
+        "deliver_observations",
+        "update_beliefs_and_states",
+        "select_and_start_actions"
+      ]
+    },
+    "needs": {
+      "satiety": {
+        "name": "Сытость",
+        "start": 45,
+        "critical": 15,
+        "target": 80,
+        "awake_decay_per_hour": 3.2,
+        "sleep_decay_per_hour": 1.6,
+        "weight": 35
+      },
+      "rest": {
+        "name": "Восстановленность после сна",
+        "start": 35,
+        "critical": 10,
+        "target": 85,
+        "awake_decay_per_hour": 4.0,
+        "sleep_net_gain_per_hour": 10.0,
+        "weight": 30
+      },
+      "social": {
+        "name": "Социальная насыщенность",
+        "start": 40,
+        "critical": 10,
+        "target": 75,
+        "awake_decay_per_hour": 1.5,
+        "sleep_decay_per_hour": 0.2,
+        "weight": 12
+      },
+      "leisure": {
+        "name": "Удовлетворённость досугом",
+        "start": 35,
+        "critical": 5,
+        "target": 75,
+        "awake_decay_per_hour": 1.8,
+        "sleep_decay_per_hour": 0.3,
+        "weight": 8
+      }
+    },
+    "choice": {
+      "money_weight": 12,
+      "money_scale": 100,
+      "stress_weight": 8,
+      "attachment_weight": 2,
+      "trust_weight": 4,
+      "tension_weight": 3,
+      "owned_usable_asset_weight": 0.0,
+      "workshop_access_weight": 40,
+      "protected_tool_weight": 20,
+      "threat_goal_threshold_EP": 2,
+      "broken_promise_weight": 30,
+      "discount_half_life_min": 120,
+      "discount_half_life_range": 600,
+      "stress_discount_multiplier": 0.5,
+      "caution_loss_premium": 2,
+      "social_contact_cost": 3,
+      "confrontation_cost": 4,
+      "switch_margin": 1.5,
+      "lie_barrier_max": 20,
+      "appropriation_barrier_max": 30,
+      "coercion_barrier_max": 20
+    },
+    "states": {
+      "stress_half_life_minutes": 120,
+      "anger_half_life_minutes": 60,
+      "quiet_rest_stress_removal_per_minute": 0.006,
+      "sleep_stress_removal_per_minute": 0.001,
+      "stress_goal_on": 0.5,
+      "stress_goal_off": 0.25
+    },
+    "repetition": {
+      "decay_time_constant_minutes": 720,
+      "trace_input_reference_minutes": 30,
+      "update_order": "pleasure_from_old_trace_then_trace_update"
+    },
+    "hidden_drive": {
+      "active_class": "unauthorized_appropriation",
+      "fixed_intensity_range": [
+        0,
+        1
+      ],
+      "pressure_growth_per_minute_per_intensity": 0.001388888888888889,
+      "satisfaction_per_success": 0.6,
+      "utility_weight": 12,
+      "automatic_growth_of_intensity": false
+    },
+    "knowledge": {
+      "known_threshold": 0.95,
+      "refuted_threshold": 0.05,
+      "direct_observation_confidence": 0.95,
+      "direct_self_action_confidence": 1.0,
+      "dynamic_belief_half_life_minutes": 240,
+      "dialogue_forecast_prior_alpha": 2,
+      "dialogue_forecast_prior_beta": 2,
+      "observation_attention_default": 0.8,
+      "evidence_double_counting": "Запрещено повторно обновлять по одному root_evidence_id."
+    },
+    "planning": {
+      "max_active_goals": 3,
+      "max_methods_per_task": 4,
+      "max_expanded_nodes": 500,
+      "max_primitive_steps": 12,
+      "max_uncertain_branch_points": 2,
+      "max_branches": 4,
+      "max_subtask_nesting": 8,
+      "max_same_offer_attempts_per_30_min": 1,
+      "max_counteroffers": 2,
+      "offer_expiry_minutes": 15,
+      "max_wait_in_plan_minutes": 120,
+      "severe_risk_threshold_default": 0.25
+    },
+    "space": {
+      "carry_mass_limit_kg": 15,
+      "near_radius_nodes": 0,
+      "visibility_mode": "Локация + видимые поля + закрытые контейнеры; без 3D."
+    },
+    "catalog_is_executable": false,
+    "cognition": {
+      "optional_intelligence_initializer": "I in [0,1]; H=60 if I<1/3 else 240 if I<2/3 else720; methods=2+floor(2I); nodes=100+floor(400I)",
+      "max_steps_not_lowered_by_intelligence": 12,
+      "accuracy_source": "Память и контекстный опыт, а не прямой доступ к чужим чертам."
+    }
+  },
+  "item_types": [
+    {
+      "id": "I01",
+      "name": "Готовый обед",
+      "mass_kg": 0.5,
+      "price": 30,
+      "properties": [
+        "portable",
+        "edible",
+        "consumable"
+      ],
+      "satiety_gain": 35,
+      "pleasure_budget": 6,
+      "consume_minutes": 15,
+      "topic": "food_meal"
+    },
+    {
+      "id": "I02",
+      "name": "Консервы",
+      "mass_kg": 0.4,
+      "price": 22,
+      "properties": [
+        "portable",
+        "edible",
+        "consumable"
+      ],
+      "satiety_gain": 30,
+      "pleasure_budget": 3,
+      "consume_minutes": 10,
+      "topic": "food_canned"
+    },
+    {
+      "id": "I03",
+      "name": "Снэк",
+      "mass_kg": 0.1,
+      "price": 12,
+      "properties": [
+        "portable",
+        "edible",
+        "consumable"
+      ],
+      "satiety_gain": 12,
+      "pleasure_budget": 5,
+      "consume_minutes": 5,
+      "topic": "food_snack"
+    },
+    {
+      "id": "I04",
+      "name": "Набор продуктов",
+      "mass_kg": 0.7,
+      "price": 20,
+      "properties": [
+        "portable",
+        "ingredient_bundle",
+        "consumable"
+      ],
+      "recipe": "R01"
+    },
+    {
+      "id": "I05",
+      "name": "Ручной инструмент",
+      "mass_kg": 1.0,
+      "price": 120,
+      "properties": [
+        "portable",
+        "hand_tool",
+        "durable"
+      ],
+      "required_condition": 0.5
+    },
+    {
+      "id": "I06",
+      "name": "Ремонтный комплект",
+      "mass_kg": 0.3,
+      "price": 25,
+      "properties": [
+        "portable",
+        "repair_material",
+        "consumable"
+      ],
+      "repair_units": 1
+    },
+    {
+      "id": "I07",
+      "name": "Верёвка",
+      "mass_kg": 0.8,
+      "price": 35,
+      "properties": [
+        "portable",
+        "flexible_tie",
+        "durable"
+      ],
+      "length_m": 5,
+      "strength_units": 50,
+      "applications": [
+        "secure_cargo"
+      ]
+    },
+    {
+      "id": "I08",
+      "name": "Книга",
+      "mass_kg": 0.4,
+      "price": 25,
+      "properties": [
+        "portable",
+        "readable",
+        "durable"
+      ],
+      "topic": "reading",
+      "pleasure_budget_per_30_min": 12
+    },
+    {
+      "id": "I09",
+      "name": "Мяч",
+      "mass_kg": 0.3,
+      "price": 30,
+      "properties": [
+        "portable",
+        "sport_item",
+        "durable"
+      ],
+      "topic": "sport",
+      "pleasure_budget_per_30_min": 14
+    },
+    {
+      "id": "I10",
+      "name": "Телефон",
+      "mass_kg": 0.2,
+      "price": 250,
+      "properties": [
+        "portable",
+        "communication_device",
+        "record_device",
+        "durable"
+      ],
+      "applications": [
+        "messages",
+        "read_authorized_records"
+      ]
+    },
+    {
+      "id": "I11",
+      "name": "Ключ",
+      "mass_kg": 0.05,
+      "price": 0,
+      "properties": [
+        "portable",
+        "access_token",
+        "durable"
+      ],
+      "applications": [
+        "open_assigned_lock"
+      ]
+    },
+    {
+      "id": "I12",
+      "name": "Непрозрачный ящик",
+      "mass_kg": 2.0,
+      "price": 30,
+      "properties": [
+        "portable",
+        "container",
+        "opaque",
+        "durable"
+      ],
+      "capacity_kg": 10,
+      "is_open": false
+    }
+  ],
+  "fixture_types": [
+    {
+      "id": "F01",
+      "name": "Кровать",
+      "properties": [
+        "bed"
+      ],
+      "capacity": 1
+    },
+    {
+      "id": "F02",
+      "name": "Кухонное место",
+      "properties": [
+        "cooking_station"
+      ],
+      "capacity": 1
+    },
+    {
+      "id": "F03",
+      "name": "Повреждённый объект для ремонта",
+      "properties": [
+        "repairable"
+      ],
+      "recipe": "R02",
+      "capacity": 1
+    },
+    {
+      "id": "F04",
+      "name": "Рабочее место",
+      "properties": [
+        "workstation"
+      ],
+      "capacity": 1
+    },
+    {
+      "id": "F05",
+      "name": "Груз для закрепления",
+      "properties": [
+        "cargo",
+        "securable"
+      ],
+      "recipe": "R03",
+      "capacity": 1
+    }
+  ],
+  "recipes": [
+    {
+      "id": "R01",
+      "name": "Приготовить обед",
+      "minutes": 20,
+      "skill": "cooking",
+      "min_skill": 0.0,
+      "consumes": {
+        "I04": 1
+      },
+      "requires_fixture": "F02",
+      "creates": {
+        "I01": 1
+      }
+    },
+    {
+      "id": "R02",
+      "name": "Ремонт объекта",
+      "minutes": 30,
+      "skill": "repair",
+      "min_skill": 0.5,
+      "consumes": {
+        "I06": 1
+      },
+      "requires_tool": "I05",
+      "min_tool_condition": 0.5,
+      "target": "F03",
+      "effect": "repair_progress += actual_minutes/30; condition=1 only when progress>=1"
+    },
+    {
+      "id": "R03",
+      "name": "Закрепить груз",
+      "minutes": 10,
+      "skill": "basic_handling",
+      "min_skill": 0.0,
+      "consumes": {},
+      "requires_tool": "I07",
+      "required_properties": {
+        "length_m_min": 3,
+        "strength_units_min": 20
+      },
+      "target": "F05",
+      "effect": "rope becomes installed_in cargo; cargo.secured=true; rope remains same item and cannot simultaneously serve another task"
+    }
+  ],
+  "action_types": [
+    {
+      "id": "A01",
+      "name": "Ждать",
+      "duration_minutes": "целое d: 1..120",
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Текущее место допускает ожидание."
+      ],
+      "locks": [
+        "actor.body"
+      ],
+      "effects": [
+        "Только течение времени; нет мгновенного пополнения шкал."
+      ],
+      "interrupt": "В любой границе минутного шага; уже прошедшее время не возвращается.",
+      "cost_features": {},
+      "events": [
+        "E01",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A02",
+      "name": "Пройти ребро маршрута",
+      "duration_minutes": "edge.minutes",
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Актор в исходной вершине; ребро известно и открыто; масса носимого <=15 кг."
+      ],
+      "locks": [
+        "actor.body"
+      ],
+      "effects": [
+        "В пути location={edge,progress}; по завершении location=destination.",
+        "Дополнительное снижение восстановленности 1.5/60 за минуту движения."
+      ],
+      "interrupt": "В первой версии нельзя прервать посередине ребра; после прибытия разрешён пересмотр.",
+      "cost_features": {},
+      "events": [
+        "E01",
+        "E04",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A03",
+      "name": "Осмотреть объект или место",
+      "duration_minutes": 2,
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Актор рядом; требуемое поле доступно визуально; нельзя читать сквозь непрозрачную стенку."
+      ],
+      "locks": [
+        "actor.body"
+      ],
+      "effects": [
+        "Создать наблюдение только доступных полей с источником и временем."
+      ],
+      "interrupt": "До начала — без эффектов; после начала см. общий контракт.",
+      "cost_features": {},
+      "events": [
+        "E01",
+        "E19",
+        "E23",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A04",
+      "name": "Взять свой или разрешённый предмет",
+      "duration_minutes": 1,
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Предмет достижим и свободен; право использования/взятия действительно; хватает ёмкости."
+      ],
+      "locks": [
+        "actor.body",
+        "item.exclusive"
+      ],
+      "effects": [
+        "Атомарно location=null, holder=actor; owner не меняется."
+      ],
+      "interrupt": "До начала — без эффектов; после начала см. общий контракт.",
+      "cost_features": {},
+      "events": [
+        "E06",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A05",
+      "name": "Положить предмет",
+      "duration_minutes": 1,
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "holder=actor; место разрешено; контейнер открыт и имеет свободную ёмкость."
+      ],
+      "locks": [
+        "actor.body",
+        "item.exclusive",
+        "container.capacity"
+      ],
+      "effects": [
+        "Атомарно holder=null, location=место/контейнер; owner не меняется."
+      ],
+      "interrupt": "До начала — без эффектов; после начала см. общий контракт.",
+      "cost_features": {},
+      "events": [
+        "E07",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A06",
+      "name": "Купить предмет",
+      "duration_minutes": 3,
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Магазин открыт до конца обслуживания; есть конкретный экземпляр; цена известна; деньги>=цена; масса допустима."
+      ],
+      "locks": [
+        "actor.body",
+        "shop.service",
+        "item.exclusive",
+        "money.reservation"
+      ],
+      "effects": [
+        "В одном коммите: деньги покупателя -price, счёт магазина +price; owner=holder=buyer.",
+        "Создать чек с видимостью по доступу; сытость и другие потребности от покупки НЕ меняются."
+      ],
+      "interrupt": "До коммита нет списания и передачи; резервы освобождаются. Магазин в стенде — сервис с опубликованными условиями, не скрытый разум продавца.",
+      "cost_features": {},
+      "events": [
+        "E05",
+        "E06",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A07",
+      "name": "Съесть одну порцию",
+      "duration_minutes": "food.consume_minutes",
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "holder=actor; food.edible; food.suitable_for_actor; неиспользованная порция."
+      ],
+      "locks": [
+        "actor.body",
+        "food.exclusive"
+      ],
+      "effects": [
+        "За минуту: satiety += food.satiety_gain/d до ограничения100; обычное течение времени сохраняется.",
+        "Удовольствие по M04; оно отдельно от сытости. Количество/масса оставшейся порции уменьшаются пропорционально фактическому времени."
+      ],
+      "interrupt": "Разрешено; применены только съеденная доля и уже прошедшие эффекты. Остаток остаётся тем же предметом с remaining_fraction.",
+      "cost_features": {},
+      "events": [
+        "E01",
+        "E08",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A08",
+      "name": "Приготовить обед",
+      "duration_minutes": 20,
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Известен R01; есть I04 и доступная F02."
+      ],
+      "locks": [
+        "actor.body",
+        "F02.exclusive",
+        "I04.exclusive"
+      ],
+      "effects": [
+        "I04 переходит в состояние in_process при старте; job.progress растёт.",
+        "На завершении уничтожить ингредиентный экземпляр, создать новый I01 со ссылкой made_from; кухонное место не расходуется."
+      ],
+      "interrupt": "Прогресс задания сохраняется; сырьё занято заданием, повторно не списывается. Полностью завершённая порция появляется только один раз.",
+      "cost_features": {},
+      "events": [
+        "E09",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A09",
+      "name": "Спать",
+      "duration_minutes": "плановая d: 30..600",
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Известно место сна; bed свободна и доступна; нет несовместимого обязательства без явного выбора его нарушения."
+      ],
+      "locks": [
+        "actor.body",
+        "bed.exclusive"
+      ],
+      "effects": [
+        "Восстановленность +10/60 за минуту NET; обычное бодрствующее снижение сна не применять.",
+        "Для прочих потребностей — sleep_decay; стресс дополнительно уменьшается на0.001 за минуту."
+      ],
+      "interrupt": "Можно будить событием по доступному каналу; применяются только прошедшие минуты, персонаж остаётся у кровати.",
+      "cost_features": {},
+      "events": [
+        "E01",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A10",
+      "name": "Работать по договору",
+      "duration_minutes": "остаток смены, 1..60",
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Есть трудовое соглашение; actor у рабочего места; рабочий доступ действителен; работодатель зарезервировал фонд оплаты."
+      ],
+      "locks": [
+        "actor.body",
+        "workstation.exclusive"
+      ],
+      "effects": [
+        "За реально отработанную минуту начислить receivable +=1 монета.",
+        "В due_time смены отдельное payroll перечисляет начисленное из escrow, остаток возвращает работодателю."
+      ],
+      "interrupt": "Неотработанные минуты не оплачиваются. Начисленное не становится наличными раньше due_time; частичная работа сохраняется.",
+      "cost_features": {},
+      "events": [
+        "E17",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A11",
+      "name": "Попросить предмет или заём",
+      "duration_minutes": 1,
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Известен адресат и доступен канал; в известном контексте можно спросить о предмете; нет подавленного повтора той же просьбы.",
+        "Для займа указывается сумма и срок; отсутствие уверенности о деньгах адресата допускает вопрос, но не гарантирует согласие."
+      ],
+      "locks": [
+        "actor.attention",
+        "channel"
+      ],
+      "effects": [
+        "Доставить предложение с item/type, сроком передачи и возврата, версией и подписью отправителя.",
+        "Получатель не обязан соглашаться; имущество не передаётся."
+      ],
+      "interrupt": "До доставки сообщений нет; после доставки отмена не стирает услышанное.",
+      "cost_features": {
+        "contact": 1
+      },
+      "events": [
+        "E10",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A12",
+      "name": "Ответить на предложение",
+      "duration_minutes": 1,
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Есть полученное предложение текущей версии."
+      ],
+      "locks": [
+        "actor.attention",
+        "channel"
+      ],
+      "effects": [
+        "Оценить accept/reject/counter/clarify одинаковой функцией Q адресата.",
+        "accept подписывает только указанные условия; counter создаёт новую неподписанную обоими версию; max2 встречных предложения.",
+        "Менеджер создаёт договорённость лишь после подписей обоих и проверки интервалов; это ещё не исполнение."
+      ],
+      "interrupt": "До начала — без эффектов; после начала см. общий контракт.",
+      "cost_features": {},
+      "events": [
+        "E11",
+        "E12",
+        "E15",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A13",
+      "name": "Передать, подарить или вернуть предмет",
+      "duration_minutes": 1,
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Есть подтверждённые условия; предмет у отдающего; получатель рядом, доступен и согласовал передачу; предмет свободен."
+      ],
+      "locks": [
+        "actor.body",
+        "recipient.body",
+        "item.exclusive"
+      ],
+      "effects": [
+        "Сменить holder на recipient. В gift меняется owner; в loan и return собственник сохраняется.",
+        "Для loan создать обязательство возврата; для return закрыть именно существующий заём.",
+        "Для fungible_money: сумма>0, debit(sender)=credit(recipient); реестр займа отдельно; наличные не дублировать предметом."
+      ],
+      "interrupt": "До начала — без эффектов; после начала см. общий контракт.",
+      "cost_features": {},
+      "events": [
+        "E06",
+        "E15",
+        "E16",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A14",
+      "name": "Предложить совместное занятие или изменение договора",
+      "duration_minutes": 1,
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Известен адресат; есть канал; предложение содержит место, интервал, длительность, занятие/изменяемое обязательство."
+      ],
+      "locks": [
+        "actor.attention",
+        "channel"
+      ],
+      "effects": [
+        "Создать предложение новой версии, подписанное только инициатором.",
+        "Изменение срока не действует до согласия другой стороны."
+      ],
+      "interrupt": "До начала — без эффектов; после начала см. общий контракт.",
+      "cost_features": {
+        "contact": 1
+      },
+      "events": [
+        "E10",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A15",
+      "name": "Совместное занятие",
+      "duration_minutes": "d из {15,30,60}",
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Одинаковая версия согласована обоими; оба на месте и свободны; необходимые предметы доступны."
+      ],
+      "locks": [
+        "actor.body",
+        "partner.body",
+        "activity_fixture.capacity"
+      ],
+      "effects": [
+        "Общая длительность, но индивидуальные эффекты: social_rate=18+12*A_ij пунктов/час; досуг по интересу каждого.",
+        "Привязанность и напряжение обновляются по M07 за реально проведённое время."
+      ],
+      "interrupt": "Любой участник может прекратить своё участие; второй получает событие, а не принудительное продолжение. Эффекты пропорциональны выполненному времени.",
+      "cost_features": {},
+      "events": [
+        "E13",
+        "E14",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A16",
+      "name": "Индивидуальный досуг",
+      "duration_minutes": "d из {15,30,60}",
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Известно занятие; требуемая книга/мяч/место доступна."
+      ],
+      "locks": [
+        "actor.body",
+        "activity_item.exclusive"
+      ],
+      "effects": [
+        "Досуг по M04; функциональное восстановление еды/сна не происходит.",
+        "Для спорта дополнительно восстановленность -2/60 за минуту; чтение не имеет этого эффекта."
+      ],
+      "interrupt": "Любая граница минуты; нет бонуса за само число начатых сессий.",
+      "cost_features": {},
+      "events": [
+        "E01",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A17",
+      "name": "Задать вопрос по известному сведению",
+      "duration_minutes": 1,
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Есть доступное statement_ref; оператор из {кто,где,когда,зачем,уточнить,сопоставить}; известен адресат и канал."
+      ],
+      "locks": [
+        "actor.attention",
+        "channel"
+      ],
+      "effects": [
+        "Передать семантический запрос. Не добавлять скрытые слоты исходного события и не извлекать автоматически ответ."
+      ],
+      "interrupt": "До начала — без эффектов; после начала см. общий контракт.",
+      "cost_features": {
+        "contact": 1
+      },
+      "events": [
+        "E10",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A18",
+      "name": "Ответить на вопрос",
+      "duration_minutes": 1,
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Получен семантический вопрос."
+      ],
+      "locks": [
+        "actor.attention",
+        "channel"
+      ],
+      "effects": [
+        "Создать варианты true/partial/refuse/fabricate из собственной памяти и известных разрешённых шаблонов.",
+        "Выбрать Q. Создать высказывание, не факт истинности содержания. Ложь маркируется лишь во внутреннем журнале намерения."
+      ],
+      "interrupt": "До начала — без эффектов; после начала см. общий контракт.",
+      "cost_features": {
+        "lie": "1 только для сознательно ложного содержания"
+      },
+      "events": [
+        "E18",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A19",
+      "name": "Сообщить сведение или предупредить",
+      "duration_minutes": 1,
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Есть цель сообщения; содержание известно как факт/гипотеза/чужие слова; известен канал."
+      ],
+      "locks": [
+        "actor.attention",
+        "channel"
+      ],
+      "effects": [
+        "Доставить утверждение с provenance и эпистемическим статусом; источник-пересказчик не становится новым независимым свидетельством."
+      ],
+      "interrupt": "До начала — без эффектов; после начала см. общий контракт.",
+      "cost_features": {
+        "contact": 1,
+        "lie": "1 при намеренном вымысле"
+      },
+      "events": [
+        "E18",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A20",
+      "name": "Взять без разрешения",
+      "duration_minutes": 1,
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Предмет физически достижим и свободен; отсутствует разрешение; актор знает способ; масса допустима."
+      ],
+      "locks": [
+        "actor.body",
+        "item.exclusive"
+      ],
+      "effects": [
+        "holder=actor, owner сохраняется; это не создаёт у других знания о нарушении.",
+        "Усиление скрытого побуждения q НЕ происходит; при q>0 уменьшается его давление D на0.6."
+      ],
+      "interrupt": "До начала — без эффектов; после начала см. общий контракт.",
+      "cost_features": {
+        "appropriation": "min(1,0.25+item.price/200)"
+      },
+      "events": [
+        "E06",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A21",
+      "name": "Выполнить известную техническую работу",
+      "duration_minutes": "R02:30; R03:10",
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Рецепт известен; навык>=min_skill; свойства инструмента подходят; цель достижима; материалы и доступ действительно имеются."
+      ],
+      "locks": [
+        "actor.body",
+        "target.exclusive",
+        "tool.exclusive",
+        "materials.exclusive"
+      ],
+      "effects": [
+        "Создать/возобновить job; изменения — строго по R02/R03.",
+        "R02 расходует I06 один раз; R03 устанавливает ту же верёвку на груз, а не создаёт её копию."
+      ],
+      "interrupt": "Сохраняется реальный progress; материалы/установленные предметы не появляются обратно из ничего. При возобновлении исходное списание не повторяется.",
+      "cost_features": {},
+      "events": [
+        "E09",
+        "E16",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A22",
+      "name": "Прекратить участие или отозвать намерение",
+      "duration_minutes": 1,
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Есть собственный активный план/договорённость."
+      ],
+      "locks": [
+        "actor.attention",
+        "channel"
+      ],
+      "effects": [
+        "Отменить только будущие действия и освободить будущие резервы; уведомить участников.",
+        "Не удалять исполненные события, чужие планы и имущественные долги. Нарушение обязательства фиксируется отдельно."
+      ],
+      "interrupt": "До начала — без эффектов; после начала см. общий контракт.",
+      "cost_features": {},
+      "events": [
+        "E03",
+        "E14",
+        "E16"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A23",
+      "name": "Спокойно отдохнуть",
+      "duration_minutes": 15,
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Доступно безопасное место; актор свободен."
+      ],
+      "locks": [
+        "actor.body"
+      ],
+      "effects": [
+        "Стресс после пассивного затухания уменьшается на0.006 за минуту; сон не восстанавливается как при A09."
+      ],
+      "interrupt": "По минутам; нет мгновенного обнуления состояния.",
+      "cost_features": {},
+      "events": [
+        "E01",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A24",
+      "name": "Прочитать доступную запись",
+      "duration_minutes": 3,
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Есть конкретная запись/источник; физический и информационный доступ разрешён."
+      ],
+      "locks": [
+        "actor.attention",
+        "record_interface"
+      ],
+      "effects": [
+        "Получить только поля, доступные данному доступу. Чек сообщает о транзакции, а не о скрытой причине покупки."
+      ],
+      "interrupt": "До начала — без эффектов; после начала см. общий контракт.",
+      "cost_features": {},
+      "events": [
+        "E19",
+        "E23",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A25",
+      "name": "Изменить предоставляемый доступ",
+      "duration_minutes": 1,
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Актор действительно может управлять данным доступом; известен адресат и область разрешения."
+      ],
+      "locks": [
+        "actor.attention",
+        "acl.exclusive"
+      ],
+      "effects": [
+        "Изменить ACL grant/revoke; уведомить адресата доступным каналом.",
+        "Это не меняет владение вещами и не сообщает всем причину решения."
+      ],
+      "interrupt": "До начала — без эффектов; после начала см. общий контракт.",
+      "cost_features": {},
+      "events": [
+        "E20",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A26",
+      "name": "Открыть или закрыть контейнер",
+      "duration_minutes": 1,
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Контейнер достижим; механизм доступен; для запертого нужен подходящий ключ или законное разрешённое средство."
+      ],
+      "locks": [
+        "actor.body",
+        "container.exclusive"
+      ],
+      "effects": [
+        "Изменить is_open; содержимое не меняется. При открытии оно только становится доступным восприятию."
+      ],
+      "interrupt": "До начала — без эффектов; после начала см. общий контракт.",
+      "cost_features": {},
+      "events": [
+        "E21",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    },
+    {
+      "id": "A27",
+      "name": "Напомнить или настойчиво потребовать исполнения обязательства",
+      "duration_minutes": 1,
+      "knowledge_conditions": [
+        "Известен тип действия и есть основания привязать его параметры."
+      ],
+      "world_preconditions": [
+        "Известно конкретное действующее/нарушенное обязательство адресата; есть цель добиться исполнения; доступен канал."
+      ],
+      "locks": [
+        "actor.attention",
+        "channel"
+      ],
+      "effects": [
+        "Передать мягкое напоминание либо настойчивое требование; адресат сам выбирает реакцию.",
+        "Для настойчивой формы адресат после восприятия получает anger +=0.08*(1-T_recipient,sender); нет гарантированной уступки."
+      ],
+      "interrupt": "До начала — без эффектов; после начала см. общий контракт.",
+      "cost_features": {
+        "contact": 1,
+        "confrontation": "1 только для настойчивой формы",
+        "coercion": "0.3 только для настойчивой формы"
+      },
+      "events": [
+        "E18",
+        "E02"
+      ],
+      "observation": "Только доступная каналу проекция перечисленных событий; цель и скрытые числа не раскрываются."
+    }
+  ],
+  "event_types": [
+    {
+      "id": "E01",
+      "name": "Действие началось",
+      "producer": "scheduler",
+      "observable_fields": [
+        "actor_id",
+        "observable_action",
+        "location",
+        "time"
+      ],
+      "private_fields": [
+        "goal_id",
+        "plan_id",
+        "scores"
+      ]
+    },
+    {
+      "id": "E02",
+      "name": "Действие завершилось",
+      "producer": "executor",
+      "observable_fields": [
+        "actor_id",
+        "observable_action",
+        "location",
+        "time",
+        "visible_result"
+      ],
+      "private_fields": [
+        "cause_chain",
+        "hidden_intent"
+      ]
+    },
+    {
+      "id": "E03",
+      "name": "Действие не началось / прервано",
+      "producer": "executor",
+      "observable_fields": [
+        "actor_id",
+        "visible_stop"
+      ],
+      "private_fields": [
+        "failure_code",
+        "failed_private_condition"
+      ]
+    },
+    {
+      "id": "E04",
+      "name": "Прибытие",
+      "producer": "A02",
+      "observable_fields": [
+        "actor_id",
+        "destination",
+        "time"
+      ],
+      "private_fields": [
+        "route_intent"
+      ]
+    },
+    {
+      "id": "E05",
+      "name": "Покупка",
+      "producer": "A06",
+      "observable_fields": [
+        "buyer_id",
+        "visible_item_id",
+        "shop",
+        "time"
+      ],
+      "private_fields": [
+        "private_reason"
+      ]
+    },
+    {
+      "id": "E06",
+      "name": "Взятие или передача предмета",
+      "producer": "A04/A13/A20",
+      "observable_fields": [
+        "visible_participants",
+        "visible_item_id",
+        "location",
+        "time"
+      ],
+      "private_fields": [
+        "authorization_class",
+        "true_owner_if_not_visible",
+        "reason"
+      ]
+    },
+    {
+      "id": "E07",
+      "name": "Размещение предмета",
+      "producer": "A05",
+      "observable_fields": [
+        "actor_id",
+        "visible_container_id",
+        "visible_item_id",
+        "time"
+      ],
+      "private_fields": [
+        "concealed_contents"
+      ]
+    },
+    {
+      "id": "E08",
+      "name": "Потребление порции",
+      "producer": "A07",
+      "observable_fields": [
+        "actor_id",
+        "visible_food_id",
+        "location",
+        "time"
+      ],
+      "private_fields": [
+        "need_values"
+      ]
+    },
+    {
+      "id": "E09",
+      "name": "Результат приготовления / ремонта",
+      "producer": "A08/A21",
+      "observable_fields": [
+        "actor_id",
+        "visible_target",
+        "visible_condition",
+        "time"
+      ],
+      "private_fields": [
+        "goal_id"
+      ]
+    },
+    {
+      "id": "E10",
+      "name": "Предложение доставлено",
+      "producer": "A11/A14",
+      "observable_fields": [
+        "sender",
+        "recipient",
+        "terms_visible_to_participants",
+        "time"
+      ],
+      "private_fields": [
+        "sender_utility",
+        "sender_beliefs"
+      ]
+    },
+    {
+      "id": "E11",
+      "name": "Ответ на предложение",
+      "producer": "A12",
+      "observable_fields": [
+        "sender",
+        "recipient",
+        "decision",
+        "terms_version",
+        "time"
+      ],
+      "private_fields": [
+        "receiver_utility",
+        "alternatives"
+      ]
+    },
+    {
+      "id": "E12",
+      "name": "Договорённость подтверждена",
+      "producer": "agreement_manager",
+      "observable_fields": [
+        "participants",
+        "agreed_terms_to_participants",
+        "time"
+      ],
+      "private_fields": [
+        "scores"
+      ]
+    },
+    {
+      "id": "E13",
+      "name": "Совместное занятие началось",
+      "producer": "A15",
+      "observable_fields": [
+        "participants",
+        "activity",
+        "location",
+        "time"
+      ],
+      "private_fields": [
+        "private_motives"
+      ]
+    },
+    {
+      "id": "E14",
+      "name": "Совместное занятие завершено / прервано",
+      "producer": "A15/A22",
+      "observable_fields": [
+        "participants",
+        "activity",
+        "visible_end",
+        "time"
+      ],
+      "private_fields": [
+        "private_relationship_deltas"
+      ]
+    },
+    {
+      "id": "E15",
+      "name": "Обязательство создано / изменено",
+      "producer": "agreement_manager",
+      "observable_fields": [
+        "parties",
+        "terms_to_parties",
+        "due_time"
+      ],
+      "private_fields": [
+        "private_value"
+      ]
+    },
+    {
+      "id": "E16",
+      "name": "Обязательство выполнено / нарушено",
+      "producer": "deadline_manager",
+      "observable_fields": [
+        "parties",
+        "observable_fulfillment",
+        "time"
+      ],
+      "private_fields": [
+        "beliefs_of_other_parties"
+      ]
+    },
+    {
+      "id": "E17",
+      "name": "Начисление / выплата заработка",
+      "producer": "A10/payroll",
+      "observable_fields": [
+        "employee_and_employer_only",
+        "amount",
+        "time"
+      ],
+      "private_fields": [
+        "other_accounts"
+      ]
+    },
+    {
+      "id": "E18",
+      "name": "Высказывание",
+      "producer": "A18/A19/A27",
+      "observable_fields": [
+        "speaker",
+        "audience",
+        "proposition_or_refusal",
+        "time"
+      ],
+      "private_fields": [
+        "intentional_lie_flag",
+        "true_reason",
+        "belief_snapshot"
+      ]
+    },
+    {
+      "id": "E19",
+      "name": "Результат осмотра / чтения",
+      "producer": "A03/A24",
+      "observable_fields": [
+        "to_actor_only",
+        "observable_fields",
+        "time"
+      ],
+      "private_fields": [
+        "unseen_fields"
+      ]
+    },
+    {
+      "id": "E20",
+      "name": "Доступ изменён",
+      "producer": "A25",
+      "observable_fields": [
+        "grantor",
+        "recipient",
+        "scope",
+        "new_rights",
+        "time"
+      ],
+      "private_fields": [
+        "private_reason"
+      ]
+    },
+    {
+      "id": "E21",
+      "name": "Контейнер открыт / закрыт",
+      "producer": "A26",
+      "observable_fields": [
+        "actor_id",
+        "container_id",
+        "is_open",
+        "time"
+      ],
+      "private_fields": [
+        "hidden_items_not_perceived"
+      ]
+    },
+    {
+      "id": "E22",
+      "name": "Открытие / закрытие места",
+      "producer": "environment",
+      "observable_fields": [
+        "location",
+        "open_state",
+        "time"
+      ],
+      "private_fields": [
+        "none"
+      ]
+    },
+    {
+      "id": "E23",
+      "name": "Личное наблюдение записано",
+      "producer": "perception",
+      "observable_fields": [
+        "observer_only",
+        "projection",
+        "source",
+        "time"
+      ],
+      "private_fields": [
+        "world_event_full"
+      ]
+    },
+    {
+      "id": "E24",
+      "name": "Порог пересечён / задача создана",
+      "producer": "goal_generator",
+      "observable_fields": [],
+      "private_fields": [
+        "actor_id",
+        "threshold",
+        "goal",
+        "reason"
+      ]
+    },
+    {
+      "id": "E25",
+      "name": "План принят / пересмотрен",
+      "producer": "planner",
+      "observable_fields": [],
+      "private_fields": [
+        "actor_id",
+        "candidate_scores",
+        "facts_used",
+        "plan_id"
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "id": "H01",
+      "name": "Обеспечить питание",
+      "alternatives": [
+        "свой пригодный продукт → A07",
+        "свои ингредиенты + кухня → A08 → A07",
+        "H02 получить еду → A07"
+      ]
+    },
+    {
+      "id": "H02",
+      "name": "Получить предмет с требуемыми свойствами",
+      "alternatives": [
+        "из своего доступного запаса → A04",
+        "из известного магазина → путь A02 → A06",
+        "у знакомого → A11 → внешнее решение A12 → при согласии путь и A13",
+        "при допустимости по оценке → путь → A20"
+      ],
+      "unknown_handling": "A03/A17/A24 либо условная ветвь; отсутствующее знание не считается ложью."
+    },
+    {
+      "id": "H03",
+      "name": "Выполнить техническую задачу к сроку",
+      "alternatives": [
+        "Найти известный R02/R03 с требуемым результатом → H02 получить инструмент и материал → путь → A21",
+        "A14 предложить изменение срока → внешнее A12",
+        "A19 предупредить о невозможности; обязательство автоматически не исчезает"
+      ]
+    },
+    {
+      "id": "H04",
+      "name": "Восстановить сон",
+      "alternatives": [
+        "путь к известной доступной кровати → A09",
+        "уточнить доступ → затем A09"
+      ]
+    },
+    {
+      "id": "H05",
+      "name": "Удовлетворить общение",
+      "alternatives": [
+        "A14 предложение → A12 → встреча → A15",
+        "иной известный партнёр с новым предложением после допустимого интервала"
+      ]
+    },
+    {
+      "id": "H06",
+      "name": "Досуг / облегчение стресса",
+      "alternatives": [
+        "A16 известное индивидуальное занятие",
+        "A14 → A12 → A15",
+        "A23 спокойный отдых"
+      ]
+    },
+    {
+      "id": "H07",
+      "name": "Защитить значимое условие",
+      "alternatives": [
+        "вернуть предмет через A11/A12/A13",
+        "ответить по A18",
+        "предупредить по A19",
+        "изменить собственный план по A22",
+        "изменить предоставляемый доступ по A25"
+      ],
+      "note": "Нет автоматического сокрытия и нет знания чужих скрытых переменных."
+    },
+    {
+      "id": "H08",
+      "name": "Уточнить значимое сведение",
+      "alternatives": [
+        "A03",
+        "A17 → A18",
+        "A24"
+      ],
+      "note": "Выбирать по ожидаемому улучшению последующего решения, не по бонусу за объём памяти."
+    },
+    {
+      "id": "H09",
+      "name": "Получить деньги к сроку",
+      "alternatives": [
+        "A10 и дождаться due_time выплаты",
+        "A11 денежный заём → A12 → согласованная атомарная передача ledger"
+      ],
+      "note": "Денежная передача использует A13 со специальным типом fungible_money: дебет/кредит и реальное обязательство. Не предмет из каталога."
+    }
+  ],
+  "activities": [
+    {
+      "id": "J01",
+      "name": "Спокойная беседа",
+      "min_participants": 2,
+      "topic": "conversation",
+      "social_rate_rule": "18+12*attachment",
+      "pleasure_budget_per_30_min": 6,
+      "required_object_property": null
+    },
+    {
+      "id": "J02",
+      "name": "Совместная игра с мячом",
+      "min_participants": 2,
+      "topic": "sport",
+      "social_rate_rule": "18+12*attachment",
+      "pleasure_budget_per_30_min": 14,
+      "required_object_property": "sport_item"
+    },
+    {
+      "id": "J03",
+      "name": "Чтение",
+      "min_participants": 1,
+      "topic": "reading",
+      "social_rate_rule": "0",
+      "pleasure_budget_per_30_min": 12,
+      "required_object_property": "readable"
+    }
+  ],
+  "example_scenario": {
+    "name": "Инструмент к обещанному ремонту",
+    "start_time_minutes": 1020,
+    "end_time_minutes": 1320,
+    "seed": 20260909,
+    "npcs": [
+      {
+        "id": "N01",
+        "name": "Алексей",
+        "location": "L01",
+        "money": 80,
+        "needs": {
+          "satiety": 62,
+          "rest": 70,
+          "social": 55,
+          "leisure": 50
+        },
+        "states": {
+          "stress": 0.1,
+          "anger": 0
+        },
+        "traits": {
+          "patience": 0.7,
+          "caution": 0.6,
+          "initiative": 0.6,
+          "confrontation": 0.3,
+          "novelty": 0.4
+        },
+        "barriers": {
+          "lie": 0.7,
+          "appropriation": 0.8,
+          "coercion": 0.6
+        },
+        "hidden_drive": {
+          "intensity": 0,
+          "pressure": 0
+        },
+        "horizon_minutes": 240,
+        "skills": {
+          "repair": 0.6,
+          "cooking": 0.5,
+          "basic_handling": 0.5
+        },
+        "interests": {
+          "reading": 0.6,
+          "sport": 0.4,
+          "food_meal": 0.8,
+          "food_canned": 0.3,
+          "food_snack": 0.6
+        },
+        "default_relations": {
+          "attachment": 0.4,
+          "trust": 0.5,
+          "tension": 0.1,
+          "compatibility": 0.6
+        },
+        "relation_value": 1,
+        "access_value": 40
+      },
+      {
+        "id": "N02",
+        "name": "Коля",
+        "location": "L02",
+        "money": 120,
+        "needs": {
+          "satiety": 62,
+          "rest": 70,
+          "social": 55,
+          "leisure": 50
+        },
+        "states": {
+          "stress": 0.1,
+          "anger": 0
+        },
+        "traits": {
+          "patience": 0.6,
+          "caution": 0.5,
+          "initiative": 0.7,
+          "confrontation": 0.2,
+          "novelty": 0.3
+        },
+        "barriers": {
+          "lie": 0.7,
+          "appropriation": 0.8,
+          "coercion": 0.6
+        },
+        "hidden_drive": {
+          "intensity": 0,
+          "pressure": 0
+        },
+        "horizon_minutes": 240,
+        "skills": {
+          "repair": 0.6,
+          "cooking": 0.5,
+          "basic_handling": 0.5
+        },
+        "interests": {
+          "reading": 0.6,
+          "sport": 0.4,
+          "food_meal": 0.8,
+          "food_canned": 0.3,
+          "food_snack": 0.6
+        },
+        "default_relations": {
+          "attachment": 0.4,
+          "trust": 0.5,
+          "tension": 0.1,
+          "compatibility": 0.6
+        },
+        "relation_value": 1,
+        "access_value": 40
+      },
+      {
+        "id": "N03",
+        "name": "Игорь",
+        "location": "L05",
+        "money": 40,
+        "needs": {
+          "satiety": 62,
+          "rest": 70,
+          "social": 55,
+          "leisure": 50
+        },
+        "states": {
+          "stress": 0.1,
+          "anger": 0
+        },
+        "traits": {
+          "patience": 0.4,
+          "caution": 0.3,
+          "initiative": 0.6,
+          "confrontation": 0.6,
+          "novelty": 0.6
+        },
+        "barriers": {
+          "lie": 0.7,
+          "appropriation": 0.15,
+          "coercion": 0.6
+        },
+        "hidden_drive": {
+          "intensity": 0.8,
+          "pressure": 0.5
+        },
+        "horizon_minutes": 240,
+        "skills": {
+          "repair": 0.6,
+          "cooking": 0.5,
+          "basic_handling": 0.5
+        },
+        "interests": {
+          "reading": 0.6,
+          "sport": 0.4,
+          "food_meal": 0.8,
+          "food_canned": 0.3,
+          "food_snack": 0.6
+        },
+        "default_relations": {
+          "attachment": 0.4,
+          "trust": 0.5,
+          "tension": 0.1,
+          "compatibility": 0.6
+        },
+        "relation_value": 1,
+        "access_value": 40
+      },
+      {
+        "id": "N04",
+        "name": "Мария",
+        "location": "L05",
+        "money": 150,
+        "needs": {
+          "satiety": 62,
+          "rest": 70,
+          "social": 55,
+          "leisure": 50
+        },
+        "states": {
+          "stress": 0.1,
+          "anger": 0
+        },
+        "traits": {
+          "patience": 0.8,
+          "caution": 0.8,
+          "initiative": 0.4,
+          "confrontation": 0.2,
+          "novelty": 0.5
+        },
+        "barriers": {
+          "lie": 0.7,
+          "appropriation": 0.8,
+          "coercion": 0.6
+        },
+        "hidden_drive": {
+          "intensity": 0,
+          "pressure": 0
+        },
+        "horizon_minutes": 240,
+        "skills": {
+          "repair": 0.6,
+          "cooking": 0.5,
+          "basic_handling": 0.5
+        },
+        "interests": {
+          "reading": 0.6,
+          "sport": 0.4,
+          "food_meal": 0.8,
+          "food_canned": 0.3,
+          "food_snack": 0.6
+        },
+        "default_relations": {
+          "attachment": 0.4,
+          "trust": 0.5,
+          "tension": 0.1,
+          "compatibility": 0.6
+        },
+        "relation_value": 1,
+        "access_value": 40
+      },
+      {
+        "id": "N05",
+        "name": "Сергей",
+        "location": "L04",
+        "money": 60,
+        "needs": {
+          "satiety": 62,
+          "rest": 70,
+          "social": 55,
+          "leisure": 50
+        },
+        "states": {
+          "stress": 0.1,
+          "anger": 0
+        },
+        "traits": {
+          "patience": 0.3,
+          "caution": 0.7,
+          "initiative": 0.3,
+          "confrontation": 0.5,
+          "novelty": 0.2
+        },
+        "barriers": {
+          "lie": 0.7,
+          "appropriation": 0.8,
+          "coercion": 0.6
+        },
+        "hidden_drive": {
+          "intensity": 0,
+          "pressure": 0
+        },
+        "horizon_minutes": 240,
+        "skills": {
+          "repair": 0.6,
+          "cooking": 0.5,
+          "basic_handling": 0.5
+        },
+        "interests": {
+          "reading": 0.6,
+          "sport": 0.4,
+          "food_meal": 0.8,
+          "food_canned": 0.3,
+          "food_snack": 0.6
+        },
+        "default_relations": {
+          "attachment": 0.4,
+          "trust": 0.5,
+          "tension": 0.1,
+          "compatibility": 0.6
+        },
+        "relation_value": 1,
+        "access_value": 40
+      },
+      {
+        "id": "N06",
+        "name": "Наталья",
+        "location": "L06",
+        "money": 100,
+        "needs": {
+          "satiety": 62,
+          "rest": 70,
+          "social": 55,
+          "leisure": 50
+        },
+        "states": {
+          "stress": 0.1,
+          "anger": 0
+        },
+        "traits": {
+          "patience": 0.6,
+          "caution": 0.5,
+          "initiative": 0.8,
+          "confrontation": 0.4,
+          "novelty": 0.8
+        },
+        "barriers": {
+          "lie": 0.7,
+          "appropriation": 0.8,
+          "coercion": 0.6
+        },
+        "hidden_drive": {
+          "intensity": 0,
+          "pressure": 0
+        },
+        "horizon_minutes": 240,
+        "skills": {
+          "repair": 0.6,
+          "cooking": 0.5,
+          "basic_handling": 0.5
+        },
+        "interests": {
+          "reading": 0.6,
+          "sport": 0.4,
+          "food_meal": 0.8,
+          "food_canned": 0.3,
+          "food_snack": 0.6
+        },
+        "default_relations": {
+          "attachment": 0.4,
+          "trust": 0.5,
+          "tension": 0.1,
+          "compatibility": 0.6
+        },
+        "relation_value": 1,
+        "access_value": 40
+      }
+    ],
+    "locations": [
+      {
+        "id": "L01",
+        "name": "Дом А",
+        "fixtures": [
+          "F01"
+        ]
+      },
+      {
+        "id": "L02",
+        "name": "Дом Коли",
+        "fixtures": [
+          "F01"
+        ]
+      },
+      {
+        "id": "L03",
+        "name": "Магазин",
+        "open_interval": [
+          480,
+          1320
+        ],
+        "self_service": true
+      },
+      {
+        "id": "L04",
+        "name": "Мастерская",
+        "fixtures": [
+          "F03",
+          "F04"
+        ]
+      },
+      {
+        "id": "L05",
+        "name": "Общее место встреч",
+        "fixtures": []
+      },
+      {
+        "id": "L06",
+        "name": "Общая кухня",
+        "fixtures": [
+          "F02"
+        ]
+      }
+    ],
+    "undirected_edges": [
+      {
+        "a": "L01",
+        "b": "L03",
+        "minutes": 10
+      },
+      {
+        "a": "L03",
+        "b": "L04",
+        "minutes": 8
+      },
+      {
+        "a": "L01",
+        "b": "L05",
+        "minutes": 5
+      },
+      {
+        "a": "L05",
+        "b": "L02",
+        "minutes": 7
+      },
+      {
+        "a": "L05",
+        "b": "L04",
+        "minutes": 6
+      },
+      {
+        "a": "L01",
+        "b": "L06",
+        "minutes": 3
+      }
+    ],
+    "instance_rules": "По экземпляру кровати на каждый дом; shared fixture IDs разворачиваются в уникальные IDs. Все предметы получают уникальные instance_id. Каталог типов не является инвентарём.",
+    "instances": [
+      {
+        "id": "obj_tool_kolya",
+        "type": "I05",
+        "owner": "N02",
+        "holder": "N02",
+        "location": null,
+        "condition": 1.0
+      },
+      {
+        "id": "obj_tool_shop",
+        "type": "I05",
+        "owner": "shop",
+        "holder": null,
+        "location": "L03",
+        "condition": 1.0
+      },
+      {
+        "id": "obj_kit_alex",
+        "type": "I06",
+        "owner": "N01",
+        "holder": "N01",
+        "location": null,
+        "condition": 1.0
+      },
+      {
+        "id": "obj_meal_alex",
+        "type": "I01",
+        "owner": "N01",
+        "holder": "N01",
+        "location": null,
+        "remaining_fraction": 1.0
+      },
+      {
+        "id": "obj_rope_shop",
+        "type": "I07",
+        "owner": "shop",
+        "holder": null,
+        "location": "L03",
+        "condition": 1.0
+      },
+      {
+        "id": "obj_book_maria",
+        "type": "I08",
+        "owner": "N04",
+        "holder": "N04",
+        "location": null,
+        "condition": 1.0
+      },
+      {
+        "id": "obj_ball_common",
+        "type": "I09",
+        "owner": "community",
+        "holder": null,
+        "location": "L05",
+        "condition": 1.0
+      },
+      {
+        "id": "obj_phone_alex",
+        "type": "I10",
+        "owner": "N01",
+        "holder": "N01",
+        "location": null,
+        "condition": 1.0
+      },
+      {
+        "id": "obj_phone_kolya",
+        "type": "I10",
+        "owner": "N02",
+        "holder": "N02",
+        "location": null,
+        "condition": 1.0
+      }
+    ],
+    "ledger": {
+      "shop": 1000,
+      "employer": 2000,
+      "escrow": 0
+    },
+    "obligations": [
+      {
+        "id": "O01",
+        "debtor": "N01",
+        "creditor": "N05",
+        "predicate": "repair_complete:fixture_pump",
+        "due": 1200,
+        "intrinsic_breach_cost": 30,
+        "status": "active",
+        "value_for_debtor": 1.0
+      }
+    ],
+    "knowledge": {
+      "N01": [
+        {
+          "predicate": "holder",
+          "item": "obj_tool_kolya",
+          "value": "N02",
+          "valid_at": 960,
+          "learned_at": 960,
+          "confidence": 0.95,
+          "root": "e_initial_01"
+        },
+        {
+          "predicate": "sells_type",
+          "place": "L03",
+          "value": "I05",
+          "confidence": 0.95,
+          "root": "e_initial_02"
+        }
+      ]
+    },
+    "access": "Все знают публичные рёбра и места L03/L05/L06. N01 и N05 имеют рабочий доступ L04. N01 имеет ранее данное разрешение посещения L02; это не даёт знания содержимого дома. Для прочих частных доступов нужна явная ACL.",
+    "fixture_instances": [
+      {
+        "id": "fixture_bed_L01",
+        "type": "F01",
+        "location": "L01"
+      },
+      {
+        "id": "fixture_bed_L02",
+        "type": "F01",
+        "location": "L02"
+      },
+      {
+        "id": "fixture_cooker",
+        "type": "F02",
+        "location": "L06"
+      },
+      {
+        "id": "fixture_pump",
+        "type": "F03",
+        "location": "L04",
+        "condition": 0,
+        "repair_progress": 0
+      },
+      {
+        "id": "fixture_workstation",
+        "type": "F04",
+        "location": "L04"
+      }
+    ],
+    "forecast_examples": "Численные сравнения ветвей в спецификации — самостоятельные примеры формулы, не результаты прогона этого сценария.",
+    "work_contracts": [
+      {
+        "id": "JOB01",
+        "worker": "N01",
+        "employer": "employer",
+        "fixture": "fixture_workstation",
+        "start": 1035,
+        "end": 1095,
+        "rate_per_minute": 1,
+        "due_time": 1095,
+        "pay_only_actual_minutes": true
+      }
+    ],
+    "initial_public_knowledge": {
+      "known_action_types": [
+        "A01",
+        "A02",
+        "A03",
+        "A04",
+        "A05",
+        "A06",
+        "A07",
+        "A08",
+        "A09",
+        "A10",
+        "A11",
+        "A12",
+        "A13",
+        "A14",
+        "A15",
+        "A16",
+        "A17",
+        "A18",
+        "A19",
+        "A20",
+        "A21",
+        "A22",
+        "A23",
+        "A24",
+        "A25",
+        "A26",
+        "A27"
+      ],
+      "known_item_types": [
+        "I01",
+        "I02",
+        "I03",
+        "I04",
+        "I05",
+        "I06",
+        "I07",
+        "I08",
+        "I09",
+        "I10",
+        "I11",
+        "I12"
+      ],
+      "known_recipes": [
+        "R01",
+        "R02",
+        "R03"
+      ],
+      "known_map_edges": [
+        {
+          "a": "L01",
+          "b": "L03",
+          "minutes": 10
+        },
+        {
+          "a": "L03",
+          "b": "L04",
+          "minutes": 8
+        },
+        {
+          "a": "L01",
+          "b": "L05",
+          "minutes": 5
+        },
+        {
+          "a": "L05",
+          "b": "L02",
+          "minutes": 7
+        },
+        {
+          "a": "L05",
+          "b": "L04",
+          "minutes": 6
+        },
+        {
+          "a": "L01",
+          "b": "L06",
+          "minutes": 3
+        }
+      ],
+      "note": "Это настройки только первого стенда. Знание типа не раскрывает ни конкретный экземпляр, ни чужое намерение. Часы магазина опубликованы."
+    },
+    "initial_contacts": {
+      "N01": [
+        "N02",
+        "N05"
+      ],
+      "N02": [
+        "N01",
+        "N04"
+      ],
+      "N03": [
+        "N04",
+        "N05"
+      ],
+      "N04": [
+        "N02",
+        "N03",
+        "N06"
+      ],
+      "N05": [
+        "N01",
+        "N03"
+      ],
+      "N06": [
+        "N04"
+      ]
+    },
+    "initial_channels": [
+      {
+        "kind": "phone",
+        "a": "N01",
+        "b": "N02",
+        "delivery_minutes": 1,
+        "requires_held_working_device_both": true
+      }
+    ],
+    "protected_conditions": [
+      {
+        "owner": "N02",
+        "id": "P01",
+        "predicate": "authorized_control:obj_tool_kolya",
+        "weight": 20
+      },
+      {
+        "owner": "N01",
+        "id": "P02",
+        "predicate": "has_access:L04",
+        "weight": 40
+      }
+    ],
+    "initial_trust_rule": "Для известных контактов используются default_relations каждого NPC отдельно; неизвестные контакты не получают автоматически записанную связь. Прогноз чужих отношений начинается с публичного нейтрального prior, а не из default_relations другого."
+  }
+}

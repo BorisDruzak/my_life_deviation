@@ -1,0 +1,29 @@
+{
+  "schema_version": "REPORTS-0.1-DESIGN",
+  "example": true,
+  "actor": "a",
+  "need": "N03",
+  "enabled": true,
+  "window": {
+    "begin": 0,
+    "end": 3,
+    "convention": "half_open_left_boundary"
+  },
+  "source_mode": "minute_exact",
+  "exposure_minutes": 3,
+  "start": 10.0,
+  "end": 40.0,
+  "mean_time_weighted": 20.0,
+  "below_activation_minutes": 2,
+  "below_critical_minutes": 1,
+  "deficit_point_minutes": 165.0,
+  "left_censored": true,
+  "right_censored": true,
+  "full_episode_duration": null,
+  "illustration_values_left": [
+    10.0,
+    20.0,
+    30.0
+  ],
+  "warning": "Artificial arithmetic example, not simulation output."
+}

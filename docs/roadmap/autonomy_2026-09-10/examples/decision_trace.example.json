@@ -1,0 +1,93 @@
+{
+  "schema_version": "REPORTS-0.1-DESIGN",
+  "example": true,
+  "scope": "actor_private",
+  "run_id": "illustration",
+  "decision_id": "a/policy/42",
+  "actor": "a",
+  "tick": 600,
+  "trigger": "periodic",
+  "local_view_hash": "illustrative_not_a_real_hash",
+  "policy_version": "POLICY-0.1-DESIGN",
+  "own_needs": {
+    "N03": {
+      "value": 39.0,
+      "critical": 10.0,
+      "activation": 40.0,
+      "target": 75.0,
+      "active": true
+    }
+  },
+  "goals": [
+    {
+      "goal_id": "a/Need/N03/episode1",
+      "family": "Need",
+      "status": "active",
+      "urgency": 0.03333333333333333
+    }
+  ],
+  "search": {
+    "coverage": "bounded",
+    "expanded_nodes": 30,
+    "projected_minutes": 1260,
+    "stop_reason": "shortlist_evaluated"
+  },
+  "candidates": [
+    {
+      "candidate_id": "c1",
+      "method": "initiate_conversation",
+      "horizon_minutes": 180,
+      "feasibility": "contingent_prefix",
+      "score_components": {
+        "need": 9.0,
+        "commitment": 0.0,
+        "project": 0.0,
+        "relation": 0.2,
+        "budget": 0.0,
+        "initiation_cost": 1.0,
+        "uncertainty_cost": 2.0,
+        "switch_cost": 0.0
+      },
+      "score": 6.2,
+      "assumptions": [
+        {
+          "code": "partner_will_accept",
+          "forecast_probability": 0.5,
+          "source": "response_prior_2_2",
+          "not_an_observed_fact": true
+        }
+      ],
+      "steps": [
+        "propose",
+        "observe_answer",
+        "travel_if_agreed",
+        "independently_ready",
+        "joint_effect_if_started"
+      ]
+    },
+    {
+      "candidate_id": "c2",
+      "method": "ordinary_wait",
+      "horizon_minutes": 180,
+      "feasibility": "complete_plan",
+      "score": 0.0
+    },
+    {
+      "candidate_id": "c3",
+      "method": "ball_game",
+      "horizon_minutes": 180,
+      "feasibility": "not_evaluated",
+      "score": null,
+      "exclusion_reason": "method_unknown"
+    }
+  ],
+  "choice": {
+    "candidate_id": "c1",
+    "runner_up_id": "c2",
+    "score_gap": 6.2,
+    "selection_rule": "highest_evaluated_utility",
+    "no_command_reason": null
+  },
+  "command_link": "a@101",
+  "warning": "Illustrative numbers; not measured or predicted by the uploaded executable."
+}

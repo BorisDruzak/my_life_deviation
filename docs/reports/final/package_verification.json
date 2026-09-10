@@ -1,0 +1,10 @@
+{
+  "unpacked_source_build": "passed",
+  "tests": "core_and_cli_passed",
+  "scenario_validation": "passed",
+  "api_example": "passed",
+  "offline_dependency_fetches": 0,
+  "tested_runtime_build_input_files": 621,
+  "runtime_input_manifest_sha256": "6eb0b19a328448a2883209bdaeb2cec7865465f396632b1e42f1a8a8bcd68f2b",
+  "final_source_equals_tested_extracted_source": true
+}

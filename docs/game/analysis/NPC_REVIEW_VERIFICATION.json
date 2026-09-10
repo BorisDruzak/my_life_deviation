@@ -1,0 +1,15 @@
+{
+  "original_files_preserved_byte_for_byte": 683,
+  "added_files": 112,
+  "checked_json_files": 60,
+  "acceptance_case_ids": 61,
+  "native_tests": "106/106 passed",
+  "ctest": "2/2 passed",
+  "diagnostic_observations_reproduced": "4/4",
+  "zip_crc": "passed",
+  "new_functionality_implemented": false,
+  "artifacts": {
+    "zip": "/mnt/data/NPC_World_0.5_with_autonomy_design.zip",
+    "combined_design": "/mnt/data/NPC_AUTONOMY_DESIGN_2026-09-10.md"
+  }
+}

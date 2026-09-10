@@ -1,0 +1,80 @@
+{
+  "stage": "T1",
+  "full_design_suite_claimed_passed": false,
+  "cases": [
+    {
+      "original": {
+        "id": "G09",
+        "group": "goals",
+        "requirements": [
+          "GC-03"
+        ],
+        "setup": "Чужое исполнение обязательства меняется только в debug_state без доступного свидетельства.",
+        "expected": "Известное обязательство и решение наблюдателя не меняются; после нового доступного receipt допускается изменение.",
+        "status": "specified_not_implemented"
+      },
+      "component_status": "verified_local_commitment_boundary",
+      "coverage_and_remaining": "Own signed evidence is unchanged under hidden global status changes; known completion updates only after local ingest. Future goal-driven decision assertion belongs to T3/T5.",
+      "tests": [
+        "PG_T1_G09_commitment_uses_signed_evidence_not_global_status",
+        "PG_T1_visible_completion_changes_known_commitment_only_after_ingest"
+      ]
+    },
+    {
+      "original": {
+        "id": "G12",
+        "group": "goals",
+        "requirements": [
+          "GC-11"
+        ],
+        "setup": "Сохранение в waiting_response с cooldown и счётчиками, затем resume.",
+        "expected": "Goal ids, next_review и следующие команды совпадают с непрерывным запуском.",
+        "status": "specified_not_implemented"
+      },
+      "component_status": "verified_gc11_storage_and_projection_resume",
+      "coverage_and_remaining": "Waiting state, goals, plan cursor, cooldowns, all GC11 slots, next sequence and local projection roundtrip are verified. Full autonomous next-command equality belongs to T8.",
+      "tests": [
+        "PG_T1_G12_memory_roundtrip_preserves_waiting_state_and_next_sequence",
+        "PG_T1_all_gc11_slots_roundtrip_without_reinterpretation",
+        "PG_T1_evidence_and_inbox_share_one_fair_page_budget"
+      ]
+    },
+    {
+      "original": {
+        "id": "P03",
+        "group": "planner",
+        "requirements": [
+          "PL-02",
+          "GC-03"
+        ],
+        "setup": "Два мира дают битово одинаковые LocalView/ControllerMemory a; различны чужие нужды/запасы/тайные отношения.",
+        "expected": "Следующие candidate scores,trace,command a совпадают; World outcome может различаться после исполнения.",
+        "status": "specified_not_implemented"
+      },
+      "component_status": "verified_local_input_and_legacy_decision_boundary",
+      "coverage_and_remaining": "Counterfactual local view/memory and legacy decisions match. New planner candidate scores, trace and command equality remain T5/T8.",
+      "tests": [
+        "PG_T1_P03_hidden_state_does_not_change_local_inputs_or_legacy_decision",
+        "PG_T1_unread_body_changes_neither_cursor_nor_local_memory"
+      ]
+    },
+    {
+      "original": {
+        "id": "P13",
+        "group": "planner",
+        "requirements": [
+          "PL-06"
+        ],
+        "setup": "В единственном известном магазине раньше был предмет, свежих данных нет.",
+        "expected": "Unknown/ResolveUncertainty, не гарантированная покупка и не доказанная вечная недоступность.",
+        "status": "specified_not_implemented"
+      },
+      "component_status": "verified_temporal_unknown_query",
+      "coverage_and_remaining": "Legacy stock observation does not prove current availability; explicit decaying persistence is distinguished. ResolveUncertainty goal generation is T3/T4/T5.",
+      "tests": [
+        "PG_T1_P13_legacy_open_ended_stock_is_not_current_availability",
+        "PG_T1_persistence_is_explicit_decaying_and_separate_from_observation"
+      ]
+    }
+  ]
+}

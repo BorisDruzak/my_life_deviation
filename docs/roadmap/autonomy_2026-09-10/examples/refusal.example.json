@@ -1,0 +1,29 @@
+{
+  "schema_version": "REPORTS-0.1-DESIGN",
+  "example": true,
+  "record_id": "b/refusal/7",
+  "tick": 601,
+  "scope": "developer_omniscient",
+  "family": "social_declined",
+  "proposal_id": "a@101/proposal",
+  "proposal_version": 1,
+  "responder": "b",
+  "private_reason": {
+    "code": "critical_self_need",
+    "need": "N02",
+    "scope": "actor_private",
+    "owner": "b",
+    "source_decision": "b/policy/52"
+  },
+  "communicated_reason": {
+    "text": "Сегодня не получится.",
+    "message_id": "b@77/message",
+    "scope": "communicated"
+  },
+  "initiator_knowledge": {
+    "read": false,
+    "known_answer": null,
+    "inferred_reason": null
+  },
+  "world_validation_detail": null
+}

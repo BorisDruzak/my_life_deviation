@@ -1,0 +1,183 @@
+my_life_deviation/
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+├── app/
+│   ├── api_example.cpp
+│   └── main.cpp
+├── data/
+│   ├── acceptance_map.json
+│   ├── catalog.json
+│   └── parameters.json
+├── docs/
+│   ├── analysis/
+│   │   ├── NPC_CREATIVE_DECISIONS_T1_RU.md
+│   │   ├── NPC_DOCUMENTATION_AUDIT_2026-09-10.md
+│   │   └── NPC_REVIEW_VERIFICATION.json
+│   ├── concept/
+│   │   └── СИмуляция(2).drawio
+│   ├── design/
+│   │   ├── autonomy_2026-09-10/
+│   │   │   ├── examples/
+│   │   │   │   ├── activities.example.json
+│   │   │   │   ├── decision_trace.example.json
+│   │   │   │   ├── need_window.example.json
+│   │   │   │   ├── policy_defaults.example.json
+│   │   │   │   └── refusal.example.json
+│   │   │   ├── 00_README.md
+│   │   │   ├── 01_AUDIT.md
+│   │   │   ├── 02_GOALS_AND_CONTRACTS.md
+│   │   │   ├── 03_JOINT_ACTIVITIES.md
+│   │   │   ├── 04_REPORTING.md
+│   │   │   ├── 05_BOUNDED_PLANNER.md
+│   │   │   ├── 06_ACCEPTANCE.md
+│   │   │   ├── 07_CODEX_PLAN.md
+│   │   │   ├── 08_RULE_DECISIONS.md
+│   │   │   └── acceptance_cases.json
+│   │   └── NPC_AUTONOMY_DESIGN_2026-09-10.md
+│   ├── diagrams/
+│   │   ├── CURRENT_MECHANICS_T1.md
+│   │   └── NPC_World_T1_Current_State_RU.drawio
+│   ├── implementation/
+│   │   ├── STATUS.md
+│   │   ├── T0_DELIVERY_VERIFICATION.json
+│   │   ├── T0_IMPLEMENTATION_REPORT.md
+│   │   ├── T1_DELIVERY_VERIFICATION.json
+│   │   ├── T1_IMPLEMENTATION_REPORT.md
+│   │   ├── T1_LOCAL_POLICY_API_FULL.md
+│   │   └── T1_LOCAL_POLICY_STATE.md
+│   ├── reference/
+│   │   ├── 00_Начать_здесь.md
+│   │   ├── 01_Спецификация_законов_мира.md
+│   │   ├── 02_Контракты_действий_и_объектов.md
+│   │   ├── 03_Границы_правил_и_миграция.md
+│   │   ├── 04_Соответствие_исходной_схеме.md
+│   │   ├── 05_Сценарии_приёмки_ядра.md
+│   │   ├── 06_Словарь_состояния_и_интерфейсов.md
+│   │   ├── 07_Проверка_и_численные_примеры.md
+│   │   ├── conformance_cases_v04.json
+│   │   └── reference_math.py
+│   ├── spec/
+│   │   ├── ACCEPTANCE.md
+│   │   ├── ACTIONS.md
+│   │   ├── API.md
+│   │   ├── ERRATA.md
+│   │   ├── LIMITATIONS.md
+│   │   ├── PARAMETERS.md
+│   │   ├── REFERENCES.md
+│   │   └── WORLD_0.5.md
+│   └── superpowers/
+│       └── plans/
+│           └── 2026-09-09-world05.md
+├── examples/
+│   ├── acquire_accept.json
+│   ├── acquire_refuse.json
+│   ├── food.json
+│   ├── household.json
+│   └── protocol.json
+├── include/
+│   └── npc/
+│       ├── policy/
+│       │   ├── knowledge_query.hpp
+│       │   └── types.hpp
+│       ├── config.hpp
+│       ├── controller.hpp
+│       ├── dynamics.hpp
+│       ├── json.hpp
+│       ├── local_view.hpp
+│       ├── math.hpp
+│       ├── model.hpp
+│       └── world.hpp
+├── reports/
+│   ├── audit_2026-09-10/
+│   │   ├── fixtures/
+│   │   │   ├── completed_joint_retry.scenario.json
+│   │   │   ├── interrupted_joint_retry.scenario.json
+│   │   │   ├── unregistered_topic.scenario.json
+│   │   │   └── waiting_overrides_hunger.scenario.json
+│   │   ├── probe_summary.json
+│   │   ├── README.md
+│   │   └── reproduce_original_probes.py
+│   ├── final/
+│   │   ├── household_rejection_reasons.json
+│   │   ├── household_week.summary.json
+│   │   └── package_verification.json
+│   ├── implementation/
+│   │   ├── T0/
+│   │   │   ├── cases.txt
+│   │   │   ├── legacy_snapshot_check.json
+│   │   │   └── VERIFICATION.md
+│   │   └── T1/
+│   │       ├── acceptance_mapping.json
+│   │       ├── cases.txt
+│   │       ├── environment.txt
+│   │       ├── public-api-smoke.json
+│   │       ├── public_api_smoke.cpp
+│   │       ├── VERIFICATION.json
+│   │       └── VERIFICATION.md
+│   └── VERIFICATION.md
+├── src/
+│   ├── policy/
+│   │   ├── commitments.cpp
+│   │   ├── knowledge_query.cpp
+│   │   ├── persistent_map.hpp
+│   │   ├── types.cpp
+│   │   ├── types_internal.hpp
+│   │   └── validation.cpp
+│   ├── action_commit.cpp
+│   ├── action_start.cpp
+│   ├── config.cpp
+│   ├── controller.cpp
+│   ├── dynamics.cpp
+│   ├── economy.cpp
+│   ├── json.cpp
+│   ├── knowledge.cpp
+│   ├── local_view.cpp
+│   ├── math.cpp
+│   ├── persistence.cpp
+│   ├── physical.cpp
+│   ├── social.cpp
+│   ├── spatial.cpp
+│   ├── validation.cpp
+│   └── world.cpp
+├── tests/
+│   ├── autonomy_cli_test.py
+│   ├── cli_test.py
+│   ├── controller_tests.cpp
+│   ├── fixtures.hpp
+│   ├── main.cpp
+│   ├── math_tests.cpp
+│   ├── model_tests.cpp
+│   ├── policy_goals_tests.cpp
+│   ├── policy_index_tests.cpp
+│   ├── regression_tests.cpp
+│   ├── social_tests.cpp
+│   ├── test.hpp
+│   └── world_tests.cpp
+├── third_party/
+│   ├── boost/
+│   │   └── … 571 vendored Boost headers
+│   └── BOOST_LICENSE_1_0.txt
+├── tools/
+│   ├── generate_model.py
+│   ├── make_examples.py
+│   ├── profile_run.cpp
+│   ├── vendor_boost.py
+│   └── verify.sh
+├── .clang-format
+├── .gitignore
+├── AUTONOMY_REVIEW_MANIFEST.json
+├── CMakeLists.txt
+├── CMakePresets.json
+├── GIT_READY_VERIFICATION.json
+├── GIT_UPLOAD_MANIFEST.md
+├── README.md
+├── REPOSITORY_MANIFEST.json
+├── SHA256SUMS
+├── START_HERE_AUTONOMY_REVIEW.md
+├── START_HERE_T0.md
+├── START_HERE_T1.md
+├── T0_IMPLEMENTATION_MANIFEST.json
+├── T1_IMPLEMENTATION_MANIFEST.json
+├── THIRD_PARTY.md
+└── VERSION
