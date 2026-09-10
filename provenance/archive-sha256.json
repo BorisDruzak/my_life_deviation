@@ -1,0 +1,12 @@
+{
+  "canonical": {
+    "path": "my_life_deviation_git_ready_0.5.1-t1.zip",
+    "sha256": "703BCF45475CD631C0BA6344FFF94BE265DA921904BB11A02B7592E84F28067B",
+    "role": "WORLD-0.5.1-t1 implementation baseline"
+  },
+  "historical": {
+    "path": "my_life_deviation_REPO_READY.zip",
+    "sha256": "8AFB057B2F0BA69927CD06E13A1771F2F25B554B6D369BC5DDF54316FECDBD41",
+    "role": "pre-T1 historical documentation source"
+  }
+}
