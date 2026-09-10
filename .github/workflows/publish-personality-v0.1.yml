@@ -1,0 +1,93 @@
+name: Publish personality model v0.1
+
+on:
+  push:
+    branches:
+      - chore/publish-personality-doc-v0.1
+    paths:
+      - .github/workflows/publish-personality-v0.1.yml
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Reconstruct and verify documentation snapshot
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import base64
+          import hashlib
+          import json
+          import os
+          import urllib.request
+          from pathlib import Path
+
+          repo = os.environ['GITHUB_REPOSITORY']
+          token = os.environ['GH_TOKEN']
+
+          def read_blob(sha: str) -> bytes:
+              req = urllib.request.Request(
+                  f'https://api.github.com/repos/{repo}/git/blobs/{sha}',
+                  headers={
+                      'Authorization': f'Bearer {token}',
+                      'Accept': 'application/vnd.github+json',
+                      'X-GitHub-Api-Version': '2022-11-28',
+                  },
+              )
+              with urllib.request.urlopen(req, timeout=60) as response:
+                  payload = json.load(response)
+              return base64.b64decode(payload['content'])
+
+          drawio_shas = [
+              'b239b84b35aa9d8fc63dc963d8f5f9c55965f5ae',
+              '5a37e0b907dec23c78400235dde21d2fc4dc6681',
+              '1f7ac901b23dd0087e201d770f2cc4019bc16149',
+              '280e203f7564998267df6b0695cfa6504d239846',
+              '3c1319874f58b4cbf25b471559b175ca2e49503a',
+              '410f0b803ef101e925109c56d2eaa1f96d1807db',
+              'e0f465e01e5047343dcd637bb849cfa9d6fdb62c',
+              '41920ff0f351add5c77fc772834de9d9825959fc',
+              'db31bf19172dc0ab47498ce978c02908acfb971a',
+          ]
+          drawio = b''.join(read_blob(sha) for sha in drawio_shas)
+          drawio_hash = hashlib.sha256(drawio).hexdigest()
+          expected_drawio_hash = 'a8f8c42ad14d36cbf679b0a6a4b4c00ebea360ec88a650b5c2003f5a40b58c6c'
+          if drawio_hash != expected_drawio_hash:
+              raise SystemExit(f'drawio checksum mismatch: {drawio_hash}')
+
+          document = read_blob('b18bb79da4c977ef64d7dda11c5ff33917a5ee7c')
+          document_hash = hashlib.sha256(document).hexdigest()
+          expected_document_hash = '7d670540e18d3b4b1821a168de2b75e9993a82a937d3a4283a2f5679c79166d8'
+          if document_hash != expected_document_hash:
+              raise SystemExit(f'document checksum mismatch: {document_hash}')
+
+          doc_dir = Path('docs/проектирование')
+          diagram_dir = Path('docs/схемы')
+          doc_dir.mkdir(parents=True, exist_ok=True)
+          diagram_dir.mkdir(parents=True, exist_ok=True)
+
+          (doc_dir / 'Модель_личности_и_выбора_действий_v0.1.md').write_bytes(document)
+          (diagram_dir / 'Зачем_что-то_делать_v0.1.drawio').write_bytes(drawio)
+
+          print('Verified document SHA256:', document_hash)
+          print('Verified drawio SHA256:', drawio_hash)
+          PY
+
+      - name: Commit both files to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "docs/проектирование/Модель_личности_и_выбора_действий_v0.1.md" "docs/схемы/Зачем_что-то_делать_v0.1.drawio"
+          git diff --cached --quiet && { echo "No changes to publish"; exit 0; }
+          git commit -m "Document NPC personality and decision model v0.1"
+          git push origin HEAD:main
