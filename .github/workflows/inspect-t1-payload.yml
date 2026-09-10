@@ -1,0 +1,50 @@
+name: Inspect T1 upload pieces
+on:
+  push:
+    branches: ['release/world-0.5.1-t1']
+    paths: ['.github/workflows/inspect-t1-payload.yml']
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Read and inspect previously uploaded blobs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import os, urllib.request, json, base64, hashlib, lzma, io, tarfile
+          from pathlib import Path
+          shas = ['fa9d2b185ae93b805ca66e967ea6487fec24f98c','a3a93feab29e7c89b272fd54beb1c3edfed0ccc0','e15d9818812de44f8b9542f2e3235f8b498b2657','829cf5fdc6cd59804e11fb28213ecad9d81643d5','948ffc4a543ecbe654b9e4cc6a96976a2cd25e5b','93d1a89fcc4d38775206f762702d44cafe0d85a4','3a0ce49e11e06af3013bcf217910a11b1f0e3c12','9a949a2c9f4d604a66c3d49501649c6c813cc809','5d174bf53ed677f4245f88f35e7b73933dfad34e','f7007937b6f9364e44980aa22769644afd0b2951']
+          out=Path('inspection'); out.mkdir()
+          parts=[]
+          for i,sha in enumerate(shas):
+              req=urllib.request.Request('https://api.github.com/repos/'+os.environ['GITHUB_REPOSITORY']+'/git/blobs/'+sha, headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'})
+              with urllib.request.urlopen(req,timeout=30) as f: blob=json.load(f)
+              raw=base64.b64decode(blob['content'])
+              assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()==sha
+              (out/f'part-{i:03}.b64').write_bytes(raw)
+              parts.append(raw.strip())
+          encoded=b''.join(parts); compressed=base64.b64decode(encoded[:len(encoded)//4*4],validate=True)
+          decoder=lzma.LZMADecompressor(); raw=decoder.decompress(compressed,max_length=50_000_000)
+          (out/'prefix.tar').write_bytes(raw)
+          records=[]
+          try:
+              with tarfile.open(fileobj=io.BytesIO(raw),mode='r:') as tar:
+                  for m in tar:
+                      if m.offset_data+m.size>len(raw): break
+                      if not m.isfile(): continue
+                      data=tar.extractfile(m).read()
+                      records.append({'path':m.name,'size':m.size,'sha256':hashlib.sha256(data).hexdigest()})
+          except (tarfile.ReadError,EOFError): pass
+          result={'parts':[{'sha':s,'chars':len(p)} for s,p in zip(shas,parts)],'stream_complete':decoder.eof,'compressed_bytes':len(compressed),'raw_bytes':len(raw),'files':records}
+          (out/'inspection.json').write_text(json.dumps(result,indent=2))
+          print(json.dumps({k:v for k,v in result.items() if k!='files'},indent=2)); print('Complete files:',len(records)); print('First:',records[:3]); print('Last:',records[-5:])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: inspected-t1-payload
+          path: inspection/
+          retention-days: 3
