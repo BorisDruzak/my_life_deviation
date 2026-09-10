@@ -1,0 +1,17 @@
+name: Validation tools
+on:
+  push:
+    branches: [sim/cpp-0.6-validation]
+    paths: [.github/workflows/validation-tools.yml]
+permissions:
+  contents: read
+jobs:
+  formatter:
+    runs-on: ubuntu-latest
+    steps:
+      - run: python -m pip download --only-binary=:all: --no-deps clang-format==18.1.8 -d wheel
+      - uses: actions/upload-artifact@v4
+        with:
+          name: formatter-wheel
+          path: wheel/*.whl
+          retention-days: 1
