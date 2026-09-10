@@ -1,3 +1,3 @@
-# My Life Deviation
+# my_life_deviation
 
-Repository bootstrap. The complete NPC World source is being published as version 0.5.1-t1.
+Experimental NPC world simulation project. Full source publication is prepared separately.
