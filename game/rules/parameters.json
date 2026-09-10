@@ -1,0 +1,271 @@
+{
+  "version": "WORLD-0.5.0",
+  "status": "proposed_game_rules_not_validated_balance",
+  "time": {
+    "tick_minutes": 1,
+    "day_minutes": 1440,
+    "numeric_tolerance": 1e-09
+  },
+  "profiles": {
+    "baseline": {
+      "intimacy": false,
+      "interest_learning": false,
+      "skill_learning": false,
+      "variable_movement_speed": false,
+      "need_stress_rate": 0.0
+    },
+    "extended": {
+      "intimacy": true,
+      "interest_learning": true,
+      "skill_learning": true,
+      "variable_movement_speed": true,
+      "need_stress_rate": 0.0
+    }
+  },
+  "needs": {
+    "N01": {
+      "name": "Сытость",
+      "awake_drain_per_hour": 3.2,
+      "sleep_drain_per_hour": 1.6,
+      "sleep_net_gain_per_hour": 0,
+      "critical": 15,
+      "activation": 45,
+      "target": 80,
+      "enabled_baseline": true
+    },
+    "N02": {
+      "name": "Восстановленность после сна",
+      "awake_drain_per_hour": 4,
+      "sleep_drain_per_hour": 0,
+      "sleep_net_gain_per_hour": 10,
+      "critical": 10,
+      "activation": 35,
+      "target": 85,
+      "enabled_baseline": true
+    },
+    "N03": {
+      "name": "Социальная насыщенность",
+      "awake_drain_per_hour": 1.5,
+      "sleep_drain_per_hour": 0.2,
+      "sleep_net_gain_per_hour": 0,
+      "critical": 10,
+      "activation": 40,
+      "target": 75,
+      "enabled_baseline": true
+    },
+    "N04": {
+      "name": "Досуг",
+      "awake_drain_per_hour": 1.8,
+      "sleep_drain_per_hour": 0.3,
+      "sleep_net_gain_per_hour": 0,
+      "critical": 5,
+      "activation": 35,
+      "target": 75,
+      "enabled_baseline": true
+    },
+    "N05": {
+      "name": "Интимная насыщенность",
+      "awake_drain_per_hour": 0.6,
+      "sleep_drain_per_hour": 0.1,
+      "sleep_net_gain_per_hour": 0,
+      "critical": 5,
+      "activation": 30,
+      "target": 70,
+      "enabled_baseline": false
+    }
+  },
+  "thresholds": {
+    "fear": {
+      "on": 0.65,
+      "off": 0.4
+    },
+    "fatigue_signal": {
+      "on": 0.75,
+      "off": 0.5
+    },
+    "fatigue_heavy_block": {
+      "on": 0.95,
+      "off": 0.8
+    },
+    "tension": {
+      "on": 0.65,
+      "off": 0.4
+    },
+    "affection_label": {
+      "on": 0.7,
+      "off": 0.55
+    },
+    "established_belief": 0.75
+  },
+  "physical": {
+    "carry_capacity_kg": 15,
+    "fatigue_deficit_multiplier_food": 0.5,
+    "fatigue_deficit_multiplier_sleep": 0.5,
+    "movement_min_speed": 0.25,
+    "movement_fatigue_factor": 0.5,
+    "movement_health_base": 0.5,
+    "movement_health_factor": 0.5,
+    "fatigue_modes": {
+      "ordinary": [
+        0.02,
+        0.04
+      ],
+      "walk": [
+        0.15,
+        0
+      ],
+      "work": [
+        0.2,
+        0
+      ],
+      "sport": [
+        0.35,
+        0
+      ],
+      "rest": [
+        0,
+        0.18
+      ],
+      "sleep": [
+        0,
+        0.25
+      ],
+      "forced_rest": [
+        0,
+        0.25
+      ]
+    },
+    "health_recovery_per_hour": 0.01,
+    "hunger_health_loss_per_hour": 0.005,
+    "overfatigue_health_loss_per_hour": 0.002,
+    "fatigue_damage_start": 0.9,
+    "incapacitated_at": 0.1,
+    "capable_again_at": 0.2,
+    "terminal_at": 0,
+    "pain_half_life_minutes": 240,
+    "impairment_half_life_minutes": 180
+  },
+  "repetition": {
+    "decay_time_constant_minutes": 720,
+    "minutes_per_unit": 30
+  },
+  "learning": {
+    "interest_per_hour": 0.02,
+    "skill_per_hour": 0.03,
+    "valence_base": 0.5,
+    "valence_success": 0.3,
+    "valence_novelty": 0.2,
+    "valence_unpleasant": 0.5
+  },
+  "drive": {
+    "pressure_growth_denominator_minutes": 720,
+    "success_relief": 0.6,
+    "intensity_policy": "fixed"
+  },
+  "emotions": {
+    "stress_half_life_minutes": 120,
+    "anger_half_life_minutes": 60,
+    "stress_relief_per_minute": {
+      "rest": 0.006,
+      "sleep": 0.001
+    },
+    "selfesteem_half_life_minutes": 10080,
+    "selfesteem_success_delta": 0.02,
+    "selfesteem_failure_delta": -0.03
+  },
+  "money": {
+    "wage_denominator_minutes": 60,
+    "wellbeing_half_life_minutes": 10080
+  },
+  "relationships": {
+    "social_base_per_hour": 18,
+    "social_affection_per_hour": 12,
+    "social_tension_factor": 0.5,
+    "affection_growth_per_hour": 0.04,
+    "romantic_growth_per_hour": 0.02,
+    "tension_relief_per_hour": 0.01,
+    "positive_pair_cooldown_minutes": 30,
+    "effects": {
+      "help": {
+        "trust_gap_positive": 0.04,
+        "tension_delta": 0
+      },
+      "return": {
+        "trust_gap_positive": 0.04,
+        "tension_delta": 0
+      },
+      "breach": {
+        "trust_delta": -0.1,
+        "tension_delta": 0.12
+      },
+      "false_statement": {
+        "trust_delta": -0.04,
+        "tension_delta": 0.03
+      },
+      "inferred_deliberate_lie": {
+        "trust_delta": -0.15,
+        "tension_delta": 0.1
+      },
+      "ordinary_refusal": {
+        "trust_delta": 0,
+        "tension_delta": 0
+      }
+    }
+  },
+  "perception": {
+    "attention_base": 0.8,
+    "impairment_factor": 0.5,
+    "pain_factor": 0.5,
+    "open_visibility": 1,
+    "partial_visibility": 0.5,
+    "channel_free": 1,
+    "channel_busy": 0.5,
+    "channel_sleep": 0,
+    "perfect_observation": false
+  },
+  "beliefs": {
+    "default_prior": 0.5,
+    "half_life_minutes": {
+      "current_location": 60,
+      "current_holder": 1440,
+      "profession": 43200
+    },
+    "root_merge": "max_if_dependence_unknown"
+  },
+  "intimacy": {
+    "minimum_age": 18,
+    "private_minutes": 10,
+    "private_total_gain": 8,
+    "mutual_minutes": 30,
+    "mutual_total_gain": 30
+  },
+  "stimuli": {
+    "important_item_loss": {
+      "stress": 0.15
+    },
+    "own_promise_breach": {
+      "stress": 0.1,
+      "selfesteem": -0.03
+    },
+    "other_promise_breach": {
+      "anger": 0.1
+    },
+    "new_demand_episode": {
+      "anger_gap_trust_multiplier": 0.08
+    }
+  },
+  "traits": {
+    "patience": 0.5,
+    "caution": 0.5,
+    "social_initiative": 0.5,
+    "confrontation": 0.5,
+    "novelty": 0.5
+  },
+  "norm_prices": {
+    "lie": 0.5,
+    "appropriation": 0.5,
+    "coercion": 0.5,
+    "physical_harm": 0.5
+  },
+  "parameters_are": "declarative_coefficients_not_executable_rules"
+}

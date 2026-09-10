@@ -1,0 +1,1319 @@
+{
+  "version": "WORLD-0.5.0",
+  "actions": [
+    {
+      "id": "A01",
+      "name": "Ждать",
+      "arguments": "minutes=1..120",
+      "duration_rule": "1..120",
+      "execution_rule": "Собственное разрешённое место; ничего кроме фоновой динамики.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A02",
+      "name": "Пройти ребро",
+      "arguments": "edge",
+      "duration_rule": "ceil(остаток ребра / скорость)",
+      "execution_rule": "Проверка начала/ключа/проходимости/доступа. Фиксированная длительность; при физической остановке Stranded.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A03",
+      "name": "Осмотреть объект или место",
+      "arguments": "item ИЛИ place; scope=all|stock",
+      "duration_rule": "2",
+      "execution_rule": "Проверяет геометрическую доступность, не раскрывает закрытые контейнеры. scope=stock создаёт сведения об ассортименте и окнах магазина без полного обхода предметов.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A04",
+      "name": "Взять свой или разрешённый предмет",
+      "arguments": "item",
+      "duration_rule": "1",
+      "execution_rule": "Разрешённый новый переход предмета в свой инвентарь; собственник не меняется.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A05",
+      "name": "Положить предмет",
+      "arguments": "item; container?",
+      "duration_rule": "1",
+      "execution_rule": "Вынуть из собственного держания в текущее место/открытый разрешённый контейнер; проверить массу и цикл вложения.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A06",
+      "name": "Купить предмет",
+      "arguments": "item, shop",
+      "duration_rule": "3",
+      "execution_rule": "Резервировать товар, деньги, инвентарь и обслуживание; при commit атомарно списать/зачислить и передать ownership. Создать приватный чек.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A07",
+      "name": "Съесть остаток порции",
+      "arguments": "item",
+      "duration_rule": "min(остаток units,60)",
+      "execution_rule": "Пища должна быть в доступном своём инвентаре и разрешена к использованию. Расход 1unit/мин; нутриенты и удовольствие независимо.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A08",
+      "name": "Приготовить обед",
+      "arguments": "recipe=R01, fixture, materials ИЛИ job",
+      "duration_rule": "Оставшаяся длительность job",
+      "execution_rule": "Новый job закрепляет ингредиенты в escrow. Возобновление использует тот же job; один выходной обед.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A09",
+      "name": "Спать",
+      "arguments": "bed, minutes=1..720",
+      "duration_rule": "1..720",
+      "execution_rule": "Резерв разрешённой кровати. Чистое восстановление N02. Добровольное пробуждение через A22.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A10",
+      "name": "Работать по договору",
+      "arguments": "contract, minutes=1..480",
+      "duration_rule": "1..480",
+      "execution_rule": "Физически находиться у доступного workplace; уложиться в окно договора; тяжёлый режим. Поминутный рациональный долг зарплаты.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A11",
+      "name": "Попросить предмет или денежный заём",
+      "arguments": "to, terms, expires?, channel=speech|digital",
+      "duration_rule": "1",
+      "execution_rule": "Предложение займа с подписью автора. Самого предмета/денег не передаёт.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A12",
+      "name": "Ответить на предложение",
+      "arguments": "proposal, version, answer=accept|decline|counter, terms?, expires?, channel",
+      "duration_rule": "1",
+      "execution_rule": "Текущая версия должна быть получена/прочитана. Counter увеличивает version и сбрасывает прежние подписи; обычный отказ не штрафует доверие.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A13",
+      "name": "Передать, подарить, вернуть предмет или перечислить согласованный заём",
+      "arguments": "mode=gift|loan_item|return|loan_money|repay; to; item?/proposal?/obligation?/amount?",
+      "duration_rule": "1",
+      "execution_rule": "Реальная передача в общей локации или соответствующий перевод денег. Заём использует подписанный договор; возврат — существующее обязательство.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A14",
+      "name": "Предложить совместное занятие или изменение договора",
+      "arguments": "participants, terms, expires?, channel",
+      "duration_rule": "1",
+      "execution_rule": "Совместное предложение joint/private, задача repair или перенос reschedule; создать подпись автора и сообщения адресатам.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A15",
+      "name": "Выполнить согласованное совместное занятие",
+      "arguments": "proposal, version",
+      "duration_rule": "По подписанным terms.minutes (1..120)",
+      "execution_rule": "Все участники физически присутствуют и подали отдельные команды готовности в одной границе. Эффекты внимания и отношений поминутны.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A16",
+      "name": "Индивидуальный досуг",
+      "arguments": "item, minutes=1..120",
+      "duration_rule": "1..120",
+      "execution_rule": "Предмет с leisure affordance, известный topic, разрешение. Удовольствие зависит от интереса/повторений. Спорт использует тяжёлый режим.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A17",
+      "name": "Задать вопрос по доступному сведению",
+      "arguments": "to, operator, evidence[], channel",
+      "duration_rule": "1",
+      "execution_rule": "WHO/WHAT/WHERE/WHEN/WHY/CONFIRM/COMPARE над своими сведениями; COMPARE требует ровно два. Передаётся структурированный вопрос, не произвольный NLP.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A18",
+      "name": "Ответить на вопрос",
+      "arguments": "to, question, mode=truth|partial|refuse|lie; statement?, evidence?, fabricated?, channel",
+      "duration_rule": "1",
+      "execution_rule": "Отвечает на уже полученный вопрос. Контент задан вызывающей политикой. Приватная оценка намеренности не передаётся слушателю.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A19",
+      "name": "Сообщить сведение или предупредить",
+      "arguments": "to, statement, evidence[] или fabricated=true, channel",
+      "duration_rule": "1",
+      "execution_rule": "Сообщить утверждение. Копируются известные корни; неподтверждённое собственное утверждение получает новый root.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A20",
+      "name": "Взять предмет без разрешения",
+      "arguments": "item",
+      "duration_rule": "1",
+      "execution_rule": "Физически доступный переносимый предмет без разрешения, пока ещё не у этого держателя. Реальная передача, без смены собственника. Для свидетеля — item_moved, не моральный вердикт.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A21",
+      "name": "Выполнить техническую работу",
+      "arguments": "recipe=R02|R03, target, tools[], materials[] ИЛИ job",
+      "duration_rule": "Остаток job",
+      "execution_rule": "Проверить конкретные требования/навык/доступы; материал в escrow; результат один. R03 устанавливает ту же верёвку.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A22",
+      "name": "Прекратить участие / отозвать согласие",
+      "arguments": "proposal?",
+      "duration_rule": "0, control-фаза",
+      "execution_rule": "Отозвать участие/прервать текущее прерываемое действие. Не телепортирует из ребра. Не меняет состояние перед проверкой ошибки.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A23",
+      "name": "Спокойно отдохнуть",
+      "arguments": "minutes=1..120",
+      "duration_rule": "1..120",
+      "execution_rule": "Спокойный отдых: восстановление усталости и снятие стресса. Это не сон и не пополнение N02.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A24",
+      "name": "Прочитать доступную запись/сообщение",
+      "arguments": "message ИЛИ record; version?",
+      "duration_rule": "1",
+      "execution_rule": "Цифровой интерфейс для цифрового содержимого; доставка/ACL/версия проверяются. Создаётся собственное прочитанное сведение.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A25",
+      "name": "Изменить предоставляемый доступ",
+      "arguments": "resource, version, grantee, grant",
+      "duration_rule": "1",
+      "execution_rule": "Изменить ACL собственного/уполномоченного ресурса. Явный отказ denied приоритетнее займа для несобственника. Перепроверка до следующей минуты использования.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A26",
+      "name": "Открыть/закрыть контейнер",
+      "arguments": "item, open",
+      "duration_rule": "1",
+      "execution_rule": "Открыть/закрыть разрешённый контейнер; для locked нужен ключ. Изменение version.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A27",
+      "name": "Напомнить или потребовать исполнения",
+      "arguments": "to, obligation, episode, forceful?, channel",
+      "duration_rule": "1",
+      "execution_rule": "Напоминание/требование конкретного кредитора. При forceful локальная реакция адресата после чтения, не до него; одна реакция на эпизод.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A28",
+      "name": "Опубликовать запись социальной сети",
+      "arguments": "statement, evidence[] или fabricated=true; acl[], public?",
+      "duration_rule": "2",
+      "execution_rule": "Публикация структурированной записи с явными правами доступа и provenance.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A29",
+      "name": "Исправить/удалить собственную запись",
+      "arguments": "record, version; delete?; statement?, acl[], public?",
+      "duration_rule": "1",
+      "execution_rule": "Только автор и текущая версия. Новая версия/удаление; неизвестный получатель ACL отклоняется до commit; старое прочтение сохраняется.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A30",
+      "name": "Практиковать известный навык",
+      "arguments": "skill=repair|cooking, tool, minutes=1..120",
+      "duration_rule": "1..120",
+      "execution_rule": "Только extended; разрешённый инструмент правильного типа. Обучение по ограниченной формуле, без создания результата рецепта.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A31",
+      "name": "Приватное личное время",
+      "arguments": "Нет",
+      "duration_rule": "10",
+      "execution_rule": "Необязательное абстрактное приватное занятие. Только extended + N05 + взрослый + приватное место без третьих лиц. Автономная бытовая политика его не выбирает.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    },
+    {
+      "id": "A32",
+      "name": "Согласованная приватная близость взрослых",
+      "arguments": "proposal, version",
+      "duration_rule": "Подписанные minutes (1..120)",
+      "execution_rule": "Только extended/N05, двое взрослых, приватность и отдельная текущая готовность каждого. Отзыв прекращает будущие эффекты безусловно.",
+      "source": "src/action_start.cpp + src/action_commit.cpp + docs/spec/ACTIONS.md",
+      "status": "implemented_command_not_autonomous_strategy"
+    }
+  ],
+  "items": [
+    {
+      "id": "I01",
+      "name": "Готовый обед",
+      "mass_kg": 0.5,
+      "default_price": 30,
+      "total_units": 15,
+      "satiety_total": 35,
+      "pleasure_total": 6,
+      "category": "meal",
+      "edible": true
+    },
+    {
+      "id": "I02",
+      "name": "Консервы",
+      "mass_kg": 0.4,
+      "default_price": 22,
+      "total_units": 10,
+      "satiety_total": 30,
+      "pleasure_total": 3,
+      "category": "canned",
+      "edible": true
+    },
+    {
+      "id": "I03",
+      "name": "Снэк",
+      "mass_kg": 0.1,
+      "default_price": 12,
+      "total_units": 5,
+      "satiety_total": 12,
+      "pleasure_total": 5,
+      "category": "snack",
+      "edible": true
+    },
+    {
+      "id": "I04",
+      "name": "Набор продуктов",
+      "mass_kg": 0.7,
+      "default_price": 20,
+      "recipe": "R01",
+      "edible": false
+    },
+    {
+      "id": "I05",
+      "name": "Ручной инструмент",
+      "mass_kg": 1,
+      "default_price": 120,
+      "required_condition": 0.5,
+      "wear_per_hour": 0
+    },
+    {
+      "id": "I06",
+      "name": "Ремонтный материал",
+      "mass_kg": 0.3,
+      "default_price": 25,
+      "quantity_units": 1
+    },
+    {
+      "id": "I07",
+      "name": "Верёвка",
+      "mass_kg": 0.8,
+      "default_price": 35,
+      "length_m": 5,
+      "strength_game_units": 50
+    },
+    {
+      "id": "I08",
+      "name": "Книга",
+      "mass_kg": 0.4,
+      "default_price": 25,
+      "category": "reading",
+      "pleasure_per_30_min": 12
+    },
+    {
+      "id": "I09",
+      "name": "Мяч",
+      "mass_kg": 0.3,
+      "default_price": 30,
+      "category": "sport",
+      "pleasure_per_30_min": 14
+    },
+    {
+      "id": "I10",
+      "name": "Телефон",
+      "mass_kg": 0.2,
+      "default_price": 250,
+      "interfaces": [
+        "message",
+        "authorized_records"
+      ]
+    },
+    {
+      "id": "I11",
+      "name": "Ключ",
+      "mass_kg": 0.05,
+      "default_price": 0,
+      "opens": "assigned_lock_only"
+    },
+    {
+      "id": "I12",
+      "name": "Непрозрачный ящик",
+      "mass_kg": 2,
+      "default_price": 30,
+      "capacity_kg": 10,
+      "is_open": false,
+      "opaque": true
+    }
+  ],
+  "fixtures": [
+    {
+      "id": "F01",
+      "name": "Кровать",
+      "slots": 1
+    },
+    {
+      "id": "F02",
+      "name": "Кухонное место",
+      "slots": 1
+    },
+    {
+      "id": "F03",
+      "name": "Ремонтируемый объект",
+      "slots": 1,
+      "condition": 0.2
+    },
+    {
+      "id": "F04",
+      "name": "Рабочее место",
+      "slots": 1
+    },
+    {
+      "id": "F05",
+      "name": "Груз",
+      "slots": 1,
+      "secured": false
+    }
+  ],
+  "recipes": [
+    {
+      "id": "R01",
+      "name": "Обед",
+      "duration": 20,
+      "min_skill": 0,
+      "fixture": "F02",
+      "inputs": {
+        "I04": 1
+      },
+      "outputs": {
+        "I01": 1
+      },
+      "recorded_waste_kg": 0.2
+    },
+    {
+      "id": "R02",
+      "name": "Ремонт",
+      "duration": 30,
+      "min_skill": 0.5,
+      "target": "F03",
+      "tool": "I05",
+      "inputs": {
+        "I06": 1
+      },
+      "effect": "target.condition=1; material_mass_incorporated_or_waste=0.3"
+    },
+    {
+      "id": "R03",
+      "name": "Закрепление груза",
+      "duration": 10,
+      "min_skill": 0,
+      "target": "F05",
+      "tool_property_requirements": {
+        "length_m_min": 3,
+        "strength_game_units_min": 20
+      },
+      "effect": "same_rope.placement=Installed(cargo); cargo.secured=true"
+    }
+  ],
+  "events": [
+    {
+      "type": "access_changed",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "action_ended",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "action_interrupted",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "action_started",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "agreement_confirmed",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "arrived",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "capacity_recovered",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "command_rejected",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "container_state_changed",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "death",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "departed",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "edge_changed",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "external_cash",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "external_injury",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "external_item_moved",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "external_shipment",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "food_consumed",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "incapacitated",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "item_moved",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "item_transferred",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "item_transformed",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "job_completed",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "job_started",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "joint_ended",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "joint_started",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "message_sent",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "money_transferred",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "need_critical",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "need_threshold",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "obligation_breached",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "obligation_created",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "obligation_fulfilled",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "observation_created",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "participation_withdrawn",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "private_activity_started",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "proposal_answered",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "proposal_created",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "proposal_expired",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "purchase",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "record_created",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "record_revised",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "sleep_ended",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "sleep_started",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "state_threshold",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "unauthorized_transfer",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "utterance",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    },
+    {
+      "type": "wage_paid",
+      "fields": [
+        "uid",
+        "sequence",
+        "time",
+        "phase",
+        "type",
+        "cause",
+        "root",
+        "participants",
+        "objects",
+        "data",
+        "private_data",
+        "projections"
+      ],
+      "projection": "Captured by World::emit; do not expose ledger or private_data to NPC/player"
+    }
+  ],
+  "catalog_semantics": "type_data_and_contract_documentation; action rules are C++ implementations, not arbitrary executable JSON"
+}
