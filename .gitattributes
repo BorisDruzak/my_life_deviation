@@ -7,3 +7,4 @@
 
 # Verified archive transcript; preserve its original trailing spaces.
 docs/game/analysis/NPC_CREATIVE_DECISIONS_T1_RU.md -whitespace
+third_party/** -whitespace
