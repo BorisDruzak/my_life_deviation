@@ -1,0 +1,25 @@
+name: Simulation validation
+on:
+  push:
+    branches: [sim/cpp-0.6-validation]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Export exact repository sources
+        run: git archive --format=zip HEAD -o source-snapshot.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: source-snapshot
+          path: source-snapshot.zip
+          retention-days: 7
+      - name: Build and test C++ core when present
+        if: ${{ hashFiles('CMakeLists.txt') != '' }}
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build -j 2
+          ctest --test-dir build --output-on-failure
