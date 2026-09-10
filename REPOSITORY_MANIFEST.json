@@ -1,0 +1,26 @@
+{
+  "repository": "BorisDruzak/my_life_deviation",
+  "branch": "main",
+  "version": "0.5.1-t1",
+  "publication_date": "2026-09-10",
+  "source_of_truth": "normalized T1 source tree",
+  "direct_git_data_publication": true,
+  "legacy_b64_actions_import_used": false,
+  "legacy_world04_reference": "kept in archived T1 delivery, not tracked in normalized main",
+  "historical_delivery_manifests": "kept in archived T0/T1 deliveries, not tracked in normalized main",
+  "tracked_source_policy": [
+    "C++ source and public headers",
+    "tests and required fixtures",
+    "current specs, autonomy design and implementation status",
+    "original author draw.io concept and current creative-decision map",
+    "key verification summaries",
+    "reproducible examples and build tooling"
+  ],
+  "excluded_from_main": [
+    "build outputs",
+    "reproducible verbose logs/state/event dumps",
+    "vendored unchanged Boost headers",
+    "legacy WORLD-0.4 reference copy already preserved in archived T1 delivery",
+    "failed .b64/import/recovery transport artifacts"
+  ]
+}

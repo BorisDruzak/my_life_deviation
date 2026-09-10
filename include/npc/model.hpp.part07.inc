@@ -1,0 +1,63 @@
+        f("edges", edges);
+        f("actors", actors);
+        f("items", items);
+        f("accounts", accounts);
+        f("shops", shops);
+        f("permissions", permissions);
+        f("contracts", contracts);
+        f("actions", actions);
+        f("jobs", jobs);
+        f("proposals", proposals);
+        f("obligations", obligations);
+        f("records", records);
+        f("messages", messages);
+        f("reservations", reservations);
+        f("receipts", receipts);
+        f("pending", pending);
+        f("external", external);
+        f("ledger", ledger);
+        f("event_counters", event_counters);
+        f("delivered_evidence", delivered_evidence);
+        f("appraisal_history", appraisal_history);
+        f("positive_cooldowns", positive_cooldowns);
+        f("genesis_money", genesis_money);
+        f("external_money", external_money);
+        f("next_event_sequence", next_event_sequence);
+    }
+    template<class F> void visit(F&& f) const {
+        f("version", version);
+        f("config_hash", config_hash);
+        f("profile", profile);
+        f("seed", seed);
+        f("time", time);
+        f("places", places);
+        f("edges", edges);
+        f("actors", actors);
+        f("items", items);
+        f("accounts", accounts);
+        f("shops", shops);
+        f("permissions", permissions);
+        f("contracts", contracts);
+        f("actions", actions);
+        f("jobs", jobs);
+        f("proposals", proposals);
+        f("obligations", obligations);
+        f("records", records);
+        f("messages", messages);
+        f("reservations", reservations);
+        f("receipts", receipts);
+        f("pending", pending);
+        f("external", external);
+        f("ledger", ledger);
+        f("event_counters", event_counters);
+        f("delivered_evidence", delivered_evidence);
+        f("appraisal_history", appraisal_history);
+        f("positive_cooldowns", positive_cooldowns);
+        f("genesis_money", genesis_money);
+        f("external_money", external_money);
+        f("next_event_sequence", next_event_sequence);
+    }
+};
+struct TickReport {Minute time; std::size_t events;};
+inline Id command_key(const Command& c){return c.actor+"@"+std::to_string(c.sequence);}
+}

@@ -1,0 +1,6 @@
+#include "action_commit.cpp.part00.inc"
+#include "action_commit.cpp.part01.inc"
+#include "action_commit.cpp.part02.inc"
+#include "action_commit.cpp.part03.inc"
+#include "action_commit.cpp.part04.inc"
+#include "action_commit.cpp.part05.inc"

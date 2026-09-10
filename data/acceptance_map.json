@@ -1,0 +1,138 @@
+{
+  "IT01": [
+    "IT01_idle_and_hysteresis"
+  ],
+  "IT02": [
+    "IT03_interrupted_food",
+    "R01_cook_resume_consumes_once"
+  ],
+  "IT03": [
+    "R16_full_480min_sleep"
+  ],
+  "IT04": [
+    "R03_continuous_leisure_split_invariant"
+  ],
+  "IT05": [
+    "R17_exact_need_hysteresis",
+    "R30_signals_reach_owner_memory_once"
+  ],
+  "IT06": [
+    "M04_fatigue",
+    "IT05_travel_no_teleport"
+  ],
+  "IT07": [
+    "IT07_exact_close"
+  ],
+  "IT08": [
+    "IT08_misses_open_window"
+  ],
+  "IT09": [
+    "IT09_competing_purchase"
+  ],
+  "IT10": [
+    "IT10_purchase_abort"
+  ],
+  "IT11": [
+    "IT11_command_idempotence"
+  ],
+  "IT12": [
+    "S01_loan_money_conservation"
+  ],
+  "IT13": [
+    "IT13_rational_wages"
+  ],
+  "IT14": [
+    "IT14_closed_container",
+    "R22_opaque_default_is_closed"
+  ],
+  "IT15": [
+    "IT15_hidden_world_noninterference",
+    "R13_digital_unrelated_messages_do_not_change_visible_ids"
+  ],
+  "IT16": [
+    "S02_sleeping_digital_recipient",
+    "S20_digital_response_not_leaked_early"
+  ],
+  "IT17": [
+    "S03_counter_clears_old_signatures"
+  ],
+  "IT18": [
+    "S04_refusal_is_not_random_acceptance"
+  ],
+  "IT19": [
+    "S06_withdrawal_stops_future_effects"
+  ],
+  "IT20": [
+    "S07_agreement_no_teleport",
+    "S05_joint_requires_both_commands"
+  ],
+  "IT21": [
+    "S08_item_loan_and_return_on_deadline"
+  ],
+  "IT22": [
+    "IT22_repair_resume"
+  ],
+  "IT23": [
+    "S09_group_attention_normalized"
+  ],
+  "IT24": [
+    "S18_partial_attention"
+  ],
+  "IT25": [
+    "S10_rumour_root_not_counted_three_times",
+    "R25_false_claim_appraisal_is_cause_deduplicated"
+  ],
+  "IT26": [
+    "S11_erroneous_claim_no_lie_flag"
+  ],
+  "IT27": [
+    "S12_intention_change_not_false_past"
+  ],
+  "IT28": [
+    "S13_deleted_post_preserves_read_version"
+  ],
+  "IT29": [
+    "IT29_unobserved_theft",
+    "R14_no_internal_theft_classification_for_witness"
+  ],
+  "IT30": [
+    "S14_borrowed_item_is_usable"
+  ],
+  "IT31": [
+    "IT31_sampling_repeatability",
+    "R13_digital_unrelated_messages_do_not_change_visible_ids"
+  ],
+  "IT32": [
+    "IT32_forecast_isolation",
+    "C05_policy_has_no_world_side_effect"
+  ],
+  "IT33": [
+    "IT33_snapshot_active",
+    "R04_restores_pending_commands",
+    "R26_decimal_roundtrip_preserves_snapshot_hash",
+    "IT22_repair_resume"
+  ],
+  "IT34": [
+    "IT34_hash_mismatch",
+    "R05_mutated_snapshot_rejected"
+  ],
+  "IT35": [
+    "IT35_traits_do_not_change_nutrition"
+  ],
+  "IT36": [
+    "IT36_no_automatic_drive"
+  ],
+  "IT37": [
+    "IT37_fatigue_interrupt"
+  ],
+  "IT38": [
+    "IT38_terminal_no_resurrection",
+    "R12_stranded_progress_survives_injury"
+  ],
+  "IT39": [
+    "S16_private_adults_need_current_consent"
+  ],
+  "IT40": [
+    "S17_minor_module_rejected"
+  ]
+}
