@@ -58,11 +58,12 @@ docs/
   roadmap/                     # autonomy T2-T9 design and acceptance planning
   reports/                     # verification and implementation reports
   history/                     # v0.3/v0.4 source material, explicitly non-normative
+  superpowers/                 # repository decision records and implementation plans
 
 navigation/
   INDEX.md                     # human entry point
-  code-map.yaml                # module ownership, entry points, dependencies
-  doc-map.yaml                 # document status, authority, related code
+  code-map.json                # module ownership, entry points, dependencies
+  doc-map.json                 # document status, authority, related code
   GAME_FLOW.md                 # World -> view -> policy -> command -> result path
   MAINTENANCE_RULES.md         # required updates and naming rules
 
@@ -83,15 +84,16 @@ catalogues, and scenarios; it does not implement physics. Documentation labels
 the current WORLD-0.5 rules as normative, T1 as implemented, and later
 autonomy stages as planned.
 
-The navigation maps make this relationship explicit. Each code module records
+The JSON navigation maps make this relationship explicit without adding a YAML
+parser dependency. Each code module records
 its allowed dependencies and relevant tests. Each document records its status:
 `normative`, `implemented`, `planned`, or `historical`.
 
 ## Navigation maintenance rules
 
-1. A new engine module requires a `code-map.yaml` entry, public entry point,
+1. A new engine module requires a `code-map.json` entry, public entry point,
    dependencies, and test location.
-2. A new or moved document requires a `doc-map.yaml` entry with status and
+2. A new or moved document requires a `doc-map.json` entry with status and
    related code or rule area.
 3. `GAME_FLOW.md` changes whenever a new runtime boundary is inserted.
 4. `verify_navigation.py` fails on missing mapped files, invalid statuses,
