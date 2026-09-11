@@ -1,21 +1,22 @@
 # Навигация по репозиторию
 
-Статусы: `normative` — обязательное правило; `implemented` — реализованное
-состояние; `planned` — направление развития; `historical` — материал для
-контекста, не источник текущего поведения.
+Статусы: `normative` — обязательный материал модели; `implemented` —
+реализованный путь; `planned` — направление развития; `historical` — контекст,
+который не определяет текущее поведение.
 
 | Нужно найти | Точка входа | Статус |
 | --- | --- | --- |
-| Правила мира | `docs/rules/WORLD_0.5.md` | normative |
-| Контракты действий | `docs/rules/ACTIONS.md` | normative |
-| Параметры и каталог | `game/rules/` и `docs/rules/PARAMETERS.md` | normative |
-| Реализованные механики | `docs/game/mechanics/CURRENT_MECHANICS_T1.md` | implemented |
-| C++ API и ядро | `engine/include/npc/`, затем `engine/src/` | implemented |
-| Автономия NPC | `engine/src/autonomy/` и `docs/roadmap/autonomy_2026-09-10/` | implemented / planned |
-| CLI симулятора | `apps/world_sim/main.cpp` | implemented |
-| Игровые сценарии | `game/scenarios/` | implemented |
-| Тесты | `engine/tests/` | implemented |
-| История и прежние модели | `docs/history/` | historical |
+| Механики BEHAVIOR-0.3 | `docs/rules/behavior_0.3/README.md` | normative |
+| Редакция и порядок версий | `docs/rules/behavior_0.3/Редакция_поведения_v0.3.md` | normative |
+| Лабораторный профиль | `game/profiles/behavior_0.3/` | normative |
+| Контракт C++ 0.6 | `docs/architecture/cpp_0.6/CPP_0.6.md` | implemented |
+| C++ API и ядро | `engine/include/mld/`, затем `engine/src/` | implemented |
+| Генерация и автономия | `engine/src/simulation/` и `engine/src/autonomy/` | implemented |
+| CLI симулятора | `apps/simulate/simulate.cpp` | implemented |
+| Тесты C++ | `engine/tests/` | implemented |
+| Численные проверки механик | `docs/verification/behavior_0.3/` | implemented |
+| Архивные результаты 0.6 | `docs/reports/cpp_0.6/` | historical |
+| WORLD-0.5.1-t1 | `legacy/world_0.5.1-t1/` и `docs/history/world_0.5.1-t1/` | historical |
 | Происхождение поставок | `provenance/` | historical |
 
 Машиночитаемые связи находятся в `code-map.json` и `doc-map.json`. Перед

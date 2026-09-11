@@ -2,18 +2,14 @@
   "schema_version": 1,
   "nodes": [
     {"id": "build", "path": "CMakeLists.txt", "status": "implemented"},
-    {"id": "engine_api", "path": "engine/include/npc/world.hpp", "status": "implemented"},
-    {"id": "core", "path": "engine/src/core/world.cpp", "status": "implemented", "depends_on": ["engine_api"]},
-    {"id": "simulation", "path": "engine/src/simulation/dynamics.cpp", "status": "implemented", "depends_on": ["core"]},
-    {"id": "actions", "path": "engine/src/actions/action_start.cpp", "status": "implemented", "depends_on": ["core"]},
-    {"id": "social", "path": "engine/src/social/social.cpp", "status": "implemented", "depends_on": ["core"]},
-    {"id": "knowledge", "path": "engine/src/knowledge/knowledge.cpp", "status": "implemented", "depends_on": ["core"]},
-    {"id": "autonomy", "path": "engine/src/autonomy/controller.cpp", "status": "implemented", "depends_on": ["engine_api", "knowledge"]},
-    {"id": "policy", "path": "engine/src/autonomy/policy/commitments.cpp", "status": "implemented", "depends_on": ["autonomy"]},
-    {"id": "tests", "path": "engine/tests/main.cpp", "status": "implemented", "depends_on": ["core", "simulation", "actions", "social", "knowledge", "autonomy"]},
-    {"id": "game_rules", "path": "game/rules/parameters.json", "status": "normative"},
-    {"id": "game_scenarios", "path": "game/scenarios/household.json", "status": "implemented", "depends_on": ["game_rules"]},
-    {"id": "world_sim", "path": "apps/world_sim/main.cpp", "status": "implemented", "depends_on": ["engine_api", "autonomy", "game_rules", "game_scenarios"]},
+    {"id": "mld_api", "path": "engine/include/mld/world.hpp", "status": "implemented", "depends_on": ["build"]},
+    {"id": "mld_core", "path": "engine/src/core/world.cpp", "status": "implemented", "depends_on": ["mld_api"]},
+    {"id": "mld_generation", "path": "engine/src/simulation/generation.cpp", "status": "implemented", "depends_on": ["mld_core"]},
+    {"id": "mld_controller", "path": "engine/src/autonomy/controller.cpp", "status": "implemented", "depends_on": ["mld_core", "mld_generation"]},
+    {"id": "mld_tests", "path": "engine/tests/world_tests.cpp", "status": "implemented", "depends_on": ["mld_core", "mld_generation", "mld_controller"]},
+    {"id": "mld_sim", "path": "apps/simulate/simulate.cpp", "status": "implemented", "depends_on": ["mld_api", "mld_core", "mld_generation", "mld_controller"]},
+    {"id": "experiment_runner", "path": "tools/run_experiments.py", "status": "implemented", "depends_on": ["mld_sim"]},
+    {"id": "legacy_world_0_5", "path": "legacy/world_0.5.1-t1/README.md", "status": "historical"},
     {"id": "navigation_validator", "path": "tools/verify_navigation.py", "status": "implemented"}
   ]
 }

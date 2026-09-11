@@ -1,0 +1,67 @@
+{
+  "artifact": "my_life_deviation_cpp_0.6.0_lab1.zip",
+  "sha256": "8BCABD192AA62E787B086F0847541867133923C49C741C0EEA4141C3729A7373",
+  "entry_count": 104,
+  "archive_root": "my_life_deviation_cpp/",
+  "role": "incoming C++ 0.6.0 laboratory source material",
+  "active_entry_mappings": [
+    {
+      "source_prefix": "include/mld/",
+      "target_prefix": "engine/include/mld/",
+      "status": "copied byte-for-byte"
+    },
+    {
+      "source_prefix": "src/mld/",
+      "target_prefix": "engine/src/{core,simulation,autonomy}/",
+      "status": "copied byte-for-byte; files are classified by layer"
+    },
+    {
+      "source_prefix": "tests/",
+      "target_prefix": "engine/tests/",
+      "status": "copied byte-for-byte"
+    },
+    {
+      "source_prefix": "apps/simulate.cpp",
+      "target_prefix": "apps/simulate/simulate.cpp",
+      "status": "copied byte-for-byte"
+    },
+    {
+      "source_prefix": "tools/run_experiments.py",
+      "target_prefix": "tools/run_experiments.py",
+      "status": "copied byte-for-byte"
+    },
+    {
+      "source_prefix": "Документация/Механики/",
+      "target_prefix": "docs/rules/behavior_0.3/",
+      "status": "copied byte-for-byte"
+    },
+    {
+      "source_prefix": "Документация/Проверки/",
+      "target_prefix": "docs/verification/behavior_0.3/",
+      "status": "copied byte-for-byte"
+    },
+    {
+      "source_prefix": "Документация/Профили/",
+      "target_prefix": "game/profiles/behavior_0.3/",
+      "status": "copied byte-for-byte"
+    },
+    {
+      "source_prefix": "reports/",
+      "target_prefix": "docs/reports/cpp_0.6/",
+      "status": "copied byte-for-byte as historical run evidence"
+    }
+  ],
+  "adapted_entries": [
+    "CMakeLists.txt -> CMakeLists.txt (source paths adapted to repository layers)",
+    ".github/workflows/cpp-core.yml -> .github/workflows/cpp-core.yml (documentation paths adapted)",
+    "README.md -> README.md (rewritten as repository entry point)",
+    ".gitignore -> .gitignore (relevant generated outputs incorporated)",
+    "docs/CPP_0.6.md -> docs/architecture/cpp_0.6/CPP_0.6.md",
+    "docs/plans/2026-09-11-cpp-0.6.md -> docs/architecture/cpp_0.6/archive-plan-2026-09-11-cpp-0.6.md"
+  ],
+  "provenance_only_entries": [
+    "src/persistence.cpp -> unbuilt-src/persistence.cpp; it includes the legacy npc API and is absent from the archive CMake target list",
+    "diagnostics/pre-fix/ -> diagnostics/pre-fix/; preserved as pre-fix evidence"
+  ],
+  "integrity_scope": "Archive checksum and selected copied-entry hashes are verified in the migration report. Archive-run logs do not prove a fresh local build."
+}

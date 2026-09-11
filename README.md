@@ -1,29 +1,36 @@
 # My Life Deviation
 
-Репозиторий содержит C++20-ядро симуляции NPC, правила мира, игровые сценарии
-и документированную историю их развития.
+`my_life_deviation` contains a C++20 laboratory core for NPC behaviour and the
+BEHAVIOR-0.3 documentation that defines its current research boundary. The
+active implementation is `mld`; WORLD-0.5.1-t1 is preserved separately as a
+non-built historical snapshot.
 
-Начните с [навигации](navigation/INDEX.md): там разделены нормативные правила,
-реализованные механики, планы и исторические материалы. Связь игры и ядра
-показана в [GAME_FLOW.md](navigation/GAME_FLOW.md).
+Start with the [repository navigation](navigation/INDEX.md) and the
+[C++ 0.6 architecture entry point](docs/architecture/cpp_0.6/README.md).
 
-## Быстрый запуск
+## Quick start
 
-После установки CMake и C++20-компилятора:
+With CMake and a C++20 compiler installed:
 
 ```powershell
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --config Release --parallel 2
 ctest --test-dir build -C Release --output-on-failure
-.\build\Release\world_sim.exe validate --scenario game/scenarios/household.json
+.\build\Release\mld_sim.exe --npcs 128 --seed 42 --days 7
 ```
 
-При одноконфигурационном генераторе исполняемый файл находится в
-`build/world_sim` (или `build/world_sim.exe`).
+For a single-configuration generator, run `build/mld_sim` (or
+`build/mld_sim.exe`). The optional `tools/run_experiments.py` runner reproduces
+the archived laboratory scenarios after a successful build.
 
-Проверка связности структуры не требует внешних библиотек:
+The executable is a limited laboratory profile, not a claim that every
+BEHAVIOR-0.3 proposal, settlement-scale simulation, or Unreal Engine bridge is
+implemented. Archived reports document earlier runs; they do not replace fresh
+local verification.
+
+Navigation validation needs only Python's standard library:
 
 ```powershell
 python tools/verify_navigation.py
-python -m unittest tools.tests.test_verify_navigation
+python -m unittest tools.tests.test_verify_navigation -v
 ```

@@ -1,0 +1,2393 @@
+diff --git a/.github/workflows/cpp-core.yml b/.github/workflows/cpp-core.yml
+new file mode 100644
+index 0000000..4e5d228
+--- /dev/null
++++ b/.github/workflows/cpp-core.yml
+@@ -0,0 +1,32 @@
++name: C++ laboratory
++on:
++  push:
++    branches: [main, sim/cpp-0.6-core]
++  pull_request:
++    branches: [main]
++permissions:
++  contents: read
++jobs:
++  cpp:
++    runs-on: ubuntu-24.04
++    strategy:
++      matrix:
++        compiler: [g++, clang++]
++    steps:
++      - uses: actions/checkout@v4
++      - name: Configure and build (required)
++        run: |
++          test -f CMakeLists.txt
++          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=${{ matrix.compiler }}
++          cmake --build build -j2
++      - name: Tests cannot be skipped
++        working-directory: build
++        run: |
++          ctest -N | tee registered.txt
++          grep -q 'Total Tests: 3' registered.txt
++          ctest --output-on-failure
++      - name: Formula regressions
++        run: |
++          python3 "Документация/Проверки/Проверка_редакции_поведения_v0.3.py"
++          python3 "Документация/Проверки/Проверка_уточнений_внутренней_симуляции_v0.2.py"
++          python3 "Документация/Проверки/Проверка_отношений_и_морали_v0.1.py"
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..a07a24d
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,5 @@
++build*/
++__pycache__/
++*.snapshot
++experiment-output/
++reports/raw/
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+new file mode 100644
+index 0000000..7a0d5c8
+--- /dev/null
++++ b/CMakeLists.txt
+@@ -0,0 +1,29 @@
++cmake_minimum_required(VERSION 3.16)
++project(my_life_deviation VERSION 0.6.0 LANGUAGES CXX)
++set(CMAKE_CXX_STANDARD 20)
++set(CMAKE_CXX_STANDARD_REQUIRED ON)
++set(CMAKE_CXX_EXTENSIONS OFF)
++option(MLD_SANITIZE "Enable address/undefined sanitizers" OFF)
++add_library(mld src/mld/internal.cpp src/mld/hash.cpp src/mld/generation.cpp src/mld/storage.cpp src/mld/controller.cpp src/mld/world.cpp)
++target_include_directories(mld PUBLIC include)
++if(MSVC)
++  target_compile_options(mld PUBLIC /W4 /permissive- /fp:strict /utf-8)
++else()
++  target_compile_options(mld PUBLIC -Wall -Wextra -Wpedantic -Werror -ffp-contract=off)
++  if(MLD_SANITIZE)
++    target_compile_options(mld PUBLIC -fsanitize=address,undefined -fno-omit-frame-pointer)
++    target_link_options(mld PUBLIC -fsanitize=address,undefined)
++  endif()
++endif()
++enable_testing()
++add_executable(mld_unit tests/unit.cpp)
++target_link_libraries(mld_unit PRIVATE mld)
++add_test(NAME numerical_contracts COMMAND mld_unit)
++
++add_executable(mld_world_tests tests/world_tests.cpp)
++target_link_libraries(mld_world_tests PRIVATE mld)
++add_test(NAME world_contracts COMMAND mld_world_tests)
++add_executable(mld_sim apps/simulate.cpp)
++target_link_libraries(mld_sim PRIVATE mld)
++add_test(NAME cli_rejects_unknown COMMAND mld_sim --unknown)
++set_tests_properties(cli_rejects_unknown PROPERTIES WILL_FAIL TRUE)
+diff --git a/README.md b/README.md
+index 5211872..4bf3936 100644
+--- a/README.md
++++ b/README.md
+@@ -1,3 +1,9 @@
++# Автономный C++-стенд 0.6.0-lab1
++
++[Сборка, запуск и точное покрытие механик](docs/CPP_0.6.md) · [Результаты реальных прогонов](reports/CPP_0.6_validation.md).
++
++Работающий **ограниченный лабораторный профиль**, не полная реализация всех спецификаций.
++
+ # my_life_deviation
+ 
+ Экспериментальная модель поведения НПС без LLM.
+diff --git a/apps/simulate.cpp b/apps/simulate.cpp
+new file mode 100644
+index 0000000..263b4c9
+--- /dev/null
++++ b/apps/simulate.cpp
+@@ -0,0 +1,96 @@
++#include "mld/world.hpp"
++#include <charconv>
++#include <chrono>
++#include <fstream>
++#include <iostream>
++#include <iterator>
++#include <optional>
++using namespace mld;
++static std::uint64_t number(const std::string& s){std::uint64_t x=0;
++    auto [p,ec]=std::from_chars(s.data(),s.data()+s.size(),x);
++    if(ec!=std::errc{}||p!=s.data()+s.size())throw std::invalid_argument("invalid unsigned integer: "+s);
++    return x;
++}
++static std::string read_file(const std::string& p){std::ifstream f(p,std::ios::binary);
++    if(!f)throw std::runtime_error("cannot open "+p);
++    return {std::istreambuf_iterator<char>(f),{}};
++}
++static void write_file(const std::string& p,const std::string& b){std::ofstream f(p,std::ios::binary);
++    if(!f||!f.write(b.data(),std::streamsize(b.size())))throw std::runtime_error("cannot write "+p);
++}
++int main(int argc,char** argv){
++    try{
++        Config c;
++        bool indexed=true;
++        std::uint32_t seconds=86400;
++        std::string load,save,out,trace,dump;
++        bool config_changed=false;
++        for(int i=1;i<argc;++i){std::string arg=argv[i];
++            auto value=[&](){if(++i>=argc)throw std::invalid_argument("missing value for "+arg);
++                return std::string(argv[i]);
++            };
++            if(arg=="--seed"){c.seed=number(value());
++                config_changed=true;
++            }
++            else if(arg=="--npcs"){auto n=number(value());
++                if(n>1024)throw std::invalid_argument("population >1024");
++                c.population=std::uint32_t(n);
++                config_changed=true;
++            }
++            else if(arg=="--days"){auto d=number(value());
++                if(d>31)throw std::invalid_argument("days >31");
++                seconds=std::uint32_t(d*86400);
++            }
++            else if(arg=="--seconds"){auto t=number(value());
++                if(t>31*86400)throw std::invalid_argument("seconds >31 days");
++                seconds=std::uint32_t(t);
++            }
++            else if(arg=="--scarce"){c.scarce=true;
++                config_changed=true;
++            }
++            else if(arg=="--temptation"){c.temptation=true;config_changed=true;}
++            else if(arg=="--norm"){auto s=value();
++                std::size_t used=0;
++                c.theft_norm_override=std::stod(s,&used);
++                if(used!=s.size()||!std::isfinite(c.theft_norm_override)||c.theft_norm_override<0||c.theft_norm_override>1)throw std::invalid_argument("norm must be [0,1]");
++                config_changed=true;
++            }
++            else if(arg=="--reference")indexed=false;
++            else if(arg=="--load")load=value();
++            else if(arg=="--save")save=value();
++            else if(arg=="--out")out=value();
++            else if(arg=="--trace")trace=value();
++            else if(arg=="--dump-npcs")dump=value();
++            else if(arg=="--help"){std::cout<<"mld_sim --seed 42 --npcs 128 --days 7 [--scarce | --temptation] [--norm 0..1] [--reference]\n        [--load file] [--save file] [--out summary.json] [--trace events.csv] [--dump-npcs actors.csv]\nModel: 0.6.0-lab1, partial BEHAVIOR-0.3 laboratory; no full institutions or UE5.\n";
++                return 0;
++            }
++            else throw std::invalid_argument("unknown argument: "+arg);
++        }
++        if(!load.empty()&&config_changed)throw std::invalid_argument("snapshot owns configuration; overrides are not migration");
++        auto start=std::chrono::steady_clock::now();
++        World world=load.empty()?World(c,indexed):World::restore(read_file(load),indexed);
++        auto generated=std::chrono::steady_clock::now();
++        std::ofstream log;
++        if(!trace.empty()){log.open(trace);
++            if(!log)throw std::runtime_error("cannot open trace");
++            log<<"time_ms,event,actor,target,value\n";
++            world.log_to(&log);
++        }
++        world.advance(seconds);
++        auto simulated=std::chrono::steady_clock::now();
++        auto summary=world.summary();
++        summary.erase(summary.rfind('}'));
++        summary+=",\"generation_wall_seconds\":"+std::to_string(std::chrono::duration<double>(generated-start).count())+",\"simulation_wall_seconds\":"+std::to_string(std::chrono::duration<double>(simulated-generated).count())+",\"search_mode\":\""+(indexed?std::string("indexed"):std::string("reference"))+"\"\n}\n";
++        std::cout<<summary;
++        if(!out.empty())write_file(out,summary);
++        if(!save.empty())write_file(save,world.snapshot());
++        if(!dump.empty()){std::ofstream f(dump);
++            if(!f)throw std::runtime_error("cannot open NPC dump");
++            f<<"id,energy,water,sleep,fatigue,leisure,social,desire,place,action,money,food\n";
++            for(auto& n:world.state().npcs)f<<n.id<<','<<n.body.energy<<','<<n.body.water<<','<<n.body.sleep<<','<<n.body.fatigue<<','<<n.leisure<<','<<n.social<<','<<n.desire.value<<','<<n.place<<','<<action_name(n.action.type)<<','<<n.money<<','<<n.food+n.unowned_food<<'\n';
++        }
++        return 0;
++    }catch(const std::exception& e){std::cerr<<"mld_sim: "<<e.what()<<'\n';
++        return 2;
++    }
++}
+diff --git a/docs/CPP_0.6.md b/docs/CPP_0.6.md
+new file mode 100644
+index 0000000..6d5ad68
+--- /dev/null
++++ b/docs/CPP_0.6.md
+@@ -0,0 +1,105 @@
++# C++ 0.6.0-lab1: автономный исполнитель
++
++**Статус:** работающий ограниченный лабораторный профиль, не полная реализация BEHAVIOR-0.3.
++Спецификации — [редакция поведения](../Документация/Механики/Редакция_поведения_v0.3.md).
++Результаты — [отдельный отчёт](../reports/CPP_0.6_validation.md).
++
++## Сборка и запуск
++
++C++20, CMake, стандартная библиотека C++; сеть, LLM, Python и Unreal для самого
++исполнителя не требуются. Фактически проверены GCC 14.2 и Clang 17 в Linux.
++Windows/MSVC в этой среде не проверялись. Численные параметры — игровой баланс.
++
++```sh
++cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
++cmake --build build -j2
++(cd build && ctest --output-on-failure)
++./build/mld_sim --npcs 128 --seed 42 --days 7 --out week.json
++./build/mld_sim --npcs 16 --temptation --norm 0 --days 1 --trace events.csv
++./build/mld_sim --npcs 16 --temptation --norm 1 --days 1
++./build/mld_sim --npcs 16 --scarce --days 2
++./build/mld_sim --npcs 16 --seconds 371 --save state.snapshot
++./build/mld_sim --load state.snapshot --days 1 --save continued.snapshot
++python3 tools/run_experiments.py --binary build/mld_sim
++```
++
++`--reference` включает полный поиск вместо индексов при тех же правилах и времени.
++`--dump-npcs actors.csv` сохраняет конечные шкалы/места/действия каждого НПС.
++Длительность одного запуска 0–31 суток; 8–1024 активных взрослых, чётное число.
++Snapshot содержит собственную конфигурацию; `--load` запрещает подменять её флагами.
++Трасса — технический журнал, не сведения, автоматически известные персонажам.
++В `talk` считаются завершения взаимодействия участниками, не уникальные разговоры.
++`failures` — отказы и несостоявшиеся игровые попытки, не число программных аварий.
++
++## Мир и контент лаборатории
++
++Звездообразный граф: перекрёсток, магазин, вода, общественное место, работа и
++домохозяйства по два жителя. Каждое ребро проходится за 120 секунд; переход через
++перекрёсток сохраняет намерение. На рёбрах нет встреч/наблюдений в этом профиле.
++
++Есть конечные запасы, проверяемый обмен, употребление еды без списания денег,
++взятие без разрешения, питьё, сон с латентностью 120 секунд, отдых, досуг, запрос
++общения/отдельный ответ, абстрактное индивидуальное удовлетворение влечения и работа.
++Give зарезервирован, выключен в каталогах и не реализован. Совместный сексуальный
++контакт не реализован. Все активные персонажи — взрослые; внешние предки — записи.
++
++Обычный профиль получает ежедневную явную внешнюю поставку еды/воды. Зарплата —
++явный внешний источник денег. Это не замкнутая экономика производства.
++`--scarce` убирает поставку еды и уменьшает стартовый запас: это намеренно
++необеспеченный мир, не проверка способности добыть несуществующие ресурсы.
++`--temptation` задаёт голод, отсутствие личной еды/денег и доступный магазин:
++он создаёт возможность нарушения, но не назначает действия. Меняется только
++конфигурация стартового мира; все НПС используют один контроллер.
++
++Цена санкции субъективна, фактических штрафов нет. Персонажи знают из начального
++содержания общественный граф и расписание поставки магазина. Пустой домашний
++источник не инспектируется заново без основания ожидать изменения. Исчезновение
++скрытого запаса не исправляет память до наблюдения. Нет механизма биологической
++смерти: повреждение достигает 1, но запись НПС не удаляется.
++
++## Архитектура и точные ускорения
++
++`internal` — численные переходы; `generation` — посев/валидаторы; `controller` —
++личный View; `world` — авторитетный исполнитель; `storage` — канонический снимок;
++`hash` — SHA-256 и адресные выборки. Старый orphan `src/persistence.cpp` сохранён,
++но не входит в библиотеку: новый snapshot имеет собственную схему.
++
++View не содержит World, скрытых запасов, чужих коэффициентов или матрицы W.
++Психические/телесные воздействия вычисляются отдельно от субъективного выбора.
++Один физический шаг = 1 игровая секунда; обзор решения = 30 секунд/событие.
++Это явный опорный профиль, не оптимизированное укрупнение старого полного ядра.
++
++Общие каталоги/ID, компактное состояние, разреженные W, не более 96 адресных
++обращений к парам W за обновление, индекс присутствия и очередь due-событий.
++Равенства разрешаются стабильно; отдельная адресная случайность для событий.
++Один поток. Нет fast-math, SIMD-приближений, скрытого LOD или адаптации качества
++к загрузке CPU. Физика всех активных НПС выполняется одинаково. Кэши поиска
++восстанавливаются и не являются частью первичной истории.
++
++Снимок: поля фиксированного порядка, big-endian числа, IEEE-754 double, SHA-256
++полезной нагрузки, версия профиля и каталога. Сохраняются текущие действия,
++прогресс сна, намерение, память, Q/W, таймеры, запасы и счётчики. Нет миграции
++исторических C++-сохранений. Порядок потоков не тестировался: параллельности нет.
++
++## Матрица покрытия: не смешивать численные тесты с интеграцией
++
++| Подсистема | Реально включено | Что остаётся |
++|---|---|---|
++| Тело | 9 состояний, сигналы, когнитивные ограничения; интеграция 1 с | Нелинейный крупный шаг, болезни/опасности как автономные процессы, смерть |
++| Влечение | D/R/V, наблюдаемый контекст и канал 6 W, индивидуальное удовлетворение | Совместное взаимодействие, широкий каталог признаков/согласия |
++| Предыстория | Адресный seed, 8–20 эпизодов, связный граф, известное родство, хронология | Два родителя, партнёры, полная экономическая/жизненная история, warm-up |
++| Знания | Известные способы/места/люди, ложный устаревший запас, Q | Полный язык понятий, многошаговое профессиональное рассуждение |
++| Внимание | Один фокус, гистерезис, общие слоты/операции | Время распознавания признаков, периферия, ошибки личности, общая семантическая очередь |
++| Q/W | Отдельное Q, 6-канальная разреженная W, дедупликация, первичные результаты | Контекстно обусловленные прогнозы, полный опыт с масками/источниками, вытеснение W |
++| Причинное обучение C | Не включено | Сравнение эпизодов, гипотезы, влияние на прогноз |
++| Отношения | Направленные знакомые, родственники, начальные ожидания; самостоятельный ответ | Динамические забота/утрата/зависимость/репутация; зависимость проверяется только численно |
++| Нормы | Конечная цена присвоения, личное ожидание санкции | Полный каталог норм/ролей, переоценка, слухи и общественные реакции |
++| Обмен | Одновременная передача порции за деньги, сохранение ресурсов | Бартер, заём, дарение, полномочия, контракты с частичным исполнением |
++| Эмоции | Численные цели и динамика; удовольствие/вина в мире | Набор независимых причин, точное устранение дублей, все входы в оценку |
++| Оптимизация | Индексы и очередь против сканирующего режима | Общие SAFE-OPT O01–O16, потоки, точное укрупнение времени, UE5 |
++
++Биографические связи частично инициализируются как стартовые предположения,
++а не все вычисляются из полного жизненного воспроизведения. Склонности могут
++проявляться через выбор, но естественное приобретение девиаций ещё не доказано.
++Все эти ограничения принадлежат лабораторному профилю; нормативные спецификации
++не переопределены скрыто под фактически написанный код.
+diff --git a/docs/plans/2026-09-11-cpp-0.6.md b/docs/plans/2026-09-11-cpp-0.6.md
+new file mode 100644
+index 0000000..878d109
+--- /dev/null
++++ b/docs/plans/2026-09-11-cpp-0.6.md
+@@ -0,0 +1,43 @@
++# C++ 0.6.0-lab1: план реализации
++
++Цель: собираемый автономный стенд по BEHAVIOR-0.3, без выдачи сокращённого
++контента и непокрытых подсистем за полное исполнение всех спецификаций.
++База main: fa3aec539055cafdf520d558b0e97537dcf9435b.
++
++Архитектура: C++20, числовые ID, отдельные субъективный контроллер и физический
++исполнитель, опорный физический шаг 1 с; решения на событиях/30-секундном обзоре.
++Сборка CMake, без сторонних библиотек C++. Существующий orphan persistence.cpp
++остаётся историческим и не включается в новую библиотеку mld.
++
++1. Численный слой: tests/unit.cpp сначала проверяет нулевое время, недопустимые
++   входы, тело, D/R/V, Q/W, мораль, зависимости и ограниченный вывод.
++   Затем include/mld/internal.hpp и src/mld/internal.cpp реализуют контракты.
++   Команда: cmake --build build && ctest --test-dir build --output-on-failure.
++2. Посев: tests/world_tests.cpp проверяет 100 seed, родство, связность,
++   известные источники; src/mld/generation.cpp создаёт историю и начальное состояние.
++3. Замкнутый мир: контроллер принимает только View, не World. Взять/обменять,
++   употребить, пить, двигаться, спать, отдыхать, общаться и досуг имеют отдельные
++   длительности/проверки. Институты не штрафуют. Тесты пустого источника,
++   последней порции, скрытого состояния, завершения/прерывания.
++4. Точное ускорение: индекс событий/локальности и опорный полный поиск на том
++   же логическом шаге. Тесты совпадения состояния и журнала. Никакого fast-math.
++5. Снимок: полное состояние, версия и checksum; отказ на несовместимости,
++   повреждении/недостающем поле; roundtrip и непрерывное/возобновлённое исполнение.
++6. Прогоны: малый мир, 128 НПС на 7 суток/несколько seed, ресурсный стресс,
++   paired-контроль нормы. GCC Release, Debug ASan/UBSan, второй компилятор при наличии.
++7. Зафиксировать reports/*.json и отдельную матрицу соответствия: полный,
++   частичный, только unit, отсутствует. Публиковать код только с проверенными SHA.
++
++Критические ограничения: одинаковые правила всех активных НПС; нет LLM;
++ожидаемая санкция не списывает средства; впечатление не равно истине;
++приобретённая приятность не является первичным подкреплением самой себя;
++тесты формул не заменяют интеграционные сценарии; данные баланса версионированы.
++
++## Фактический итог
++
++Собираемый стенд, численные проверки, 100 посевов, недельный прогон, контроль
++нормы/ресурсного стресса, snapshot/differential и три сборки выполнены.
++Непокрытые части не считаются закрытыми пунктами: см. docs/CPP_0.6.md и
++reports/CPP_0.6_validation.md. Генерация — ограниченная взрослая родословная,
++а не весь БИО; отдельные численные helpers не означают интеграции причин,
++утраты, репутации и всех норм в мир.
+diff --git a/include/mld/hash.hpp b/include/mld/hash.hpp
+new file mode 100644
+index 0000000..694029e
+--- /dev/null
++++ b/include/mld/hash.hpp
+@@ -0,0 +1,9 @@
++#pragma once
++#include <cstdint>
++#include <string>
++#include <string_view>
++namespace mld {
++    std::string sha256(std::string_view bytes);
++    std::uint64_t seeded(std::uint64_t seed,std::string_view catalog,std::string_view stage,std::uint64_t entity,std::uint64_t draw=0,std::uint64_t retry=0);
++    std::uint64_t uniform(std::uint64_t seed,std::string_view catalog,std::string_view stage,std::uint64_t entity,std::uint64_t draw,std::uint64_t bound);
++}
+diff --git a/include/mld/internal.hpp b/include/mld/internal.hpp
+new file mode 100644
+index 0000000..c2c8d4c
+--- /dev/null
++++ b/include/mld/internal.hpp
+@@ -0,0 +1,74 @@
++#pragma once
++#include <array>
++#include <cstdint>
++#include <vector>
++#include <optional>
++#include <string>
++#include <map>
++#include <set>
++#include <stdexcept>
++#include <algorithm>
++#include <cmath>
++#include <limits>
++namespace mld {
++    using Time = std::int64_t; // integer milliseconds
++    using Id = std::uint32_t;
++    constexpr Id none = std::numeric_limits<Id>::max();
++#define MLD_FIELDS(...) template<class A> void io(A& archive) { archive(__VA_ARGS__); }
++    double clamp(double x, double lo=0, double hi=1);
++    void require(double x, double lo=0, double hi=1);
++    double relax(double x,double target,double seconds,double tau);
++    double reservoir(double x,double a,double b,double leak,double hours);
++    struct Body {
++        double energy=.8,water=.8,sleep=.15,fatigue=.1,damage=0,pain=0,temp=0,oxygen=0,activation=.1;
++        MLD_FIELDS(energy,water,sleep,fatigue,damage,pain,temp,oxygen,activation)
++    };
++    struct Biology {
++        double energy_use=1,water_use=1,sleep_need=1,endurance=1,recovery=1,pain_sensitivity=1,social_need=1,leisure_need=1;
++        std::array<double,8> intellect{.5,.5,.5,.5,.5,.5,.5,.5};
++        double learning=.5,plasticity=.5;
++        MLD_FIELDS(energy_use,water_use,sleep_need,endurance,recovery,pain_sensitivity,social_need,leisure_need,intellect,learning,plasticity)
++    };
++    struct PhysicalInput {double load=0,temp=0,oxygen=0,pain=0,disease=0,safety=.5;bool asleep=false,conscious=true;};
++    struct Appraisal {
++        double significance=0,harm=0,near=0,uncertain=1,control=.5,obstacle=0,blame=0,loss=0,progress=0,gain=0,surprise=0,novelty=0,understand=.5,disgust=0,condemn=0,violation=0,responsibility=0,pleasant=0,question=0;
++    };
++    using Emotions=std::array<double,10>; // fear anxiety anger sadness joy surprise disgust interest shame guilt
++    Body advance_body(const Body&,const Biology&,const PhysicalInput&,const Emotions&,double seconds);
++    Emotions emotion_targets(const Appraisal&);
++    std::array<double,8> capacities(const Body&,const Biology&,bool asleep=false,bool conscious=true);
++    std::array<double,8> body_signals(const Body&);
++    int context_slots(const std::array<double,8>&,bool gate=true);
++    int operations(const std::array<double,8>&,bool gate=true);
++    struct Desire {
++        double deficit=.25,satiation=0,value=.15,background=.1,sensitivity=.45,rate=.009627044174443685;
++        MLD_FIELDS(deficit,satiation,value,background,sensitivity,rate)
++    };
++    Desire advance_desire(Desire d,double trigger,double inhibition,double seconds);
++    void satisfy(Desire& d,double fullness);
++    double pleasure(double basic,double innate,double acquired,double relationship,double context,double engagement,double saturation,double sensitivity,double consequences);
++    struct Stats {
++        double mean=0,variance=.25,count=0;
++        MLD_FIELDS(mean,variance,count)
++    };
++    void learn_association(Stats&,std::optional<double> result,double learning,double quality,double memory,double dose,bool conscious=true);
++    struct Feature {Id id=0;double exposure=0;MLD_FIELDS(id,exposure)};
++    struct Weight {Id feature=0;std::uint8_t channel=0;double value=0;Time updated=0,active=0;MLD_FIELDS(feature,channel,value,updated,active)};
++    struct Reactions {
++        std::vector<Weight> weights;
++        std::uint64_t last_episode=0;
++        std::array<double,6> effects(std::vector<Feature>,Time now) const;
++        std::size_t learn(std::uint64_t episode,std::vector<Feature>,const std::array<std::optional<double>,6>& primary,double plasticity,double dose,Time now,std::size_t address_properties=0);
++        MLD_FIELDS(weights,last_episode)
++    };
++    enum class Truth:std::uint8_t { Unknown,True,False,Conflict };
++    struct Fact {Id predicate=0,object=0;Truth truth=Truth::Unknown;double confidence=0;std::uint64_t source=0;MLD_FIELDS(predicate,object,truth,confidence,source)};
++    struct Condition {Id predicate=0;Truth required=Truth::True;};
++    struct Rule {Id id=0;std::vector<Condition> conditions;Id conclusion=0;double mastery=1;};
++    std::optional<Fact> infer(const Rule&,const std::vector<Fact>&,Id object,int& budget);
++    double moral_cost(double acceptance,double severity);
++    double expected_sanction(double detect,double qualify,double react,double severity);
++    struct DependenceInput {double importance;std::optional<double> contribution,substitution;};
++    struct Dependence {std::optional<double> value;double coverage;};
++    Dependence dependence(const std::vector<DependenceInput>&);
++}
+diff --git a/include/mld/world.hpp b/include/mld/world.hpp
+new file mode 100644
+index 0000000..c86db8b
+--- /dev/null
++++ b/include/mld/world.hpp
+@@ -0,0 +1,116 @@
++#pragma once
++#include "mld/internal.hpp"
++#include "mld/hash.hpp"
++#include <ostream>
++#include <queue>
++namespace mld {
++    inline constexpr const char* model_version="0.6.0-lab1";
++    inline constexpr const char* catalog_text="mld-lab1;star-village;14-actions;food=0.35;drink=0.25;sleep-latency=120;reference-ms=1000;relief=0.6/1800;social=1800;work=1800/2;intent-continuation-v1;waiting-from-talk-Q;expected-sanctions-only";
++    const std::string& catalog_hash();
++    enum class Act:std::uint8_t {Wait,Move,Inspect,Exchange,Take,Eat,Drink,Sleep,Rest,Play,Talk,Relief,Work,Give,Count};
++    constexpr std::size_t action_count=std::size_t(Act::Count),motives=8;
++    const char* action_name(Act);
++    struct Config {
++        std::uint64_t seed=42;std::uint32_t population=128;bool scarce=false;double theft_norm_override=-1;bool temptation=false;
++        std::string profile=model_version;
++        MLD_FIELDS(seed,population,scarce,theft_norm_override,temptation,profile)
++    };
++    struct Person {
++        Id id=none,parent=none;std::int32_t birth_day=0;bool active=true;
++        MLD_FIELDS(id,parent,birth_day,active)
++    };
++    struct History {
++        std::uint64_t id=0;Id a=none,b=none,place=0;Time start=0,end=0;std::uint8_t kind=0;
++        MLD_FIELDS(id,a,b,place,start,end,kind)
++    };
++    struct Relation {
++        Id person=none;bool known_relative=false;double care=.1;std::array<Stats,4> reliability{};
++        std::uint64_t source=0;Time seen=0,retry=0;
++        MLD_FIELDS(person,known_relative,care,reliability,source,seen,retry)
++    };
++    struct KnownPlace {
++        Id place=none;Truth food=Truth::Unknown;bool free_food=false;Time checked=0,retry=0;std::uint64_t source=0;
++        MLD_FIELDS(place,food,free_food,checked,retry,source)
++    };
++    struct Knowledge {
++        std::vector<Relation> people;std::vector<KnownPlace> places;std::array<bool,action_count> ways{};
++        std::array<std::array<Stats,motives>,action_count> expectation{};
++        double property_norm=.7,privacy_norm=.5,sanction=.096;
++        std::uint64_t version=0,last_learn=0;
++        MLD_FIELDS(people,places,ways,expectation,property_norm,privacy_norm,sanction,version,last_learn)
++    };
++    struct Ongoing {
++        Act type=Act::Wait;Time start=0,end=0;Id target=none;std::uint64_t id=0;Time last_window=0;
++        double moral=0,expected=0;bool social_accepted=false;
++        std::array<double,8> initial_sensed{};bool asleep=false;Time sleep_progress=0;
++        MLD_FIELDS(type,start,end,target,id,last_window,moral,expected,social_accepted,initial_sensed,asleep,sleep_progress)
++    };
++    struct Intent {
++        Act procedure=Act::Wait;Id destination=none;std::uint8_t motive=0;bool active=false;
++        MLD_FIELDS(procedure,destination,motive,active)
++    };
++    struct Npc {
++        Id id=none,home=none,place=0;Body body;Biology biology;Desire desire;
++        double leisure=.7,social=.7,habituation=0,innate_trigger=0,trigger=0,pleasant=0;
++        Emotions emotions{},targets{};Time target_until=0,next_review=0;
++        Knowledge memory;Reactions reactions;Ongoing action;Intent intent;
++        std::int64_t money=8,food=1,unowned_food=0;std::uint64_t decisions=0;
++        std::array<double,8> sensed{};std::uint8_t focus=0;Time focus_since=0;
++        std::array<std::uint64_t,action_count> completed{};
++        MLD_FIELDS(id,home,place,body,biology,desire,leisure,social,habituation,innate_trigger,trigger,pleasant,emotions,targets,target_until,next_review,memory,reactions,action,intent,money,food,unowned_food,decisions,sensed,focus,focus_since,completed)
++    };
++    struct Place {
++        Id id=none;std::uint8_t kind=0;std::int64_t food=0,water=0,money=0;bool closed=false;
++        MLD_FIELDS(id,kind,food,water,money,closed)
++    };
++    struct Counters {
++        std::uint64_t events=0,choices=0,operations=0,failures=0,unauthorized=0,transfers=0,reliefs=0,contacts=0;
++        std::uint64_t digest=1469598103934665603ULL;
++        std::int64_t initial_food=0,supplied_food=0,eaten=0,initial_water=0,supplied_water=0,drunk=0,initial_money=0,wages=0;
++        std::array<std::uint64_t,7> critical_seconds{};
++        MLD_FIELDS(events,choices,operations,failures,unauthorized,transfers,reliefs,contacts,digest,initial_food,supplied_food,eaten,initial_water,supplied_water,drunk,initial_money,wages,critical_seconds)
++    };
++    struct State {
++        Config config;Time now=0;std::uint64_t sequence=0;
++        std::vector<Person> persons;std::vector<History> history;std::vector<Npc> npcs;std::vector<Place> places;
++        Counters counters;
++        MLD_FIELDS(config,now,sequence,persons,history,npcs,places,counters)
++    };
++    // A controller cannot access physical objects, hidden stock, another mind or W.
++    struct View {
++        Id actor=none,home=none,place=none;Time now=0;std::array<double,8> sensed{},cognition{};
++        std::int64_t food=0,money=0;std::vector<Id> seen_people;
++        const Knowledge* knowledge=nullptr;Act current=Act::Wait;bool in_contact=false;Intent intent;
++    };
++    struct Choice {
++        Act type=Act::Wait;Id target=none;double score=-1,moral=0,forecast=0;
++        int used_operations=0,context_used=0;std::uint8_t motive=0;
++        Act procedure=Act::Wait;Id destination=none;
++    };
++    Choice choose(const View&);
++    bool accept_contact(const View&);
++    State generate(Config);
++    void validate(const State&);
++    std::string encode(State);
++    State decode(const std::string&);
++    std::string semantic_hash(const State&);
++    class World {
++        State state_;bool indexed_;std::ostream* log_=nullptr;
++        std::vector<std::vector<Id>> occupants_;
++        using Due=std::pair<Time,Id>;
++        std::priority_queue<Due,std::vector<Due>,std::greater<Due>> due_;
++        void rebuild();void schedule(Id);void event(std::string_view,Id,Id=none,std::int64_t=0);
++        void physiology(Npc&);void finish(Id);void review(Id);void start(Id,const Choice&);void experience(Npc&,bool);
++        void boundary();void supply();void update_occupancy(Id,Id,Id);
++        public:
++        explicit World(Config c={},bool indexed=true);
++        explicit World(State s,bool indexed=true);
++        const State& state()const{return state_;}
++        View view(Id)const;
++        void advance(std::uint32_t seconds);
++        void log_to(std::ostream* s){log_=s;}
++        std::string snapshot()const;
++        static World restore(const std::string&,bool indexed=true);
++        std::string summary()const;
++    };
++}
+diff --git a/reports/CPP_0.6_validation.md b/reports/CPP_0.6_validation.md
+new file mode 100644
+index 0000000..99bc2b3
+--- /dev/null
++++ b/reports/CPP_0.6_validation.md
+@@ -0,0 +1,106 @@
++# Результаты C++ 0.6.0-lab1
++
++Дата: 2026-09-11. База: main `fa3aec539055cafdf520d558b0e97537dcf9435b`.
++BEHAVIOR-0.3 слита отдельным PR #4. Настоящий код — **ограниченный работающий
++стенд**, не полный перенос всех нормативных спецификаций. Код, способы запуска
++и поэлементное покрытие: [CPP_0.6](../docs/CPP_0.6.md).
++
++## Что реально выполнено
++
++Сборка GCC 14.2 Release, Clang 17 Release и GCC с AddressSanitizer/UndefinedBehaviorSanitizer.
++68 C++-тестовых случаев: 35 численных и 33 мировых. Они собраны в два исполняемых
++набора; третий тест CTest — отклонение неизвестного аргумента CLI. Во всех трёх
++сборках CTest: 3/3. Отдельно проверены шесть ошибочных CLI-вызовов с ожидаемым exit 2.
++Один из 33 мировых тестов реально генерирует и валидирует 100 seed, но не проживает
++100 недель. Четыре существующих Python-скрипта: 40/49/38/27 проверок, exit 0.
++Последний набор исторический, не самостоятельное доказательство новой модели.
++
++Повторены проверки последней порции, сохранения ресурсов, употребления без оплаты,
++конечного морального штрафа, скрытого запаса, повторного результата после restore,
++битового совпадения снимка при разбиении времени и включённой трассировке,
++некорректных состояний, обучения без самоусиления и противоречивых сведений.
++Сырые журналы компиляторов/тестов включены в выдаваемый ZIP, а не только пересказ.
++
++## Результаты прогонов финального исходного состояния
++
++| Сценарий | НПС / игровое время | Наблюдение |
++|---|---|---|
++| Обычный, seed 42 | 128 / 7 суток | Нулевые критические человеко-секунды энергии, воды, сна и усталости; максимальное повреждение 0 |
++| Парный поиск, seed 43 | 128 / 1 сутки в каждом режиме | Совпали все смысловые поля JSON, SHA-256 полного состояния и хеш событий |
++| Искушение, норма 0 | 16 / 1 сутки | 16 взятий без разрешения, повреждение 0 |
++| Искушение, норма 1 | 16 / 1 сутки | 0 взятий без разрешения, 54 завершённых работ, повреждение 0 |
++| Ресурсный стресс | 16 / 2 суток | Еда отсутствует после исчерпания, повреждение достигает 1; недостаток не маскируется бесплатной выдачей |
++| Нагрузочный | 1024 / 6 часов | Все четыре телесных критических счётчика 0; повреждение 0 |
++
++JSON: [неделя](week-seed42.json), [индекс](seed43-indexed.json),
++[эталон](seed43-reference.json), [сравнение](differential.json),
++[слабая норма](temptation-low.json), [сильная норма](temptation-high.json),
++[дефицит](scarcity.json), [1024 НПС](scale1024.json).
++
++За неделю 128 НПС завершили 2100 употреблений еды, 3820 питьевых действий,
++1588 действий сна, 6249 занятий досугом, 7254 участия в общении, 1175 действий
++индивидуального удовлетворения, 649 работ и 15901 переход. Общение здесь считается
++по участникам; это не 7254 уникальных разговора. 12097 отказов/несостоявшихся
++попыток являются игровыми исходами, не авариями программы.
++
++Финальные минимумы: энергия 0.31656, вода 0.26125, досуг 0.21409, социальная
++насыщенность 0.20792. Это минимумы по жителям **на конец**, не за всю неделю.
++При этом накопилось 120293 человеко-секунды с досугом ниже 0.1 и 54850 —
++с социальной насыщенностью ниже 0.1. Временное неблагополучие осталось: это
++материал для балансировки/проверки выбора, а не скрытое доказательство идеальной жизни.
++В благополучном мире не возникло взятий без разрешения даже при отдельных слабых
++нормах. Контролируемый контраст нормы доказывает только работу выбора в заданной
++ситуации, а не самопроизвольное приобретение девиаций или реализм общества.
++
++## Какие дефекты найдены и исправлены
++
++1. **Когнитивная блокировка:** резерв трёх обязательных слотов оставлял НПС
++   с ёмкостью 2–3 вообще без способа действовать. В первом недельном прогоне
++   трое дошли до энергии/воды 0 и повреждения 1. Исправлено представление
++   знакомой связанной процедуры: один фокус + один chunk; добавлен regression.
++2. **Потеря цели пути:** при достижении перекрёстка контроллер заново выбирал
++   направление и мог осциллировать. Введено сохраняемое намерение с целью,
++   продолжением знакомых шагов и проверкой переключения/аварии.
++3. **Ложная польза ожидания:** поиск общения имел постоянный прогноз, который
++   мог превышать уже усвоенную пользу самого общения. Теперь прогноз поиска
++   опирается на личное ожидание результата разговора, не на истину мира.
++4. **Бесконечный осмотр пустого дома:** повторный осмотр обещал пользу еды без
++   основания ожидать пополнение. Повтор зависит от известного процесса:
++   дома автоматического пополнения нет, для магазина известно расписание.
++   Это позволило сильной норме вести к работе, а не к бесконечному осмотру.
++5. **Повторные запросы разговора:** введены предложение/отдельный ответ,
++   известный отказ и срок следующей попытки. Отказ не раскрывает чужие мотивы.
++6. **Неполная валидация снимка:** добавлены проверки цели незавершённого действия,
++   границ родителей до обхода, диапазонов, намерения и упорядоченности W.
++7. **Вывод по первому свидетельству:** несовместимые сведения больше не
++   превращаются в безусловный вывод из первого совпадения. Это тест локального
++   интерпретатора, пока не полная работа мышления в населённом мире.
++
++Сохранены примеры красных/зелёных проверок и старых неудачных прогонов в ZIP
++в каталоге диагностики. Их показатели относятся к промежуточному коду.
++
++## Производительность и пределы вывода
++
++Linux-контейнер x86-64, AMD EPYC 9V74, видно 5 vCPU, quota 4 CPU. Симулятор
++однопоточный. GCC 14.2, CMake 3.31.6, Clang 17. Никаких измерений на i5-11400,
++рендера, UE5, коллизий и полноценной навигации Unreal не выполнялось.
++
++Семь суток / 128 НПС: 21.218 с на симуляцию и 0.026 с на посев в данном запуске.
++Сутки / 128 НПС: индекс 2.868 с, полный поиск 2.980 с — около 1.04x, а не
++многократное ускорение. Физический расчёт остался общим основным расходом.
++1024 НПС / 6 часов: 6.323 с. Это единичные замеры без доверительных интервалов;
++среда разделяемая, конкретные времена повторного запуска будут отличаться.
++
++Индексный путь эквивалентен **этому лабораторному профилю** на выполненных
++сценариях. Это не сертификат всех O01–O16 и не доказательство точного переноса
++полной модели. Главное достижение итерации — работающий измеряемый исполнитель
++с восстановлением и раздельной субъективной моделью, а не готовый ИИ игры.
++
++## Следующие незакрытые области
++
++Приоритет: полный формат воспринятого эпизода и контекстного прогноза; причинное
++обучение C; распознавание/перцептивное время; динамика отношений/репутации;
++каталог норм/ролей и переоценка; контракты частичного обмена; расширенная предыстория.
++Оценки Q сейчас учатся по изменениям ощущений конкретного действия, без полного
++контекстного разделения и истории источников. Не следует принимать их за полный
++механизм v0.2/v0.3. Подробная матрица доступна в инструкции исполнителя.
+diff --git a/reports/differential.json b/reports/differential.json
+new file mode 100644
+index 0000000..12e6506
+--- /dev/null
++++ b/reports/differential.json
+@@ -0,0 +1,8 @@
++{
++  "all_semantic_fields_equal": true,
++  "state_sha256": "433bf9208a177ca97e145fe98ddcbe523da74952b1cd10f29a317ba445782836",
++  "event_hash": 10056551577728761664,
++  "indexed_seconds": 2.868099,
++  "reference_seconds": 2.979931,
++  "speed_ratio": 1.0389916805521706
++}
+\ No newline at end of file
+diff --git a/reports/scale1024.json b/reports/scale1024.json
+new file mode 100644
+index 0000000..a5a3454
+--- /dev/null
++++ b/reports/scale1024.json
+@@ -0,0 +1,25 @@
++{
++"scenario":"normal",
++"property_norm_override":-1,
++"version":"0.6.0-lab1",
++"seed":42,
++"population":1024,
++"simulated_seconds":21600,
++"semantic_hash":"bd92e209b720c8b6f84fc799d5ac2750a5970066e9ebf6adadaa0c65016076ab",
++"event_hash":11217997042403314542,
++"events":43607,
++"decisions":712200,
++"operations":4426702,
++"failures":2821,
++"unauthorized_takes":0,
++"sparse_weights":15368,
++"min_energy":0.46034969675119453,
++"min_water":0.40363429029492159,
++"max_sleep_pressure":0.57833281374427981,
++"max_damage":0,
++"min_leisure":0.50500829727307628,
++"min_social":0.52243300000108728,
++"critical_person_seconds":[0,0,0,0,0,0,0],
++"completed":{"wait":3028,"move":488,"inspect":0,"exchange":0,"take":0,"eat":9,"drink":191,"sleep":0,"rest":0,"play":3415,"talk":2915,"private_relief":759,"work":0,"give":0}
++,"generation_wall_seconds":0.217467,"simulation_wall_seconds":6.323239,"search_mode":"indexed"
++}
+diff --git a/reports/scarcity.json b/reports/scarcity.json
+new file mode 100644
+index 0000000..1ce5b55
+--- /dev/null
++++ b/reports/scarcity.json
+@@ -0,0 +1,25 @@
++{
++"scenario":"scarcity",
++"property_norm_override":-1,
++"version":"0.6.0-lab1",
++"seed":42,
++"population":16,
++"simulated_seconds":172800,
++"semantic_hash":"13fddedf910c5158e7648730f153e7f2e53e79d5b489c9e2da0ed6287a7ce421",
++"event_hash":9312886814457105339,
++"events":74538,
++"decisions":87290,
++"operations":435216,
++"failures":7666,
++"unauthorized_takes":0,
++"sparse_weights":241,
++"min_energy":0,
++"min_water":0,
++"max_sleep_pressure":1,
++"max_damage":1,
++"min_leisure":0,
++"min_social":0,
++"critical_person_seconds":[1598497,579804,972939,0,999487,144940,0],
++"completed":{"wait":1147,"move":358,"inspect":16,"exchange":2,"take":0,"eat":2,"drink":69,"sleep":12429,"rest":0,"play":109,"talk":108,"private_relief":28,"work":0,"give":0}
++,"generation_wall_seconds":0.008656,"simulation_wall_seconds":0.776457,"search_mode":"indexed"
++}
+diff --git a/reports/seed43-indexed.json b/reports/seed43-indexed.json
+new file mode 100644
+index 0000000..01db434
+--- /dev/null
++++ b/reports/seed43-indexed.json
+@@ -0,0 +1,25 @@
++{
++"scenario":"normal",
++"property_norm_override":-1,
++"version":"0.6.0-lab1",
++"seed":43,
++"population":128,
++"simulated_seconds":86400,
++"semantic_hash":"433bf9208a177ca97e145fe98ddcbe523da74952b1cd10f29a317ba445782836",
++"event_hash":10056551577728761664,
++"events":45946,
++"decisions":247069,
++"operations":1506576,
++"failures":2605,
++"unauthorized_takes":0,
++"sparse_weights":2044,
++"min_energy":0.27561260831665463,
++"min_water":0.24395082373726346,
++"max_sleep_pressure":0.5956722735362141,
++"max_damage":0,
++"min_leisure":0.27571807074972565,
++"min_social":0.19201740725964633,
++"critical_person_seconds":[0,0,0,0,599,0,0],
++"completed":{"wait":8101,"move":1111,"inspect":0,"exchange":78,"take":0,"eat":201,"drink":405,"sleep":179,"rest":0,"play":1135,"talk":1083,"private_relief":179,"work":0,"give":0}
++,"generation_wall_seconds":0.026016,"simulation_wall_seconds":2.868099,"search_mode":"indexed"
++}
+diff --git a/reports/seed43-reference.json b/reports/seed43-reference.json
+new file mode 100644
+index 0000000..b6d253e
+--- /dev/null
++++ b/reports/seed43-reference.json
+@@ -0,0 +1,25 @@
++{
++"scenario":"normal",
++"property_norm_override":-1,
++"version":"0.6.0-lab1",
++"seed":43,
++"population":128,
++"simulated_seconds":86400,
++"semantic_hash":"433bf9208a177ca97e145fe98ddcbe523da74952b1cd10f29a317ba445782836",
++"event_hash":10056551577728761664,
++"events":45946,
++"decisions":247069,
++"operations":1506576,
++"failures":2605,
++"unauthorized_takes":0,
++"sparse_weights":2044,
++"min_energy":0.27561260831665463,
++"min_water":0.24395082373726346,
++"max_sleep_pressure":0.5956722735362141,
++"max_damage":0,
++"min_leisure":0.27571807074972565,
++"min_social":0.19201740725964633,
++"critical_person_seconds":[0,0,0,0,599,0,0],
++"completed":{"wait":8101,"move":1111,"inspect":0,"exchange":78,"take":0,"eat":201,"drink":405,"sleep":179,"rest":0,"play":1135,"talk":1083,"private_relief":179,"work":0,"give":0}
++,"generation_wall_seconds":0.026527,"simulation_wall_seconds":2.979931,"search_mode":"reference"
++}
+diff --git a/reports/temptation-high.json b/reports/temptation-high.json
+new file mode 100644
+index 0000000..a0bb506
+--- /dev/null
++++ b/reports/temptation-high.json
+@@ -0,0 +1,25 @@
++{
++"scenario":"temptation",
++"property_norm_override":1,
++"version":"0.6.0-lab1",
++"seed":42,
++"population":16,
++"simulated_seconds":86400,
++"semantic_hash":"a17faa0ce0867dec8862144bb701d10a2f1df2d625ee853bb980d886f57d38ac",
++"event_hash":16052427790371532337,
++"events":6699,
++"decisions":32570,
++"operations":211496,
++"failures":201,
++"unauthorized_takes":0,
++"sparse_weights":259,
++"min_energy":0.32283034931597104,
++"min_water":0.35781746127062053,
++"max_sleep_pressure":0.50616431738648204,
++"max_damage":0,
++"min_leisure":0.25394686951591339,
++"min_social":0.55961583335246046,
++"critical_person_seconds":[0,0,0,0,0,0,0],
++"completed":{"wait":1094,"move":384,"inspect":0,"exchange":55,"take":0,"eat":54,"drink":57,"sleep":20,"rest":0,"play":127,"talk":126,"private_relief":28,"work":54,"give":0}
++,"generation_wall_seconds":0.008392,"simulation_wall_seconds":0.366593,"search_mode":"indexed"
++}
+diff --git a/reports/temptation-low.json b/reports/temptation-low.json
+new file mode 100644
+index 0000000..ac99c65
+--- /dev/null
++++ b/reports/temptation-low.json
+@@ -0,0 +1,25 @@
++{
++"scenario":"temptation",
++"property_norm_override":0,
++"version":"0.6.0-lab1",
++"seed":42,
++"population":16,
++"simulated_seconds":86400,
++"semantic_hash":"0f75d0c29abd435c80842353053f45c3c5afa59e4d6d4a17f0ee98e1abff0332",
++"event_hash":15804335102607849983,
++"events":11316,
++"decisions":32121,
++"operations":209472,
++"failures":249,
++"unauthorized_takes":16,
++"sparse_weights":254,
++"min_energy":0.30929508991670829,
++"min_water":0.27722269186066878,
++"max_sleep_pressure":0.54125652792895451,
++"max_damage":0,
++"min_leisure":0.24357386996837549,
++"min_social":0.38636236789811906,
++"critical_person_seconds":[0,0,0,0,0,0,0],
++"completed":{"wait":2614,"move":386,"inspect":0,"exchange":39,"take":16,"eat":54,"drink":54,"sleep":20,"rest":0,"play":118,"talk":116,"private_relief":26,"work":48,"give":0}
++,"generation_wall_seconds":0.010403,"simulation_wall_seconds":0.373182,"search_mode":"indexed"
++}
+diff --git a/reports/verification.json b/reports/verification.json
+new file mode 100644
+index 0000000..ec00925
+--- /dev/null
++++ b/reports/verification.json
+@@ -0,0 +1,23 @@
++{
++  "version": "0.6.0-lab1",
++  "baseline_main": "fa3aec539055cafdf520d558b0e97537dcf9435b",
++  "cpp_test_cases": 68,
++  "ctest_entries": 3,
++  "cli_negative_cases": 6,
++  "seed_generation_cases": 100,
++  "seed_generation_is_one_cpp_test": true,
++  "builds": [
++    "GCC 14.2 Release",
++    "Clang 17 Release",
++    "GCC 14.2 RelWithDebInfo ASan+UBSan"
++  ],
++  "python_spec_checks": [
++    40,
++    49,
++    38,
++    27
++  ],
++  "full_behavior_spec_implemented": false,
++  "ue5_tested": false,
++  "windows_tested": false
++}
+diff --git a/reports/week-seed42.json b/reports/week-seed42.json
+new file mode 100644
+index 0000000..fbaa915
+--- /dev/null
++++ b/reports/week-seed42.json
+@@ -0,0 +1,25 @@
++{
++"scenario":"normal",
++"property_norm_override":-1,
++"version":"0.6.0-lab1",
++"seed":42,
++"population":128,
++"simulated_seconds":604800,
++"semantic_hash":"8f5db270f8a85ac938f5db43f8af9728b4802e5d3874522e2ec8f6868e3d566f",
++"event_hash":3132645398247457576,
++"events":777162,
++"decisions":1701585,
++"operations":10991512,
++"failures":12097,
++"unauthorized_takes":0,
++"sparse_weights":2286,
++"min_energy":0.31655750501020374,
++"min_water":0.2612530780670449,
++"max_sleep_pressure":0.51065473586525412,
++"max_damage":0,
++"min_leisure":0.21409291382787499,
++"min_social":0.20791503084069884,
++"critical_person_seconds":[0,0,0,0,120293,54850,0],
++"completed":{"wait":205008,"move":15901,"inspect":0,"exchange":1974,"take":0,"eat":2100,"drink":3820,"sleep":1588,"rest":0,"play":6249,"talk":7254,"private_relief":1175,"work":649,"give":0}
++,"generation_wall_seconds":0.026205,"simulation_wall_seconds":21.218073,"search_mode":"indexed"
++}
+diff --git a/src/mld/controller.cpp b/src/mld/controller.cpp
+new file mode 100644
+index 0000000..4e7f821
+--- /dev/null
++++ b/src/mld/controller.cpp
+@@ -0,0 +1,130 @@
++#include "mld/world.hpp"
++namespace mld {
++    Choice choose(const View& view) {
++        if (!view.knowledge) throw std::invalid_argument("missing subjective model");
++        if (view.place == none || view.cognition[4] == 0) return {};
++        const auto& knowledge = *view.knowledge;
++        int budget = operations(view.cognition), used = 0;
++        const int slots = context_slots(view.cognition);
++        std::array<double, motives> importance{};
++        double norm = 0;
++        for (std::size_t j = 0; j < motives; ++j) {
++            importance[j] = clamp(.02 + .5 * view.sensed[j]);
++            norm += importance[j];
++        }
++        for (auto& weight : importance) weight /= std::max(1., norm);
++        struct Candidate { Act type; Id target; int motive; double priority; bool continuation; };
++        std::vector<Candidate> candidates;
++        candidates.reserve(16);
++        auto add = [&](Act action, Id target, int motive, bool continuation = false) {
++            if (knowledge.ways[std::size_t(action)] && (view.sensed[motive] > .025 || continuation))
++            candidates.push_back({action, target, motive, view.sensed[motive], continuation});
++        };
++        // A familiar intention survives intermediate navigation nodes. It is not a new plan.
++        if (view.intent.active)
++        add(view.intent.procedure, view.intent.destination, view.intent.motive, true);
++        if (view.food > 0) add(Act::Eat, view.place, 0);
++        else for (const auto& place : knowledge.places) {
++            if (place.place != 1 && place.place != view.home) continue;
++            if (place.food == Truth::True) {
++                if (place.free_food || view.money >= 1) add(Act::Exchange, place.place, 0);
++                if (!place.free_food) add(Act::Take, place.place, 0);
++            } else if (view.now >= place.retry) add(Act::Inspect, place.place, 0);
++        }
++        add(Act::Drink, 2, 1);
++        add(Act::Sleep, view.home, 2);
++        add(Act::Rest, view.home, 3);
++        add(Act::Play, view.place, 4);
++        bool has_contact = false;
++        for (Id person : view.seen_people) {
++            auto it = std::lower_bound(knowledge.people.begin(), knowledge.people.end(), person,
++            [](const auto& relation, Id id) { return relation.person < id; });
++            if (it != knowledge.people.end() && it->person == person && it->retry <= view.now) {
++                add(Act::Talk, person, 5);
++                has_contact = true;
++            }
++        }
++        if (!has_contact) add(view.place == 3 ? Act::Wait : Act::Move, 3, 5);
++        add(Act::Relief, view.home, 6);
++        add(Act::Work, 4, 7);
++        std::stable_sort(candidates.begin(), candidates.end(), [](auto a, auto b) {
++            if (a.continuation != b.continuation) return a.continuation;
++            return a.priority != b.priority ? a.priority > b.priority
++            : std::pair{a.type, a.target} < std::pair{b.type, b.target};
++        });
++        candidates.erase(std::unique(candidates.begin(), candidates.end(), [](auto a, auto b) {
++            return a.type == b.type && a.target == b.target;
++        }), candidates.end());
++        if (candidates.size() > 8) candidates.resize(8);
++        // One focus plus familiar, already-bound procedures, one memory chunk each.
++        const int limit = std::min({1 + int(std::floor(5 * view.cognition[5])),
++            int(candidates.size()), std::max(0, slots - 1)});
++        Choice best;
++        best.score = 0;
++        bool incumbent = false;
++        int considered = 0;
++        const bool emergency = std::max({view.sensed[0], view.sensed[1],
++            view.sensed[2], view.sensed[3]}) >= .85;
++        for (const auto& candidate : candidates) {
++            if (considered >= limit || budget < 2) break;
++            budget -= 2;
++            used += 2;
++            ++considered;
++            const Act source = candidate.type == Act::Exchange || candidate.type == Act::Take
++            ? Act::Eat : candidate.type;
++            const auto& prediction = knowledge.expectation[std::size_t(source)];
++            double score = 0;
++            for (std::size_t j = 0; j < motives; ++j) {
++                double expected = prediction[j].mean;
++                if (candidate.type == Act::Inspect && j == 0)
++                expected = knowledge.expectation[std::size_t(Act::Eat)][0].mean * .45;
++                if (candidate.motive == 5 && j == 5 &&
++                (candidate.type == Act::Wait || candidate.type == Act::Move))
++                expected = .5 * knowledge.expectation[std::size_t(Act::Talk)][5].mean;
++                score += importance[j] * std::min(view.sensed[j] * 1.8, std::max(0., expected));
++            }
++            double moral = 0, price = 0;
++            if (candidate.type == Act::Take) {
++                moral = moral_cost(knowledge.property_norm, 1);
++                price += knowledge.sanction;
++            }
++            if (candidate.type == Act::Exchange) {
++                auto it = std::find_if(knowledge.places.begin(), knowledge.places.end(),
++                [&](auto place) { return place.place == candidate.target; });
++                if (it != knowledge.places.end() && !it->free_food) price += .03;
++            }
++            // Catalogue costs are model parameters; CPU load never changes them.
++            const bool long_action = candidate.type == Act::Talk || candidate.type == Act::Work ||
++            candidate.type == Act::Play || candidate.type == Act::Relief;
++            double time_cost = candidate.type == Act::Sleep ? .04 : (long_action ? .012 : .003);
++            const bool local = candidate.type == Act::Eat || candidate.type == Act::Play ||
++            candidate.type == Act::Talk || candidate.type == Act::Wait;
++            Act execute = candidate.type;
++            Id target = candidate.target;
++            if (!local && view.place != target) {
++                execute = Act::Move;
++                target = view.place == 0 ? candidate.target : 0;
++                time_cost += .003;
++            }
++            score -= price + time_cost + moral;
++            const double switching_cost = incumbent && !emergency
++            ? .10 + .30 * view.cognition[7] + .20 * .5 : 0;
++            if (candidate.continuation || score > best.score + switching_cost) {
++                best = {execute, target, score, moral, prediction[candidate.motive].mean,
++                    0, 0, std::uint8_t(candidate.motive), candidate.type, candidate.target};
++                incumbent = candidate.continuation;
++            }
++        }
++        best.used_operations = used;
++        best.context_used = 1 + considered;
++        return best;
++    }
++
++    bool accept_contact(const View& view) {
++        if (view.current == Act::Sleep || view.current == Act::Move ||
++        (view.current == Act::Talk && view.in_contact) ||
++        view.current == Act::Relief || view.current == Act::Work) return false;
++        if (std::max({view.sensed[0], view.sensed[1], view.sensed[2]}) >= .85) return false;
++        return view.sensed[5] > .15;
++    }
++} // namespace mld
+diff --git a/src/mld/generation.cpp b/src/mld/generation.cpp
+new file mode 100644
+index 0000000..89a22db
+--- /dev/null
++++ b/src/mld/generation.cpp
+@@ -0,0 +1,258 @@
++#include "mld/world.hpp"
++#include <chrono>
++#include <numeric>
++namespace mld {
++    const std::string& catalog_hash(){static const auto hash=sha256(catalog_text);
++        return hash;
++    }
++    const char* action_name(Act a){static const char* names[]={"wait","move","inspect","exchange","take","eat","drink","sleep","rest","play","talk","private_relief","work","give"};
++        return std::size_t(a)<action_count?names[std::size_t(a)]:"invalid";
++    }
++
++    State generate(Config c){
++        if(c.profile!=model_version||c.population<8||c.population>1024||c.population%2||(c.scarce&&c.temptation)||!std::isfinite(c.theft_norm_override)||c.theft_norm_override < -1||c.theft_norm_override>1)throw std::invalid_argument("unsupported profile/population/override");
++        State s;
++        s.config=c;
++        auto draw=[&](const char* stage,std::uint64_t entity,std::uint64_t k,std::uint64_t n){return uniform(c.seed,catalog_hash(),stage,entity,k,n);
++        };
++        auto real=[&](const char* stage,Id i,unsigned k){return double(draw(stage,i,k,10001))/10000;
++        };
++        const Id count=c.population;
++        const auto today=std::chrono::sys_days(std::chrono::year(2026)/9/11);
++        s.npcs.resize(count);
++        s.persons.resize(count);
++        s.places.resize(5+count/2);
++        for(Id p=0;p<s.places.size();++p){auto& l=s.places[p];
++            l.id=p;
++            l.kind=std::uint8_t(p<5?p:5);
++            l.food=p==1?(c.scarce?count/8:count*12):(p>=5&&!c.scarce&&!c.temptation?2:0);
++            l.water=p==2?count*16:0;
++            s.counters.initial_food+=l.food;
++            s.counters.initial_water+=l.water;
++        }
++        for(Id i=0;i<count;++i){
++            auto& n=s.npcs[i];
++            n.id=i;
++            n.home=5+i/2;
++            n.place=n.home;
++            const int years=23+int(draw("genealogy",i/2,0,40))+int(draw("genealogy",i,1,4));
++            auto birth=std::chrono::sys_days(std::chrono::year(2026-years)/9/11)-std::chrono::days(draw("genealogy",i/2,2,100));
++            s.persons[i]={i,none,std::int32_t(birth.time_since_epoch().count()),true};
++            auto& b=n.biology;
++            b.energy_use=.85+.3*real("biology",i,0);
++            b.water_use=.85+.3*real("biology",i,1);
++            b.sleep_need=.85+.3*real("biology",i,2);
++            b.social_need=.7+.6*real("biology",i,3);
++            b.leisure_need=.7+.6*real("biology",i,4);
++            b.learning=.35+.4*real("biology",i,5);
++            b.plasticity=.3+.4*real("biology",i,6);
++            for(unsigned j=0;j<8;++j)b.intellect[j]=.35+.4*real("biology",i,10+j);
++            n.body.energy=c.temptation?.2:.7+.2*real("state",i,0);
++            n.body.water=.7+.2*real("state",i,1);
++            n.body.sleep=.1+.2*real("state",i,2);
++            n.desire.deficit=.1+.6*real("state",i,3);
++            n.desire.background=.04+.18*real("biology",i,20);
++            n.desire.sensitivity=.25+.5*real("biology",i,21);
++            n.desire.rate*=.5+real("biology",i,22);
++            n.innate_trigger=-.1+.5*real("biology",i,23);
++            n.next_review=1000*draw("review",i,0,30);
++            n.money=c.temptation?0:8;
++            n.food=c.scarce||c.temptation?0:1;
++            n.memory.property_norm=c.theft_norm_override<0?.05+.95*real("norm",i,0):c.theft_norm_override;
++            n.memory.privacy_norm=.2+.7*real("norm",i,1);
++            n.memory.ways.fill(true);
++            n.memory.ways[std::size_t(Act::Give)]=false;
++            // reserved, not implemented in lab1
++            for(Id p:{Id(0),Id(1),Id(2),Id(3),Id(4),n.home})n.memory.places.push_back({p,p==n.home&&c.temptation?Truth::False:(p==1||p==n.home?Truth::True:Truth::Unknown),p==n.home,0,0,1});
++            if(c.temptation)for(auto& known:n.memory.places)if(known.place==n.home)known.retry=std::numeric_limits<Time>::max();
++            auto prior=[&](Act a,int m,double mean){auto& q=n.memory.expectation[std::size_t(a)][m];
++                q.mean=mean;
++                q.count=0;
++            };
++            prior(Act::Eat,0,.65);
++            prior(Act::Exchange,0,.65);
++            prior(Act::Take,0,.65);
++            prior(Act::Drink,1,.5);
++            prior(Act::Sleep,2,.85);
++            prior(Act::Sleep,3,.4);
++            prior(Act::Rest,3,.4);
++            prior(Act::Play,4,.35);
++            prior(Act::Talk,4,.2);
++            prior(Act::Talk,5,.4);
++            prior(Act::Relief,6,.6);
++            prior(Act::Work,7,.4);
++            s.counters.initial_food+=n.food;
++            s.counters.initial_money+=n.money;
++        }
++        // Active siblings for half of the villagers; external parents for every household.
++        for(Id i=0;i<count;++i){if(i%2==1&&i<count/2){s.persons[i].parent=s.persons[i-1].parent;
++                continue;
++            }
++            auto dob=std::chrono::year_month_day(std::chrono::sys_days(std::chrono::days(s.persons[i].birth_day)));
++            auto pb=std::chrono::sys_days((dob.year()-std::chrono::years(25))/dob.month()/dob.day());
++            Id parent=Id(s.persons.size());
++            s.persons[i].parent=parent;
++            s.persons.push_back({parent,none,std::int32_t(pb.time_since_epoch().count()),false});
++        }
++        std::vector<std::set<Id>> edges(count);
++        std::vector<Id> target(count);
++        for(Id i=0;i<count;++i)target[i]=std::min<Id>(count-2,8+Id(draw("social-target",i,0,9)));
++        auto add=[&](Id a,Id b){if(a!=b&&edges[a].size()<target[a]&&edges[b].size()<target[b]){edges[a].insert(b);
++                edges[b].insert(a);
++            }};
++        // Neighbourhood ring ensures connectedness without a complete graph.
++        for(Id i=0;i<count;++i){add(i,(i+1)%count);
++            add(i,(i+2)%count);
++            add(i,i^1U);
++        }
++        for(Id round=0;round<16;++round)for(Id i=0;i<count;++i){
++            if(edges[i].size()>=target[i])continue;
++            for(Id k=0;k<64&&edges[i].size()<target[i];++k){Id candidate;
++                if(k<32){Id base=(i/8)*8;
++                    candidate=(base+Id(draw("work-contact",i,round*64+k,8)))%count;
++                }
++                else candidate=Id(draw("cross-contact",i,round*64+k,count));
++                add(i,candidate);
++            }
++        }
++        std::size_t edge_count=0;
++        for(auto& e:edges)edge_count+=e.size();
++        edge_count/=2;
++        // Serial historical appointments also reserve travel buffers; no overlapping participation.
++        Time when=-Time(edge_count+count*8+48)*3600000;
++        std::uint64_t ep=0;
++        for(Id a=0;a<count;++a)for(Id b:edges[a])if(a<b){
++            ++ep;
++            s.history.push_back({ep,a,b,3,when,when+300000,0});
++            when+=3600000;
++            for(auto [id,other]:{std::pair{a,b},std::pair{b,a}}){
++                auto& n=s.npcs[id];
++                Relation r;
++                r.person=other;
++                r.known_relative=s.persons[id].parent==s.persons[other].parent;
++                r.care=.05+.25*real("projection",id,other);
++                r.source=ep;
++                for(unsigned j=0;j<4;++j){r.reliability[j].mean=.35+.55*real("trust",id,other*4+j);
++                    r.reliability[j].count=1;
++                }
++                n.memory.people.push_back(r);
++                std::array<std::optional<double>,6> u{};
++                u[0]=.2+.25*real("projection",id,other+count);
++                n.reactions.learn(ep,{{3,1},{1000+other,.5}},u,n.biology.plasticity,1,0,n.memory.people.size());
++            }
++        }
++        for(auto& n:s.npcs){std::sort(n.memory.people.begin(),n.memory.people.end(),[](auto a,auto b){return a.person<b.person;});
++            const auto extra=(n.memory.people.size()<6?8-n.memory.people.size():2);
++            for(std::size_t k=0;k<extra;++k){++ep;
++                s.history.push_back({ep,n.id,none,n.home,when,when+300000,std::uint8_t(k==0?1:2)});
++                when+=3600000;
++                std::array<std::optional<double>,6> u{};
++                if(k==0)u[5]=n.innate_trigger;
++                else u[0]=.25;
++                n.reactions.learn(ep,{{3,1}},u,n.biology.plasticity,1,0,n.memory.people.size());
++            }
++            n.memory.version=1;
++        }
++        s.sequence=ep;
++        validate(s);
++        (void)today;
++        return s;
++    }
++
++    void validate(const State& s){
++        const auto n=s.npcs.size();
++        if(s.config.profile!=model_version||n!=s.config.population||n<8||n>1024||s.places.size()!=5+n/2||s.now<0||s.now%1000)throw std::invalid_argument("invalid state profile/dimensions/time");
++        if(n%2||s.persons.size()<n||s.persons.size()>3*n||s.sequence==0)throw std::invalid_argument("invalid population metadata");
++        require(s.config.theft_norm_override,-1,1);
++        for(const auto& person:s.persons)if(person.parent!=none&&person.parent>=s.persons.size())throw std::invalid_argument("parent id");
++        std::size_t degree=0,kin=0;
++        std::vector<bool> visited(n);
++        std::vector<Id> stack{0};
++        for(std::size_t i=0;i<n;++i){const auto& a=s.npcs[i];
++            if(a.id!=i||a.home>=s.places.size()||a.place>=s.places.size()||a.food<0||a.unowned_food<0||a.money<0||a.action.type>=Act::Count)throw std::invalid_argument("invalid actor state");
++            if(a.memory.people.size()<3||a.memory.people.size()>std::min<std::size_t>(32,n-2)||a.reactions.weights.size()+a.memory.people.size()>512)throw std::invalid_argument("social/learning bound");
++            if(a.focus>=motives||a.action.start<0||a.action.start>s.now||a.action.end<0||a.action.id>s.sequence||a.next_review<s.now)throw std::invalid_argument("invalid action time/id");
++            if(a.action.end>0){
++                if(a.action.end<s.now||a.action.target==none){if(a.action.type!=Act::Wait)throw std::invalid_argument("invalid pending action");
++                }
++                if(a.action.type==Act::Talk){if(a.action.target>=n)throw std::invalid_argument("invalid contact target");
++                }
++                else if(a.action.type!=Act::Wait&&a.action.target>=s.places.size())throw std::invalid_argument("invalid place target");
++            }
++            if(a.intent.active&&(a.intent.procedure>=Act::Count||a.intent.destination>=s.places.size()||a.intent.motive>=motives))throw std::invalid_argument("invalid intention");
++            require(a.memory.sanction);
++            require(a.memory.privacy_norm);
++            for(double x:a.biology.intellect)require(x);
++            for(double x:{a.biology.learning,a.biology.plasticity,a.habituation,a.desire.background,a.desire.sensitivity,a.desire.rate})require(x);
++            require(a.pleasant,-1,1);
++            require(a.trigger,-.5,.5);
++            for(double x:a.sensed)require(x);
++            for(double x:a.emotions)require(x);
++            for(double x:a.targets)require(x);
++            for(const auto& row:a.memory.expectation)for(const auto& stat:row){require(stat.mean,-1,1);
++                require(stat.variance,0,4);
++                require(stat.count,0,1e15);
++            }
++            std::pair<Id,std::uint8_t> previous_weight{};
++            bool first_weight=true;
++            for(auto w:a.reactions.weights){require(w.value,-1,1);
++                auto key=std::pair{w.feature,w.channel};
++                if(w.channel>=6||w.updated<0||w.updated>s.now||(!first_weight&&key<=previous_weight))throw std::invalid_argument("invalid reaction state");
++                previous_weight=key;
++                first_weight=false;
++            }
++            bool relative=false;
++            Id prev=none;
++            for(auto r:a.memory.people){require(r.care);
++                if(r.person>=n||r.person==i||(prev!=none&&r.person<=prev))throw std::invalid_argument("invalid relationship");
++                prev=r.person;
++                relative|=r.known_relative;
++            }
++            degree+=a.memory.people.size();
++            kin+=relative;
++            for(double x:{a.body.energy,a.body.water,a.body.sleep,a.body.fatigue,a.body.damage,a.body.pain,a.body.oxygen,a.body.activation,a.leisure,a.social,a.desire.deficit,a.desire.satiation,a.desire.value,a.memory.property_norm})require(x);
++            require(a.body.temp,-1,1);
++            for(auto p:a.memory.places)if(p.place>=s.places.size()||p.food>Truth::Conflict)throw std::invalid_argument("invalid personal place");
++        }
++        while(!stack.empty()){auto id=stack.back();
++            stack.pop_back();
++            if(visited[id])continue;
++            visited[id]=true;
++            for(auto r:s.npcs[id].memory.people)stack.push_back(r.person);
++        }
++        if(std::find(visited.begin(),visited.end(),false)!=visited.end())throw std::invalid_argument("disconnected social graph");
++        if(n>=64&&(double(degree)/n<8||double(degree)/n>16||double(degree)/(n*(n-1))>.25||double(kin)/n<.25||double(kin)/n>.65))throw std::invalid_argument("social distribution invalid");
++        for(std::size_t i=0;i<s.persons.size();++i){auto p=s.persons[i];
++            if(p.id!=i)throw std::invalid_argument("person id");
++            if(p.parent!=none){if(p.parent>=s.persons.size())throw std::invalid_argument("parent id");
++                auto delta=p.birth_day-s.persons[p.parent].birth_day;
++                if(delta<18*365||delta>51*366)throw std::invalid_argument("parent age");
++                Id k=p.parent;
++                std::size_t depth=0;
++                while(k!=none){if(k==p.id||++depth>s.persons.size())throw std::invalid_argument("genealogy cycle");
++                    k=s.persons[k].parent;
++                }
++            }
++        }
++        std::vector<Time> last(n,std::numeric_limits<Time>::min());
++        std::vector<int> episodes(n);
++        std::uint64_t previous=0;
++        for(auto h:s.history){if(h.id<=previous||h.a>=n||h.place>=s.places.size()||h.end<=h.start||h.end>0)throw std::invalid_argument("history bounds");
++            previous=h.id;
++            for(auto id:{h.a,h.b})if(id!=none){if(id>=n||h.start<last[id])throw std::invalid_argument("history overlap");
++                last[id]=h.end+600000;
++                ++episodes[id];
++            }}
++        for(auto e:episodes)if(e<8||e>20)throw std::invalid_argument("historical episode count");
++        std::int64_t food=s.counters.eaten,water=s.counters.drunk,money=0;
++        for(auto p:s.places){if(p.food<0||p.water<0||p.money<0)throw std::invalid_argument("negative source");
++            food+=p.food;
++            water+=p.water;
++            money+=p.money;
++        }
++        for(auto& p:s.npcs){food+=p.food+p.unowned_food;
++            money+=p.money;
++        }
++        if(food!=s.counters.initial_food+s.counters.supplied_food||water!=s.counters.initial_water+s.counters.supplied_water||money!=s.counters.initial_money+s.counters.wages)throw std::invalid_argument("resource conservation");
++    }
++}
+diff --git a/src/mld/hash.cpp b/src/mld/hash.cpp
+new file mode 100644
+index 0000000..cebeb72
+--- /dev/null
++++ b/src/mld/hash.cpp
+@@ -0,0 +1,68 @@
++#include "mld/hash.hpp"
++#include <array>
++#include <bit>
++#include <vector>
++#include <iomanip>
++#include <sstream>
++#include <stdexcept>
++namespace mld {
++    std::string sha256(std::string_view bytes) {
++        static constexpr std::uint32_t k[64]={0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2};
++        std::array<std::uint32_t,8> h={0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19};
++        std::vector<unsigned char> data(bytes.begin(),bytes.end());
++        const std::uint64_t bits=std::uint64_t(data.size())*8;
++        data.push_back(0x80);
++        while(data.size()%64!=56)data.push_back(0);
++        for(int i=7;i>=0;--i)data.push_back(static_cast<unsigned char>(bits>>(8*i)));
++        for(std::size_t off=0;off<data.size();off+=64){
++            std::uint32_t w[64]{};
++            for(int i=0;i<16;++i)for(int j=0;j<4;++j)w[i]=(w[i]<<8)|data[off+i*4+j];
++            for(int i=16;i<64;++i){auto a=w[i-15],b=w[i-2];
++                w[i]=w[i-16]+(std::rotr(a,7)^std::rotr(a,18)^(a>>3))+w[i-7]+(std::rotr(b,17)^std::rotr(b,19)^(b>>10));
++            }
++            auto [a,b,c,d,e,f,g,z]=h;
++            for(int i=0;i<64;++i){auto t1=z+(std::rotr(e,6)^std::rotr(e,11)^std::rotr(e,25))+((e&f)^(~e&g))+k[i]+w[i];
++                auto t2=(std::rotr(a,2)^std::rotr(a,13)^std::rotr(a,22))+((a&b)^(a&c)^(b&c));
++                z=g;
++                g=f;
++                f=e;
++                e=d+t1;
++                d=c;
++                c=b;
++                b=a;
++                a=t1+t2;
++            }
++            h[0]+=a;
++            h[1]+=b;
++            h[2]+=c;
++            h[3]+=d;
++            h[4]+=e;
++            h[5]+=f;
++            h[6]+=g;
++            h[7]+=z;
++        }
++        std::ostringstream out;
++        out<<std::hex<<std::setfill('0');
++        for(auto x:h)out<<std::setw(8)<<x;
++        return out.str();
++    }
++    static std::string ascii(std::string_view s){for(unsigned char c:s)if(c<32||c>126||c=='"'||c=='\\')throw std::invalid_argument("RNG key must be canonical ASCII identifier");
++        return std::string(s);
++    }
++
++    std::uint64_t seeded(std::uint64_t seed,std::string_view catalog,std::string_view stage,std::uint64_t entity,std::uint64_t draw,std::uint64_t retry){
++        std::ostringstream hex;
++        hex<<std::hex<<std::setw(16)<<std::setfill('0')<<seed;
++        const auto key="[\""+hex.str()+"\",\"0.1.0\",\""+ascii(catalog)+"\",\""+ascii(stage)+"\",\""+std::to_string(entity)+"\",\""+std::to_string(draw)+"\",\""+std::to_string(retry)+"\"]";
++        return std::stoull(sha256(key).substr(0,16),nullptr,16);
++    }
++
++    std::uint64_t uniform(std::uint64_t seed,std::string_view cat,std::string_view stage,std::uint64_t entity,std::uint64_t draw,std::uint64_t bound){
++        if(bound==0)throw std::invalid_argument("zero random bound");
++        // Accept exactly [0, floor(2^64 / bound) * bound), with no overflow at 2^64.
++        const auto rem=(std::uint64_t(0)-bound)%bound;
++        for(std::uint64_t retry=0;;++retry){auto x=seeded(seed,cat,stage,entity,draw,retry);
++            if(rem==0||x<=UINT64_MAX-rem)return x%bound;
++        }
++    }
++}
+diff --git a/src/mld/internal.cpp b/src/mld/internal.cpp
+new file mode 100644
+index 0000000..366f201
+--- /dev/null
++++ b/src/mld/internal.cpp
+@@ -0,0 +1,230 @@
++#include "mld/internal.hpp"
++#include <tuple>
++namespace mld {
++    double clamp(double x,double lo,double hi){if(!std::isfinite(x)||lo>hi)throw std::invalid_argument("non-finite/range");
++        return std::clamp(x,lo,hi);
++    }
++    void require(double x,double lo,double hi){if(!std::isfinite(x)||x<lo||x>hi)throw std::invalid_argument("value outside contract");
++    }
++    double relax(double x,double target,double seconds,double tau){require(seconds,0,1e15);
++        require(tau,1e-15,1e15);
++        require(x,-1e6,1e6);
++        require(target,-1e6,1e6);
++        return seconds==0?x:target+(x-target)*std::exp(-seconds/tau);
++    }
++    double reservoir(double x,double a,double b,double leak,double h){require(x);
++        for(double v:{a,b,leak,h})require(v,0,1e15);
++        if(h==0)return x;
++        double rate=a+b;
++        return rate==0?clamp(x-leak*h):clamp(relax(x,(a-leak)/rate,h,1/rate));
++    }
++
++    Body advance_body(const Body& b,const Biology& m,const PhysicalInput& in,const Emotions& e,double seconds){
++        require(seconds,0,1e12);
++        for(double x:{b.energy,b.water,b.sleep,b.fatigue,b.damage,b.pain,b.oxygen,b.activation})require(x);
++        require(b.temp,-1,1);
++        for(double x:{in.load,in.oxygen,in.pain,in.disease,in.safety})require(x);
++        require(in.temp,-1,1);
++        for(double x:{m.energy_use,m.water_use,m.endurance,m.recovery})require(x,.5,1.5);
++        require(m.sleep_need,.75,1.5);
++        require(m.pain_sensitivity,0,1.5);
++        for(double x:e)require(x);
++        if(seconds==0)return b;
++        const double h=seconds/3600,load=in.load,sleep=in.asleep?1:0;
++        Body n=b;
++        n.energy=clamp(b.energy-h*.035*m.energy_use*(1+load+.4*std::max(0.,-b.temp)+.15*b.activation));
++        n.water=clamp(b.water-h*.045*m.water_use*(1+1.5*load+2*std::max(0.,b.temp)+.15*b.activation));
++        double quality=(1-.5*b.pain)*(1-.5*std::abs(b.temp))*(1-.3*b.activation);
++        n.sleep=clamp(b.sleep+h*(.045*m.sleep_need*(1-sleep)-.09*m.recovery*quality*sleep));
++        n.fatigue=clamp(b.fatigue+h*(.4*load*load*(1+.5*b.oxygen+.3*b.damage)/m.endurance-.25*m.recovery*(1-load)*(.4+.6*sleep)*b.energy*b.water));
++        n.oxygen=relax(b.oxygen,in.oxygen,seconds,in.oxygen>b.oxygen?20:10);
++        double pain=clamp(m.pain_sensitivity*in.pain);
++        n.pain=relax(b.pain,pain,seconds,pain>b.pain?2:30);
++        n.temp=relax(b.temp,in.temp,seconds,1800);
++        auto sq=[](double x){x=clamp(x);
++            return x*x;
++        };
++        n.damage=clamp(b.damage+h*(in.disease+.03*sq((.1-b.energy)/.1)+.04*sq((.1-b.water)/.1)+.04*sq((std::abs(b.temp)-.7)/.3)+12*sq((b.oxygen-.7)/.3)-.005*m.recovery*b.energy*b.water*(1+.5*sleep)));
++        double activation=clamp((1-.5*sleep)*(.1+.5*load+.65*std::max(e[0],e[2])+.3*e[1]+.2*e[4]+.15*e[7]+.4*b.oxygen-.1*in.safety));
++        n.activation=relax(b.activation,activation,seconds,activation>b.activation?5:45);
++        return n;
++    }
++
++    Emotions emotion_targets(const Appraisal& a){
++        const double z=a.significance,v=a.harm,b=a.near,k=a.control;
++        for(double x:{z,v,b,k,a.uncertain,a.obstacle,a.blame,a.loss,a.progress,a.gain,a.surprise,a.novelty,a.understand,a.disgust,a.condemn,a.violation,a.responsibility,a.question})require(x);
++        require(a.pleasant,-1,1);
++        return {z*v*b*(.35+.65*(1-k)),z*v*(1-.8*b)*(.35+.65*a.uncertain)*(1-.5*k),z*std::max(a.obstacle,v*b)*a.blame*(.4+.6*k),z*a.loss*(.4+.6*(1-k)),z*clamp(.5*std::max(0.,a.pleasant)+.3*a.progress+.2*a.gain),z*a.surprise,z*a.disgust,z*clamp(.55*a.novelty*(.3+.7*a.understand)+.3*std::max(0.,a.pleasant)+.15*a.question)*(1-.7*v*b),z*a.condemn,z*a.violation*a.responsibility};
++    }
++
++    std::array<double,8> capacities(const Body& b,const Biology& m,bool asleep,bool conscious){
++        static constexpr double weights[8][7]={{.35,.10,.15,.10,.25,.20,.20},{.60,.15,.20,.10,.50,.25,.45},{.50,.10,.20,.10,.35,.20,.40},{.30,.10,.15,.05,.25,.15,.25},{.40,.20,.20,.10,.30,.20,.30},{.45,.15,.15,.10,.30,.20,.45},{.40,.10,.15,.10,.25,.15,.50},{.45,.15,.15,.10,.35,.20,.35}};
++        std::array<double,7> d={clamp((b.sleep-.3)/.7),b.fatigue,clamp((.5-b.water)/.5),clamp((.35-b.energy)/.35),b.pain,std::abs(b.temp),clamp((b.activation-.65)/.35)};
++        std::array<double,8> c{};
++        double gate=(!asleep&&conscious)?clamp((.95-b.oxygen)/.35):0;
++        for(int j=0;j<8;++j){require(m.intellect[j]);
++            c[j]=m.intellect[j]*gate;
++            for(int i=0;i<7;++i)c[j]*=1-weights[j][i]*d[i];
++        }return c;
++    }
++    std::array<double,8> body_signals(const Body& b){std::array<double,8> d={clamp((.65-b.energy)/.65),clamp((.70-b.water)/.70),clamp((b.sleep-.20)/.80),b.fatigue,b.pain,clamp((-b.temp-.20)/.80),clamp((b.temp-.20)/.80),b.oxygen};
++        for(double& x:d)x=clamp(x*(1+.5*x));
++        return d;
++    }
++    int context_slots(const std::array<double,8>& c,bool gate){return gate?std::clamp(int(std::floor(2+6*c[2]+4*c[1])),2,12):0;
++    }
++    int operations(const std::array<double,8>& c,bool gate){return gate?4+int(std::floor(28*c[4])):0;
++    }
++
++    Desire advance_desire(Desire d,double trigger,double inhibition,double seconds){
++        for(double x:{d.deficit,d.satiation,d.value})require(x);
++        require(d.background,0,.4);
++        require(d.sensitivity,0,.8);
++        require(d.rate,0,.1);
++        require(trigger,-.5,.5);
++        require(inhibition);
++        require(seconds,0,1e12);
++        if(seconds==0)return d;
++        // Reference Jacobi step: V uses OLD D/R; only D/R transitions are exact on long intervals.
++        double target=clamp((d.background+d.sensitivity*d.deficit+trigger)*(1-d.satiation)-inhibition);
++        d.value=relax(d.value,target,seconds,target>d.value?30:300);
++        d.deficit=1-(1-d.deficit)*std::exp(-d.rate*seconds/3600);
++        d.satiation*=std::exp(-.08664339756999316*seconds/3600);
++        return d;
++    }
++    void satisfy(Desire& d,double s){require(s);
++        d.deficit*=1-s;
++        d.satiation+=s*(1-d.satiation);
++    }
++
++    double pleasure(double b,double innate,double acquired,double relation,double context,double involvement,double sat,double sensitivity,double cost){
++        require(b,-.5,.5);
++        require(innate,-.5,.5);
++        require(acquired,-.5,.5);
++        require(relation,-.25,.25);
++        require(context,-.25,.25);
++        require(involvement);
++        require(sat);
++        require(sensitivity,0,.8);
++        require(cost);
++        double raw=b+innate+acquired+relation+context;
++        return involvement*clamp((1-sensitivity*sat)*std::max(0.,raw)+std::min(0.,raw)-cost,-1,1);
++    }
++
++    void learn_association(Stats& s,std::optional<double> y,double learning,double q,double memory,double dose,bool conscious){
++        for(double x:{learning,q,memory,dose})require(x);
++        if(!y||!conscious)return;
++        require(*y,-1,1);
++        double a=.25*learning*q*dose*(.6+.4*memory);
++        if(a==0)return;
++        double err=*y-s.mean;
++        s.mean+=a*err;
++        s.variance=(1-a)*(s.variance+a*err*err);
++        s.count+=q*dose;
++    }
++
++    static std::vector<Feature> select(std::vector<Feature> f){
++        for(auto x:f)require(x.exposure);
++        std::sort(f.begin(),f.end(),[](auto a,auto b){return a.id<b.id;});
++        std::vector<Feature> unique;
++        for(auto x:f){if(!unique.empty()&&unique.back().id==x.id)unique.back().exposure=std::max(x.exposure,unique.back().exposure);
++            else unique.push_back(x);
++        }
++        std::sort(unique.begin(),unique.end(),[](auto a,auto b){return a.exposure!=b.exposure?a.exposure>b.exposure:a.id<b.id;});
++        if(unique.size()>16)unique.resize(16);
++        return unique;
++    }
++    static double weight_at(const Weight& w,Time now){if(now<w.updated)throw std::invalid_argument("reaction time regression");
++        return w.value*std::exp(-std::log(2.)*double(now-w.updated)/(365.*86400000));
++    }
++
++    std::array<double,6> Reactions::effects(std::vector<Feature> f,Time now) const {
++        auto chosen=select(std::move(f));
++        std::sort(chosen.begin(),chosen.end(),[](auto a,auto b){return a.id<b.id;});
++        std::array<double,6> sum{};
++        for(auto x:chosen)for(std::uint8_t j=0;j<6;++j){auto it=std::lower_bound(weights.begin(),weights.end(),std::pair{x.id,j},[](const Weight& w,auto k){return std::pair{w.feature,w.channel}<k;});
++            if(it!=weights.end()&&it->feature==x.id&&it->channel==j)sum[j]+=x.exposure*weight_at(*it,now);
++        }
++        static constexpr double scales[6]={.5,.5,.5,.3,.3,.5};
++        for(int j=0;j<6;++j)sum[j]=scales[j]*clamp(sum[j],-1,1);
++        return sum;
++    }
++
++    std::size_t Reactions::learn(std::uint64_t episode,std::vector<Feature> f,const std::array<std::optional<double>,6>& u,double plasticity,double dose,Time now,std::size_t address_properties){
++        require(plasticity);
++        require(dose);
++        for(auto x:u)if(x)require(*x,-1,1);
++        if(episode<=last_episode)return 0;
++        last_episode=episode;
++        if(plasticity*dose==0)return 0;
++        auto chosen=select(std::move(f));
++        std::vector<int> channels;
++        for(int j=0;j<6;++j)if(u[j]&&std::abs(*u[j])>=.1)channels.push_back(j);
++        std::sort(channels.begin(),channels.end(),[&](int a,int b){return std::abs(*u[a])!=std::abs(*u[b])?std::abs(*u[a])>std::abs(*u[b]):a<b;});
++        if(channels.size()>2)channels.resize(2);
++        std::size_t created=0;
++        for(std::size_t i=0;i<std::min<std::size_t>(2,chosen.size());++i){if(chosen[i].exposure<.25)continue;
++            for(int j:channels){auto has=std::find_if(weights.begin(),weights.end(),[&](auto w){return w.feature==chosen[i].id&&w.channel==j;});
++                if(has==weights.end()&&weights.size()+address_properties<512){weights.push_back({chosen[i].id,std::uint8_t(j),0,now,now});
++                    ++created;
++                }}}
++        std::sort(weights.begin(),weights.end(),[](auto a,auto b){return std::tie(a.feature,a.channel)<std::tie(b.feature,b.channel);});
++        auto update_features=chosen;
++        std::sort(update_features.begin(),update_features.end(),[](auto a,auto b){return a.id<b.id;});
++        for(int j=0;j<6;++j){if(!u[j])continue;
++            double prediction=0,norm=0;
++            std::vector<std::pair<std::size_t,double>> active;
++            for(auto feature:update_features){
++                auto it=std::lower_bound(weights.begin(),weights.end(),std::pair{feature.id,std::uint8_t(j)},[](const Weight& w,auto key){return std::pair{w.feature,w.channel}<key;});
++                if(it==weights.end()||it->feature!=feature.id||it->channel!=j)continue;
++                auto& w=*it;
++                w.value=weight_at(w,now);
++                w.updated=now;
++                w.active=now;
++                prediction+=feature.exposure*w.value;
++                norm+=feature.exposure*feature.exposure;
++                active.emplace_back(std::size_t(it-weights.begin()),feature.exposure);
++            }
++            double error=*u[j]-clamp(prediction,-1,1),eta=.02*plasticity*dose;
++            for(auto [k,x]:active)weights[k].value=clamp(weights[k].value+eta*x/std::max(1.,norm)*error,-1,1);
++        }return created;
++    }
++
++    std::optional<Fact> infer(const Rule& r,const std::vector<Fact>& facts,Id object,int& budget){
++        if(r.conditions.size()>6)throw std::invalid_argument("rule conditions > 6");
++        require(r.mastery);
++        if(budget<=0)return {};
++        --budget;
++        if(r.mastery<.6)return {};
++        double confidence=r.mastery;
++        for(auto condition:r.conditions){
++            bool found=false;
++            for(const auto& fact:facts){
++                if(fact.predicate!=condition.predicate||fact.object!=object)continue;
++                require(fact.confidence);
++                if(fact.truth!=condition.required||fact.truth==Truth::Unknown||fact.truth==Truth::Conflict)return {};
++                confidence=std::min(confidence,fact.confidence);found=true;
++            }
++            if(!found)return {};
++        }
++        return Fact{r.conclusion,object,Truth::True,confidence,r.id};
++    }
++    double moral_cost(double w,double severity){require(w);
++        require(severity);
++        return clamp(w*severity);
++    }
++    double expected_sanction(double a,double b,double c,double severity){for(double x:{a,b,c,severity})require(x);
++        return a*b*c*severity;
++    }
++    Dependence dependence(const std::vector<DependenceInput>& inputs){double all=0,known=0,sum=0;
++        for(auto i:inputs){require(i.importance);
++            all+=i.importance;
++            if(i.contribution)require(*i.contribution);
++            if(i.substitution)require(*i.substitution);
++            if(i.contribution&&i.substitution){known+=i.importance;
++                sum+=i.importance**i.contribution*(1-*i.substitution);
++            }}
++        if(all==0)return {0,0};
++        return {known>0?std::optional<double>(sum/known):std::nullopt,known/all};
++    }
++}
+diff --git a/src/mld/storage.cpp b/src/mld/storage.cpp
+new file mode 100644
+index 0000000..3e1ccc5
+--- /dev/null
++++ b/src/mld/storage.cpp
+@@ -0,0 +1,103 @@
++#include "mld/world.hpp"
++#include <bit>
++#include <type_traits>
++namespace mld {
++    class Writer {
++        public:
++        std::string data;
++        template<class... T>void operator()(T&... x){(write(x),...);
++        }
++        template<class T> void write(T& x){
++            if constexpr(std::is_enum_v<T>){auto v=std::underlying_type_t<T>(x);
++                write(v);
++            }
++            else if constexpr(std::is_same_v<T,bool>){data.push_back(x?1:0);
++            }
++            else if constexpr(std::is_integral_v<T>){using U=std::make_unsigned_t<T>;
++                auto v=static_cast<U>(x);
++                for(int i=int(sizeof(T))-1;i>=0;--i)data.push_back(char(v>>(i*8)));
++            }
++            else if constexpr(std::is_same_v<T,double>){if(!std::isfinite(x))throw std::invalid_argument("non-finite snapshot");
++                auto v=std::bit_cast<std::uint64_t>(x);
++                write(v);
++            }
++            else if constexpr(std::is_same_v<T,std::string>){auto n=std::uint64_t(x.size());
++                write(n);
++                data+=x;
++            }
++            else if constexpr(requires {x.io(*this);})x.io(*this);
++            else if constexpr(requires {x.resize(0);}){auto n=std::uint64_t(x.size());
++                write(n);
++                for(auto& v:x)write(v);
++            }
++            else for(auto& v:x)write(v);
++        }
++    };
++    class Reader {
++        const std::string& data;
++        std::size_t pos=0;
++        unsigned char byte(){if(pos>=data.size())throw std::invalid_argument("truncated snapshot");
++            return static_cast<unsigned char>(data[pos++]);
++        }
++        public:
++        explicit Reader(const std::string& s):data(s){}
++        bool done()const{return pos==data.size();
++        }
++        template<class... T>void operator()(T&... x){(read(x),...);
++        }
++        template<class T>void read(T& x){
++            if constexpr(std::is_enum_v<T>){std::underlying_type_t<T> v{};
++                read(v);
++                x=static_cast<T>(v);
++            }
++            else if constexpr(std::is_same_v<T,bool>){auto v=byte();
++                if(v>1)throw std::invalid_argument("invalid bool");
++                x=v!=0;
++            }
++            else if constexpr(std::is_integral_v<T>){using U=std::make_unsigned_t<T>;
++                U v=0;
++                for(std::size_t i=0;i<sizeof(T);++i)v=(v<<8)|byte();
++                if constexpr(std::is_signed_v<T>)x=std::bit_cast<T>(v);
++                else x=v;
++            }
++            else if constexpr(std::is_same_v<T,double>){std::uint64_t v=0;
++                read(v);
++                x=std::bit_cast<double>(v);
++                if(!std::isfinite(x))throw std::invalid_argument("non-finite snapshot");
++            }
++            else if constexpr(std::is_same_v<T,std::string>){std::uint64_t n=0;
++                read(n);
++                if(n>data.size()-pos)throw std::invalid_argument("string length");
++                x=data.substr(pos,n);
++                pos+=n;
++            }
++            else if constexpr(requires {x.io(*this);})x.io(*this);
++            else if constexpr(requires {x.resize(0);}){std::uint64_t n=0;
++                read(n);
++                if(n>1000000||n>data.size()-pos)throw std::invalid_argument("container length");
++                x.resize(n);
++                for(auto& v:x)read(v);
++            }
++            else for(auto& v:x)read(v);
++        }
++    };
++    std::string encode(State s){Writer w;
++        w(s);
++        return std::string("MLD-0.6-lab1\n")+catalog_hash()+"\n"+sha256(w.data)+"\n"+w.data;
++    }
++
++    State decode(const std::string& bytes){
++        const std::string prefix=std::string("MLD-0.6-lab1\n")+catalog_hash()+"\n";
++        if(!bytes.starts_with(prefix)||bytes.size()<prefix.size()+65||bytes[prefix.size()+64]!='\n')throw std::invalid_argument("incompatible snapshot");
++        const auto payload=bytes.substr(prefix.size()+65);
++        if(sha256(payload)!=bytes.substr(prefix.size(),64))throw std::invalid_argument("snapshot checksum");
++        State s;
++        Reader r(payload);
++        r(s);
++        if(!r.done())throw std::invalid_argument("trailing snapshot fields");
++        validate(s);
++        return s;
++    }
++    std::string semantic_hash(const State& s){return sha256(encode(s));
++    }
++}
+diff --git a/src/mld/world.cpp b/src/mld/world.cpp
+new file mode 100644
+index 0000000..7e04289
+--- /dev/null
++++ b/src/mld/world.cpp
+@@ -0,0 +1,433 @@
++#include "mld/world.hpp"
++#include <sstream>
++#include <iomanip>
++#include <numeric>
++namespace mld {
++    World::World(Config c,bool indexed):World(generate(std::move(c)),indexed){}
++    World::World(State s,bool indexed):state_(std::move(s)),indexed_(indexed){validate(state_);
++        rebuild();
++    }
++    void World::rebuild(){occupants_.assign(state_.places.size(),{});
++        due_={};
++        for(auto& n:state_.npcs){if(n.action.type!=Act::Move)occupants_[n.place].push_back(n.id);
++            schedule(n.id);
++        }}
++    void World::schedule(Id id){if(!indexed_)return;
++        const auto& n=state_.npcs[id];
++        Time due=n.next_review;
++        if(n.action.end>0)due=std::min(due,n.action.end);
++        due_.push({due,id});
++    }
++    void World::update_occupancy(Id id,Id old,Id current){if(old!=none){auto& b=occupants_[old];
++            b.erase(std::remove(b.begin(),b.end(),id),b.end());
++        }if(current!=none){auto& b=occupants_[current];
++            b.insert(std::lower_bound(b.begin(),b.end(),id),id);
++        }}
++    void World::event(std::string_view what,Id actor,Id target,std::int64_t value){
++        ++state_.counters.events;
++        auto& h=state_.counters.digest;
++        auto mix=[&](std::uint64_t x){for(int b=0;b<8;++b){h^=std::uint8_t(x>>(8*b));
++                h*=1099511628211ULL;
++            }};
++        mix(std::uint64_t(state_.now));
++        mix(actor);
++        mix(target);
++        mix(std::uint64_t(value));
++        for(unsigned char c:what){h^=c;
++            h*=1099511628211ULL;
++        }
++        if(log_)*log_<<state_.now<<','<<what<<','<<actor<<','<<target<<','<<value<<'\n';
++    }
++
++    View World::view(Id id)const{
++        const auto& n=state_.npcs.at(id);
++        const bool asleep=n.action.type==Act::Sleep&&n.action.asleep;
++        View v;
++        v.actor=id;
++        v.home=n.home;
++        v.place=n.action.type==Act::Move?none:n.place;
++        v.now=state_.now;
++        v.sensed=n.sensed;
++        v.cognition=capacities(n.body,n.biology,asleep);
++        v.food=n.food+n.unowned_food;
++        v.money=n.money;
++        v.knowledge=&n.memory;
++        v.current=n.action.type;
++        v.in_contact=n.action.social_accepted;
++        v.intent=n.intent;
++        if(asleep||v.place==none)return v;
++        // Lab1 uses clear recognition of previously known co-present people at review boundaries.
++        // Full exposure integration, ambiguity and recognition errors remain a separate acceptance gap.
++        auto visit=[&](Id other){if(other==id)return;
++            auto r=std::lower_bound(n.memory.people.begin(),n.memory.people.end(),other,[](auto r,Id x){return r.person<x;});
++            if(r!=n.memory.people.end()&&r->person==other&&v.seen_people.size()<4)v.seen_people.push_back(other);
++        };
++        if(indexed_)for(Id other:occupants_[n.place])visit(other);
++        else for(const auto& other:state_.npcs)if(other.place==n.place&&other.action.type!=Act::Move)visit(other.id);
++        return v;
++    }
++
++    void World::physiology(Npc& n){
++        auto type=n.action.type;
++        if(type==Act::Sleep&&!n.action.asleep){
++            if(n.body.sleep>=.3&&n.body.pain<.7&&n.emotions[0]<.3)n.action.sleep_progress+=1000;
++            else n.action.sleep_progress=0;
++            if(n.action.sleep_progress>=120000)n.action.asleep=true;
++        }
++        const bool sleeping=type==Act::Sleep&&n.action.asleep;
++        PhysicalInput in;
++        in.asleep=sleeping;
++        in.load=type==Act::Move?.25:(type==Act::Work?.3:0);
++        in.safety=.8;
++        const auto old=n.body;
++        const auto oldEmotions=n.emotions;
++        n.body=advance_body(old,n.biology,in,oldEmotions,1);
++        const double engagement=(type==Act::Play||type==Act::Talk||type==Act::Work||type==Act::Relief)?1:0;
++        const double positive=std::max(0.,n.pleasant),negative=std::max(0.,-n.pleasant);
++        n.leisure=reservoir(n.leisure,.8*positive,.3*negative,.06*n.biology.leisure_need,1./3600);
++        double contact=type==Act::Talk&&n.action.social_accepted?.75:0;
++        n.social=reservoir(n.social,.6*contact,0,.025*n.biology.social_need,1./3600);
++        double rate=.35*engagement+.2*(1-engagement),target=.35*engagement/rate;
++        n.habituation=relax(n.habituation,target,1./3600,1/rate);
++        auto signals=body_signals(old);
++        const double inhibition=clamp(.2*signals[3]+.3*signals[4]+.5*oldEmotions[0]);
++        n.desire=advance_desire(n.desire,n.trigger,inhibition,1);
++        static constexpr double up[10]={1,10,3,20,5,.5,2,3,8,20},down[10]={30,300,180,1200,180,3,60,90,600,1800};
++        for(std::size_t j=0;j<10;++j){double goal=state_.now<n.target_until?n.targets[j]:0;
++            n.emotions[j]=relax(oldEmotions[j],goal,1,goal>oldEmotions[j]?up[j]:down[j]);
++        }
++        auto& critical=state_.counters.critical_seconds;
++        critical[0]+=n.body.energy<.1;
++        critical[1]+=n.body.water<.1;
++        critical[2]+=n.body.sleep>.9;
++        critical[3]+=n.body.fatigue>.9;
++        critical[4]+=n.leisure<.1;
++        critical[5]+=n.social<.1;
++        critical[6]+=n.desire.value>.9;
++        if(sleeping&&(n.body.sleep<=.1||std::max({signals[0],signals[1],signals[4],signals[7]})>=.85)&&n.action.end>state_.now+1000){n.action.end=state_.now+1000;
++            schedule(n.id);
++        }
++    }
++
++    static void sense(Npc& n,Time now){
++        auto signals=body_signals(n.body);
++        std::array<double,8> raw={signals[0],signals[1],signals[2],signals[3],1-n.leisure,1-n.social,n.desire.value,clamp((4-double(n.money))/4)};
++        auto cap=capacities(n.body,n.biology);
++        auto best=std::size_t(std::max_element(raw.begin(),raw.end())-raw.begin());
++        // Laboratory focus has hysteresis; full switching latency/limited exposure is not claimed.
++        double threshold=.06+.18*cap[1]+.12*.5;
++        if(raw[best]-raw[n.focus]>threshold||now==0||((best<4)&&raw[best]>=.85)){n.focus=std::uint8_t(best);
++            n.focus_since=now;
++        }
++        for(std::size_t j=0;j<8;++j)n.sensed[j]=clamp(raw[j]*(.35+.65*(j==n.focus?1:.25))*(1+.2*n.emotions[1]));
++    }
++
++    void World::experience(Npc& n,bool complete){
++        if(n.action.type==Act::Wait||n.action.type==Act::Move||n.action.type==Act::Inspect)return;
++        const bool sleeping=n.action.type==Act::Sleep&&n.action.asleep;
++        if(sleeping||n.body.oxygen>=.95)return;
++        const double dose=std::min(1.,double(state_.now-n.action.last_window)/300000);
++        if(dose<=0)return;
++        const auto episode=++state_.sequence;
++        std::array<std::optional<double>,6> primary{};
++        if(n.action.type==Act::Play||n.action.type==Act::Talk||n.action.type==Act::Work)primary[0]=n.action.type==Act::Work?.15:.45;
++        if(n.action.type==Act::Relief)primary[5]=n.innate_trigger;
++        n.reactions.learn(episode,{{n.place==n.home?Id(5):n.place,1}},primary,n.biology.plasticity,dose,state_.now,n.memory.people.size());
++        if(complete){sense(n,state_.now);
++            auto a=std::size_t(n.action.type);
++            for(std::size_t j=0;j<motives;++j){if(n.memory.expectation[a][j].mean==0)continue;
++                if(n.action.type==Act::Exchange||n.action.type==Act::Take)continue;
++                // instrumentality uses known Eat forecast
++                double y=clamp(n.action.initial_sensed[j]-n.sensed[j],-1,1);
++                if(n.action.type==Act::Work&&j==7)y=.4;
++                if(n.action.type==Act::Relief&&j==6)y=.6;
++                learn_association(n.memory.expectation[a][j],y,n.biology.learning,1,n.biology.intellect[3],1);
++            }
++        }
++        n.action.last_window=state_.now;
++        n.memory.last_learn=episode;
++        ++n.memory.version;
++    }
++
++    void World::finish(Id id){
++        auto& n=state_.npcs[id];
++        const auto action=n.action;
++        bool ok=true;
++        auto stock_result=[&](bool available){auto it=std::find_if(n.memory.places.begin(),n.memory.places.end(),[&](auto p){return p.place==action.target;});
++            if(it!=n.memory.places.end()){it->food=available?Truth::True:Truth::False;
++                it->checked=state_.now;
++                // A known-empty home has no autonomous restocking process in this catalogue.
++            // The store's public delivery timetable, not hidden stock, permits a later check.
++            it->retry=available?state_.now:(it->free_food?std::numeric_limits<Time>::max():((state_.now/86400000)+1)*86400000);
++                it->source=action.id;
++                ++n.memory.version;
++            }};
++        switch(action.type){
++            case Act::Move:
++            ok=action.target<state_.places.size()&&!state_.places[action.target].closed;
++            if(ok)n.place=action.target;
++            update_occupancy(id,none,n.place);
++            break;
++            case Act::Inspect:stock_result(state_.places[n.place].food>0);
++            break;
++            case Act::Exchange:case Act::Take:{auto& p=state_.places[n.place];
++                bool free=n.place==n.home;
++                ok=!p.closed&&p.food>0&&(action.type==Act::Take||free||n.money>=1);
++                if(ok){--p.food;
++                    if(action.type==Act::Take&&!free){++n.unowned_food;
++                        ++state_.counters.unauthorized;
++                    }else{++n.food;
++                        if(!free){--n.money;
++                            ++p.money;
++                        }++state_.counters.transfers;
++                    }stock_result(p.food>0);
++                }else stock_result(p.food>0);
++                break;
++            }
++            case Act::Eat:ok=n.food+n.unowned_food>0;
++            if(ok){if(n.unowned_food>0)--n.unowned_food;
++                else --n.food;
++                ++state_.counters.eaten;
++                n.body.energy=clamp(n.body.energy+.35);
++            }break;
++            case Act::Drink:ok=n.place==2&&state_.places[2].water>0;
++            if(ok){--state_.places[2].water;
++                ++state_.counters.drunk;
++                n.body.water=clamp(n.body.water+.25);
++            }break;
++            case Act::Relief:satisfy(n.desire,.6);
++            ++state_.counters.reliefs;
++            break;
++            case Act::Work:n.money+=2;
++            state_.counters.wages+=2;
++            break;
++            case Act::Talk:
++            if(!action.social_accepted){
++                bool accepted=action.target<state_.npcs.size()&&state_.npcs[action.target].place==n.place&&state_.npcs[action.target].action.type!=Act::Move;
++                if(accepted){sense(state_.npcs[action.target],state_.now);
++                    accepted=accept_contact(view(action.target));
++                }
++                if(accepted){auto& other=state_.npcs[action.target];
++                    experience(other,false);
++                    n.action.social_accepted=true;
++                    n.action.start=state_.now;
++                    n.action.end=state_.now+1800000;
++                    n.action.last_window=state_.now;
++                    other.intent={};
++                    n.intent={};
++                    other.action=n.action;
++                    other.action.target=id;
++                    other.action.id=++state_.sequence;
++                    other.action.initial_sensed=other.sensed;
++                    n.pleasant=.4;
++                    other.pleasant=.4;
++                    n.next_review=state_.now+30000;
++                    other.next_review=state_.now+30000;
++                    schedule(id);
++                    schedule(other.id);
++                    event("contact_accepted",id,other.id);
++                    return;
++                }
++                auto r=std::find_if(n.memory.people.begin(),n.memory.people.end(),[&](auto r){return r.person==action.target;});
++                if(r!=n.memory.people.end()){r->retry=state_.now+60000;
++                    ++n.memory.version;
++                }
++                ++state_.counters.failures;
++                event("contact_refused",id,action.target);
++                n.intent={};
++                n.action={};
++                n.next_review=state_.now;
++                return;
++            }
++            ++state_.counters.contacts;
++            break;
++            default:break;
++        }
++        if(ok)++n.completed[std::size_t(action.type)];
++        else ++state_.counters.failures;
++        if(ok)experience(n,true);
++        event(ok?"complete":"failed",id,action.target,std::int64_t(action.type));
++        if(action.moral>0&&ok){Appraisal a;
++            a.significance=.7;
++            a.violation=action.moral;
++            a.responsibility=1;
++            n.targets=emotion_targets(a);
++            n.target_until=state_.now+5000;
++        }
++        if(action.type!=Act::Move||!ok||(n.intent.procedure==Act::Move&&n.place==n.intent.destination))n.intent={};
++        n.action={};
++        n.pleasant=0;
++        n.next_review=state_.now;
++    }
++
++    void World::start(Id id,const Choice& choice){
++        auto& n=state_.npcs[id];
++        Act a=choice.type;
++        n.intent={choice.procedure,choice.destination,choice.motive,a==Act::Move};
++        Id target=choice.target;
++        if(n.action.type==Act::Move)return;
++        // finish the physical edge before changing route
++        if(n.action.type==Act::Talk&&n.action.target<state_.npcs.size()){
++            auto& other=state_.npcs[n.action.target];
++            if(other.action.type==Act::Talk&&other.action.target==id){experience(other,false);
++                other.action={};
++                other.pleasant=0;
++                other.next_review=state_.now+1000;
++                schedule(other.id);
++                event("contact_cancel",other.id,id);
++            }
++        }
++        if(n.action.type!=Act::Wait){experience(n,false);
++            event("interrupt",id,n.action.target,std::int64_t(n.action.type));
++        }
++        Time duration=30000;
++        switch(a){case Act::Move:duration=120000;
++            break;
++            case Act::Inspect:duration=10000;
++            break;
++            case Act::Exchange:case Act::Take:duration=15000;
++            break;
++            case Act::Eat:duration=600000;
++            break;
++            case Act::Drink:duration=120000;
++            break;
++            case Act::Sleep:duration=8*3600000;
++            break;
++            case Act::Rest:case Act::Talk:case Act::Relief:case Act::Work:duration=1800000;
++            break;
++            case Act::Play:duration=3600000;
++            break;
++            default:break;
++        }
++        if(a==Act::Talk)duration=10000;
++        // proposal and independent reply consume game time
++        n.action={};
++        n.action.type=a;
++        n.action.start=state_.now;
++        n.action.end=state_.now+duration;
++        n.action.target=target;
++        n.action.id=++state_.sequence;
++        n.action.last_window=state_.now;
++        n.action.moral=choice.moral;
++        n.action.expected=choice.score;
++        n.action.initial_sensed=n.sensed;
++        auto effects=n.reactions.effects({{n.place==n.home?Id(5):n.place,1}},state_.now);
++        const double basic=a==Act::Work?.15:(a==Act::Play?.45:0);
++        n.pleasant=basic==0?0:pleasure(basic,0,effects[0],0,0,1,n.habituation,.4,0);
++        if(a==Act::Move)update_occupancy(id,n.place,none);
++        if(n.pleasant>0){Appraisal ap;
++            ap.significance=.5;
++            ap.pleasant=n.pleasant;
++            n.targets=emotion_targets(ap);
++            n.target_until=n.action.end;
++        }
++        event("start",id,target,std::int64_t(a));
++        event("decision_score_millionths",id,target,std::llround(choice.score*1e6));
++        n.next_review=state_.now+30000;
++        schedule(id);
++    }
++
++    void World::review(Id id){
++        auto& n=state_.npcs[id];
++        n.next_review=state_.now+30000;
++        if(n.action.type==Act::Sleep&&n.action.asleep){schedule(id);
++            return;
++        }
++        sense(n,state_.now);
++        auto v=view(id);
++        if(v.cognition[4]==0||v.place==none){schedule(id);
++            return;
++        }
++        // Only a perceived public-room context activates this laboratory trigger.
++        n.trigger=n.place==3?clamp(.5*n.innate_trigger+n.reactions.effects({{3,1}},state_.now)[5],-.5,.5):0;
++        if(state_.now-n.action.last_window>=300000&&n.action.type!=Act::Wait)experience(n,false);
++        auto choice=choose(v);
++        ++n.decisions;
++        ++state_.counters.choices;
++        state_.counters.operations+=choice.used_operations;
++        const bool emergency=std::max({n.sensed[0],n.sensed[1],n.sensed[2],n.sensed[3]})>=.85;
++        bool change=n.action.type==Act::Wait;
++        if(n.action.type!=Act::Wait&&choice.type!=n.action.type){const double threshold=.10+.30*v.cognition[7]+.20*.5;
++            change=emergency||choice.score-n.action.expected>threshold;
++        }
++        if(change)start(id,choice);
++        else schedule(id);
++    }
++    void World::supply(){auto count=std::int64_t(state_.npcs.size());
++        if(!state_.config.scarce){state_.places[1].food+=count*4;
++            state_.counters.supplied_food+=count*4;
++            event("external_food_supply",none,1,count*4);
++        }state_.places[2].water+=count*8;
++        state_.counters.supplied_water+=count*8;
++        event("external_water_supply",none,2,count*8);
++    }
++
++    void World::boundary(){
++        std::vector<Id> ids;
++        if(indexed_){while(!due_.empty()&&due_.top().first<=state_.now){auto [t,id]=due_.top();
++                due_.pop();
++                auto& n=state_.npcs[id];
++                Time due=n.next_review;
++                if(n.action.end>0)due=std::min(due,n.action.end);
++                if(due==t)ids.push_back(id);
++            }}
++        else for(auto& n:state_.npcs)if(n.next_review<=state_.now||(n.action.end>0&&n.action.end<=state_.now))ids.push_back(n.id);
++        std::sort(ids.begin(),ids.end());
++        ids.erase(std::unique(ids.begin(),ids.end()),ids.end());
++        std::vector<std::pair<std::uint64_t,Id>> completions;
++        for(Id id:ids){auto& n=state_.npcs[id];
++            if(n.action.end>0&&n.action.end<=state_.now)completions.emplace_back(seeded(state_.config.seed,catalog_hash(),"commit-order",id,n.action.id),id);
++        }
++        std::sort(completions.begin(),completions.end());
++        for(auto [key,id]:completions){(void)key;
++            finish(id);
++        }
++        for(Id id:ids){if(state_.npcs[id].next_review<=state_.now)review(id);
++            else schedule(id);
++        }
++    }
++
++    void World::advance(std::uint32_t seconds){
++        if(seconds>31U*86400)throw std::invalid_argument("advance interval >31 days");
++        if(seconds==0)return;
++        for(std::uint32_t step=0;step<seconds;++step){boundary();
++            for(auto& n:state_.npcs)physiology(n);
++            state_.now+=1000;
++            if(state_.now%86400000==0)supply();
++        }
++        boundary();
++        validate(state_);
++    }
++    std::string World::snapshot()const{validate(state_);
++        return encode(state_);
++    }
++    World World::restore(const std::string& s,bool indexed){return World(decode(s),indexed);
++    }
++
++    std::string World::summary()const{
++        double minEnergy=1,minWater=1,maxSleep=0,maxDamage=0,minLeisure=1,minSocial=1;
++        std::size_t w=0;
++        std::array<std::uint64_t,action_count> actions{};
++        for(auto& n:state_.npcs){minEnergy=std::min(minEnergy,n.body.energy);
++            minWater=std::min(minWater,n.body.water);
++            maxSleep=std::max(maxSleep,n.body.sleep);
++            maxDamage=std::max(maxDamage,n.body.damage);
++            minLeisure=std::min(minLeisure,n.leisure);
++            minSocial=std::min(minSocial,n.social);
++            w+=n.reactions.weights.size();
++            for(std::size_t j=0;j<action_count;++j)actions[j]+=n.completed[j];
++        }
++        const auto& c=state_.counters;
++        std::ostringstream out;
++        out<<std::setprecision(17);
++        out<<"{\n\"scenario\":\""<<(state_.config.scarce?"scarcity":(state_.config.temptation?"temptation":"normal"))<<"\",\n\"property_norm_override\":"<<state_.config.theft_norm_override<<",\n";
++        out<<"\"version\":\""<<model_version<<"\",\n\"seed\":"<<state_.config.seed<<",\n\"population\":"<<state_.npcs.size()<<",\n\"simulated_seconds\":"<<state_.now/1000<<",\n\"semantic_hash\":\""<<semantic_hash(state_)<<"\",\n\"event_hash\":"<<c.digest<<",\n\"events\":"<<c.events<<",\n\"decisions\":"<<c.choices<<",\n\"operations\":"<<c.operations<<",\n\"failures\":"<<c.failures<<",\n\"unauthorized_takes\":"<<c.unauthorized<<",\n\"sparse_weights\":"<<w<<",\n\"min_energy\":"<<minEnergy<<",\n\"min_water\":"<<minWater<<",\n\"max_sleep_pressure\":"<<maxSleep<<",\n\"max_damage\":"<<maxDamage<<",\n\"min_leisure\":"<<minLeisure<<",\n\"min_social\":"<<minSocial<<",\n\"critical_person_seconds\":[";
++        for(std::size_t j=0;j<7;++j){if(j)out<<',';
++            out<<c.critical_seconds[j];
++        }out<<"],\n\"completed\":{";
++        for(std::size_t j=0;j<action_count;++j){if(j)out<<',';
++            out<<'"'<<action_name(Act(j))<<"\":"<<actions[j];
++        }out<<"}\n}\n";
++        return out.str();
++    }
++}
+diff --git a/tests/check.hpp b/tests/check.hpp
+new file mode 100644
+index 0000000..ac4751c
+--- /dev/null
++++ b/tests/check.hpp
+@@ -0,0 +1,12 @@
++#pragma once
++#include <iostream>
++#include <functional>
++#include <cmath>
++#include <stdexcept>
++#include <string>
++inline int checks=0,failures=0;
++inline void test(const std::string& name,const std::function<void()>& f){++checks;try{f();std::cout<<"PASS "<<name<<'\n';}catch(const std::exception& e){++failures;std::cerr<<"FAIL "<<name<<": "<<e.what()<<'\n';}}
++inline void check(bool b,const char* s="check"){if(!b)throw std::runtime_error(s);}
++inline void near(double a,double b,double eps=1e-12){check(std::isfinite(a)&&std::isfinite(b)&&std::abs(a-b)<=eps,"numeric mismatch");}
++inline void rejects(const std::function<void()>& f){bool ok=false;try{f();}catch(const std::exception&){ok=true;}check(ok,"expected rejection");}
++inline int result(){std::cout<<"tests="<<checks<<" failed="<<failures<<'\n';return failures?1:0;}
+diff --git a/tests/unit.cpp b/tests/unit.cpp
+new file mode 100644
+index 0000000..c397abe
+--- /dev/null
++++ b/tests/unit.cpp
+@@ -0,0 +1,42 @@
++#include "mld/internal.hpp"
++#include "check.hpp"
++using namespace mld;
++int main(){
++    test("relax actual transition",[]{near(relax(.2,.8,30,30),.8+(.2-.8)*std::exp(-1));});
++    test("zero time bit-preserving",[]{check(relax(.3,.8,0,30)==.3);});
++    test("reject invalid even at zero dt",[]{rejects([]{relax(.3,.8,0,0);});rejects([]{clamp(NAN);});});
++
++    test("body rates from one snapshot",[]{Body b; auto n=advance_body(b,{}, {},{},3600);near(n.energy,.8-.035*1.015);near(n.water,.8-.045*1.015);near(n.sleep,.195);});
++    test("rest is not sleep",[]{Body b;PhysicalInput i;i.asleep=true;check(advance_body(b,{},i,{},3600).sleep<b.sleep);check(advance_body(b,{}, {},{},3600).sleep>b.sleep);});
++    test("zero body dt",[]{Body b;auto n=advance_body(b,{}, {},{},0);check(n.energy==b.energy&&n.activation==b.activation);});
++    test("oxygen damages without desire",[]{Body b;b.oxygen=1;PhysicalInput i;i.oxygen=1;check(advance_body(b,{},i,{},60).damage>b.damage);});
++    test("normal capacities",[]{Body b;b.fatigue=0;auto c=capacities(b,{});for(double x:c)near(x,.5);check(context_slots(c)==7&&operations(c)==18);});
++    test("no cognition asleep",[]{auto c=capacities({}, {},true);for(double x:c)near(x,0);check(context_slots(c,false)==0);});
++    test("no invented emotion",[]{for(auto x:emotion_targets({}))near(x,0);});
++    test("fear appraisal",[]{Appraisal a;a.significance=.8;a.harm=.7;a.near=.9;a.control=.2;a.uncertain=.6;near(emotion_targets(a)[0],.43848);});
++    test("novelty not needed for enjoyment",[]{check(pleasure(.3,.1,0,0,0,1,.9,.4,0)>0);});
++    test("exact reservoir composition",[]{near(reservoir(reservoir(.7,.2,.1,.06,1),.2,.1,.06,2),reservoir(.7,.2,.1,.06,3));});
++    test("desire deficit accumulates",[]{auto d=advance_desire({},0,0,72*3600);near(d.deficit,.625);});
++    test("satisfy different from seeing",[]{Desire d;d.deficit=.8;d.satiation=.2;satisfy(d,.6);near(d.deficit,.32);near(d.satiation,.68);});
++    test("desire zero dt",[]{Desire d;check(advance_desire(d,.4,0,0).value==d.value);rejects([&]{advance_desire(d,0,0,-1);});});
++    test("contextual trigger",[]{auto a=advance_desire({},.4,0,10);auto b=advance_desire({},0,0,10);check(a.value>b.value);});
++    test("associative not causal",[]{Stats s;learn_association(s,.8,.5,1,.5,1);check(s.mean>0);});
++    test("unobserved is not zero",[]{Stats s;s.mean=.5;learn_association(s,{},.5,1,.5,1);near(s.mean,.5);});
++    test("no conscious experience",[]{Stats s;learn_association(s,.8,.5,1,.5,1,false);near(s.count,0);});
++    test("sparse channel specific",[]{Reactions w;std::array<std::optional<double>,6> y{};y[0]=.6;check(w.learn(1,{{1,1}},y,.5,1,0)==1);check(w.effects({{1,1}},0)[0]>0);near(w.effects({{1,1}},0)[5],0);});
++    test("duplicate episode",[]{Reactions w;std::array<std::optional<double>,6> y{};y[5]=.4;w.learn(1,{{1,1}},y,.5,1,0);auto old=w.weights[0].value;w.learn(1,{{1,1}},y,.5,1,0);near(old,w.weights[0].value);});
++    test("four new pairs maximum",[]{Reactions w;std::array<std::optional<double>,6> y{};y.fill(.5);check(w.learn(1,{{1,1},{2,.9},{3,.8}},y,1,1,0)==4);});
++    test("unknown permission not false",[]{Rule r{1,{{2,Truth::False}},3,1};int budget=10;check(!infer(r,{},4,budget));check(budget<10);});
++    test("rule proof respects confidence",[]{Rule r{1,{{2,Truth::True}},3,.7};int budget=10;auto f=infer(r,{{2,4,Truth::True,.6,1}},4,budget);check(f.has_value());near(f->confidence,.6);});
++    test("contradiction not truth",[]{Rule r{1,{{2,Truth::True}},3,1};int budget=10;check(!infer(r,{{2,4,Truth::Conflict,.9,1}},4,budget));});
++    test("taboo is finite",[]{near(moral_cost(1,1),1);});
++    test("subjective penalty example",[]{near(expected_sanction(.4,.8,.5,.6),.096);});
++    test("dependence partial knowledge",[]{auto d=dependence({{1,.8,.25},{1,.4,std::nullopt}});near(*d.value,.6);near(d.coverage,.5);});
++    test("dependence .35 example",[]{near(*dependence({{1,.8,.25},{1,.4,.75}}).value,.35);});
++    test("conflicting witnesses are not silently resolved",[]{Rule r{1,{{2,Truth::True}},3,1};int budget=10;check(!infer(r,{{2,4,Truth::True,.8,1},{2,4,Truth::False,.8,2}},4,budget));});
++    test("W global shared capacity",[]{Reactions w;std::array<std::optional<double>,6> y{};y[0]=.5;check(w.learn(1,{{3,1}},y,.5,1,0,512)==0);check(w.weights.empty());});
++    test("W empty primary cannot self reinforce",[]{Reactions w;std::array<std::optional<double>,6> y{};y[0]=.5;w.learn(1,{{3,1}},y,.5,1,0);auto old=w.weights.front().value;y.fill(std::nullopt);w.learn(2,{{3,1}},y,.5,1,0);near(w.weights.front().value,old);});
++    test("W indexed update leaves unrelated properties intact",[]{Reactions w;for(Id i=0;i<100;++i)w.weights.push_back({i,0,.1,0,0});std::array<std::optional<double>,6> y{};y[0]=.6;w.learn(1,{{2,1},{3,.5}},y,.5,1,0);check(w.weights[2].value>.1);near(w.weights[50].value,.1);});
++    test("zero sanction no monetary side effect",[]{near(expected_sanction(0,.8,.5,.6),0);});
++    return result();
++}
+diff --git a/tests/world_tests.cpp b/tests/world_tests.cpp
+new file mode 100644
+index 0000000..bb79560
+--- /dev/null
++++ b/tests/world_tests.cpp
+@@ -0,0 +1,64 @@
++#include "mld/world.hpp"
++#include "check.hpp"
++#include <sstream>
++using namespace mld;
++int main(){
++    test("SHA256 empty",[]{check(sha256("")=="e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");});
++    test("SHA256 abc",[]{check(sha256("abc")=="ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad");});
++    test("seed canonical reproducibility",[]{check(seeded(42,"catalog","history",3)==seeded(42,"catalog","history",3));check(seeded(42,"catalog","history",3)!=seeded(42,"catalog","history",4));});
++    test("population creation",[]{auto s=generate({});check(s.npcs.size()==128);validate(s);});
++    test("100 seed social invariants",[]{for(unsigned seed=0;seed<100;++seed){Config c;c.seed=seed;auto s=generate(c);check(s.npcs.size()==128);validate(s);}});
++    test("invalid profile rejected",[]{Config c;c.profile="full-institutions";rejects([&]{generate(c);});});
++    test("same seed same state",[]{check(semantic_hash(generate({}))==semantic_hash(generate({})));});
++    test("different seeds differ",[]{Config b;b.seed=43;check(semantic_hash(generate({}))!=semantic_hash(generate(b)));});
++    test("snapshot complete and tamper rejection",[]{auto s=generate({});auto b=encode(s);check(encode(decode(b))==b);b.back()^=1;rejects([&]{decode(b);});});
++
++    test("closed loop advances and eats",[]{Config c;c.population=16;World w(c);w.advance(86400);check(w.state().counters.eaten>0);check(w.state().counters.drunk>0);check(w.state().now==86400000);});
++    test("reference indexed identical",[]{Config c;c.population=16;World a(c,true),b(c,false);a.advance(7200);b.advance(7200);check(a.snapshot()==b.snapshot());});
++    test("restore continuation",[]{Config c;c.population=16;World a(c);a.advance(371);auto b=World::restore(a.snapshot());a.advance(7200);b.advance(7200);check(a.snapshot()==b.snapshot());});
++    test("zero advance stable",[]{Config c;c.population=16;World a(c);a.advance(1);auto before=a.snapshot();a.advance(0);check(a.snapshot()==before);});
++    test("controller budget",[]{World w;auto v=w.view(0);v.sensed.fill(.5);auto c=choose(v);check(c.used_operations<=operations(v.cognition));check(c.context_used<=context_slots(v.cognition));});
++    test("same view hidden food",[]{auto s=generate({});World a(s);s.places[1].food+=10;s.counters.initial_food+=10;World b(s);auto x=choose(a.view(0)),y=choose(b.view(0));check(x.type==y.type&&x.target==y.target&&x.score==y.score);});
++
++    test("initial zero advance is identity",[]{World a;auto s=a.snapshot();a.advance(0);check(a.snapshot()==s);});
++    test("contact retry uses known refusal",[]{World w;auto v=w.view(0);Knowledge k=*v.knowledge;v.knowledge=&k;v.sensed.fill(0);v.sensed[5]=.9;v.seen_people.clear();v.seen_people.push_back(k.people.front().person);k.people.front().retry=v.now+60000;check(choose(v).type!=Act::Talk);});
++    test("known taboo changes choice not physics",[]{World w;auto v=w.view(0);Knowledge k=*v.knowledge;v.knowledge=&k;v.place=1;v.food=0;v.money=0;v.sensed.fill(0);v.sensed[0]=1;k.property_norm=0;k.sanction=0;for(auto& p:k.places)if(p.place==v.home){p.food=Truth::False;p.retry=60000;}check(choose(v).type==Act::Take);k.property_norm=1;check(choose(v).type!=Act::Take);});
++
++    test("minimal context can execute familiar bound procedure",[]{World w;auto v=w.view(0);v.cognition.fill(.01);v.food=1;v.sensed.fill(0);v.sensed[0]=1;check(context_slots(v.cognition)==2);check(choose(v).type==Act::Eat);});
++    test("route preserves known procedure across intermediate node",[]{World w;auto v=w.view(0);v.sensed.fill(.1);v.sensed[5]=.9;v.place=0;v.money=4;v.intent={Act::Drink,2,1,true};auto c=choose(v);check(c.type==Act::Move&&c.target==2&&c.procedure==Act::Drink);});
++    test("waiting forecast does not exceed known conversation benefit",[]{World w;auto v=w.view(0);Knowledge k=*v.knowledge;v.knowledge=&k;v.place=3;v.seen_people.clear();v.sensed.fill(.1);v.sensed[5]=.9;v.sensed[4]=.2;k.expectation[std::size_t(Act::Talk)][5].mean=0;auto c=choose(v);check(c.type==Act::Play);});
++
++    test("last portion atomically transferred once",[]{
++        Config c;c.population=8;auto s=generate(c);s.counters.initial_food+=1-s.places[1].food;s.places[1].food=1;
++        for(auto& n:s.npcs)n.next_review=30000;
++        for(Id id:{0u,1u}){auto& n=s.npcs[id];n.place=1;n.action.type=Act::Exchange;n.action.start=0;n.action.end=1000;n.action.target=1;n.action.id=++s.sequence;}
++        auto money=s.npcs[0].money+s.npcs[1].money;World w(s);w.advance(1);
++        check(w.state().counters.transfers==1&&w.state().counters.failures==1);
++        check(w.state().npcs[0].money+w.state().npcs[1].money==money-1);
++        check(w.state().places[1].food==0);validate(w.state());
++    });
++    test("eating does not charge money",[]{
++        Config c;c.population=8;auto s=generate(c);for(auto& n:s.npcs)n.next_review=30000;
++        auto& n=s.npcs[0];n.action.type=Act::Eat;n.action.start=0;n.action.end=1000;n.action.target=n.place;n.action.id=++s.sequence;
++        auto money=n.money;World w(s);w.advance(1);check(w.state().counters.eaten==1&&w.state().npcs[0].money==money);
++    });
++    test("physical take not blocked by moral norm",[]{
++        Config c;c.population=8;auto s=generate(c);for(auto& n:s.npcs)n.next_review=30000;
++        auto& n=s.npcs[0];n.memory.property_norm=1;n.place=1;n.action.type=Act::Take;n.action.end=1000;n.action.target=1;n.action.id=++s.sequence;
++        auto money=n.money;World w(s);w.advance(1);check(w.state().npcs[0].unowned_food==1&&w.state().npcs[0].money==money);check(w.state().counters.unauthorized==1);
++    });
++    test("restored completion has one effect",[]{
++        Config c;c.population=8;auto s=generate(c);for(auto& n:s.npcs)n.next_review=30000;
++        auto& n=s.npcs[0];n.action.type=Act::Relief;n.action.end=1000;n.action.target=n.home;n.action.id=++s.sequence;
++        World a(s);auto b=World::restore(a.snapshot());a.advance(1);b.advance(1);check(a.snapshot()==b.snapshot()&&a.state().counters.reliefs==1);
++    });
++    test("logging does not change the world",[]{Config c;c.population=8;World a(c),b(c);std::ostringstream log;b.log_to(&log);a.advance(4000);b.advance(4000);check(a.snapshot()==b.snapshot()&&!log.str().empty());});
++    test("snapshot truncation rejected",[]{auto blob=encode(generate({}));blob.resize(blob.size()/2);rejects([&]{decode(blob);});});
++    test("invalid pending action rejected",[]{auto s=generate({});s.npcs[0].action.type=Act::Move;s.npcs[0].action.target=99999;s.npcs[0].action.end=1000;rejects([&]{World w(s);});});
++    test("invalid parent rejected before ancestry traversal",[]{auto s=generate({});s.persons[0].parent=99999;rejects([&]{validate(s);});});
++    test("nonfinite learning state rejected",[]{auto s=generate({});s.npcs[0].memory.expectation[9][4].variance=NAN;rejects([&]{decode(encode(s));});});
++    test("one-second versus chunked execution",[]{Config c;c.population=8;World a(c),b(c);a.advance(101);for(int i=0;i<101;++i)b.advance(1);check(a.snapshot()==b.snapshot());});
++    test("temptation offers opportunity rather than scripted theft",[]{Config c;c.population=8;c.temptation=true;c.theft_norm_override=0;World low(c);c.theft_norm_override=1;World high(c);low.advance(7200);high.advance(7200);check(low.state().counters.unauthorized>0);check(high.state().counters.unauthorized==0);});
++    test("legal alternatives survive an empty home source",[]{Config c;c.population=8;c.temptation=true;c.theft_norm_override=1;World world(c);world.advance(86400);for(const auto& n:world.state().npcs)check(n.body.damage==0);check(world.state().counters.wages>0&&world.state().counters.eaten>0);});
++    return result();
++}
+diff --git a/tools/run_experiments.py b/tools/run_experiments.py
+new file mode 100644
+index 0000000..e3e3101
+--- /dev/null
++++ b/tools/run_experiments.py
+@@ -0,0 +1,43 @@
++#!/usr/bin/env python3
++"""Reproduce laboratory experiments. Requires a built mld_sim, not network access."""
++import argparse
++import json
++from pathlib import Path
++import subprocess
++
++
++def main() -> None:
++    parser = argparse.ArgumentParser()
++    parser.add_argument('--binary', type=Path, default=Path('build/mld_sim'))
++    parser.add_argument('--output', type=Path, default=Path('experiment-output'))
++    args = parser.parse_args()
++    binary = args.binary.resolve()
++    if not binary.is_file():
++        parser.error(f'Build the CMake project first; missing executable: {binary}')
++    args.output.mkdir(parents=True, exist_ok=True)
++    cases = {
++        'week-seed42': ['--npcs', '128', '--seed', '42', '--days', '7'],
++        'seed43-indexed': ['--npcs', '128', '--seed', '43', '--days', '1'],
++        'seed43-reference': ['--npcs', '128', '--seed', '43', '--days', '1', '--reference'],
++        'temptation-low': ['--npcs', '16', '--days', '1', '--temptation', '--norm', '0'],
++        'temptation-high': ['--npcs', '16', '--days', '1', '--temptation', '--norm', '1'],
++        'scarcity': ['--npcs', '16', '--days', '2', '--scarce'],
++        'scale1024': ['--npcs', '1024', '--seconds', '21600'],
++    }
++    results = {}
++    for name, options in cases.items():
++        print(f'Running {name}', flush=True)
++        output = subprocess.run([str(binary), *options], capture_output=True, text=True, check=True)
++        results[name] = json.loads(output.stdout)
++        (args.output / f'{name}.json').write_text(output.stdout, encoding='utf-8')
++    ignored = {'generation_wall_seconds', 'simulation_wall_seconds', 'search_mode'}
++    first, second = (results[key] for key in ('seed43-indexed', 'seed43-reference'))
++    if {k: v for k, v in first.items() if k not in ignored} != {k: v for k, v in second.items() if k not in ignored}:
++        raise RuntimeError('Reference/indexed semantic divergence')
++    if results['temptation-low']['unauthorized_takes'] == 0 or results['temptation-high']['unauthorized_takes'] != 0:
++        raise RuntimeError('Norm contrast regression')
++    print('Exact differential match and norm contrast verified.')
++
++
++if __name__ == '__main__':
++    main()

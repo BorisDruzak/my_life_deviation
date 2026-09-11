@@ -42,6 +42,20 @@ class NavigationValidationTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("does/not/exist", result.stderr)
 
+    def test_current_maps_identify_cpp_0_6_entrypoints(self) -> None:
+        """Current navigation must name the active C++ 0.6 implementation."""
+        code_map = json.loads((ROOT / "navigation" / "code-map.json").read_text(encoding="utf-8"))
+        doc_map = json.loads((ROOT / "navigation" / "doc-map.json").read_text(encoding="utf-8"))
+        code_paths = {node["id"]: node["path"] for node in code_map["nodes"]}
+        doc_paths = {node["id"]: node["path"] for node in doc_map["nodes"]}
+
+        self.assertEqual(code_paths["mld_core"], "engine/src/core/world.cpp")
+        self.assertEqual(code_paths["mld_sim"], "apps/simulate/simulate.cpp")
+        self.assertEqual(
+            doc_paths["behavior_profile"],
+            "game/profiles/behavior_0.3/Параметры_поведения_v0.3.json",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

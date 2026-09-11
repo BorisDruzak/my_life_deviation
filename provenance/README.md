@@ -10,3 +10,8 @@ not part of this working tree.
 
 Archive checksums prove file integrity only. They do not replace a fresh local
 CMake build and CTest run.
+
+`incoming/cpp_0.6.0_lab1/` records the source archive for the active limited
+C++ 0.6 laboratory profile, the un-applied patch, and pre-fix diagnostics.
+Its manifests distinguish copied sources, path-adapted metadata, and material
+kept only for provenance.

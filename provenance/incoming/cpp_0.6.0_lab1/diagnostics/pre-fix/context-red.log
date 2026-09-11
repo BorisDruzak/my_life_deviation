@@ -1,0 +1,20 @@
+PASS SHA256 empty
+PASS SHA256 abc
+PASS seed canonical reproducibility
+PASS population creation
+PASS 100 seed social invariants
+PASS invalid profile rejected
+PASS same seed same state
+PASS different seeds differ
+PASS snapshot complete and tamper rejection
+PASS closed loop advances and eats
+PASS reference indexed identical
+PASS restore continuation
+PASS zero advance stable
+PASS controller budget
+PASS same view hidden food
+PASS initial zero advance is identity
+PASS contact retry uses known refusal
+PASS known taboo changes choice not physics
+FAIL minimal context can execute familiar bound procedure: check
+tests=19 failed=1
