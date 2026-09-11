@@ -1,0 +1,35 @@
+name: C++ laboratory
+
+on:
+  push:
+    branches: [main, "codex/**"]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  cpp:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        compiler: [g++, clang++]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure and build (required)
+        run: |
+          test -f CMakeLists.txt
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=${{ matrix.compiler }}
+          cmake --build build -j2
+      - name: Tests cannot be skipped
+        working-directory: build
+        run: |
+          ctest -N | tee registered.txt
+          grep -q 'Total Tests: 3' registered.txt
+          ctest --output-on-failure
+      - name: Formula regressions
+        run: |
+          python3 "docs/verification/behavior_0.3/Проверка_редакции_поведения_v0.3.py"
+          python3 "docs/verification/behavior_0.3/Проверка_уточнений_внутренней_симуляции_v0.2.py"
+          python3 "docs/verification/behavior_0.3/Проверка_отношений_и_морали_v0.1.py"
