@@ -1,0 +1,33 @@
+test_baseline_capacities (__main__.FormulaChecks.test_baseline_capacities) ... ok
+test_cognition_bounds_and_no_boost (__main__.FormulaChecks.test_cognition_bounds_and_no_boost) ... ok
+test_context_total_bounds (__main__.FormulaChecks.test_context_total_bounds) ... ok
+test_distinct_knowledge_and_truth (__main__.FormulaChecks.test_distinct_knowledge_and_truth) ... ok
+test_emergency_preempts_dwell (__main__.FormulaChecks.test_emergency_preempts_dwell) ... ok
+test_emotion_base_bounds (__main__.FormulaChecks.test_emotion_base_bounds) ... ok
+test_emotion_decay (__main__.FormulaChecks.test_emotion_decay) ... ok
+test_fear_control_example (__main__.FormulaChecks.test_fear_control_example) ... ok
+test_focus_hysteresis (__main__.FormulaChecks.test_focus_hysteresis) ... ok
+test_food_water_resource_bounds (__main__.FormulaChecks.test_food_water_resource_bounds) ... ok
+test_heat_water_cold_food (__main__.FormulaChecks.test_heat_water_cold_food) ... ok
+test_independent_fear_and_anger (__main__.FormulaChecks.test_independent_fear_and_anger) ... ok
+test_invalid_inputs (__main__.FormulaChecks.test_invalid_inputs) ... ok
+test_key_uniform_never_endpoints (__main__.FormulaChecks.test_key_uniform_never_endpoints) ... ok
+test_learning_convex_and_finite (__main__.FormulaChecks.test_learning_convex_and_finite) ... ok
+test_no_appraisal_no_emotion (__main__.FormulaChecks.test_no_appraisal_no_emotion) ... ok
+test_perception_probability_partition (__main__.FormulaChecks.test_perception_probability_partition) ... ok
+test_relax_bounds_and_monotonicity (__main__.FormulaChecks.test_relax_bounds_and_monotonicity) ... ok
+test_relax_constant_target_partition (__main__.FormulaChecks.test_relax_constant_target_partition) ... ok
+test_rest_not_sleep (__main__.FormulaChecks.test_rest_not_sleep) ... ok
+test_sensation_no_phantom_signal (__main__.FormulaChecks.test_sensation_no_phantom_signal) ... ok
+test_sleep_deficit_example (__main__.FormulaChecks.test_sleep_deficit_example) ... ok
+test_slow_property_can_reverse (__main__.FormulaChecks.test_slow_property_can_reverse) ... ok
+test_stable_property_application (__main__.FormulaChecks.test_stable_property_application) ... ok
+test_switch_price (__main__.FormulaChecks.test_switch_price) ... ok
+test_zero_gate (__main__.FormulaChecks.test_zero_gate) ... ok
+test_zero_time (__main__.FormulaChecks.test_zero_time) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 0.040s
+
+OK
+Контрольный страх через 1 секунду: 0.277172222635

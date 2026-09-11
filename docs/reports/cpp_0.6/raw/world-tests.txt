@@ -1,0 +1,34 @@
+PASS SHA256 empty
+PASS SHA256 abc
+PASS seed canonical reproducibility
+PASS population creation
+PASS 100 seed social invariants
+PASS invalid profile rejected
+PASS same seed same state
+PASS different seeds differ
+PASS snapshot complete and tamper rejection
+PASS closed loop advances and eats
+PASS reference indexed identical
+PASS restore continuation
+PASS zero advance stable
+PASS controller budget
+PASS same view hidden food
+PASS initial zero advance is identity
+PASS contact retry uses known refusal
+PASS known taboo changes choice not physics
+PASS minimal context can execute familiar bound procedure
+PASS route preserves known procedure across intermediate node
+PASS waiting forecast does not exceed known conversation benefit
+PASS last portion atomically transferred once
+PASS eating does not charge money
+PASS physical take not blocked by moral norm
+PASS restored completion has one effect
+PASS logging does not change the world
+PASS snapshot truncation rejected
+PASS invalid pending action rejected
+PASS invalid parent rejected before ancestry traversal
+PASS nonfinite learning state rejected
+PASS one-second versus chunked execution
+PASS temptation offers opportunity rather than scripted theft
+PASS legal alternatives survive an empty home source
+tests=33 failed=0

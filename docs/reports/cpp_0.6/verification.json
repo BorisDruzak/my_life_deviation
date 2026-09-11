@@ -1,0 +1,23 @@
+{
+  "version": "0.6.0-lab1",
+  "baseline_main": "fa3aec539055cafdf520d558b0e97537dcf9435b",
+  "cpp_test_cases": 68,
+  "ctest_entries": 3,
+  "cli_negative_cases": 6,
+  "seed_generation_cases": 100,
+  "seed_generation_is_one_cpp_test": true,
+  "builds": [
+    "GCC 14.2 Release",
+    "Clang 17 Release",
+    "GCC 14.2 RelWithDebInfo ASan+UBSan"
+  ],
+  "python_spec_checks": [
+    40,
+    49,
+    38,
+    27
+  ],
+  "full_behavior_spec_implemented": false,
+  "ue5_tested": false,
+  "windows_tested": false
+}

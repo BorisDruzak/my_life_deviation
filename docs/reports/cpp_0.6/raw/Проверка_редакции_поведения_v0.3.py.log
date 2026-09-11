@@ -1,0 +1,45 @@
+test_01_deficit_accumulates (__main__.FormulaTests.test_01_deficit_accumulates) ... ok
+test_02_deficit_saturated (__main__.FormulaTests.test_02_deficit_saturated) ... ok
+test_03_zero_rate (__main__.FormulaTests.test_03_zero_rate) ... ok
+test_04_zero_interval_exact (__main__.FormulaTests.test_04_zero_interval_exact) ... ok
+test_05_invalid_inputs (__main__.FormulaTests.test_05_invalid_inputs) ... ok
+test_06_deficit_composition (__main__.FormulaTests.test_06_deficit_composition) ... ok
+test_07_refractory_composition (__main__.FormulaTests.test_07_refractory_composition) ... ok
+test_08_satisfaction_values (__main__.FormulaTests.test_08_satisfaction_values) ... ok
+test_09_satisfaction_idempotency (__main__.FormulaTests.test_09_satisfaction_idempotency) ... ok
+test_10_satisfaction_zero (__main__.FormulaTests.test_10_satisfaction_zero) ... ok
+test_11_context_increases_desire (__main__.FormulaTests.test_11_context_increases_desire) ... ok
+test_12_unobserved_trigger_absent (__main__.FormulaTests.test_12_unobserved_trigger_absent) ... ok
+test_13_duplicate_exposure_max (__main__.FormulaTests.test_13_duplicate_exposure_max) ... ok
+test_14_feature_order (__main__.FormulaTests.test_14_feature_order) ... ok
+test_15_primary_training_not_W (__main__.FormulaTests.test_15_primary_training_not_W) ... ok
+test_16_refractory_inhibits (__main__.FormulaTests.test_16_refractory_inhibits) ... ok
+test_17_constant_target_composition (__main__.FormulaTests.test_17_constant_target_composition) ... ok
+test_18_random_bounds (__main__.FormulaTests.test_18_random_bounds) ... ok
+test_19_dependency_example (__main__.FormulaTests.test_19_dependency_example) ... ok
+test_20_unknown_replacement (__main__.FormulaTests.test_20_unknown_replacement) ... ok
+test_21_dependency_coverage (__main__.FormulaTests.test_21_dependency_coverage) ... ok
+test_22_zero_goals (__main__.FormulaTests.test_22_zero_goals) ... ok
+test_23_alternative_reduces_dependency (__main__.FormulaTests.test_23_alternative_reduces_dependency) ... ok
+test_24_taboo_finite (__main__.FormulaTests.test_24_taboo_finite) ... ok
+test_25_moral_duplicates (__main__.FormulaTests.test_25_moral_duplicates) ... ok
+test_26_sanction_example (__main__.FormulaTests.test_26_sanction_example) ... ok
+test_27_unknown_sanction_not_zero (__main__.FormulaTests.test_27_unknown_sanction_not_zero) ... ok
+test_28_norm_slow_update (__main__.FormulaTests.test_28_norm_slow_update) ... ok
+test_29_norm_no_basis (__main__.FormulaTests.test_29_norm_no_basis) ... ok
+test_30_seed_reproducible (__main__.FormulaTests.test_30_seed_reproducible) ... ok
+test_31_seed_order_independent (__main__.FormulaTests.test_31_seed_order_independent) ... ok
+test_32_seed_unicode_normalization (__main__.FormulaTests.test_32_seed_unicode_normalization) ... ok
+test_33_seed_range (__main__.FormulaTests.test_33_seed_range) ... ok
+test_34_social_valid_fixture (__main__.FormulaTests.test_34_social_valid_fixture) ... ok
+test_35_social_rejects_isolate_or_clique (__main__.FormulaTests.test_35_social_rejects_isolate_or_clique) ... ok
+test_36_social_rejects_disconnected (__main__.FormulaTests.test_36_social_rejects_disconnected) ... ok
+test_37_parent_valid_fixture (__main__.FormulaTests.test_37_parent_valid_fixture) ... ok
+test_38_parent_rejects_cycle_self_age (__main__.FormulaTests.test_38_parent_rejects_cycle_self_age) ... ok
+test_39_shared_channel_limits (__main__.FormulaTests.test_39_shared_channel_limits) ... ok
+test_40_profile_no_institution_execution (__main__.FormulaTests.test_40_profile_no_institution_execution) ... ok
+
+----------------------------------------------------------------------
+Ran 40 tests in 0.008s
+
+OK
