@@ -1,0 +1,34 @@
+{
+  "attachments": [
+    {
+      "file": "cpp_0.6.patch",
+      "sha256": "CF75AA64D5A3A97778D4F6DCCBB88C7FBB0FD06F385DA73F5AD29398AD845FA6",
+      "repository_path": "provenance/incoming/cpp_0.6.0_lab1/cpp_0.6.patch",
+      "status": "preserved but not applied; it conflicts with the reorganized root paths"
+    },
+    {
+      "file": "CPP_0.6_results.md",
+      "sha256": "4F4485F8D92BBE2A517BBB31F2146DF65CAB532AC30BA00A29C9BBD34D7942BF",
+      "repository_path": "docs/reports/cpp_0.6/CPP_0.6_results.md",
+      "status": "canonical copy"
+    },
+    {
+      "file": "CPP_0.6_build_and_coverage.md",
+      "sha256": "1DC2C6BE97545992060EF12E1773B89A949E3731ECEECF24C486FF40EAC55488",
+      "repository_path": "docs/reports/cpp_0.6/CPP_0.6_build_and_coverage.md",
+      "status": "canonical copy"
+    }
+  ],
+  "deduplicated_attachments": [
+    {
+      "canonical": "CPP_0.6_results.md",
+      "identical_files": ["CPP_0.6_results (1).md", "CPP_0.6_results (2).md"],
+      "sha256": "4F4485F8D92BBE2A517BBB31F2146DF65CAB532AC30BA00A29C9BBD34D7942BF"
+    },
+    {
+      "canonical": "CPP_0.6_build_and_coverage.md",
+      "identical_files": ["CPP_0.6_build_and_coverage (1).md"],
+      "sha256": "1DC2C6BE97545992060EF12E1773B89A949E3731ECEECF24C486FF40EAC55488"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "checks_run": 60,
+  "failures": 0,
+  "errors": 0,
+  "successful": true,
+  "scope": "Reference arithmetic and catalogue checks only; NOT full simulation."
+}

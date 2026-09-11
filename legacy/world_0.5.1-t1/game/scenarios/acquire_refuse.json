@@ -1,0 +1,325 @@
+{
+  "description": "Ожидания Бориса одинаковы; меняется только отношение Алексея. Решение о согласии принимает контроллер Алексея.",
+  "world": {
+    "places": {
+      "shop": {
+        "id": "shop",
+        "name": "shop"
+      },
+      "home": {
+        "id": "home",
+        "name": "home"
+      },
+      "park": {
+        "id": "park",
+        "name": "park"
+      }
+    },
+    "edges": {
+      "shop_home": {
+        "id": "shop_home",
+        "from": "shop",
+        "to": "home",
+        "minutes": 5
+      },
+      "home_shop": {
+        "id": "home_shop",
+        "from": "home",
+        "to": "shop",
+        "minutes": 5
+      }
+    },
+    "actors": {
+      "a": {
+        "id": "a",
+        "name": "Алексей",
+        "position": {
+          "place": "shop"
+        },
+        "beliefs": [
+          {
+            "id": "a-shop_home",
+            "source": "scenario_genesis",
+            "roots": [
+              "a-shop_home"
+            ],
+            "confidence": 1,
+            "learned_at": 0,
+            "statement": {
+              "subject": "shop_home",
+              "predicate": "edge",
+              "arguments": {
+                "from": "shop",
+                "to": "home",
+                "minutes": 5
+              },
+              "valid_from": 0
+            }
+          },
+          {
+            "id": "a-home_shop",
+            "source": "scenario_genesis",
+            "roots": [
+              "a-home_shop"
+            ],
+            "confidence": 1,
+            "learned_at": 0,
+            "statement": {
+              "subject": "home_shop",
+              "predicate": "edge",
+              "arguments": {
+                "from": "home",
+                "to": "shop",
+                "minutes": 5
+              },
+              "valid_from": 0
+            }
+          }
+        ],
+        "known_methods": [
+          "R02",
+          "R01"
+        ],
+        "skills": {
+          "repair": 0.6,
+          "cooking": 0.3
+        },
+        "relations": {
+          "b": {
+            "trust": 0.05
+          }
+        }
+      },
+      "b": {
+        "id": "b",
+        "name": "Борис",
+        "position": {
+          "place": "shop"
+        },
+        "beliefs": [
+          {
+            "id": "b-shop_home",
+            "source": "scenario_genesis",
+            "roots": [
+              "b-shop_home"
+            ],
+            "confidence": 1,
+            "learned_at": 0,
+            "statement": {
+              "subject": "shop_home",
+              "predicate": "edge",
+              "arguments": {
+                "from": "shop",
+                "to": "home",
+                "minutes": 5
+              },
+              "valid_from": 0
+            }
+          },
+          {
+            "id": "b-home_shop",
+            "source": "scenario_genesis",
+            "roots": [
+              "b-home_shop"
+            ],
+            "confidence": 1,
+            "learned_at": 0,
+            "statement": {
+              "subject": "home_shop",
+              "predicate": "edge",
+              "arguments": {
+                "from": "home",
+                "to": "shop",
+                "minutes": 5
+              },
+              "valid_from": 0
+            }
+          },
+          {
+            "id": "b-seen-tool",
+            "source": "scenario_genesis",
+            "roots": [
+              "b-seen-tool"
+            ],
+            "confidence": 1,
+            "learned_at": 0,
+            "statement": {
+              "subject": "tool",
+              "predicate": "item_seen",
+              "arguments": {
+                "type": "I05",
+                "holder": "a",
+                "place": "shop"
+              },
+              "valid_from": 0
+            }
+          },
+          {
+            "id": "b-store",
+            "source": "scenario_genesis",
+            "roots": [
+              "b-store"
+            ],
+            "confidence": 1,
+            "learned_at": 0,
+            "statement": {
+              "subject": "store",
+              "predicate": "shop_stock",
+              "arguments": {
+                "place": "shop",
+                "offers": [
+                  {
+                    "item": "spare_tool",
+                    "type": "I05",
+                    "price": 55
+                  }
+                ]
+              },
+              "valid_from": 0
+            }
+          }
+        ],
+        "outcome_counts": {
+          "a/loan_item/accepted": 8
+        },
+        "relations": {
+          "a": {
+            "trust": 0.9
+          }
+        }
+      },
+      "c": {
+        "id": "c",
+        "name": "Игорь",
+        "position": {
+          "place": "shop"
+        },
+        "beliefs": [
+          {
+            "id": "c-shop_home",
+            "source": "scenario_genesis",
+            "roots": [
+              "c-shop_home"
+            ],
+            "confidence": 1,
+            "learned_at": 0,
+            "statement": {
+              "subject": "shop_home",
+              "predicate": "edge",
+              "arguments": {
+                "from": "shop",
+                "to": "home",
+                "minutes": 5
+              },
+              "valid_from": 0
+            }
+          },
+          {
+            "id": "c-home_shop",
+            "source": "scenario_genesis",
+            "roots": [
+              "c-home_shop"
+            ],
+            "confidence": 1,
+            "learned_at": 0,
+            "statement": {
+              "subject": "home_shop",
+              "predicate": "edge",
+              "arguments": {
+                "from": "home",
+                "to": "shop",
+                "minutes": 5
+              },
+              "valid_from": 0
+            }
+          }
+        ]
+      }
+    },
+    "items": {
+      "tool": {
+        "type": "I05",
+        "owner": "a",
+        "placement": {
+          "kind": "inventory",
+          "ref": "a"
+        }
+      },
+      "kit": {
+        "type": "I06",
+        "owner": "a",
+        "placement": {
+          "kind": "inventory",
+          "ref": "a"
+        }
+      },
+      "target": {
+        "type": "F03",
+        "owner": "a",
+        "placement": {
+          "kind": "at",
+          "ref": "shop"
+        }
+      },
+      "meal": {
+        "type": "I01",
+        "owner": "store",
+        "placement": {
+          "kind": "at",
+          "ref": "shop"
+        }
+      },
+      "phone_a": {
+        "type": "I10",
+        "owner": "a",
+        "placement": {
+          "kind": "inventory",
+          "ref": "a"
+        }
+      },
+      "phone_b": {
+        "type": "I10",
+        "owner": "b",
+        "placement": {
+          "kind": "inventory",
+          "ref": "b"
+        }
+      },
+      "spare_tool": {
+        "type": "I05",
+        "owner": "store",
+        "placement": {
+          "kind": "at",
+          "ref": "shop"
+        }
+      }
+    },
+    "accounts": {
+      "a": 100,
+      "b": 60,
+      "c": 50,
+      "store": 1000
+    },
+    "shops": {
+      "store": {
+        "id": "store",
+        "place": "shop",
+        "account": "store",
+        "stock": {
+          "meal": 30,
+          "spare_tool": 55
+        }
+      }
+    }
+  },
+  "controllers": {
+    "a": {
+      "mode": "household"
+    },
+    "b": {
+      "mode": "acquire",
+      "item_type": "I05",
+      "due": 240
+    }
+  }
+}

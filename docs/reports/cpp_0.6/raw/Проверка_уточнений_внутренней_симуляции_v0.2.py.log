@@ -1,0 +1,54 @@
+test_association_at_zero_causality (__main__.Checks.test_association_at_zero_causality) ... ok
+test_association_has_no_causality_parameter (__main__.Checks.test_association_has_no_causality_parameter) ... ok
+test_association_memory_zero_still_learns (__main__.Checks.test_association_memory_zero_still_learns) ... ok
+test_association_no_perception_learning_dose_or_consciousness (__main__.Checks.test_association_no_perception_learning_dose_or_consciousness) ... ok
+test_association_variance_bounds (__main__.Checks.test_association_variance_bounds) ... ok
+test_causal_comparison_changes_separate_record (__main__.Checks.test_causal_comparison_changes_separate_record) ... ok
+test_causal_data_not_replaced_by_intelligence (__main__.Checks.test_causal_data_not_replaced_by_intelligence) ... ok
+test_causal_learning_zero_causality (__main__.Checks.test_causal_learning_zero_causality) ... ok
+test_causal_missing_order_rejected (__main__.Checks.test_causal_missing_order_rejected) ... ok
+test_causal_missing_outcome_rejected (__main__.Checks.test_causal_missing_outcome_rejected) ... ok
+test_causal_no_comparable_conditions (__main__.Checks.test_causal_no_comparable_conditions) ... ok
+test_causal_reusing_evidence_does_not_add_support (__main__.Checks.test_causal_reusing_evidence_does_not_add_support) ... ok
+test_causal_unknown_absence_rejected (__main__.Checks.test_causal_unknown_absence_rejected) ... ok
+test_emotion_max_stays_max_not_saturated_sum (__main__.Checks.test_emotion_max_stays_max_not_saturated_sum) ... ok
+test_familiar_activity_pleasure_and_leisure (__main__.Checks.test_familiar_activity_pleasure_and_leisure) ... ok
+test_high_intelligence_no_domain_knowledge (__main__.Checks.test_high_intelligence_no_domain_knowledge) ... ok
+test_invalid_inputs (__main__.Checks.test_invalid_inputs) ... ok
+test_knowledge_advanced_rule_not_in_beginner_core (__main__.Checks.test_knowledge_advanced_rule_not_in_beginner_core) ... ok
+test_knowledge_content_required (__main__.Checks.test_knowledge_content_required) ... ok
+test_knowledge_curriculum_cycle_rejected (__main__.Checks.test_knowledge_curriculum_cycle_rejected) ... ok
+test_knowledge_depth_requires_records (__main__.Checks.test_knowledge_depth_requires_records) ... ok
+test_knowledge_missing_prerequisite_blocks_depth (__main__.Checks.test_knowledge_missing_prerequisite_blocks_depth) ... ok
+test_knowledge_non_nested_core_rejected (__main__.Checks.test_knowledge_non_nested_core_rejected) ... ok
+test_knowledge_repeated_one_rule_not_four_levels (__main__.Checks.test_knowledge_repeated_one_rule_not_four_levels) ... ok
+test_knowledge_unlearned_prerequisite_caps_partial_learning (__main__.Checks.test_knowledge_unlearned_prerequisite_caps_partial_learning) ... ok
+test_leisure_constant_inputs_partition (__main__.Checks.test_leisure_constant_inputs_partition) ... ok
+test_missing_result_does_not_mean_zero (__main__.Checks.test_missing_result_does_not_mean_zero) ... ok
+test_negative_effect_not_softened_by_satiation (__main__.Checks.test_negative_effect_not_softened_by_satiation) ... ok
+test_pleasantness_does_not_depend_on_novelty_or_joy (__main__.Checks.test_pleasantness_does_not_depend_on_novelty_or_joy) ... ok
+test_pleasantness_requires_exposure (__main__.Checks.test_pleasantness_requires_exposure) ... ok
+test_prediction_no_double_count_same_context (__main__.Checks.test_prediction_no_double_count_same_context) ... ok
+test_property_channel_isolation (__main__.Checks.test_property_channel_isolation) ... ok
+test_property_effect_units_and_bounds (__main__.Checks.test_property_effect_units_and_bounds) ... ok
+test_property_global_cap_allows_bounded_weak_eviction (__main__.Checks.test_property_global_cap_allows_bounded_weak_eviction) ... ok
+test_property_global_cap_blocks_new_strong_records (__main__.Checks.test_property_global_cap_blocks_new_strong_records) ... ok
+test_property_limit_of_existing_lookups (__main__.Checks.test_property_limit_of_existing_lookups) ... ok
+test_property_missing_channel_not_extinguished (__main__.Checks.test_property_missing_channel_not_extinguished) ... ok
+test_property_new_links_bounded_for_large_event (__main__.Checks.test_property_new_links_bounded_for_large_event) ... ok
+test_property_no_duplicate_episode (__main__.Checks.test_property_no_duplicate_episode) ... ok
+test_property_no_invented_channels (__main__.Checks.test_property_no_invented_channels) ... ok
+test_property_observed_zero_extinguishes (__main__.Checks.test_property_observed_zero_extinguishes) ... ok
+test_property_order_invariance (__main__.Checks.test_property_order_invariance) ... ok
+test_property_self_response_is_not_teacher (__main__.Checks.test_property_self_response_is_not_teacher) ... ok
+test_property_shared_error_not_full_reward_per_cue (__main__.Checks.test_property_shared_error_not_full_reward_per_cue) ... ok
+test_property_zero_quality_no_new_link (__main__.Checks.test_property_zero_quality_no_new_link) ... ok
+test_reservoir_bounds_and_passive_drift (__main__.Checks.test_reservoir_bounds_and_passive_drift) ... ok
+test_satiation_constant_exposure_partition (__main__.Checks.test_satiation_constant_exposure_partition) ... ok
+test_satiation_rises_and_recovers (__main__.Checks.test_satiation_rises_and_recovers) ... ok
+test_spec_status_and_supersession (__main__.Checks.test_spec_status_and_supersession) ... ok
+
+----------------------------------------------------------------------
+Ran 49 tests in 0.023s
+
+OK

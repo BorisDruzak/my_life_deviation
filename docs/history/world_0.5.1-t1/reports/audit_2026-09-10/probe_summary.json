@@ -1,0 +1,228 @@
+{
+  "completed_joint_retry": {
+    "exit_code": 0,
+    "summary": {
+      "actors": 3,
+      "begin": 0,
+      "checkpoints": 0,
+      "config_hash": "89c6491b879eb89440dee958c4269e9e8019405fe7bb987f150c70532762a597",
+      "controller_kind": "bounded_local_policy_not_universal_HTN",
+      "end": 20,
+      "event_counts": {
+        "action_ended": 6,
+        "action_started": 6,
+        "agreement_confirmed": 1,
+        "joint_ended": 1,
+        "joint_started": 1,
+        "message_sent": 2,
+        "proposal_answered": 1,
+        "proposal_created": 1
+      },
+      "events_generated": 19,
+      "invariants": "passed",
+      "items": 6,
+      "living": 3,
+      "state_hash": "1b88674ba214e7462ee8180352a3cf7d93649e1b065527a2ef42220982cf57c1",
+      "version": "WORLD-0.5.0",
+      "wall_seconds": 0.002833898
+    },
+    "decision_goal_counts": {
+      "attend_agreement": 2,
+      "idle": 2
+    },
+    "rejected_events": []
+  },
+  "unregistered_topic": {
+    "exit_code": 0,
+    "summary": {
+      "actors": 3,
+      "begin": 0,
+      "checkpoints": 0,
+      "config_hash": "89c6491b879eb89440dee958c4269e9e8019405fe7bb987f150c70532762a597",
+      "controller_kind": "bounded_local_policy_not_universal_HTN",
+      "end": 20,
+      "event_counts": {
+        "action_ended": 4,
+        "action_started": 4,
+        "agreement_confirmed": 1,
+        "joint_ended": 1,
+        "joint_started": 1,
+        "message_sent": 2,
+        "proposal_answered": 1,
+        "proposal_created": 1
+      },
+      "events_generated": 15,
+      "invariants": "passed",
+      "items": 6,
+      "living": 3,
+      "state_hash": "03de50f4dc3f25c4f3edef6ad36215e659ae587c4d76febd62c0c61d869e9569",
+      "version": "WORLD-0.5.0",
+      "wall_seconds": 0.00087464
+    },
+    "decision_goal_counts": {},
+    "rejected_events": []
+  },
+  "interrupted_joint_retry": {
+    "exit_code": 0,
+    "summary": {
+      "actors": 3,
+      "begin": 0,
+      "checkpoints": 0,
+      "config_hash": "89c6491b879eb89440dee958c4269e9e8019405fe7bb987f150c70532762a597",
+      "controller_kind": "bounded_local_policy_not_universal_HTN",
+      "end": 20,
+      "event_counts": {
+        "action_ended": 4,
+        "action_interrupted": 1,
+        "action_started": 4,
+        "agreement_confirmed": 1,
+        "command_rejected": 32,
+        "joint_started": 1,
+        "message_sent": 2,
+        "participation_withdrawn": 1,
+        "proposal_answered": 1,
+        "proposal_created": 1
+      },
+      "events_generated": 48,
+      "invariants": "passed",
+      "items": 6,
+      "living": 3,
+      "state_hash": "1c8f9746ad9635041af828003dac580e80fcfd43aeb71f0b709bfcfc8fc9c6fe",
+      "version": "WORLD-0.5.0",
+      "wall_seconds": 0.013280922
+    },
+    "decision_goal_counts": {
+      "attend_agreement": 34
+    },
+    "rejected_events": [
+      {
+        "cause": "b@5",
+        "data": {
+          "reason": "conditions_not_met"
+        },
+        "objects": [],
+        "participants": [
+          "b"
+        ],
+        "phase": "start",
+        "private_data": {
+          "detail": "no signed current agreement"
+        },
+        "projections": {
+          "b": {
+            "data": {
+              "reason": "conditions_not_met"
+            },
+            "id": "b@5/event/1",
+            "objects": [],
+            "participants": [
+              "b"
+            ],
+            "time": 4,
+            "type": "command_rejected"
+          }
+        },
+        "root": "b@5/event/1",
+        "sequence": 16,
+        "time": 4,
+        "type": "command_rejected",
+        "uid": "b@5/event/1"
+      },
+      {
+        "cause": "a@4",
+        "data": {
+          "reason": "conditions_not_met"
+        },
+        "objects": [],
+        "participants": [
+          "a"
+        ],
+        "phase": "start",
+        "private_data": {
+          "detail": "no signed current agreement"
+        },
+        "projections": {
+          "a": {
+            "data": {
+              "reason": "conditions_not_met"
+            },
+            "id": "a@4/event/1",
+            "objects": [],
+            "participants": [
+              "a"
+            ],
+            "time": 4,
+            "type": "command_rejected"
+          }
+        },
+        "root": "a@4/event/1",
+        "sequence": 17,
+        "time": 4,
+        "type": "command_rejected",
+        "uid": "a@4/event/1"
+      },
+      {
+        "cause": "a@5",
+        "data": {
+          "reason": "conditions_not_met"
+        },
+        "objects": [],
+        "participants": [
+          "a"
+        ],
+        "phase": "start",
+        "private_data": {
+          "detail": "no signed current agreement"
+        },
+        "projections": {
+          "a": {
+            "data": {
+              "reason": "conditions_not_met"
+            },
+            "id": "a@5/event/1",
+            "objects": [],
+            "participants": [
+              "a"
+            ],
+            "time": 5,
+            "type": "command_rejected"
+          }
+        },
+        "root": "a@5/event/1",
+        "sequence": 18,
+        "time": 5,
+        "type": "command_rejected",
+        "uid": "a@5/event/1"
+      }
+    ]
+  },
+  "waiting_overrides_hunger": {
+    "exit_code": 0,
+    "summary": {
+      "actors": 3,
+      "begin": 0,
+      "checkpoints": 0,
+      "config_hash": "89c6491b879eb89440dee958c4269e9e8019405fe7bb987f150c70532762a597",
+      "controller_kind": "bounded_local_policy_not_universal_HTN",
+      "end": 20,
+      "event_counts": {
+        "action_ended": 20,
+        "action_started": 20,
+        "message_sent": 1,
+        "need_critical": 1,
+        "proposal_created": 1
+      },
+      "events_generated": 43,
+      "invariants": "passed",
+      "items": 6,
+      "living": 3,
+      "state_hash": "3a8ade76143b9942adb9087ff8ba65a56b7ec889701598cbcb8267258ab9f0ad",
+      "version": "WORLD-0.5.0",
+      "wall_seconds": 0.008999152
+    },
+    "decision_goal_counts": {
+      "await_response": 19
+    },
+    "rejected_events": []
+  }
+}

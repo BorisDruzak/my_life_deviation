@@ -1,0 +1,318 @@
+{
+  "description": "Явные команды для проверки протоколов и сохранения посреди ремонта; не автономный сценарий.",
+  "world": {
+    "places": {
+      "shop": {
+        "id": "shop",
+        "name": "shop"
+      },
+      "home": {
+        "id": "home",
+        "name": "home"
+      },
+      "park": {
+        "id": "park",
+        "name": "park"
+      }
+    },
+    "edges": {
+      "shop_home": {
+        "id": "shop_home",
+        "from": "shop",
+        "to": "home",
+        "minutes": 5
+      },
+      "home_shop": {
+        "id": "home_shop",
+        "from": "home",
+        "to": "shop",
+        "minutes": 5
+      }
+    },
+    "actors": {
+      "a": {
+        "id": "a",
+        "name": "Алексей",
+        "position": {
+          "place": "shop"
+        },
+        "beliefs": [
+          {
+            "id": "a-shop_home",
+            "source": "scenario_genesis",
+            "roots": [
+              "a-shop_home"
+            ],
+            "confidence": 1,
+            "learned_at": 0,
+            "statement": {
+              "subject": "shop_home",
+              "predicate": "edge",
+              "arguments": {
+                "from": "shop",
+                "to": "home",
+                "minutes": 5
+              },
+              "valid_from": 0
+            }
+          },
+          {
+            "id": "a-home_shop",
+            "source": "scenario_genesis",
+            "roots": [
+              "a-home_shop"
+            ],
+            "confidence": 1,
+            "learned_at": 0,
+            "statement": {
+              "subject": "home_shop",
+              "predicate": "edge",
+              "arguments": {
+                "from": "home",
+                "to": "shop",
+                "minutes": 5
+              },
+              "valid_from": 0
+            }
+          }
+        ],
+        "known_methods": [
+          "R02",
+          "R01"
+        ],
+        "skills": {
+          "repair": 0.6,
+          "cooking": 0.3
+        }
+      },
+      "b": {
+        "id": "b",
+        "name": "Борис",
+        "position": {
+          "place": "shop"
+        },
+        "beliefs": [
+          {
+            "id": "b-shop_home",
+            "source": "scenario_genesis",
+            "roots": [
+              "b-shop_home"
+            ],
+            "confidence": 1,
+            "learned_at": 0,
+            "statement": {
+              "subject": "shop_home",
+              "predicate": "edge",
+              "arguments": {
+                "from": "shop",
+                "to": "home",
+                "minutes": 5
+              },
+              "valid_from": 0
+            }
+          },
+          {
+            "id": "b-home_shop",
+            "source": "scenario_genesis",
+            "roots": [
+              "b-home_shop"
+            ],
+            "confidence": 1,
+            "learned_at": 0,
+            "statement": {
+              "subject": "home_shop",
+              "predicate": "edge",
+              "arguments": {
+                "from": "home",
+                "to": "shop",
+                "minutes": 5
+              },
+              "valid_from": 0
+            }
+          }
+        ]
+      },
+      "c": {
+        "id": "c",
+        "name": "Игорь",
+        "position": {
+          "place": "shop"
+        },
+        "beliefs": [
+          {
+            "id": "c-shop_home",
+            "source": "scenario_genesis",
+            "roots": [
+              "c-shop_home"
+            ],
+            "confidence": 1,
+            "learned_at": 0,
+            "statement": {
+              "subject": "shop_home",
+              "predicate": "edge",
+              "arguments": {
+                "from": "shop",
+                "to": "home",
+                "minutes": 5
+              },
+              "valid_from": 0
+            }
+          },
+          {
+            "id": "c-home_shop",
+            "source": "scenario_genesis",
+            "roots": [
+              "c-home_shop"
+            ],
+            "confidence": 1,
+            "learned_at": 0,
+            "statement": {
+              "subject": "home_shop",
+              "predicate": "edge",
+              "arguments": {
+                "from": "home",
+                "to": "shop",
+                "minutes": 5
+              },
+              "valid_from": 0
+            }
+          }
+        ]
+      }
+    },
+    "items": {
+      "tool": {
+        "type": "I05",
+        "owner": "a",
+        "placement": {
+          "kind": "inventory",
+          "ref": "a"
+        }
+      },
+      "kit": {
+        "type": "I06",
+        "owner": "a",
+        "placement": {
+          "kind": "inventory",
+          "ref": "a"
+        }
+      },
+      "target": {
+        "type": "F03",
+        "owner": "a",
+        "placement": {
+          "kind": "at",
+          "ref": "shop"
+        }
+      },
+      "meal": {
+        "type": "I01",
+        "owner": "store",
+        "placement": {
+          "kind": "at",
+          "ref": "shop"
+        }
+      },
+      "phone_a": {
+        "type": "I10",
+        "owner": "a",
+        "placement": {
+          "kind": "inventory",
+          "ref": "a"
+        }
+      },
+      "phone_b": {
+        "type": "I10",
+        "owner": "b",
+        "placement": {
+          "kind": "inventory",
+          "ref": "b"
+        }
+      }
+    },
+    "accounts": {
+      "a": 100,
+      "b": 60,
+      "c": 50,
+      "store": 1000
+    },
+    "shops": {
+      "store": {
+        "id": "store",
+        "place": "shop",
+        "account": "store",
+        "stock": {
+          "meal": 30
+        }
+      }
+    }
+  },
+  "script": [
+    {
+      "at": 0,
+      "command": {
+        "actor": "a",
+        "sequence": 1,
+        "type": "A14",
+        "args": {
+          "participants": [
+            "a",
+            "b"
+          ],
+          "expires": 100,
+          "terms": {
+            "kind": "joint",
+            "place": "shop",
+            "start": 0,
+            "end": 50,
+            "minutes": 3,
+            "topic": "conversation"
+          }
+        }
+      }
+    },
+    {
+      "at": 0,
+      "command": {
+        "actor": "b",
+        "sequence": 1,
+        "type": "A01",
+        "args": {
+          "minutes": 1
+        }
+      }
+    },
+    {
+      "at": 1,
+      "command": {
+        "actor": "b",
+        "sequence": 2,
+        "type": "A12",
+        "args": {
+          "proposal": "a@1/proposal",
+          "version": 1,
+          "answer": "accept"
+        }
+      }
+    },
+    {
+      "at": 1,
+      "command": {
+        "actor": "a",
+        "sequence": 2,
+        "type": "A01",
+        "args": {
+          "minutes": 1
+        }
+      }
+    }
+  ],
+  "controllers": {
+    "a": {
+      "mode": "household"
+    },
+    "b": {
+      "mode": "household"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "nodes": [
+    {"id": "build", "path": "CMakeLists.txt", "status": "implemented"},
+    {"id": "mld_api", "path": "engine/include/mld/world.hpp", "status": "implemented", "depends_on": ["build"]},
+    {"id": "mld_core", "path": "engine/src/core/world.cpp", "status": "implemented", "depends_on": ["mld_api"]},
+    {"id": "mld_generation", "path": "engine/src/simulation/generation.cpp", "status": "implemented", "depends_on": ["mld_core"]},
+    {"id": "mld_controller", "path": "engine/src/autonomy/controller.cpp", "status": "implemented", "depends_on": ["mld_core", "mld_generation"]},
+    {"id": "mld_tests", "path": "engine/tests/world_tests.cpp", "status": "implemented", "depends_on": ["mld_core", "mld_generation", "mld_controller"]},
+    {"id": "mld_sim", "path": "apps/simulate/simulate.cpp", "status": "implemented", "depends_on": ["mld_api", "mld_core", "mld_generation", "mld_controller"]},
+    {"id": "experiment_runner", "path": "tools/run_experiments.py", "status": "implemented", "depends_on": ["mld_sim"]},
+    {"id": "legacy_world_0_5", "path": "legacy/world_0.5.1-t1/README.md", "status": "historical"},
+    {"id": "navigation_validator", "path": "tools/verify_navigation.py", "status": "implemented"}
+  ]
+}

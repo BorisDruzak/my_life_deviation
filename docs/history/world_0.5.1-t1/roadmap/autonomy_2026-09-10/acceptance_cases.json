@@ -1,0 +1,637 @@
+{
+  "schema_version": "ACCEPTANCE-DESIGN-0.1",
+  "status": "specified_not_implemented",
+  "cases": [
+    {
+      "id": "G01",
+      "group": "goals",
+      "requirements": [
+        "GC-04"
+      ],
+      "setup": "N03=39, activation=40,target=75; десять последовательных обновлений без эффекта.",
+      "expected": "Ровно один Need(N03) episode; обновляются urgency и время, новых целей нет.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "G02",
+      "group": "goals",
+      "requirements": [
+        "GC-04"
+      ],
+      "setup": "N03 поднялась от39 до50, затем75, затем39.",
+      "expected": "При50 та же active-защёлка; при75 satisfied; при39 новый episode с новым id.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "G03",
+      "group": "goals",
+      "requirements": [
+        "GC-05",
+        "GC-07",
+        "JA-08"
+      ],
+      "setup": "Использовать waiting_overrides_hunger.scenario.json: N01=15.5, готовая еда, пассивный адресат.",
+      "expected": "Включённый новый контроллер начинает A07 до перехода N01<=15; ответ остаётся pending без блокировки тела.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "G04",
+      "group": "goals",
+      "requirements": [
+        "GC-06",
+        "PL-08"
+      ],
+      "setup": "NPC исполняет прерываемое занятие; собственный прогноз N01 ведёт к critical прежде допустимого окончания.",
+      "expected": "Monitor выполнен несмотря на active_action; законная A22, затем доступный метод предотвращения дефицита.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "G05",
+      "group": "goals",
+      "requirements": [
+        "GC-06",
+        "PL-09"
+      ],
+      "setup": "Та же потребность возникла во время A02 посередине ребра.",
+      "expected": "Нет добровольной остановки/телепорта; цель сохранена и пересмотрена на первой допустимой границе.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "G06",
+      "group": "goals",
+      "requirements": [
+        "GC-08"
+      ],
+      "setup": "N05 выключена; другой опыт N05 включена, но парный private-метод не подключён.",
+      "expected": "В первом опыте нет цели/нулевого штрафа N05; во втором блокировка no_known_method, не неявное A32.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "G07",
+      "group": "goals",
+      "requirements": [
+        "GC-04"
+      ],
+      "setup": "Две активные цели требуют один законно доступный инструмент.",
+      "expected": "Одна AcquireResource с двумя parent_goal_ids; нет двух несовместимых договоров на тот же предмет.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "G08",
+      "group": "goals",
+      "requirements": [
+        "GC-10",
+        "PL-01"
+      ],
+      "setup": "NPC занял инструмент, закончил собственную работу; due возврата известен.",
+      "expected": "Goal возврата остаётся до собственного успешного receipt; вещь не присваивается и не продаётся.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "G09",
+      "group": "goals",
+      "requirements": [
+        "GC-03"
+      ],
+      "setup": "Чужое исполнение обязательства меняется только в debug_state без доступного свидетельства.",
+      "expected": "Известное обязательство и решение наблюдателя не меняются; после нового доступного receipt допускается изменение.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "G10",
+      "group": "goals",
+      "requirements": [
+        "GC-09"
+      ],
+      "setup": "Две альтернативы различаются score на2; текущий план feasible, затем разница становится4.",
+      "expected": "При2 добровольной смены нет; при4 и истечении10мин hold возможна смена с единственным C_switch=3.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "G11",
+      "group": "goals",
+      "requirements": [
+        "GC-04",
+        "GC-09"
+      ],
+      "setup": "Бюджет ближайших покупок уже достигнут, все N01–N04 выше target.",
+      "expected": "Нет бесконечной EarnBudget только ради положительной зарплаты; возможны явные проекты/досуг/idle.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "G12",
+      "group": "goals",
+      "requirements": [
+        "GC-11"
+      ],
+      "setup": "Сохранение в waiting_response с cooldown и счётчиками, затем resume.",
+      "expected": "Goal ids, next_review и следующие команды совпадают с непрерывным запуском.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "J01",
+      "group": "social",
+      "requirements": [
+        "JA-01",
+        "JA-06"
+      ],
+      "setup": "Двое известных доступных собеседников, N03=39, нормальные физические шкалы, нет scripted A14/A12/A15. Для чистоты теста у обоих social_initiative=1,caution=0, N01/N02>=90,N04>=80, fatigue/stress=0, очный доступный контакт.",
+      "expected": "Автономные proposal и самостоятельный ответ; реальная встреча при благоприятном исходе; N03 gain только после старта.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "J02",
+      "group": "social",
+      "requirements": [
+        "JA-06"
+      ],
+      "setup": "Инициатор доступен, адресат испытывает собственный сильный дефицит отдыха.",
+      "expected": "Адресат выбирает decline или полезный counter; инициатор не переписывает решение и не получает N02 адресата.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "J03",
+      "group": "social",
+      "requirements": [
+        "JA-06",
+        "RP-01"
+      ],
+      "setup": "Доступные интервалы различаются; доступен новый подходящий слот после сна.",
+      "expected": "Counter меняет версию; старые подписи сняты; новый слот требует нового согласия всех.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "J04",
+      "group": "social",
+      "requirements": [
+        "JA-07"
+      ],
+      "setup": "Групповое предложение четырём; три accept, один decline.",
+      "expected": "Текущая попытка завершается без частичного запуска; новый состав не наследует чужие подписи.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "J05",
+      "group": "social",
+      "requirements": [
+        "JA-05",
+        "RP-10"
+      ],
+      "setup": "Ответ delivered, но цифровой получатель не сделал A24.",
+      "expected": "Нет знания тела ответа, изменения p_accept и автоматического AttendSession.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "J06",
+      "group": "social",
+      "requirements": [
+        "JA-08"
+      ],
+      "setup": "Фикстура interrupted_joint_retry.scenario.json из реального аудита.",
+      "expected": "После собственного interrupted ни одной A15 по той же версии; уже проведённая минута сохраняется.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "J07",
+      "group": "social",
+      "requirements": [
+        "JA-08"
+      ],
+      "setup": "Фикстура completed_joint_retry.scenario.json.",
+      "expected": "Одна встреча, один joint_ended, ноль повторных A15 после completed; отрицательный контроль остаётся зелёным.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "J08",
+      "group": "social",
+      "requirements": [
+        "JA-03"
+      ],
+      "setup": "Фикстура unregistered_topic.scenario.json в новом версии каталога.",
+      "expected": "Незарегистрированная тема отклоняется без нового repetition key; явная ошибка входного контракта.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "J09",
+      "group": "social",
+      "requirements": [
+        "JA-03"
+      ],
+      "setup": "Две разрешённые темы conversation/reading в activity conversation, одинаковые прочие условия.",
+      "expected": "Обе используют общий repetition_key conversation; смена строки не сбрасывает привыкание.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "J10",
+      "group": "social",
+      "requirements": [
+        "JA-03",
+        "JA-04"
+      ],
+      "setup": "shared_reading: одна книга; holder/owner различаются, нет разрешения на совместное пользование.",
+      "expected": "Нет старта и физического эффекта; факт чужого владения не подменяет permission.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "J11",
+      "group": "social",
+      "requirements": [
+        "JA-03",
+        "JA-04"
+      ],
+      "setup": "ball_game: есть мяч и площадка, один участник не допускается к тяжёлой нагрузке.",
+      "expected": "Нет совместного старта с незаконной нагрузкой; у допущенных нет phantom эффекта до действительного старта.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "J12",
+      "group": "social",
+      "requirements": [
+        "JA-09"
+      ],
+      "setup": "Подписи обоих есть; A15 в tick10 только от a, в tick11 от обоих.",
+      "expected": "В10 нет старта, в11 старт атомарный; первый reject не social_declined.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "J13",
+      "group": "social",
+      "requirements": [
+        "JA-09"
+      ],
+      "setup": "Подписи есть, b не приходит до min(first_wait+15,latest_start).",
+      "expected": "Ограниченное ожидание и terminal missed_window; нет бесконечных A15 или штрафа за неизвестную причину.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "J14",
+      "group": "social",
+      "requirements": [
+        "JA-10"
+      ],
+      "setup": "Партнёр явно отказал; инициатор меняет тему той же activity-family каждую минуту.",
+      "expected": "Один cooldown120мин на family; лимит4 предложения/60мин не обходится версиями и темами.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "J15",
+      "group": "social",
+      "requirements": [
+        "JA-05"
+      ],
+      "setup": "Один accept прочитан дважды через разные копии того же root; один timeout без ответа.",
+      "expected": "p_accept обновляется один раз; timeout не входит в accepted/declined.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "J16",
+      "group": "social",
+      "requirements": [
+        "JA-11"
+      ],
+      "setup": "Идёт сессия; один участник отправляет A22.",
+      "expected": "Будущие эффекты всей сессии прекращены; повтор меньшим составом требует нового договора.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "J17",
+      "group": "social",
+      "requirements": [
+        "JA-04",
+        "RP-10"
+      ],
+      "setup": "Двое общаются десять минут при attention1; затем десять минут просто стоят вместе.",
+      "expected": "10 session-minutes,20 actor-minutes эффекта; последние десять минут не добавляют social_effect.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "J18",
+      "group": "social",
+      "requirements": [
+        "JA-02"
+      ],
+      "setup": "100 известных партнёров, десятки мест, каждое сочетание допускает три длительности.",
+      "expected": "Не более16 социальных bindings,8 партнёров,3 мест за решение; fair cursor впоследствии рассматривает других.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "J19",
+      "group": "social",
+      "requirements": [
+        "JA-12",
+        "GC-10"
+      ],
+      "setup": "Два NPC одновременно создают взаимные совместимые offers одинакового окна; оба варианта локально приемлемы после чтения.",
+      "expected": "Выбран один канонический договор; собственный проигравший отозван; нет двух одновременных подписанных сессий/циклического перевыбора/принуждения.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "R01",
+      "group": "reports",
+      "requirements": [
+        "RP-03"
+      ],
+      "setup": "N01=99, passive=-0.1, эффект+5 за минуту.",
+      "expected": "after100; raw_effect5,clamp=-3.9; сумма delta1 с допуском1e-9.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "R02",
+      "group": "reports",
+      "requirements": [
+        "RP-04"
+      ],
+      "setup": "Окно[0,3), левые значения N03:10,20,30, финальное40; C10,A25,T75.",
+      "expected": "exposure3,mean20,below_activation2,below_critical1; конечная40 не добавляет четвёртую минуту.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "R03",
+      "group": "reports",
+      "requirements": [
+        "RP-04"
+      ],
+      "setup": "Run заканчивается ровно на часовой границе,6NPC.",
+      "expected": "Финальных строк6, не12; unique(actor,need,tick); нет дополнительной экспозиции.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "R04",
+      "group": "reports",
+      "requirements": [
+        "RP-05"
+      ],
+      "setup": "Need активна в начале окна и не достигает target до конца.",
+      "expected": "left/right_censored=true; полная длительностьnull, observed duration известна; не recovered.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "R05",
+      "group": "reports",
+      "requirements": [
+        "RP-04"
+      ],
+      "setup": "Живой NPC incapable пять минут; N05 disabled.",
+      "expected": "Пять минут включены в exposure enabled needs; N05 не попадает в среднее как0.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "R06",
+      "group": "reports",
+      "requirements": [
+        "RP-06"
+      ],
+      "setup": "Два accept, один явный decline, один timeout, пять rejected A15.",
+      "expected": "Ответная доля decline=1/3; timeout и5rejections отдельны; знаменатели подписаны.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "R07",
+      "group": "reports",
+      "requirements": [
+        "RP-01",
+        "RP-07"
+      ],
+      "setup": "Частная причина N02, сказано«занят», получатель прочитал только текст.",
+      "expected": "Три независимых поля; export инициатора не содержит чужой N02/private score/debug detail.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "R08",
+      "group": "reports",
+      "requirements": [
+        "RP-08"
+      ],
+      "setup": "Активная Need, ни один метод неизвестен, команда не выдана.",
+      "expected": "Есть DecisionTrace с no_command и no_known_method; запись не исчезает из-за пустых candidates.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "R09",
+      "group": "reports",
+      "requirements": [
+        "RP-08",
+        "RP-09"
+      ],
+      "setup": "Изза лимита вариант C не оценён, B оценён и хужеA.",
+      "expected": "Для C score=null/not_evaluated; для B числовой gap; нет ложного объяснения«C менее выгоден».",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "R10",
+      "group": "reports",
+      "requirements": [
+        "RP-02",
+        "RP-06"
+      ],
+      "setup": "Повторный импорт ответа одной proposal-version и одного receipt.",
+      "expected": "Итоги совпадают с импортом один раз; нет повторного social refusal.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "R11",
+      "group": "reports",
+      "requirements": [
+        "RP-12",
+        "GC-11"
+      ],
+      "setup": "Одинаковый run с report off/full и со snapshot в середине.",
+      "expected": "Идентичные физические state hashes; resume не удваивает need exposure и отчётные события.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "R12",
+      "group": "reports",
+      "requirements": [
+        "RP-11"
+      ],
+      "setup": "Вход только старые почасовые samples.csv.",
+      "expected": "source_mode sampled; точная экспозиция/истинная причина не восстановлены и не выдаются как факты.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "R13",
+      "group": "reports",
+      "requirements": [
+        "RP-12"
+      ],
+      "setup": "Report directory недоступна для записи в начале либо в середине run.",
+      "expected": "Явная ошибка/incomplete с диапазоном потери, не silently successful complete report.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "R14",
+      "group": "reports",
+      "requirements": [
+        "RP-08"
+      ],
+      "setup": "Известные score-компоненты и две равные альтернативы.",
+      "expected": "Сумма компонентов совпадает с score; stable tie-break отражён, gap0 не подменяется выдуманным мотивом.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "P01",
+      "group": "planner",
+      "requirements": [
+        "PL-01",
+        "PL-03"
+      ],
+      "setup": "Сытость низкая, готовой еды нет, есть деньги/известный магазин.",
+      "expected": "Строится цель сытости и buy→eat; goal не satisfied после одной покупки.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "P02",
+      "group": "planner",
+      "requirements": [
+        "PL-01",
+        "PL-07"
+      ],
+      "setup": "Сытость низкая, готовой еды нет, есть ингредиенты/кухня/известный R01.",
+      "expected": "prepare→consume с настоящим списанием ingredients и временем; не instant creation.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "P03",
+      "group": "planner",
+      "requirements": [
+        "PL-02",
+        "GC-03"
+      ],
+      "setup": "Два мира дают битово одинаковые LocalView/ControllerMemory a; различны чужие нужды/запасы/тайные отношения.",
+      "expected": "Следующие candidate scores,trace,command a совпадают; World outcome может различаться после исполнения.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "P04",
+      "group": "planner",
+      "requirements": [
+        "PL-02"
+      ],
+      "setup": "До/после100 вызовов прогнозирования сравнить реальный World hash, item versions, деньги и очередь.",
+      "expected": "Ничего не меняется; использован правильный baseline/extended.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "P05",
+      "group": "planner",
+      "requirements": [
+        "PL-02"
+      ],
+      "setup": "В контролируемом fully-known single-actor опыте прогноз A07/A09/A16 совпадает с входом исполнителя.",
+      "expected": "Minute-by-minute собственные шкалы совпадают в1e-9; физика/режимы не продублированы несовместимо.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "P06",
+      "group": "planner",
+      "requirements": [
+        "PL-03"
+      ],
+      "setup": "Метод просит предмет у NPC с непрочитанным ответом.",
+      "expected": "Execution prefix останавливается на внешнем барьере; нет взятия/использования по прогнозному accept.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "P07",
+      "group": "planner",
+      "requirements": [
+        "PL-04"
+      ],
+      "setup": "Каждый лимит отдельно снизить до1 либо минимально допустимого значения, особенно прогноз/маршрут.",
+      "expected": "Счётчики не превышены; stop_reason точный; неоценённые состояния не приобретают score.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "P08",
+      "group": "planner",
+      "requirements": [
+        "PL-04"
+      ],
+      "setup": "Огромный граф при128routeexpansions/512edgevisits; много нужных предметов.",
+      "expected": "Прерывается на бюджете, не выполняется полный BFS перед обрезкой.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "P09",
+      "group": "planner",
+      "requirements": [
+        "PL-07"
+      ],
+      "setup": "Рекурсивные методы acquire→earn→borrow→acquire и повтор одинакового мира.",
+      "expected": "Depth<=4,nodes<=256,steps<=12; нет прибыли от нулевого цикла/фиктивного займа.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "P10",
+      "group": "planner",
+      "requirements": [
+        "PL-05"
+      ],
+      "setup": "План A длится15, B60; H180.",
+      "expected": "Оба оцениваются на180 с одинаковым остаточным ordinary; расходы ожидания/дороги учтены.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "P11",
+      "group": "planner",
+      "requirements": [
+        "PL-08"
+      ],
+      "setup": "Два скрыто отличающихся NPC создают разную вычислительную нагрузку; local input a неизменён.",
+      "expected": "Решение a не зависит от чужого wall time/числа expanded nodes; собственный бюджет неизменён.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "P12",
+      "group": "planner",
+      "requirements": [
+        "GC-11",
+        "PL-09"
+      ],
+      "setup": "Snapshot во время движения, ожидания ответа и согласованного будущего окна.",
+      "expected": "После resume совпадают sequence, планы, cooldown, receipts и физика в том же сборочном окружении.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "P13",
+      "group": "planner",
+      "requirements": [
+        "PL-06"
+      ],
+      "setup": "В единственном известном магазине раньше был предмет, свежих данных нет.",
+      "expected": "Unknown/ResolveUncertainty, не гарантированная покупка и не доказанная вечная недоступность.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "P14",
+      "group": "planner",
+      "requirements": [
+        "PL-08"
+      ],
+      "setup": "Пять локальных сигналов одного tick, плюс приближение встречи.",
+      "expected": "Один fullsearch максимум и один Monitor; своевременная самостоятельная A15 не ждёт phase5min.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "P15",
+      "group": "planner",
+      "requirements": [
+        "PL-10"
+      ],
+      "setup": "Нагрузочные фикстуры10/100/1000NPC с одинаковым заданным миром,seed и длительностью; full и summarytrace.",
+      "expected": "Выданы raw resource counters,peakmemory,elapsed,версииhardware; нет выдуманной гарантии realtime.",
+      "status": "specified_not_implemented"
+    },
+    {
+      "id": "P16",
+      "group": "planner",
+      "requirements": [
+        "PL-06"
+      ],
+      "setup": "Все рассмотренные методы известны как недопустимые, остаётся безопасное бездействие.",
+      "expected": "known_infeasible относится к рассмотренным методам; не объявляется глобальная невозможность; конкретный wake trigger.",
+      "status": "specified_not_implemented"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "schema_version": "ACTIVITIES-0.1-DESIGN",
+  "example": true,
+  "implemented": false,
+  "activities": [
+    {
+      "activity_id": "conversation",
+      "allowed_topics": [
+        "conversation",
+        "reading",
+        "sport"
+      ],
+      "repetition_key": "conversation",
+      "interest_key": "conversation",
+      "participant_min": 2,
+      "participant_max": 16,
+      "autonomous_max": 2,
+      "minutes_min": 3,
+      "minutes_max": 120,
+      "mode": "ordinary",
+      "pleasure_rate_per_minute": 0.2,
+      "resource_requirements": [],
+      "effect_model_id": "shared_social_v1",
+      "effect_model_version": 1
+    },
+    {
+      "activity_id": "shared_reading",
+      "allowed_topics": [
+        "reading"
+      ],
+      "repetition_key": "reading",
+      "interest_key": "reading",
+      "participant_min": 2,
+      "participant_max": 4,
+      "minutes_min": 15,
+      "minutes_max": 120,
+      "mode": "ordinary",
+      "pleasure_rate_per_minute": 0.4,
+      "required_roles": [
+        "reader"
+      ],
+      "resource_requirements": [
+        {
+          "item_type": "I08",
+          "count": 1,
+          "permission": "shared_use",
+          "lock_scope": "group"
+        }
+      ],
+      "effect_model_id": "shared_social_v1",
+      "effect_model_version": 1
+    },
+    {
+      "activity_id": "ball_game",
+      "allowed_topics": [
+        "sport"
+      ],
+      "repetition_key": "sport",
+      "interest_key": "sport",
+      "participant_min": 2,
+      "participant_max": 4,
+      "minutes_min": 15,
+      "minutes_max": 60,
+      "mode": "sport",
+      "pleasure_rate_per_minute": 0.4666666666666667,
+      "place_capability": "ball_game",
+      "resource_requirements": [
+        {
+          "item_type": "I09",
+          "count": 1,
+          "permission": "shared_use",
+          "lock_scope": "group"
+        }
+      ],
+      "effect_model_id": "shared_social_v1",
+      "effect_model_version": 1
+    }
+  ]
+}

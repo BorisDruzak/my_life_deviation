@@ -1,0 +1,20 @@
+{
+  "stage": "T0",
+  "status": "verified",
+  "commit": "5013db431f1c928972120a974f51fcac43d77568",
+  "github_modified": false,
+  "archive": "NPC_World_0.5_T0_completed.zip",
+  "archive_bytes": 1882396,
+  "archive_sha256": "077fb9d6bb82f42ab00870ebd4f21bdee243a080863334461ede3ef71e5c5ef5",
+  "files_in_archive": 1021,
+  "file_checksums_verified": 1020,
+  "patch_applies_to_provided_baseline": true,
+  "native_cases_passed": 122,
+  "native_cases_failed": 0,
+  "new_cli_cases_passed": 5,
+  "ctest_gcc_passed": 3,
+  "ctest_clang_asan_ubsan_passed": 3,
+  "next_stage": "T1",
+  "windows_checked": false,
+  "stages_T1_T9_implemented": false
+}

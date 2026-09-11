@@ -1,0 +1,36 @@
+PASS relax actual transition
+PASS zero time bit-preserving
+PASS reject invalid even at zero dt
+PASS body rates from one snapshot
+PASS rest is not sleep
+PASS zero body dt
+PASS oxygen damages without desire
+PASS normal capacities
+PASS no cognition asleep
+PASS no invented emotion
+PASS fear appraisal
+PASS novelty not needed for enjoyment
+PASS exact reservoir composition
+PASS desire deficit accumulates
+PASS satisfy different from seeing
+PASS desire zero dt
+PASS contextual trigger
+PASS associative not causal
+PASS unobserved is not zero
+PASS no conscious experience
+PASS sparse channel specific
+PASS duplicate episode
+PASS four new pairs maximum
+PASS unknown permission not false
+PASS rule proof respects confidence
+PASS contradiction not truth
+PASS taboo is finite
+PASS subjective penalty example
+PASS dependence partial knowledge
+PASS dependence .35 example
+PASS conflicting witnesses are not silently resolved
+PASS W global shared capacity
+PASS W empty primary cannot self reinforce
+PASS W indexed update leaves unrelated properties intact
+PASS zero sanction no monetary side effect
+tests=35 failed=0

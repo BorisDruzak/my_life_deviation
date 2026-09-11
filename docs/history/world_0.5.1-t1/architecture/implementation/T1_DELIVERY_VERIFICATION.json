@@ -1,0 +1,108 @@
+{
+  "stage": "T1",
+  "status": "verified",
+  "date": "2026-09-10",
+  "baseline_commit": "afe29956d602f3f9f41f8492b16454966ca1a17d",
+  "implementation_commit": "33c058fb968899f2ba8ab050f991a70b3f43d8d0",
+  "local_branch": "t1/local-policy-state",
+  "github_modified": false,
+  "archive": {
+    "filename": "NPC_World_0.5_T1_completed.zip",
+    "bytes": 2073732,
+    "sha256": "2c83560e14bb4f36ddfd9b4eef9384b99ccb242011b406297c2be6384cbb4676",
+    "crc_all_entries_ok": true,
+    "files": 1074
+  },
+  "patch": {
+    "filename": "NPC_T1.patch",
+    "bytes": 450832,
+    "sha256": "636453a08cd75abee49556234f5eb1b9e812a81ba4046a2ed929b6e95bced6f9",
+    "apply_check_to_fresh_T0": true,
+    "applied_to_fresh_T0": true,
+    "all_patched_files_byte_equal_to_archive": true
+  },
+  "checksum_catalogue": {
+    "verified": true,
+    "entries": 1073
+  },
+  "manifest_verified": true,
+  "baseline_paths_preserved": true,
+  "new_files": 53,
+  "changed_existing_files": [
+    "CMakeLists.txt",
+    "README.md",
+    "SHA256SUMS",
+    "START_HERE_AUTONOMY_REVIEW.md",
+    "START_HERE_T0.md",
+    "docs/design/autonomy_2026-09-10/00_README.md",
+    "docs/design/autonomy_2026-09-10/07_CODEX_PLAN.md",
+    "docs/implementation/STATUS.md",
+    "docs/spec/API.md",
+    "docs/spec/LIMITATIONS.md",
+    "include/npc/world.hpp",
+    "src/knowledge.cpp",
+    "src/world.cpp"
+  ],
+  "native_tests": {
+    "GCC_Release": {
+      "passed": 158,
+      "failed": 0
+    },
+    "Clang_Debug_ASan_UBSan": {
+      "passed": 158,
+      "failed": 0
+    },
+    "new_T1_cases": 36,
+    "preserved_T0_cases": 122
+  },
+  "post_commit_ctest": {
+    "GCC_Release": {
+      "returncode": 0,
+      "stdout": "Internal ctest changing into directory: /mnt/data/t1_workspace/NPC_World_0.5/build-t1\nTest project /mnt/data/t1_workspace/NPC_World_0.5/build-t1\n    Start 1: core\n1/3 Test #1: core .............................   Passed    0.54 sec\n    Start 2: cli\n2/3 Test #2: cli ..............................   Passed    0.71 sec\n    Start 3: autonomy_t0\n3/3 Test #3: autonomy_t0 ......................   Passed    0.74 sec\n\n100% tests passed, 0 tests failed out of 3\n\nTotal Test time (real) =   1.99 sec\n",
+      "stderr": ""
+    },
+    "Clang_Debug_ASan_UBSan": {
+      "returncode": 0,
+      "stdout": "Internal ctest changing into directory: /mnt/data/t1_workspace/NPC_World_0.5/build-t1-sanitize\nTest project /mnt/data/t1_workspace/NPC_World_0.5/build-t1-sanitize\n    Start 1: core\n1/3 Test #1: core .............................   Passed   10.79 sec\n    Start 2: cli\n2/3 Test #2: cli ..............................   Passed    1.73 sec\n    Start 3: autonomy_t0\n3/3 Test #3: autonomy_t0 ......................   Passed    2.13 sec\n\n100% tests passed, 0 tests failed out of 3\n\nTotal Test time (real) =  14.65 sec\n",
+      "stderr": ""
+    }
+  },
+  "public_api_smoke": {
+    "continued_at": 2,
+    "initial_known_edge": {
+      "complete": true,
+      "confidence": 1.0,
+      "examined": 1,
+      "reason": "explicit_temporal_evidence",
+      "sources": [
+        {
+          "applies_at": 0,
+          "assumed": false,
+          "confidence": 1.0,
+          "id": "a-shop_home",
+          "observed_at": 0,
+          "roots": [
+            "a-shop_home"
+          ],
+          "source": "scenario_genesis"
+        }
+      ],
+      "truth": "KnownTrue"
+    },
+    "page_budget": 8,
+    "policy_hash": "0fad0d96c6a49780ed6ebdc9e7c989293f2d2d2a587897283ecf7d54861ef124",
+    "public_headers_only": true,
+    "status": "passed",
+    "world_and_policy_roundtrip_equal": true,
+    "world_hash": "9e7824d76ab09b4c2dadcced99eb80eabd6c22caa072b55aeb5707c1b0315155"
+  },
+  "full_future_design_acceptance_claimed_passed": false,
+  "next_stage": "T2",
+  "not_tested": [
+    "Windows",
+    "1000 NPC",
+    "week-long scenario",
+    "new autonomous controller",
+    "full atomic SimulationCheckpoint"
+  ]
+}

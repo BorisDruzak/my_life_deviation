@@ -1,17 +1,36 @@
-# my_life_deviation
+# My Life Deviation
 
-Экспериментальная модель поведения НПС без LLM.
+`my_life_deviation` contains a C++20 laboratory core for NPC behaviour and the
+BEHAVIOR-0.3 documentation that defines its current research boundary. The
+active implementation is `mld`; WORLD-0.5.1-t1 is preserved separately as a
+non-built historical snapshot.
 
-## Действующие спецификации: BEHAVIOR-0.3
+Start with the [repository navigation](navigation/INDEX.md) and the
+[C++ 0.6 architecture entry point](docs/architecture/cpp_0.6/README.md).
 
-Начать с [индекса механик](Документация/Механики/README.md) и [редакции поведения 0.3](Документация/Механики/Редакция_поведения_v0.3.md). Редакция содержит точную таблицу изменений прежних документов: посев предыстории/родства, зависимость и утрата, накопительное и контекстное влечение, конечные табу, локальная репутация и ожидаемые санкции без фактического штрафования.
+## Quick start
 
-Новые версионные дополнения заменяют только указанные разделы. Исторические тексты сохраняются; их старые формулы и статусы не применяются поверх новых. Численные параметры — проверочный профиль, не окончательный баланс.
+With CMake and a C++20 compiler installed:
 
-[Проверка спецификаций 0.3](Документация/Отчёты/Проверка_спецификаций_поведения_v0.3.md) отделяет локальные численные проверки от приёмочных сценариев будущего C++-ядра.
-
-```sh
-python "Документация/Проверки/Проверка_редакции_поведения_v0.3.py"
+```powershell
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build --config Release --parallel 2
+ctest --test-dir build -C Release --output-on-failure
+.\build\Release\mld_sim.exe --npcs 128 --seed 42 --days 7
 ```
 
-Наличие спецификации и Python-проверок не означает наличия полного собираемого C++-ядра, многодневной симуляции или замеров производительности Unreal Engine. Этот выпуск изменяет документацию и проверочные материалы, а не исполняет симуляцию поселения.
+For a single-configuration generator, run `build/mld_sim` (or
+`build/mld_sim.exe`). The optional `tools/run_experiments.py` runner reproduces
+the archived laboratory scenarios after a successful build.
+
+The executable is a limited laboratory profile, not a claim that every
+BEHAVIOR-0.3 proposal, settlement-scale simulation, or Unreal Engine bridge is
+implemented. Archived reports document earlier runs; they do not replace fresh
+local verification.
+
+Navigation validation needs only Python's standard library:
+
+```powershell
+python tools/verify_navigation.py
+python -m unittest tools.tests.test_verify_navigation -v
+```

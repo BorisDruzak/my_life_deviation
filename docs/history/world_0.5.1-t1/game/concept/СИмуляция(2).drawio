@@ -1,0 +1,539 @@
+<mxfile host="Electron">
+  <diagram name="Страница-1" id="83gk9BTFLya_2zVrJRMV">
+    <mxGraphModel dx="24140" dy="13410" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="5000" pageHeight="5000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-134" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="2mPlI_ey6MAs90VP1WGT-132">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-4295" y="-2310" />
+              <mxPoint x="-3530" y="-2310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-140" connectable="0" parent="2mPlI_ey6MAs90VP1WGT-134" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Text" vertex="1">
+          <mxGeometry relative="1" x="0.1711" y="13" as="geometry">
+            <mxPoint x="3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-141" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="2mPlI_ey6MAs90VP1WGT-109">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Потребности - определяют распределение времени. Условно шкала времени прсонажа заполняется действиями исходя из потребностей, выбор действия определяется характеристиками на основе свойств пресонажа, свойств личности и знаний пресонажа.&lt;br&gt;&lt;br&gt;Потребности деляться на простые, функциональные, психологические. - по типу свойств.&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="920" width="310" x="-4450" y="-3580" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;&lt;br&gt;Еда - характеристика определяет потребность НПС использовать действие &quot;питание&quot; - на объектах с этим свойстом, побуждает цепочку событий связанных с приобретением - обладаем объектами с свойстом ЕДА. Необходимость еды определяется Характеристикой Сила воли - в случаее низкого показателя персонаж на средних уровнях потребности в Еде может сильно понизить показатель рассуда.&lt;br&gt;Есть дивицаии характеристики. Влияет на временную шкалу, условно в расчёте времени этот персонаж в 22.00 ел 30 минут.&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="550" width="490" x="-2680" y="-4510" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Сон - характеристика определяющая потребность персонажа в определённом действии, в зависимости от кретичности показателя, сниждаюся характеристики Силы воли, рассудка. Есть дивиации. влияет на временную шкалу.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="240" width="480" x="-2680" y="-3790" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Сексуальная разрядка - характеристика определающая потребность персонажа в определённом действии &quot;Сексуальное взаимодействие&quot; может быть как с противоположенным полом так и однополй в случаее Дивиации. Характеристика запускает цепь событий &quot;Поиск партнёра&quot;, &quot;Договор о сексуальной разрядке&quot;, &quot;Мастурбация&quot; - снижает стресс - но незначительно снижает показатель Сексуальной разрядки, при этом частота действия с каждым разом понимжает показатель меньше&quot;, есть дивиации.&amp;nbsp;&lt;/font&gt;&lt;span style=&quot;font-size: 25px;&quot;&gt;Есть дивиации. влияет на временную шкалу. - условно действие связанное с удволитворение занимает время так и сам акт&lt;/span&gt;" vertex="1">
+          <mxGeometry height="520" width="500" x="-2695" y="-2690" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-150" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Стресс - уровень страсса определяется и является собирательным образом всех характеристик, чем ниже показатели тем выше стресс, с показателем &quot;Сексуальное возбуждение показатель обратный, низкий уровень Сексуальной разрядки тем ниже стресс&quot;, в свою очередь так-же стресс может возникнуть в случаее события Конфликт, Ссора, Расстование, Измена и др. Стресс влияет&amp;nbsp; на Рассудок(Самообладание).&lt;br&gt;Стресс определяет кретический уровень характеристики после которого персонаж начинает терять рассудок.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="480" width="490" x="-8060" y="-1570" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-151" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-12" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Страх - определяется для каждого действия, а не общий страх, условно в событии походж в магазин - внутри события отдельные действия будут обозначаться страхом, условно у покупки еды страх будет 0 а у кражи выше.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="540" width="500" x="-8080" y="-2270" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-14" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Характеристики&lt;br&gt;Старые&lt;/span&gt;" vertex="1">
+          <mxGeometry height="280" width="310" x="-5580" y="-970" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-149" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-15" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Рассудок - примерная характеристика определяющася потребностью персонажа, характеристиками и девиациями. Условно при низком рассудке персонаж может начать делать странные действия не думаю о последствиях. Условно можно обозначить как Самообладание. В условиях нижкого рассудка персонаж может начинать повышать характеристики девиантными способами, при этом даже если он не склонен к этмоу.&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="690" width="500" x="-8060" y="-890" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-16" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Уровень социального взаимодейтсвия - характеристика условно влияющая на потребность персонажа в общении - то есть в запуске определённых действий. Есть дивиации. Влияет на временную шкалу, при желание общения создаются необходимые действия на временной шкале. Особенностью Потребности является строгая привязанность к отношениям, в рамках отношений более серьёзное снижение потребности будет именно в отношениях с высокой привязанностью - буквально определющию необходимость постоянного контакта с НПС.&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="600" width="500" x="-2680" y="-3420" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-22" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;br style=&quot;font-size: 25px; text-align: left;&quot;&gt;&lt;span style=&quot;font-size: 25px; text-align: left;&quot;&gt;Развлечения или досуг - условная характеристика определяющая уровень удволитворённости жизнью, в зависисмости от предпочтений НПС. Условно 1 персонажи получают удовольствие от Алкоголя другие от Спорта и тд - определяет как уровень показателя так и распределение времени, при низком показатели распределение времени будет расчитывать окно для развлечения.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="350" width="490" x="-2695" y="-1930" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-54" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-53">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-181" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-176">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-182" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-177">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-183" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-178">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-184" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-179">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-185" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-180">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-26" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Знания о мире - условной каждый предмент который можно использовать Игроку обладает свойстами, эти свойста так-же работают и на НПС, условная Детская игрушка(при наличии свойста, настольгия - допустим повышает рассудок или Досуг.)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="240" width="550" x="5090" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-32" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-41" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-39">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-2620" y="205" />
+              <mxPoint x="-2620" y="205" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-44" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="2mPlI_ey6MAs90VP1WGT-45">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-2490" y="210" />
+              <mxPoint x="-2750" y="210" />
+              <mxPoint x="-2750" y="845" />
+            </Array>
+            <mxPoint x="-2900" y="900" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-48" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="-1520" y="215" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-90" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" target="2mPlI_ey6MAs90VP1WGT-89">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-122" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="2mPlI_ey6MAs90VP1WGT-144">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-2960" y="2015" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-171" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-173">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-2220" y="-800.0000000000018" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-27" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Свойств НПС - условные базовый характеристики НПС усредняющие Рандом и при этом, базовый характеристики влияют на всех однаково, а рандом характеристик определяется историе персонажа + свойствами девиантности.&lt;br&gt;&amp;nbsp;К примеру Девушки будут менее агресивны чем мужчины, то есть реже Базово будут вступать в кофнликт.&lt;br&gt;Так-же определяет симпатию персонажей друг к другу.&lt;br&gt;ТАк-же влияет на отношения к ситуации. - то есть персонажи&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="410" width="550" x="-2490" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-57" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="2mPlI_ey6MAs90VP1WGT-58">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="7485.0599999999995" y="480.06" />
+              <mxPoint x="7480" y="480.06" />
+              <mxPoint x="7480" y="570.06" />
+            </Array>
+            <mxPoint x="7490" y="570" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-29" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;История персонажа - это обосновнаие его характеристик, и базовых кретических парогов порогов.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="290" width="550" x="7210" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-35" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-36">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-1630" y="895" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-31" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;br style=&quot;font-size: 25px; text-align: left;&quot;&gt;&lt;span style=&quot;font-size: 25px; text-align: left;&quot;&gt;Порог кретических показателей, средних показателей и нормальных показателей. и низких.&lt;br&gt;&lt;br&gt;Условный Баланс игры - чем выше показатели тем больше случаев девиантого поведения и девинтный действий.&lt;br&gt;&lt;br&gt;если всязит ьусловную шкалу от 1 до 100. то у каждой характеристики будет пароги при которых персонаж совершает действия, условно (если речь о базовом поведении НПС в вакуме, без события) чтобы закрыть характеристику - нужно закрыть потребность - при этом в нормальном состоянии условно порог нормального 80 - НПС не будет выбирать действия связанные с этой потребностью - допустим еда. Но если потребность в СНЕ допустим с порогом 40 - то есть&amp;nbsp; низких, персонаж предпочтёт Поспать а не Есть(хотя поведение может быть и другим допустим при двух нормальный показателях персонаж и поест и поспит ПРИ КРЕТИЧЕСКОМ ПОКАЗАТЕЛЕ ХАРАКЕТИРИСТИКИ)&lt;/span&gt;" vertex="1">
+          <mxGeometry height="870" width="490" x="-2460" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-36" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;ПРИМЕР ПОВЕДЕНИЯ 1.&lt;br&gt;Допустим у НПС был реский скачёк уровня страха, в следствии опасной ситуации - повысислся стресс до средних показателей, Сон и Еда падают перманентно каждый раз, при нормальных показателях Еда может повышать разные показатели но при средних показателях стресса НПС будет стремиться есть Вредную еду или прибегать к алкоголю.&lt;/font&gt;" vertex="1">
+          <mxGeometry height="805" width="480" x="-2455" y="1360" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-39" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Возраст.&lt;br&gt;Показатель возраста в совокупности с историей даёт так-же влияние на критический пороги(чем старше персонаж тем порог рассудка выше и соответсвенно самооблодание, но возможные девиации, сексуальная разрядка, Уровень социального взаимодействия и тд.&amp;nbsp;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="332.5" width="480" x="-3490" y="38.75" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-43" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" target="2mPlI_ey6MAs90VP1WGT-27">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-2750" y="535" />
+              <mxPoint x="-2750" y="210" />
+              <mxPoint x="-2490" y="210" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-42" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Пол.&lt;br&gt;Женьщины и мужчины с разными порогами - мужчина с более высоким порогом Страха(то есть меньше боится) но низким порогом Рассудка может вступать в конфликты. И тд.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="270" width="480" x="-3490" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-45" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Орентация.&lt;br&gt;Определяет сексуальные предпочтения НПС.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="270" width="480" x="-3490" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-47" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" target="2mPlI_ey6MAs90VP1WGT-27">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-2745" y="1275" />
+              <mxPoint x="-2745" y="200" />
+              <mxPoint x="-2490" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-46" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Цвет волос.&lt;br&gt;Длинна волос.&lt;br&gt;Рость.&lt;br&gt;Форма лица.&lt;br&gt;Форма челюсти.&lt;br&gt;Форма носа.&lt;br&gt;Вес.&lt;br&gt;Цвет глаз.&lt;br&gt;(список незакончен)&lt;br&gt;Факторы фезичекого развития - могут быть динамичны в завимости от занятия НПС.&lt;br&gt;Физические характеристики - определяют изначальное положение в отношениях.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="510" width="480" x="-3480" y="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-50" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Интересы предпочтения - зависят от знаний человека и его биографии - то есть во 1 НПС не может увлекаться тем, о чем не знает - то есть действиями о которых он не знает.&amp;nbsp;&lt;br&gt;Его знания зависят от биографии и текущего хода событий.&amp;nbsp;&lt;br&gt;НПС может увлечься Акультизмом в случаее если он узнал этот факт + его подтолкнули туда определённые события, допустим дружба с Акультистом + совместное времяприпровождение.&lt;br&gt;&lt;br&gt;Интересы и предпочтения формируются реальным образом - но девиантные прдепочтения формируется при перенасыщении.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="840" width="480" x="-1520" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-147" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-52" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Порог нетерпипости - условное обозначение порога за которым персонаж неспособен выносить определённые события - допустим действие издевательство, сталкинг, нетрадиционные отношения, напрямую зависит от биографии человека.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="690" width="500" x="-8065" y="670" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-55" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="6150" y="1410" />
+            </Array>
+            <mxPoint x="6150" y="1395" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-53" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Разъяснения.&lt;br&gt;Существуют все доступные для взаимодействия объекты в игре.&amp;nbsp;&lt;br&gt;Группированные по свойствам и возможностью использования.&lt;br&gt;&lt;br&gt;условные знания заключаются как в знания о объекте в целом - условно персонаж может знать предмет Нож - но при этом действие убийство для него может быть недоступно именно при таком наборе свойств НПС + Уровне характеристик + Потребностей.&lt;br&gt;Действие открывается для доступа только при определённом наборе характеристик.&lt;br&gt;условно действие общение даже при высоком уровне Стресса и Страха не позваляет успользовать Нож для убийства - но в тоже время при определённых девиациях может открыть это действие.&lt;br&gt;&lt;br&gt;&lt;br&gt;В тоже время речь может и не идти об объектах, допустим если речь о занятиях в тренажорном зале - персонаж без склонности к тренажёрному залу не может получить доступ к действию в тренажёрном зале - занятие спортом, при этом он может туда пойти - ибо действие перемещение за объектом обожания или прогулка ему доступны - он перемещается туда по другой причине, хотя дейтсвие ему не доступно.&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;То есть знания в контексте игры - это доступ к разным свойстам объекта для использования, в объекты входят и НПС и Игрок.&lt;br&gt;&lt;br&gt;Стоит отметить что действия в контексте знания - не равно не возможность использовать знания в диалоге, НПС может взаимодействовать на уровне диалога даже если прямых доступных действий у него нету. Условно разговорах о пытках может говорить как о доступности дейтсвия так и знаниях о нём в контексте разговора, при этом персонаж просто регистрировал факт пыток сам в них не участвуя.&lt;br&gt;&lt;br&gt;Факты НПС фиксирует из игровой симуляции и из биграфии&lt;br&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="1780" width="500" x="5115" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-56" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Примеры знаний.&lt;br&gt;&lt;br&gt;1. Чипсы - группа еда, действия - есть, дарить, выкинуть, подкинуть, отравить, продать.&lt;br&gt;2. Деревянная палка - группа -&amp;nbsp; предмет. действие - выкинуть, использовать как оружие, носить с собой, отдать.&lt;br&gt;3. Телефон - группа - предмет, действие - взять, носить с собой, написать пост в социальных сетях, написать сообщение объекту изменяющий потребности, характеристики, отношения и др. Объект широгкого применения.&lt;br&gt;4. Прогулка - действие/событие. Свойства - Взаимодействовать на прогулке с персонажем/персонажами менящие отношения/характеристики/потребности в зависимости от характиристик каждого персонажа. Следить за прогулкой меняющие характеристики/отношение/потребности.&lt;br&gt;&lt;br&gt;&lt;br&gt;Все действия имею время выполнения - то есть количество условных игровых временных ячеек, таким образом система просчитывает какое время будет занимать действие. При этом комплексные действия зависят от результата выполнения фрагмента действия, не все действия комплексные.&lt;br&gt;&lt;br&gt;&lt;br&gt;Любые действия имеют результат выполнения и контекст выполнения - то есть Прогулка по лесу имеет контекст повышения потребностей(базово) - но в следствии девиций или их отсутсвия контекст выполнения может быть разных - прогулка с целью прогулки будет просто базово повышать характеристики но если есть девиции допустим Сталкер - то есть повышения характеристики Социального взаимодействия и Сексуальной разгрузки повышаются в следствии слежки и подглядывания за персонажем - контекст прогулки менятся так-же как ход выполнения и результат выполнения.&lt;br&gt;&lt;br&gt;&lt;br&gt;У любого знания есть базовые свойства.&lt;br&gt;Факт фиксации, фиксация.&lt;br&gt;Условно НПС может зафиксировать что кто-то пользовался объектом или был в взаимодействии с действием/объектом/персонажем, пресонаж так-же явзяются частью знаний,предметом в контексте использования действием.&lt;br&gt;Фиксация - это сам факт, что НПС зафксировал. - то есть обрёл знания про что-то - персонажа, факт взаимодейтсвия и тд.&lt;br&gt;&lt;br&gt;&lt;br&gt;Любые знания получаются в рамках симуляции Хода времени.&lt;br&gt;То есть при симуляции фиксируется что НПС А и НПС Б проводили время в месте по причине потребности в Социальном взаимодействии и положительных/напряжённых/требёющих разъяснения отношений - действия прогулка - в данном случаее будет иметь факт рузльтата - допустим повышение отношений, понижениея. разрыв и тд - соответственно персонаж может имеет шанс зафиксировать факт - прогулки/результа - а у НПС А и Б факт фиксации события. - в данном случаее Знаниями будет факт прогулки зафиксированный НПС А и НПС Б - так-же и факт ФИксации события Персонажа С&amp;nbsp; &amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="2510" width="500" x="6150" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-58" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Биография является генерируемой и по факту является частью геймплея игрока - то есть фактически служит для установления Характеристик потребностей знаний о мире девиаций и других фактах о НПС для игрока.&amp;nbsp;&lt;br&gt;&lt;br&gt;&lt;br&gt;Для обоснования девиаций не всегда нужен факт из биографии, но его наличие + факт фиксации Игроком + факт из разговора будет являтся более серьзным доказательство.&lt;br&gt;&lt;br&gt;Биография не фиксируется в виде Он родился тогда-то тогдато - изначальная генерация персонажей сбалансированно генерируетхарактеристики пороги и знания и по факту этого строиться Биография.&lt;/font&gt;" vertex="1">
+          <mxGeometry height="580" width="550" x="7200" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-148" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-60" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-60" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Самооценка - показывает какого мнения о себе НПС, по факту является собирательным образом потребностей. в среднем но и учитывает биографию. Самооценка не зависиь от порогов а именно от средних значений если потребности и биография пожволяют иметь высокую самооценку персонаж более несдержан - то есть пониает рассудок, укрепляет Стресс и Страх - не даёт им резко снижаться.&lt;br&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="690" width="500" x="-8050" y="-140" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-71" parent="1" style="ellipse;shape=doubleEllipse;whiteSpace=wrap;html=1;aspect=fixed;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Условный тайм лайн поделён на 12 секций, день ночь, при этом учитывать потребность в деньгам и нормальное для работы время суток - условные 8 часовой рабочий день, действия еды, похода домой, действия душ, и так далее, для нормально распределения.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="1370" width="1370" x="1630" y="3020" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-92" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-72" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-71">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-72" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Симуляция времени и хода событий.&lt;br&gt;&lt;br&gt;Потребности требует пополнения или разрядки. В следствии чего НПС действует исходя из характеристик, свойств и тд.&lt;br&gt;&lt;br&gt;Для проведения симуляции каждое действие имеет время исполнение которое симулируется на едином для Игрока и НПС временном тайм лайне, с учтом действия, контекста действия, распределения действия резульата действия и локации. Условно если действие было симулированно с прогулкой в Парке в столько то часов то при нахождение Игрока в это время он сможет зафкисировать факт прогулки и другой контекст исходя из события.&lt;br&gt;&lt;br&gt;При этом пересекающася симуляция должна учитывать наличие других НПС с их возомжно девиантным событием или желанием удволитворить часть потребностей, с учтом их уровня и порога.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="870" width="500" x="2065" y="1430" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-75" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-73" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-74">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-73" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Отношения.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="290" width="550" x="9960" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-79" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-74" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="2mPlI_ey6MAs90VP1WGT-78">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-74" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;НПС имеет уровень отношений и свойства отношений с другими НПС так и с игроком. Отношения опредеются событийно - а события зависят от характеристик и потребностей - условно НПС могут конфликтовать из-за Высокой самооценки одного,Низкого страха, Низкого стресса - при этом имеющим девицию и получающий удовольствие от Конфликтов.&lt;br&gt;&lt;br&gt;Отношения могут разного статуса исходя из свойств персонажа, допустим при низком показатели Денег - персонаж может Дружить с другим из-за фин трудностей - зависит от выбора способа получения потребности Деньги - при этом персонаж с низим показателем денег будет имть более низкую самооценку - в следствии чего могут начатся конфликты - что приведёт к другим событиям.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="660" width="550" x="9960" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-80" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-78" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="10990" y="1545" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-83" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-78" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-82">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-85" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-78" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-84">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="9970" y="1860" />
+              <mxPoint x="9095" y="1860" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-87" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-78" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-86">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="10500" y="2070" />
+              <mxPoint x="10500" y="2070" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-224" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-78" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-225">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="10010" y="2170.000000000002" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-78" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Свойства.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="290" width="550" x="9960" y="1400" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-81" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Статус определяет какие варинаты действий доступны персонажам. Любовные предпологают более тесноей общений и действия Сексуальной разрядки. &lt;br&gt;При этом есть базовое определение статуса и контекстное - то есть Дружба группой - Означает что основное приоритетное направление ваших отношений дружба в конкретной группы, вероятность попытки повысить характеристики не девиантным способом будет ниже, при этом если статус Дружба личная - говорит о том что вы можете быть друзьми в группе при этом являясь более тесными друзьями, приоритет удволитворение характеристик будет выше именно так.&lt;br&gt;&lt;br&gt;Контекст определяется изходя из свойств отношений.&lt;br&gt;&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;font-size: 25px;&quot;&gt;Хотя статус это просто совокупность свойств - статус является Фактом для игрока и НПС для совершения выводов и действий.&lt;/span&gt;&lt;span style=&quot;font-size: 25px;&quot;&gt;&lt;br&gt;&lt;br&gt;Статусы динамичны. И меняются со временем, статус определяется для НПС а не для Отношений в целом, то есть при наблюдении факта Любви, вы однозначно можете сказать только о том что один из НПС имеет определённый статус.&lt;br&gt;&lt;br&gt;&lt;br&gt;Отношения определяются в два этапа.&lt;br&gt;1. Сверка Свойств физических персонажа - допустим у одного персонажа есть свойства которые нравятся другому - это говорит о высоком потенциале отошений, любовных или дружеских - при том потенциал расчитывается с двух сторон.(при этом однополые при отсуствии свойста ГЕЙ, БИ, ЛЕСБИЯНА - в потенциале будут меньше учитывать Физические характеристики хотя тоже будут учитывать)&lt;br&gt;2. Ход отношений во времени - допустим оба персонажа имеют высокий потенциал отношений после симуляции, дальнейших ход определяется симуляцией времени, при нормальных потребностях и нормальных характеристиках потенциал будет создавать Романтические или дружеские действия без девиаций - что создаст значительный рост привязанности. Так-же развитие потенциала на 2 этапе может происходить в следтвии открытия скрытых свойств НПС, которые не были раскрыты сразу, то есть на этапе фиксации факта персонажа считывая характеристики потенциал расчитывался исходя из физ.свойств НПС, при этом не учитывались скрытые свойства и девиации(которые так-же могут быть предметом вкусов другого НПС).&lt;br&gt;Статусы.&lt;br&gt;Любовь - более сильная форма привязанности, снижающая рассудок при совершении действий в отношении объекта любви, может быть девиатным как в форме Сексуальной разгрузки так и в форме общения - факт снижения потребности в Социальном взаимодейтсвии будет выше. Где Любовь самый высокий статус, для снижения потребностей как для Социальных так и для Сексуальных потребностей, в случаее отсутсвия девиацийю. Высокий уровень привязанности - обозначает статус Любовь.&lt;br&gt;&lt;br&gt;Отношения - Начальная форма романтических отношений, не говорит о низком потенциале отношений, рост может быть значительным и статус отношения смениться на Любовь в рамках одной игровой симуляции, в свою очередь длительное время нахождения в статусе Отношения говорит о низком потенциале с одной или с другой стороны или низких потребностях/характеристиках с одной или другой стороны - что говорит о возможном девиантом поведении.&lt;br&gt;&lt;br&gt;Дружба - не говорит о низком потенциале, в случаее дружбы без дивиации то есть для персонажей без статуса ГЕЙ БИ ЛЕСБИ - говорит о развитии привязанности. в нормальном состоянии. При этом для романтических отношений - говорит о том что одна сторона имеет низкий статус потенциала(статус характерен для Девушки с низким потенциалом и мужчины с высоким - или же Френдзона).&amp;nbsp;&lt;br&gt;&lt;br&gt;Условная одержимость - статус НПС при котором потенциал развития с одной стороны очень низок хотя с другой просто огромный - в таком случаее открываются действия слежки, ревности, свойственные для персонажей с высокой привязанностью. при этом у второй стороны может вообще не быть потенциала развития и никаких действий по развитию отношений она может не принимать.&lt;br&gt;&lt;br&gt;Вражда - Статус между НПС предпологающий нерешённую проблему - вызванную результатом действия или события - драка, конфликт, ревность и тд. Характерезуется показателем или свойством Напряженность. Сам факт высокого уровня напряжения сильно не снижает Привязанность - а вот потенциал снижает.&lt;br&gt;&lt;br&gt;Факт наличия НПС или же Знакомый - условное обзначение персонажей у которых потенциал низкий и при этом развития в следвии постоянных взаимодействий не происходит - но при этом развитие может произайти в следствии групповой активности и персонажи могут изменить статус&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="3810" width="550" x="10990" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-82" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Привязанность - основной показатель динамики отношений. Привязанность формируется за счёт непоредственных действий в отношений НПС, как при групповых действиях так и при личном общении.&lt;br&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="290" width="550" x="8850" y="1400" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-84" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Потенциал - показатель скорости развития привязанности - буквально показывает на сколько быстро будет расти привязанность исходя из свойств НПС как скрытых так и общих фиксируемых при обычном общении.&lt;br&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="290" width="550" x="8820" y="1930" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-86" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Напряженние отношений - факт конфликтного поведеня персонажей, при низких базовых потребностях и низких характеристиках НПС девиантное поведение може тпроявиться для повышения характеристик, таким образом напряженность будет расти и снижать потенциал. При этом при высоких показателях Потенциала и Привязанности Напряженность растёт медленно что создаёт пространство для девиантного поведения.&lt;br&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="290" width="550" x="10240" y="2150" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-186" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-89" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-640" y="1570.0000000000018" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-89" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Девиации.&lt;br&gt;&lt;br&gt;Отклонения у НПС, которые влияют на то каким образом персонаж может удволитворить потребости.&lt;br&gt;Условно персонаж может хотеть есть - при этом может есть сырое мясо из-за девиации.&lt;br&gt;Девиации имеют уровень и степень их развития зависит от потокания девиациям. НПС может обладать девиацией - но не иметь знаний мира о том как ей удволитворить и поэтому получить возможность использования предметов исходя из девиации только после получения занния.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="750" width="310" x="-1520" y="1200" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-111" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-109" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-112" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-109" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="2mPlI_ey6MAs90VP1WGT-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-109" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Простые.&lt;br&gt;&lt;br&gt;Простые потребности не звязанные на дополнительных свойствах потребностей.&lt;br&gt;&lt;br&gt;То есть - голод будет восполнятся строго исходя из свойств еды, на тот показатель который еда увеличивает. так-же как и сон.&lt;/font&gt;" vertex="1">
+          <mxGeometry height="665" width="310" x="-3540" y="-4170" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-146" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-123" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-123" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;br style=&quot;font-size: 25px; text-align: left;&quot;&gt;&lt;span style=&quot;font-size: 25px; text-align: left;&quot;&gt;Уровень здоровья - характеристика собирательная оказывающая влияние на выбор действий персонажа - опредяет Что персонаж будет есть, Сколько Спать, Сколько работать, употребление алкоголя и выбор еды, спорт.&lt;br&gt;критическое значение имеет порог если порог низкий персонаж может довести себя до изнеможения что будет влиять на все характеристики/потребности. Нужно для определения контекста разных действий, условно ем курицу с низким позателем вреда для здоровья потому что низкий показатель, хожу в зал по той-же причине, в обратную сторону работает так-же при условии отсутсвия девиаций таких как ПОМЕШАННЫЙ НА ЗДОРОВЬЕ&lt;/span&gt;" vertex="1">
+          <mxGeometry height="540" width="490" x="-8080" y="1390" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-145" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-127" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-127" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;br style=&quot;font-size: 25px; text-align: left;&quot;&gt;&lt;span style=&quot;font-size: 25px; text-align: left;&quot;&gt;Благосостояние - усреднённая характериста, описывающее общее состояния НПС. Расчитывается исходя из Среднего показателя Денег за игровую Сессию. Нужен для расчёта как отношений к человеку, так и для определения множителей показателей страха и стресса&lt;/span&gt;" vertex="1">
+          <mxGeometry height="380" width="450" x="-8050" y="2060" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-152" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-129" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-129" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;br style=&quot;font-size: 25px; text-align: left;&quot;&gt;&lt;span style=&quot;font-size: 25px; text-align: left;&quot;&gt;Физическая усталость&amp;nbsp;&lt;br&gt;&lt;br&gt;&lt;br&gt;Усталость просчитывается исходя из Уровней потребности Сон/еда + действия которые ведут к повышению уровня физической усталости.&lt;br&gt;&lt;br&gt;Влияет на выстраивание и необходимость НПС встраивать в тайм лайн действия, условно говоря чтобы НПС не бесконечно работал при низком уровне денег и общего благосостояния.&lt;br&gt;&lt;br&gt;Нужна как защита от зацикливания.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="690" width="490" x="-8080" y="-3175" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-135" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-132" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="2mPlI_ey6MAs90VP1WGT-16">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-2970" y="-2300" />
+              <mxPoint x="-2970" y="-3120" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-136" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-132" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-2980" y="-2300" />
+              <mxPoint x="-2980" y="-2410" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-137" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-132" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="2mPlI_ey6MAs90VP1WGT-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-205" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-132" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-204">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-3375" y="-1240" />
+              <mxPoint x="-2975" y="-1240" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-132" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Психологические потребности.&lt;br&gt;&lt;br&gt;Удволитворение потребностей психологических имеет свойство &lt;br&gt;Перенасыщение - то есть одно и тоже действие связанное с удволитворением одних и тех - же психологический потребностей будет давать меньший эффект, в следствии чего при повторении будет медленнее увеличивать шкалу и может приводить как к Девиациям и кретическому порогу.&lt;br&gt;&lt;br&gt;Разнообразие/сила удволитворённости&lt;br&gt;В свою очередь разные способы удволитверение психологических потребностей имею разную силу - особенно для девиантных качеств.&lt;br&gt;Условно - если для обычного персонажа - Уровень социального взаимодействия может повышаться обычным базовым образом, то для девиации Змея - создание скрытых конфликтов, травля - будет куда сильнее снижать потребность.&lt;/font&gt;" vertex="1">
+          <mxGeometry height="1220" width="310" x="-3530" y="-2910" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-142" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Потребности отвечают на вопрос что делать дальше.&lt;br&gt;&lt;br&gt;Сначало просчитывается необходимость простых потребностей &lt;br&gt;- Еды и Сон - являются жизнеобеспечивающими потребностями - в следствии чего являются приоритетными.&lt;br&gt;&lt;br&gt;Деньги - скорее показатель возоможености дуволитворение потребностей - условное Действие свидание будет иметь разную цену&lt;/span&gt;" vertex="1">
+          <mxGeometry height="665" width="310" x="-1090" y="-4295" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-144" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Перспектива просчёта - проблема планирования. Как заставить НПС думать и выбирать действия исходя из ситуации.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="510" width="480" x="-3480" y="1880" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-153" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Проблема в генераторе действий и последовательностей действий.&lt;br&gt;То есть из все показатели нужно связать определить нужные и не нужны и вывести алгоритм просчёта след события/контекста события, планирования.&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="540" width="500" x="-1590" y="-4295" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-156" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-154" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-157">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="5800" y="-3650" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-159" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-154" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-158">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="5800" y="-3890" />
+              <mxPoint x="6510" y="-3890" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-154" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;br style=&quot;font-size: 25px; text-align: left;&quot;&gt;&lt;span style=&quot;font-size: 25px; text-align: left;&quot;&gt;События/Действия и их контекст&lt;br&gt;&lt;br&gt;Условно любая симуляция поведения НПС делится на События и действия и к ним добавляется контекст исходя из свойтв действия.&lt;br&gt;&lt;br&gt;Пример. Событие поход в магазин - выбранно генератором - в следствии высокого показателя Голода, в следствии выского Стресса выбирается продукт Чипсы, На кассе персонаж решает оплатить товар в следствии отсуствия девиаций, в результате Низкого показателя Социального взаимодействия - персонаж решает заговорить с нпс в магазине или Кассиром - зависит от обстановке вокруг - но в результате Выского стресса и и низкого страха с соотвествующим порогом персонаж вступает в конфликт.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="690" width="490" x="5555" y="-4810" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-157" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;br style=&quot;font-size: 25px; text-align: left;&quot;&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 25px;&quot;&gt;Событие. - нужны как оболочка и последовательность для НПС.&lt;br&gt;&lt;br&gt;События и ход событий прописанны заранее и выбираются исходя из потребностей персонажа, события не имеют фиксированного результата, последовательность действия внутри события определяются характеристиками/действиями НПС, но действия внутри, результат определяется внутри события и добавляет после каждого действия результат по изменениям потребностей характеристик НПС.&lt;br&gt;&lt;br&gt;События всего могут иметь хвост - в вите запущенных в следствии результата События - других событий, События могут завершаться и меняться до завершения.&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="690" width="490" x="5095" y="-3650" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-158" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;br style=&quot;font-size: 25px; text-align: left;&quot;&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;font-size: 25px;&quot;&gt;Действия.&lt;br&gt;Заполняют внутреннию структуру события, если Соыбтие - последовательность, Действия - контекст. Прогулка с другим НПС - общее событие одинаково для каждого НПС, при этом действия могут быть разными и динамически менятся в зависимости от разных потребностей/характеристик&lt;br&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="690" width="490" x="6255" y="-3630" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-160" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="790" width="5630" x="2985" y="-2800" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-161" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;br style=&quot;font-size: 25px; text-align: left;&quot;&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;font-size: 25px;&quot;&gt;Объяснение.&lt;br&gt;Слоты события определяют не длинну события, а его последовательность, условная прогулка должна быть обозначенна локациями где НПС появится для встречи с Игроком, действия которые свойственны для События так-же должны быть показанны, при этом События, при этом отдельный Ход события не влияет на характеристики, но склоняют Симуляцию к определённым действиям - условно Соыбтие поход в спортивный зал - будет склонять к Действию Занятия на тренажёре.&lt;br&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="400" width="930" x="6345" y="-2535" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-162" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;br style=&quot;font-size: 25px; text-align: left;&quot;&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;font-size: 25px;&quot;&gt;Действия.&lt;br&gt;Слоты для действий заполняются динамически и могут иметь действия которые не предусмотренны, допустм у персонажа А и Б низкий показатель Еды или Сна, таким образом НПС могут восполить их до или после в зависимости от показателей на момент завершения пред дейтсвия, при этом учитываются как планирование НПС А так и Б. Представим что НПС А восполнил все потребности и привязанность к НПС Б у него ниже, потенциал Ниже и растущая напряженность в следствии Перенасыщения и низкого восполнения потребностей от действия. При расчёте выбор действия Скорее склонется к тому что НПС Б отправляется домой.&lt;br&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="400" width="930" x="4795" y="-2555" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-163" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;font-size: 25px;&quot;&gt;Ход события.&lt;br&gt;Завершение.&lt;br&gt;Условно надо вернуть НПС А или НПС Б&amp;nbsp; из дома/помещения/локации, где уже определенно след событие, условно можно сказать что действие не завершается топопрным возвращением НПС вне дома домой, откуда он пойдёт в другое место&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="400" width="630" x="7765" y="-2540" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-164" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;font-size: 25px;&quot;&gt;Свидание в гостях - событие обоснованное несколькими Характеристиками и потребностями, событие согласованно значит у двух персонажей - высокий ур Сексуального напр + потребность в Соц взимодействии, Низкий досуг, высокая превязанность&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="170" width="1320" x="5425" y="-2780" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-165" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;font-size: 25px;&quot;&gt;Ход события.&lt;br&gt;Необходимо чтобы оба персонажа оказались вместе.&lt;br&gt;НПС А идёт к НПС Б&lt;br&gt;(при наличии дома, учитывается наличие других НПС в доме)&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="370" width="570" x="3015" y="-2535" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-167" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;font-size: 25px;&quot;&gt;Действие.&lt;br&gt;Первая встреча - значит изначально будет диалог - условно приглашение к удволитворению потребностей.&amp;nbsp;&lt;br&gt;Не выбирается два варианта действия у одного и второго вычисляется наиболее вероятное событие с учётом всех характеристик&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="370" width="570" x="3765" y="-2540" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-168" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;br style=&quot;font-size: 25px; text-align: left;&quot;&gt;&lt;span style=&quot;font-size: 25px; text-align: left;&quot;&gt;Деньги - условная потребность, тратиться на еду, ежемесячные расходы установленные системой (условные кредиты, плата за аренду) - деньги трататься на условные удволетворения потребностей. Работают как механизм снижение потребностей в тоже время определяют окно в временной шкале для выбранного для НПС способа заработка&lt;/span&gt;&lt;br style=&quot;font-size: 25px; text-align: left;&quot;&gt;" vertex="1">
+          <mxGeometry height="380" width="450" x="-690" y="-1600" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-169" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-173" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="2mPlI_ey6MAs90VP1WGT-168">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-1890" y="-1060" />
+              <mxPoint x="-465" y="-1060" />
+            </Array>
+            <mxPoint x="-520" y="-577.5000000000018" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-175" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-173" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="2mPlI_ey6MAs90VP1WGT-174">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-173" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Ресурсы - это предметы или средства обмена на предметы необходимые для восполнения Потребностей&lt;/span&gt;" vertex="1">
+          <mxGeometry height="580" width="650" x="-2540" y="-1357.5" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-174" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 26px;&quot;&gt;&lt;br style=&quot;text-align: left;&quot;&gt;Деньги&lt;br/&gt;Предметы&lt;br/&gt;Запас еды&lt;br/&gt;Жильё / имущество&lt;br/&gt;Транспорт&lt;br/&gt;Доступы / ключи&lt;br/&gt;Свободное время&lt;/font&gt;&lt;span style=&quot;font-size: 25px; text-align: left;&quot;&gt;&lt;br&gt;&lt;br&gt;Интелект может использоваться для раскрытия потенциала Предметов&lt;/span&gt;" vertex="1">
+          <mxGeometry height="380" width="450" x="-690" y="-840" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-176" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Факты&lt;br&gt;&lt;br&gt;Факты сущность определяющая точную информацию&lt;/span&gt;" vertex="1">
+          <mxGeometry height="290" width="550" x="3230" y="-720" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-177" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Навыки&lt;/span&gt;" vertex="1">
+          <mxGeometry height="290" width="550" x="3980" y="-730" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-178" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Занания объектов&lt;/span&gt;" vertex="1">
+          <mxGeometry height="290" width="550" x="4740" y="-740" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-179" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Знания людей&lt;/span&gt;" vertex="1">
+          <mxGeometry height="290" width="550" x="5590" y="-740" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-180" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Гипотезы&lt;/span&gt;" vertex="1">
+          <mxGeometry height="290" width="550" x="6470" y="-730" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-190" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-188" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="170" y="1570" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-188" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;span style=&quot;text-align: left;&quot;&gt;Тип&lt;/span&gt;&lt;br style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;text-align: left;&quot;&gt;Интенсивность&lt;/span&gt;&lt;br style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;text-align: left;&quot;&gt;Триггеры&lt;/span&gt;&lt;br style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;text-align: left;&quot;&gt;Какие потребности удовлетворяет&lt;/span&gt;&lt;br style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;text-align: left;&quot;&gt;Какие действия усиливает&lt;/span&gt;&lt;br style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;text-align: left;&quot;&gt;Какой барьер девиации требуется&lt;/span&gt;&lt;br style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;text-align: left;&quot;&gt;Насколько насыщается&lt;/span&gt;&lt;br style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;text-align: left;&quot;&gt;Насколько усиливается при потакании&lt;/span&gt;&lt;br style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;text-align: left;&quot;&gt;Какие знания необходимы&lt;/span&gt;" vertex="1">
+          <mxGeometry height="750" width="310" x="-640" y="1190" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-191" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Порог девиации.&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="750" width="310" x="180" y="1190" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-193" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-192" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="13970" y="1660" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-198" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-192" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-195">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-199" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-192" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-196">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-200" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-192" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-197">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-192" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;br style=&quot;font-size: 25px; text-align: left;&quot;&gt;&lt;span style=&quot;font-size: 25px; text-align: left;&quot;&gt;Целипологание НПС&lt;br&gt;&lt;br&gt;Выставляет рамки задач в которых НПС Симулируется - то есть механизм позволяющий НПС делать что-то не только ради удволитворение потребностей. Действия имеют свойста - которые показывают какой ПОТЕНЦИАЛЬНЫЙ для целей может быть от Действия, но НПС во 1 может неправильно или неточно предсказывать его, а во вторых выстраивать цепочки событий чтобы избеждать ущерба&lt;/span&gt;" vertex="1">
+          <mxGeometry height="690" width="490" x="12580" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-194" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;br style=&quot;font-size: 25px; text-align: left;&quot;&gt;&lt;span style=&quot;font-size: 25px; text-align: left;&quot;&gt;Потребности.&lt;br&gt;&lt;br&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="140" width="490" x="13750" y="1670" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-195" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;&lt;br style=&quot;text-align: left;&quot;&gt;Защищаемые ценности&lt;/font&gt;&lt;span style=&quot;font-size: 25px; text-align: left;&quot;&gt;&lt;br&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="140" width="490" x="13150" y="1660" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-196" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Обязательства&lt;/font&gt;&lt;span style=&quot;font-size: 25px; text-align: left;&quot;&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="140" width="490" x="12520" y="1670" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-197" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Желания и особые побуждения&lt;/font&gt;&lt;span style=&quot;font-size: 25px; text-align: left;&quot;&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="140" width="490" x="11850" y="1670" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-202" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-201" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="2mPlI_ey6MAs90VP1WGT-132">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-201" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Коофицент перенасыщения - показывает насколько конкретная психологическая потребность перенасыщенна повторяющимся конкретным действием.&lt;br&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="350" width="310" x="-3530" y="-950" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-204" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Сила удволитворённости разнообразием - высчитывается после совершения действия основываясь на НПС.&lt;br&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="350" width="310" x="-3130" y="-955" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-206" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Характеристики - или базовые настройки поведения&lt;/font&gt;" vertex="1">
+          <mxGeometry height="180" width="310" x="895" y="-2810" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-216" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-207" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="2mPlI_ey6MAs90VP1WGT-206">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-207" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Тепрпеливость&lt;/font&gt;" vertex="1">
+          <mxGeometry height="180" width="310" x="-75" y="-3740" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-215" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-208" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="2mPlI_ey6MAs90VP1WGT-206">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-208" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Осторожность&lt;/font&gt;" vertex="1">
+          <mxGeometry height="180" width="310" x="-75" y="-3395" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-214" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-209" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="2mPlI_ey6MAs90VP1WGT-206">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-209" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Социальная интенсивность&lt;/font&gt;" vertex="1">
+          <mxGeometry height="180" width="310" x="-75" y="-3070" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-213" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-210" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="2mPlI_ey6MAs90VP1WGT-206">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-210" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Предпочтения конфронтации&lt;/font&gt;" vertex="1">
+          <mxGeometry height="180" width="310" x="-75" y="-2720" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-212" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-211" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="2mPlI_ey6MAs90VP1WGT-206">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-211" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Поиск новизны&lt;/font&gt;" vertex="1">
+          <mxGeometry height="180" width="310" x="-75" y="-2370" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-221" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-217" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="2mPlI_ey6MAs90VP1WGT-220">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-222" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-217" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2mPlI_ey6MAs90VP1WGT-219">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-223" edge="1" parent="1" source="2mPlI_ey6MAs90VP1WGT-217" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="2mPlI_ey6MAs90VP1WGT-218">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-217" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Статус НПС, эмоциональное состояние.&lt;/font&gt;" vertex="1">
+          <mxGeometry height="180" width="310" x="875" y="-1210" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-218" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Стресс&lt;/font&gt;" vertex="1">
+          <mxGeometry height="180" width="310" x="-15" y="-1500" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-219" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Злость&lt;/font&gt;" vertex="1">
+          <mxGeometry height="180" width="310" x="-25" y="-1140" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-220" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Страх&lt;/font&gt;" vertex="1">
+          <mxGeometry height="180" width="310" x="-15" y="-640" as="geometry" />
+        </mxCell>
+        <mxCell id="2mPlI_ey6MAs90VP1WGT-225" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Доверие - определяет шанс рассказать ИГроку или НПС факт имеющий цену.&lt;br&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="290" width="550" x="9510" y="2290" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

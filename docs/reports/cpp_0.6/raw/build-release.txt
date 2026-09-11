@@ -1,0 +1,17 @@
+[ 15%] Building CXX object CMakeFiles/mld.dir/src/mld/hash.cpp.o
+[ 15%] Building CXX object CMakeFiles/mld.dir/src/mld/internal.cpp.o
+[ 23%] Building CXX object CMakeFiles/mld.dir/src/mld/generation.cpp.o
+[ 30%] Building CXX object CMakeFiles/mld.dir/src/mld/storage.cpp.o
+[ 38%] Building CXX object CMakeFiles/mld.dir/src/mld/controller.cpp.o
+[ 46%] Building CXX object CMakeFiles/mld.dir/src/mld/world.cpp.o
+[ 53%] Linking CXX static library libmld.a
+[ 53%] Built target mld
+[ 69%] Building CXX object CMakeFiles/mld_world_tests.dir/tests/world_tests.cpp.o
+[ 69%] Building CXX object CMakeFiles/mld_unit.dir/tests/unit.cpp.o
+[ 76%] Linking CXX executable mld_unit
+[ 76%] Built target mld_unit
+[ 84%] Building CXX object CMakeFiles/mld_sim.dir/apps/simulate.cpp.o
+[ 92%] Linking CXX executable mld_world_tests
+[ 92%] Built target mld_world_tests
+[100%] Linking CXX executable mld_sim
+[100%] Built target mld_sim

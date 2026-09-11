@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "nodes": [
+    {"id": "repository_index", "path": "README.md", "status": "implemented"},
+    {"id": "behavior_rules", "path": "docs/rules/behavior_0.3/README.md", "status": "normative"},
+    {"id": "behavior_revision", "path": "docs/rules/behavior_0.3/Редакция_поведения_v0.3.md", "status": "normative", "depends_on": ["behavior_rules"]},
+    {"id": "behavior_profile", "path": "game/profiles/behavior_0.3/Параметры_поведения_v0.3.json", "status": "normative", "depends_on": ["behavior_revision"]},
+    {"id": "cpp_contract", "path": "docs/architecture/cpp_0.6/CPP_0.6.md", "status": "implemented", "depends_on": ["behavior_profile"]},
+    {"id": "verification", "path": "docs/verification/behavior_0.3/Проверка_редакции_поведения_v0.3.py", "status": "implemented", "depends_on": ["behavior_revision"]},
+    {"id": "reports", "path": "docs/reports/cpp_0.6/CPP_0.6_validation.md", "status": "historical", "depends_on": ["cpp_contract"]},
+    {"id": "legacy_world_0_5", "path": "docs/history/world_0.5.1-t1/rules/WORLD_0.5.md", "status": "historical"},
+    {"id": "world_core_v04", "path": "docs/history/world_core_v0.4/00_Начать_здесь.md", "status": "historical"},
+    {"id": "math_v03", "path": "docs/history/math_v0.3/00_Начать_здесь.md", "status": "historical"},
+    {"id": "pre_t1", "path": "docs/history/pre_t1/PROJECT_CONTEXT.md", "status": "historical"},
+    {"id": "provenance", "path": "provenance/README.md", "status": "historical"},
+    {"id": "navigation_index", "path": "navigation/INDEX.md", "status": "implemented", "depends_on": ["repository_index", "behavior_rules", "cpp_contract"]},
+    {"id": "game_flow", "path": "navigation/GAME_FLOW.md", "status": "implemented", "depends_on": ["behavior_profile", "cpp_contract"]},
+    {"id": "maintenance", "path": "navigation/MAINTENANCE_RULES.md", "status": "implemented", "depends_on": ["navigation_index"]}
+  ]
+}

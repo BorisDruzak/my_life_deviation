@@ -1,0 +1,10 @@
+{
+  "00_Начать_здесь.md": "d1d4f44238e6a62ffb784f18c17c8133990240da5ab15285ad52d78f6f1add0b",
+  "01_Математическая_спецификация.md": "5d23e0762577404fe90a48b2728bde1cfe706f91eefe974720aeb9e2577fe037",
+  "02_Каталог_действий_событий_предметов.md": "ed9611478b43a4facd718b6c39f8bdbcfd44c06c089c725f1afc187e1507ae65",
+  "03_Проверка_и_границы.md": "2a6f1994b631a235e7c4248455f1ba6e5650b25806642a111cccffd7d7438178",
+  "catalog_v0_3.json": "9038797984fcb37deb6882d22da5bc266388727a53fd87c26a35a061602a3f5a",
+  "check_math.py": "5756655e1e082dbbf1817d2a691ff886b1259006cd3bcbeda51dd69b48d3790e",
+  "verification_results.json": "ee9092bd4199ef4232a5b9204765688b470caa92ab39bf6e8dba36e7d1727d20",
+  "verification.log": "c939f9f71706fd36d9023c6ae95dc7271c52f3c6ba0dbd0c37919f575f2b0013"
+}
