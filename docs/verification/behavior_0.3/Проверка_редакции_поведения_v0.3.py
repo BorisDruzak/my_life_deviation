@@ -367,13 +367,13 @@ class FormulaTests(unittest.TestCase):
                 check_parents({0:1950, 1:1980, 2:1985}, pairs)
 
     def test_39_shared_channel_limits(self):
-        profile = json.loads((Path(__file__).parents[1] / "Профили/Параметры_поведения_v0.3.json").read_text(encoding="utf-8"))
+        profile = json.loads((Path(__file__).resolve().parents[3] / "game" / "profiles" / "behavior_0.3" / "Параметры_поведения_v0.3.json").read_text(encoding="utf-8"))
         limits = profile["Лимиты"]
         self.assertEqual(limits["Признаки"] * limits["Каналы_W"], limits["Пары_W_на_эпизод"])
         self.assertEqual((limits["Новые_пары_W"], limits["Все_приобретённые_пары"]), (4, 512))
 
     def test_40_profile_no_institution_execution(self):
-        profile = json.loads((Path(__file__).parents[1] / "Профили/Параметры_поведения_v0.3.json").read_text(encoding="utf-8"))
+        profile = json.loads((Path(__file__).resolve().parents[3] / "game" / "profiles" / "behavior_0.3" / "Параметры_поведения_v0.3.json").read_text(encoding="utf-8"))
         self.assertEqual(profile["Институты"], {"Режим":"Ожидаемые санкции", "Фактическое_исполнение":False})
 
 

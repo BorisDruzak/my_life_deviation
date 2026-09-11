@@ -551,7 +551,7 @@ class Checks(unittest.TestCase):
         with self.assertRaises(ValueError): associative(Stats(),.5,quality=2)
 
     def test_spec_status_and_supersession(self):
-        path=Path(__file__).parent.parent/'Механики'/'Внутренняя_симуляция_человека_v0.2.md'
+        path=Path(__file__).resolve().parents[3]/'docs'/'rules'/'behavior_0.3'/'Внутренняя_симуляция_человека_v0.2.md'
         text=path.read_text(encoding='utf-8')
         self.assertIn('**Требует решения**; не исключено архитектурно',text)
         self.assertIn('Сохраняется максимум по причинам',text)

@@ -56,6 +56,21 @@ class NavigationValidationTests(unittest.TestCase):
             "game/profiles/behavior_0.3/Параметры_поведения_v0.3.json",
         )
 
+    def test_behavior_verification_scripts_run_after_relocation(self) -> None:
+        """Relocated verification scripts must resolve current rules and profile data."""
+        scripts = sorted((ROOT / "docs" / "verification" / "behavior_0.3").glob("*.py"))
+        self.assertEqual(len(scripts), 4)
+        for script in scripts:
+            with self.subTest(script=script.name):
+                result = subprocess.run(
+                    [sys.executable, str(script)],
+                    cwd=ROOT,
+                    text=True,
+                    capture_output=True,
+                    check=False,
+                )
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()
