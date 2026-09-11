@@ -4,4 +4,6 @@ out/
 *.tmp
 *.gcda
 *.gcno
+*.snapshot
+experiment-output/
 __pycache__/
