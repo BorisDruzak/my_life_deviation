@@ -1,12 +1,13 @@
 # My Life Deviation
 
-`my_life_deviation` contains a C++20 laboratory core for NPC behaviour and the
-BEHAVIOR-0.3 documentation that defines its current research boundary. The
-active implementation is `mld`; WORLD-0.5.1-t1 is preserved separately as a
-non-built historical snapshot.
+`my_life_deviation` contains the C++20 COMMUNITY-0.10 research core for NPC
+behaviour. The active implementation is `life_core`; it combines BEHAVIOR-0.3
+with an explicitly limited COG-0.4 reference and COMMUNITY-0.10 settlement
+profile. It is not a claim of scientific validity, complete coverage of every
+specification, UE5 support, or a verified Windows/MSVC build.
 
 Start with the [repository navigation](navigation/INDEX.md) and the
-[C++ 0.6 architecture entry point](docs/architecture/cpp_0.6/README.md).
+[COMMUNITY-0.10 boundary](docs/architecture/community_0.10/README.md).
 
 ## Quick start
 
@@ -16,17 +17,16 @@ With CMake and a C++20 compiler installed:
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --config Release --parallel 2
 ctest --test-dir build -C Release --output-on-failure
-.\build\Release\mld_sim.exe --npcs 128 --seed 42 --days 7
+.\build\Release\life_sim.exe --community --population 16 --seed 42 --days 1
 ```
 
-For a single-configuration generator, run `build/mld_sim` (or
-`build/mld_sim.exe`). The optional `tools/run_experiments.py` runner reproduces
-the archived laboratory scenarios after a successful build.
+For a single-configuration generator, run `build/life_sim` (or
+`build/life_sim.exe`). `tools/run_community.py` writes a new output directory;
+the supplied results under `docs/reports/community_0.10/` are historical
+evidence, not proof of a fresh local run.
 
-The executable is a limited laboratory profile, not a claim that every
-BEHAVIOR-0.3 proposal, settlement-scale simulation, or Unreal Engine bridge is
-implemented. Archived reports document earlier runs; they do not replace fresh
-local verification.
+The former `mld` C++ 0.6 laboratory core is retained under
+`legacy/cpp_0.6/`; WORLD-0.5.1-t1 remains a separate historical snapshot.
 
 Navigation validation needs only Python's standard library:
 

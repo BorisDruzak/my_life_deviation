@@ -42,19 +42,21 @@ class NavigationValidationTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("does/not/exist", result.stderr)
 
-    def test_current_maps_identify_cpp_0_6_entrypoints(self) -> None:
-        """Current navigation must name the active C++ 0.6 implementation."""
+    def test_current_maps_identify_cpp_0_10_entrypoints(self) -> None:
+        """Current navigation must name the active COMMUNITY-0.10 implementation."""
         code_map = json.loads((ROOT / "navigation" / "code-map.json").read_text(encoding="utf-8"))
         doc_map = json.loads((ROOT / "navigation" / "doc-map.json").read_text(encoding="utf-8"))
         code_paths = {node["id"]: node["path"] for node in code_map["nodes"]}
         doc_paths = {node["id"]: node["path"] for node in doc_map["nodes"]}
 
-        self.assertEqual(code_paths["mld_core"], "engine/src/core/world.cpp")
-        self.assertEqual(code_paths["mld_sim"], "apps/simulate/simulate.cpp")
+        self.assertEqual(code_paths["life_core"], "engine/src/life/world.cpp")
+        self.assertEqual(code_paths["life_sim"], "apps/simulate/life_main.cpp")
+        self.assertEqual(code_paths["cog_reference"], "reference/cognition_0.4/contract_tests.cpp")
         self.assertEqual(
             doc_paths["behavior_profile"],
             "game/profiles/behavior_0.3/Параметры_поведения_v0.3.json",
         )
+        self.assertEqual(doc_paths["community_rules"], "docs/rules/community_0.10/README.md")
 
     def test_behavior_verification_scripts_run_after_relocation(self) -> None:
         """Relocated verification scripts must resolve current rules and profile data."""

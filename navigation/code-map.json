@@ -1,15 +1,18 @@
 {
   "schema_version": 1,
   "nodes": [
-    {"id": "build", "path": "CMakeLists.txt", "status": "implemented"},
-    {"id": "mld_api", "path": "engine/include/mld/world.hpp", "status": "implemented", "depends_on": ["build"]},
-    {"id": "mld_core", "path": "engine/src/core/world.cpp", "status": "implemented", "depends_on": ["mld_api"]},
-    {"id": "mld_generation", "path": "engine/src/simulation/generation.cpp", "status": "implemented", "depends_on": ["mld_core"]},
-    {"id": "mld_controller", "path": "engine/src/autonomy/controller.cpp", "status": "implemented", "depends_on": ["mld_core", "mld_generation"]},
-    {"id": "mld_tests", "path": "engine/tests/world_tests.cpp", "status": "implemented", "depends_on": ["mld_core", "mld_generation", "mld_controller"]},
-    {"id": "mld_sim", "path": "apps/simulate/simulate.cpp", "status": "implemented", "depends_on": ["mld_api", "mld_core", "mld_generation", "mld_controller"]},
-    {"id": "experiment_runner", "path": "tools/run_experiments.py", "status": "implemented", "depends_on": ["mld_sim"]},
-    {"id": "legacy_world_0_5", "path": "legacy/world_0.5.1-t1/README.md", "status": "historical"},
-    {"id": "navigation_validator", "path": "tools/verify_navigation.py", "status": "implemented"}
+    {"id":"build","path":"CMakeLists.txt","status":"implemented"},
+    {"id":"life_api","path":"engine/include/life/world.hpp","status":"implemented","depends_on":["build"]},
+    {"id":"cog_reference","path":"reference/cognition_0.4/contract_tests.cpp","status":"implemented","depends_on":["build"]},
+    {"id":"life_core","path":"engine/src/life/world.cpp","status":"implemented","depends_on":["life_api","cog_reference"]},
+    {"id":"life_cognition","path":"engine/src/life/cognitive_world.cpp","status":"implemented","depends_on":["life_core","cog_reference"]},
+    {"id":"life_social","path":"engine/src/life/social_world.cpp","status":"implemented","depends_on":["life_core","life_cognition"]},
+    {"id":"life_community","path":"engine/src/life/community_world.cpp","status":"implemented","depends_on":["life_social"]},
+    {"id":"life_tests","path":"engine/tests/life/test_community.cpp","status":"implemented","depends_on":["life_community"]},
+    {"id":"life_sim","path":"apps/simulate/life_main.cpp","status":"implemented","depends_on":["life_api","life_community"]},
+    {"id":"community_runner","path":"tools/run_community.py","status":"implemented","depends_on":["life_sim"]},
+    {"id":"legacy_cpp_0_6","path":"legacy/cpp_0.6/README.md","status":"historical"},
+    {"id":"legacy_world_0_5","path":"legacy/world_0.5.1-t1/README.md","status":"historical"},
+    {"id":"navigation_validator","path":"tools/verify_navigation.py","status":"implemented"}
   ]
 }
