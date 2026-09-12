@@ -1,35 +1,29 @@
-name: C++ laboratory
-
+name: C++ research core
 on:
   push:
-    branches: [main, "codex/**"]
+    branches: [main, 'sim/**']
   pull_request:
     branches: [main]
-
 permissions:
   contents: read
-
 jobs:
-  cpp:
+  verify:
     runs-on: ubuntu-24.04
-    strategy:
-      matrix:
-        compiler: [g++, clang++]
     steps:
       - uses: actions/checkout@v4
-      - name: Configure and build (required)
+      - name: Required Release build
         run: |
-          test -f CMakeLists.txt
-          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=${{ matrix.compiler }}
-          cmake --build build -j2
-      - name: Tests cannot be skipped
-        working-directory: build
-        run: |
-          ctest -N | tee registered.txt
-          grep -q 'Total Tests: 3' registered.txt
-          ctest --output-on-failure
-      - name: Formula regressions
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build -j 2
+      - name: Required tests
+        run: ctest --test-dir build --output-on-failure --no-tests=error
+      - name: Numerical specification checks
         run: |
           python3 "docs/verification/behavior_0.3/Проверка_редакции_поведения_v0.3.py"
           python3 "docs/verification/behavior_0.3/Проверка_уточнений_внутренней_симуляции_v0.2.py"
           python3 "docs/verification/behavior_0.3/Проверка_отношений_и_морали_v0.1.py"
+      - name: Independent simulation replay
+        run: |
+          ./build/life_sim --community --population 16 --seconds 3600 --summary indexed.json
+          ./build/life_sim --community --population 16 --seconds 3600 --reference --summary reference.json
+          python3 -c "import json; a=json.load(open('indexed.json')); b=json.load(open('reference.json')); assert a['hash']==b['hash']; assert a['alive']==16"

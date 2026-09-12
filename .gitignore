@@ -7,3 +7,8 @@ out/
 *.snapshot
 experiment-output/
 __pycache__/
+*.pyc
+*.save
+gmon.out
+/reports/runs/
+/reports/cog08/**/*.jsonl

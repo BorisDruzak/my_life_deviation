@@ -1,0 +1,10 @@
+#pragma once
+namespace cog04::cfg {
+inline constexpr char profile_id[]="@COG_ID@";
+inline constexpr double prior_weight=@COG_fusion_prior_weight@;
+inline constexpr double conflict_gap=@COG_fusion_conflict_gap@;
+inline constexpr double reliable_quality=@COG_fusion_reliable_quality@;
+inline constexpr double band_hysteresis=@COG_category_hysteresis@;
+inline constexpr double discomfort_quadratic=@COG_discomfort_quadratic@;
+inline constexpr double discount_per_hour=@COG_discount_per_day@/24.;
+}
