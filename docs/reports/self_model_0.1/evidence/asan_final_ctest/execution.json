@@ -1,0 +1,20 @@
+{
+  "command": [
+    "env",
+    "ASAN_OPTIONS=detect_leaks=1:halt_on_error=1",
+    "UBSAN_OPTIONS=halt_on_error=1",
+    "ctest",
+    "--test-dir",
+    "/mnt/data/self01_asan",
+    "--output-on-failure",
+    "--parallel",
+    "1",
+    "-E",
+    "^(world|community_long|life11_long)$"
+  ],
+  "started_utc": "2026-09-12T21:41:38Z",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "binary_sha256": null,
+  "returncode": 0,
+  "wall_seconds": 101.2079963340002
+}

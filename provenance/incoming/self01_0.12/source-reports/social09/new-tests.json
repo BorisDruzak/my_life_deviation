@@ -1,0 +1,290 @@
+[
+  {
+    "group": "social",
+    "name": "conversation_has_nested_content"
+  },
+  {
+    "group": "social",
+    "name": "autonomous_friendly_touch_survives_personal_romance_norm"
+  },
+  {
+    "group": "social",
+    "name": "same_gender_contact_is_possible_in_neutral_profile"
+  },
+  {
+    "group": "social",
+    "name": "own_finite_norm_changes_autonomous_choice"
+  },
+  {
+    "group": "social",
+    "name": "receiver_refusal_prevents_contact_effect"
+  },
+  {
+    "group": "social",
+    "name": "private_receiver_norm_not_leaked_in_requester_forecast"
+  },
+  {
+    "group": "social",
+    "name": "real_pleasantness_can_disagree_with_expected_pleasantness"
+  },
+  {
+    "group": "social",
+    "name": "nested_interaction_does_not_cancel_parent_conversation"
+  },
+  {
+    "group": "social",
+    "name": "proposal_cannot_complete_before_receiver_thinks"
+  },
+  {
+    "group": "social",
+    "name": "consent_scope_cannot_be_replaced_with_another_action"
+  },
+  {
+    "group": "social",
+    "name": "withdrawal_before_answer_has_no_completed_effect"
+  },
+  {
+    "group": "social",
+    "name": "stopped_parent_invalidates_pending_proposal"
+  },
+  {
+    "group": "social",
+    "name": "process_pause_does_not_republish_old_result"
+  },
+  {
+    "group": "social",
+    "name": "nested_save_before_answer_preserves_future"
+  },
+  {
+    "group": "social",
+    "name": "nested_save_after_consent_preserves_future"
+  },
+  {
+    "group": "social",
+    "name": "social_workers_preserve_exact_thoughts"
+  },
+  {
+    "group": "social",
+    "name": "social_index_matches_reference"
+  },
+  {
+    "group": "social",
+    "name": "social_logging_cannot_change_learning"
+  },
+  {
+    "group": "social",
+    "name": "full_information_borrow_use_return_chain"
+  },
+  {
+    "group": "social",
+    "name": "text_experience_unlocks_known_method_without_fake_practice"
+  },
+  {
+    "group": "social",
+    "name": "information_answer_comes_from_personal_memory_not_world_truth"
+  },
+  {
+    "group": "social",
+    "name": "uninvolved_actor_does_not_receive_private_object_information"
+  },
+  {
+    "group": "social",
+    "name": "high_honesty_norm_blocks_false_status_claim_not_physics"
+  },
+  {
+    "group": "social",
+    "name": "showing_previously_unknown_item_can_be_understood"
+  },
+  {
+    "group": "social",
+    "name": "a_claim_is_a_report_not_a_change_in_ownership"
+  },
+  {
+    "group": "social",
+    "name": "learning_item_use_does_not_reveal_hidden_owner"
+  },
+  {
+    "group": "social",
+    "name": "response_holds_offer_and_known_method_in_shared_context"
+  },
+  {
+    "group": "social",
+    "name": "interrupted_accepted_contact_keeps_partial_real_experience"
+  },
+  {
+    "group": "social",
+    "name": "losing_item_during_read_does_not_teach_or_count_completion"
+  },
+  {
+    "group": "social",
+    "name": "objective_item_unavailable_does_not_reveal_hidden_owner"
+  },
+  {
+    "group": "social",
+    "name": "friendly_chosen_while_known_pleasant_romance_is_personally_rejected"
+  },
+  {
+    "group": "social",
+    "name": "diagnostic_export_does_not_change_personal_knowledge"
+  },
+  {
+    "group": "social",
+    "name": "book_can_teach_initially_unknown_content_without_scripted_unlock"
+  },
+  {
+    "group": "social",
+    "name": "perceived_disapproval_affects_shame_without_automatic_global_reputation"
+  },
+  {
+    "group": "social_unit",
+    "name": "knowing_reward_is_not_an_experienced_reward"
+  },
+  {
+    "group": "social_unit",
+    "name": "unknown_social_method_not_a_candidate"
+  },
+  {
+    "group": "social_unit",
+    "name": "pleasant_but_personally_disapproved_stays_pleasant_in_forecast"
+  },
+  {
+    "group": "social_unit",
+    "name": "no_universal_same_gender_prohibition"
+  },
+  {
+    "group": "social_unit",
+    "name": "friendly_is_not_romantic"
+  },
+  {
+    "group": "social_unit",
+    "name": "no_attraction_is_distinct_from_moral_penalty"
+  },
+  {
+    "group": "social_unit",
+    "name": "known_audience_changes_public_evaluation_only"
+  },
+  {
+    "group": "social_unit",
+    "name": "accept_is_not_completed_pleasure"
+  },
+  {
+    "group": "social_unit",
+    "name": "experienced_negative_result_teaches_from_zero"
+  },
+  {
+    "group": "social_unit",
+    "name": "repeated_result_not_a_second_experience"
+  },
+  {
+    "group": "social_unit",
+    "name": "refusal_context_not_spread_to_all_methods"
+  },
+  {
+    "group": "social_unit",
+    "name": "own_decline_is_not_the_others_rejection"
+  },
+  {
+    "group": "social_unit",
+    "name": "repeated_request_after_explicit_boundary_creates_pressure"
+  },
+  {
+    "group": "social_unit",
+    "name": "busy_does_not_create_personal_boundary"
+  },
+  {
+    "group": "social_unit",
+    "name": "later_attempt_does_not_erase_old_learning"
+  },
+  {
+    "group": "social_unit",
+    "name": "unknown_owner_stays_unknown_after_unknown_report"
+  },
+  {
+    "group": "social_unit",
+    "name": "ownership_is_reported_not_physically_certified"
+  },
+  {
+    "group": "social_unit",
+    "name": "contradictory_reports_preserve_both_sources"
+  },
+  {
+    "group": "social_unit",
+    "name": "repeat_report_same_source_not_duplicated"
+  },
+  {
+    "group": "social_unit",
+    "name": "agreement_updates_holder_without_changing_owner"
+  },
+  {
+    "group": "social_unit",
+    "name": "claimed_ownership_has_finite_honesty_cost"
+  },
+  {
+    "group": "social_unit",
+    "name": "truthful_showing_borrowed_item_is_not_lying"
+  },
+  {
+    "group": "social_unit",
+    "name": "status_motive_changes_item_value"
+  },
+  {
+    "group": "social_unit",
+    "name": "observed_disapproval_changes_status_prediction"
+  },
+  {
+    "group": "social_unit",
+    "name": "reading_teaches_content_not_actual_contact_reward"
+  },
+  {
+    "group": "social_unit",
+    "name": "unknown_object_not_given_free_plan"
+  },
+  {
+    "group": "social_unit",
+    "name": "unknown_gender_not_assigned_matching_norm"
+  },
+  {
+    "group": "social_unit",
+    "name": "malformed_social_values_rejected"
+  },
+  {
+    "group": "social_unit",
+    "name": "forecast_repetitions_do_not_modify_memory"
+  },
+  {
+    "group": "social_unit",
+    "name": "object_goal_can_make_question_valuable_without_social_deficit"
+  },
+  {
+    "group": "social_unit",
+    "name": "receiver_does_not_own_the_speakers_claim"
+  },
+  {
+    "group": "social_unit",
+    "name": "ordinary_conversation_considers_multiple_known_people"
+  },
+  {
+    "group": "social_unit",
+    "name": "own_promise_norm_changes_return_motivation"
+  },
+  {
+    "group": "social_unit",
+    "name": "observed_thing_is_not_proof_of_ownership"
+  },
+  {
+    "group": "social_unit",
+    "name": "canceled_delivery_does_not_learn_unobserved_pleasure"
+  },
+  {
+    "group": "social_unit",
+    "name": "object_use_forecast_changes_from_its_own_experience"
+  },
+  {
+    "group": "social_unit",
+    "name": "contextual_romantic_experience_is_not_multiplied_by_preference_twice"
+  },
+  {
+    "group": "social_unit",
+    "name": "property_norm_affects_lending_something_believed_owned_by_a_third_person"
+  }
+]

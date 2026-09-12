@@ -1,0 +1,2 @@
+FAIL information_grounded_career_pipeline_must_exist: /mnt/data/self01_work/tests/test_career.cpp:29: false && "career information/applications absent in 0.11"
+RESULT 1 cases, 1 failures

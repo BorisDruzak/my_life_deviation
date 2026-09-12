@@ -1,0 +1,26 @@
+{
+  "command": [
+    "/mnt/data/self01_build/life_sim",
+    "--life-projects",
+    "--self-model",
+    "--population",
+    "16",
+    "--seed",
+    "7",
+    "--days",
+    "7",
+    "--summary",
+    "/mnt/data/self01_evidence/fixed_7_week/summary.json",
+    "--self-state",
+    "/mnt/data/self01_evidence/fixed_7_week/self.json",
+    "--community-state",
+    "/mnt/data/self01_evidence/fixed_7_week/community.json",
+    "--life-state",
+    "/mnt/data/self01_evidence/fixed_7_week/life.json"
+  ],
+  "started_utc": "2026-09-12T20:47:04Z",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "binary_sha256": "79e9f5ec9ea0e1c0cf9951ab1689c4d38286fc3a00f19482ae71123d070de9f4",
+  "returncode": 0,
+  "wall_seconds": 43.054465725
+}

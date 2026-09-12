@@ -1,0 +1,4 @@
+FAIL talk_requires_an_observed_local_addressee: /mnt/data/self01_work/tests/test_adaptive.cpp:9: std::none_of(options.begin(),options.end(),[](const auto& o){return o.method==Method::Talk&&o.partner==0;})
+FAIL known_buy_eat_chain_keeps_future_food_value: /mnt/data/self01_work/tests/test_adaptive.cpp:15: d.score>0
+FAIL reasoned_interruption_policy_must_exist: /mnt/data/self01_work/tests/test_adaptive.cpp:35: false && "missing interruption policy"
+RESULT 3 cases, 3 failures

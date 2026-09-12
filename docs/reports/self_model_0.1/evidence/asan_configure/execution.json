@@ -1,0 +1,16 @@
+{
+  "command": [
+    "cmake",
+    "-S",
+    "/mnt/data/self01_work",
+    "-B",
+    "/mnt/data/self01_asan",
+    "-DCMAKE_BUILD_TYPE=Debug",
+    "-DLIFE_SANITIZERS=ON"
+  ],
+  "started_utc": "2026-09-12T21:34:56Z",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "binary_sha256": null,
+  "returncode": 0,
+  "wall_seconds": 1.1433272630001738
+}

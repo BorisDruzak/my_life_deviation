@@ -1,0 +1,24 @@
+{
+  "command": [
+    "/mnt/data/self01_build/life_sim",
+    "--load",
+    "/mnt/data/self01_evidence/causal_pair/control.save",
+    "--seconds",
+    "10800",
+    "--career-state",
+    "/mnt/data/self01_evidence/causal_pair/control/career.json",
+    "--thoughts",
+    "/mnt/data/self01_evidence/causal_pair/control/thoughts.jsonl",
+    "--trace",
+    "/mnt/data/self01_evidence/causal_pair/control/events.jsonl",
+    "--trace-actor",
+    "2",
+    "--summary",
+    "/mnt/data/self01_evidence/causal_pair/control/summary.json"
+  ],
+  "started_utc": "2026-09-12T21:46:46Z",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "binary_sha256": "67e5a33412cba9314fd98eec1bd4a1ce5c83391e24cf62053f45d965f5c13429",
+  "returncode": 0,
+  "wall_seconds": 0.31767906400000356
+}

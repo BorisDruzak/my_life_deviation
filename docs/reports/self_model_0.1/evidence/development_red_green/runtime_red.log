@@ -1,0 +1,2 @@
+FAIL self_runtime_pipeline_must_exist: /mnt/data/self01_work/tests/test_self_runtime.cpp:88: false && "Missing self runtime pipeline"
+RESULT 1 cases, 1 failures

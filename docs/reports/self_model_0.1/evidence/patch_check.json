@@ -1,0 +1,12 @@
+{
+  "command": [
+    "git",
+    "apply",
+    "--check",
+    "--whitespace=nowarn",
+    "/mnt/data/SELF01_from_0.11.patch"
+  ],
+  "returncode": 0,
+  "stdout": "",
+  "stderr": ""
+}

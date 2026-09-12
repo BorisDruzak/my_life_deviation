@@ -11,3 +11,5 @@ legacy/world_0.5.1-t1/third_party/** -whitespace
 docs/rules/behavior_0.3/** -whitespace
 docs/architecture/cpp_0.6/optimization/** -whitespace
 provenance/incoming/cpp_0.6.0_lab1/cpp_0.6.patch -whitespace
+provenance/incoming/self01_0.12/SELF01_from_0.11.patch -whitespace
+provenance/incoming/self01_0.12/source-docs/self_model/SELF-MODEL-0.1.md -whitespace

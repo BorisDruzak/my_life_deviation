@@ -1,0 +1,7 @@
+{
+  "archive": "my_life_deviation_cpp_0.11.0_experimental1.zip",
+  "sha256": "b679257e38ac36f53c83bfd3d0ea127d924d5df9e6625f551117c311aca5ed15",
+  "repository_main_checked": "0c30fa7ce9f16f1fb91dbd83c203ba857839c956",
+  "baseline_commit": "f553607f984d476a8681fdf9172144e82169cd21",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41"
+}

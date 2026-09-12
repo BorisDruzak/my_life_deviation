@@ -1,0 +1,9 @@
+{
+  "version": "0.10.0",
+  "profile": "community-0.10-test2",
+  "input_archive": "my_life_deviation_cpp_0.9.0_social.zip",
+  "input_sha256": "995966449b936ecb3393cf4e5695ee84d3285f0ce70e05ee111a7903744fb595",
+  "local_baseline_commit": "caa4d83e86cc8cd0261c7757fb8c673212c28e5d",
+  "publication": "local only; no GitHub write in this turn",
+  "binary_sha256": "6ea80a783f0e56734216077a2c4dd3c109d277dd4c2ed5cf467ab5d7e3e7d2df"
+}

@@ -1,0 +1,2 @@
+FAIL self_model_module_must_exist: /mnt/data/self01_work/tests/test_self_model.cpp:117: false && "Missing SELF-MODEL-0.1 implementation"
+RESULT 1 cases, 1 failures

@@ -1,0 +1,7 @@
+PASS partial_salary_preserves_other_job_terms
+PASS duplicate_same_salary_is_not_new_decision_basis
+PASS higher_wage_without_vacancy_means_inquiry_not_hired
+PASS lower_net_value_retains_current_work
+PASS complete_known_offer_can_be_applied_to
+PASS new_information_reopens_only_related_question
+RESULT 7 cases, 1 failures

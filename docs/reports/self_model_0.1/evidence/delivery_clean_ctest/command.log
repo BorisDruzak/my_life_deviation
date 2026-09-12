@@ -1,0 +1,57 @@
+Internal ctest changing into directory: /mnt/data/self01_delivery_check/build
+Test project /mnt/data/self01_delivery_check/build
+      Start  1: numeric
+      Start  2: seed
+ 1/24 Test  #1: numeric ..........................   Passed    0.00 sec
+      Start  3: mind
+ 2/24 Test  #3: mind .............................   Passed    0.00 sec
+      Start  4: world
+ 3/24 Test  #2: seed .............................   Passed    0.01 sec
+      Start  5: cli_invalid_argument
+ 4/24 Test  #5: cli_invalid_argument .............   Passed    0.01 sec
+      Start  6: cli_smoke
+ 5/24 Test  #6: cli_smoke ........................   Passed    0.02 sec
+      Start  7: cognition_world
+ 6/24 Test  #7: cognition_world ..................   Passed    0.43 sec
+      Start  8: social_world
+ 7/24 Test  #8: social_world .....................   Passed    0.53 sec
+      Start  9: social_contracts
+ 8/24 Test  #9: social_contracts .................   Passed    0.01 sec
+      Start 10: community
+ 9/24 Test #10: community ........................   Passed    0.25 sec
+      Start 11: community_unit
+10/24 Test #11: community_unit ...................   Passed    0.00 sec
+      Start 12: community_long
+11/24 Test  #4: world ............................   Passed    6.39 sec
+      Start 13: life11
+12/24 Test #13: life11 ...........................   Passed    2.85 sec
+      Start 14: projects
+13/24 Test #14: projects .........................   Passed    0.00 sec
+      Start 15: life_contracts
+14/24 Test #15: life_contracts ...................   Passed    0.00 sec
+      Start 16: life11_long
+15/24 Test #12: community_long ...................   Passed   13.96 sec
+      Start 17: self_model
+16/24 Test #17: self_model .......................   Passed    0.01 sec
+      Start 18: self_runtime
+17/24 Test #18: self_runtime .....................   Passed    0.52 sec
+      Start 19: adaptive
+18/24 Test #19: adaptive .........................   Passed    0.03 sec
+      Start 20: self_behavior
+19/24 Test #20: self_behavior ....................   Passed    0.01 sec
+      Start 21: career
+20/24 Test #21: career ...........................   Passed    0.00 sec
+      Start 22: career_runtime
+21/24 Test #22: career_runtime ...................   Passed    1.39 sec
+      Start 23: cognition_contracts
+22/24 Test #23: cognition_contracts ..............   Passed    0.00 sec
+      Start 24: numerical_examples
+23/24 Test #24: numerical_examples ...............   Passed    0.00 sec
+24/24 Test #16: life11_long ......................   Passed   43.46 sec
+
+100% tests passed, 0 tests failed out of 24
+
+Label Time Summary:
+long    =  57.42 sec*proc (2 tests)
+
+Total Test time (real) =  52.71 sec

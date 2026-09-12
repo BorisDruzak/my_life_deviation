@@ -1,0 +1,17 @@
+{
+  "version": "0.11.0-experimental.1",
+  "profile": "life-projects-0.11-experimental1",
+  "date": "2026-09-12",
+  "input_archive": "my_life_deviation_cpp_0.10.0_community(1).zip",
+  "input_sha256": "eca0bc3cc07027550fdf9626702dd1944d27d7588712e3524cfd49160007314d",
+  "local_baseline_commit": "d67acaf6e779ed6c44374501f1143608f2ca30bc",
+  "github_main_read_sha": "fa3aec539055cafdf520d558b0e97537dcf9435b",
+  "local_branch": "feature/life-projects-0.11",
+  "publication": "local only; no remote GitHub write",
+  "binary_sha256": "ed19bcd1fcf936f2cbc98351d6c874fd01cca0c877fb0f7b6122852be206bb3f",
+  "matrix_binary_sha256": "ed19bcd1fcf936f2cbc98351d6c874fd01cca0c877fb0f7b6122852be206bb3f",
+  "compiler": "c++ (Debian 14.2.0-19) 14.2.0",
+  "save_format": "LIFE-SAVE-0.11.0-r1",
+  "platform_verified": "Linux x86_64; Windows and UE5 not tested",
+  "implementation_commit": "b6308f5f7ef11111c967ec5a4a8f615d8e766294"
+}

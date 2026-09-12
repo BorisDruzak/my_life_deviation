@@ -1,0 +1,5 @@
+{
+  "equal_exported_initial_actor_fields": true,
+  "actors": 16,
+  "scope": "CSV-exported initial fields; serialization format/hash differs by version"
+}

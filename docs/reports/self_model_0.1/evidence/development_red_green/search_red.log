@@ -1,0 +1,9 @@
+PASS talk_requires_an_observed_local_addressee
+PASS known_buy_eat_chain_keeps_future_food_value
+PASS money_urgency_does_not_allow_worse_work_interrupt
+PASS emergency_interrupt_must_address_that_emergency
+PASS new_better_information_can_change_intention
+PASS known_sleep_prerequisite_resolves_hunger_before_retrying_sleep
+FAIL unaffordable_food_does_not_make_starvation_sleep_possible: /mnt/data/self01_work/tests/test_adaptive.cpp:49: std::none_of(options.begin(),options.end(),[](const auto& p){return p.method==Method::Sleep;})
+FAIL completed_search_does_not_reuse_unchanged_location_as_new_lead: /mnt/data/self01_work/tests/test_adaptive.cpp:55: std::none_of(options.begin(),options.end(),[](const auto& p){return p.method==Method::Visit&&p.place==3;})
+RESULT 8 cases, 2 failures

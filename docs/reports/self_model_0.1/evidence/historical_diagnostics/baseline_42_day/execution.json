@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/mnt/data/self01_base_build/life_sim",
+    "--life-projects",
+    "--population",
+    "16",
+    "--seed",
+    "42",
+    "--days",
+    "1",
+    "--summary",
+    "/mnt/data/self01_evidence/baseline_42_day/summary.json",
+    "--life-state",
+    "/mnt/data/self01_evidence/baseline_42_day/life.json",
+    "--community-state",
+    "/mnt/data/self01_evidence/baseline_42_day/community.json",
+    "--actors",
+    "/mnt/data/self01_evidence/baseline_42_day/actors.csv",
+    "--trace",
+    "/mnt/data/self01_evidence/baseline_42_day/trace.jsonl",
+    "--thoughts",
+    "/mnt/data/self01_evidence/baseline_42_day/thoughts.jsonl",
+    "--trace-actor",
+    "1"
+  ],
+  "started_utc": "2026-09-12T20:30:46Z",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "binary_sha256": "ed19bcd1fcf936f2cbc98351d6c874fd01cca0c877fb0f7b6122852be206bb3f",
+  "returncode": 0,
+  "wall_seconds": 3.7766658440000356
+}

@@ -1,0 +1,14 @@
+[  3%] Built target contract_tests
+[  7%] Built target examples
+[  9%] Building CXX object CMakeFiles/life_core.dir/src/life/cognitive_self_world.cpp.o
+[ 11%] Building CXX object CMakeFiles/life_core.dir/src/life/cognitive_world.cpp.o
+[ 13%] Linking CXX static library liblife_core.a
+[ 58%] Built target life_core
+[ 60%] Linking CXX executable life_sim
+[ 62%] Linking CXX executable community_scenarios
+[ 64%] Linking CXX executable cognitive_scenarios
+[ 66%] Linking CXX executable life_tests
+[ 67%] Built target community_scenarios
+[ 69%] Built target cognitive_scenarios
+[ 71%] Built target life_sim
+[100%] Built target life_tests

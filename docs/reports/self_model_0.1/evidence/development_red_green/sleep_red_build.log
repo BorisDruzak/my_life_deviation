@@ -1,0 +1,12 @@
+[  3%] Built target examples
+[  6%] Built target contract_tests
+[ 53%] Built target life_core
+[ 60%] Built target cognitive_scenarios
+[ 60%] Built target life_sim
+[ 63%] Built target community_scenarios
+[ 65%] Building CXX object CMakeFiles/life_tests.dir/tests/test_adaptive.cpp.o
+[ 67%] Building CXX object CMakeFiles/life_tests.dir/tests/test_self_runtime.cpp.o
+[ 70%] Built target diagnose_actor
+[ 74%] Built target self_behavior_scenario
+[ 75%] Linking CXX executable life_tests
+[100%] Built target life_tests

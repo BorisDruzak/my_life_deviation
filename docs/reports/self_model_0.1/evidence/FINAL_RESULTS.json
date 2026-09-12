@@ -1,0 +1,569 @@
+{
+  "source_base": {
+    "archive": "my_life_deviation_cpp_0.11.0_experimental1.zip",
+    "sha256": "b679257e38ac36f53c83bfd3d0ea127d924d5df9e6625f551117c311aca5ed15",
+    "repository_main_checked": "0c30fa7ce9f16f1fb91dbd83c203ba857839c956",
+    "baseline_commit": "f553607f984d476a8681fdf9172144e82169cd21",
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.41"
+  },
+  "profile": {
+    "cash": [
+      18,
+      36
+    ],
+    "initial_food_portions": 2,
+    "population": 16,
+    "days": 7,
+    "jobs_capacity": 40,
+    "initial_unemployed": 4
+  },
+  "critical_definitions": {
+    "food": "body.energy < 0.1",
+    "water": "body.water < 0.1",
+    "sleep": "body.sleep > 0.95",
+    "sampling": "physical integration boundaries, not continuous exact threshold-crossing times"
+  },
+  "weeks": [
+    {
+      "variant": "on",
+      "seed": 42,
+      "alive": 16,
+      "physical_failures": 0,
+      "critical_union_actor_seconds": 0,
+      "state_hash": "76051fedf6e1fe2d2181237a194c2c1f7d73eed776739095ca8053551920a32c",
+      "binary_sha256": "67e5a33412cba9314fd98eec1bd4a1ce5c83391e24cf62053f45d965f5c13429",
+      "execution_directory": "release_final_self_on_42",
+      "critical_total_seconds": [
+        0,
+        0,
+        0
+      ],
+      "critical_max_episode_seconds": [
+        0,
+        0,
+        0
+      ],
+      "time_hours_per_actor_day": {
+        "idle": 3.1640176240079363,
+        "travel": 0.7221304563492064,
+        "eating": 0.0578125,
+        "drinking": 0.037723214285714284,
+        "sleep": 7.8869676760912695,
+        "rest": 0.0,
+        "leisure": 5.794299749503969,
+        "social": 1.0253673412698412,
+        "private": 0.2588884722222222,
+        "work": 4.204286768353175,
+        "study": 0.6741071428571428,
+        "other": 0.1743990550595238
+      },
+      "career": {
+        "inquiry_starts": 25,
+        "inquiries": 25,
+        "application_starts": 9,
+        "applications": 9,
+        "hired": 9,
+        "refused": 0,
+        "interrupted_applications": 0,
+        "failed_applications": 0,
+        "semantic_changes": 138,
+        "reviews": 165,
+        "reopened": 74,
+        "target_changes": 81
+      },
+      "initially_unemployed": 4,
+      "initially_unemployed_now_employed": 4,
+      "self": {
+        "outcomes": 14515,
+        "dropped": 0,
+        "integrated": 14515,
+        "recoveries": 15,
+        "pending": 0,
+        "retained_decisions": 210081,
+        "executed_decisions": 46581,
+        "fruitless_decisions": 18649
+      },
+      "end_money": {
+        "min": 55.96329376275634,
+        "mean": 110.55814705805022,
+        "max": 286.7582639796677
+      },
+      "failure_reasons": {}
+    },
+    {
+      "variant": "on",
+      "seed": 7,
+      "alive": 16,
+      "physical_failures": 2,
+      "critical_union_actor_seconds": 0,
+      "state_hash": "08637144b2715938f8c111332b7db26eb63980897d2813e02592ee624e2a9082",
+      "binary_sha256": "67e5a33412cba9314fd98eec1bd4a1ce5c83391e24cf62053f45d965f5c13429",
+      "execution_directory": "release_final_self_on_7",
+      "critical_total_seconds": [
+        0,
+        0,
+        0
+      ],
+      "critical_max_episode_seconds": [
+        0,
+        0,
+        0
+      ],
+      "time_hours_per_actor_day": {
+        "idle": 3.2313914012896823,
+        "travel": 0.8428224206349206,
+        "eating": 0.059821428571428574,
+        "drinking": 0.040625,
+        "sleep": 7.719562879464286,
+        "rest": 0.0,
+        "leisure": 5.642908040674603,
+        "social": 0.8516068452380952,
+        "private": 0.23214285714285712,
+        "work": 4.2006987351190475,
+        "study": 1.0089285714285714,
+        "other": 0.16949182043650793
+      },
+      "career": {
+        "inquiry_starts": 25,
+        "inquiries": 25,
+        "application_starts": 13,
+        "applications": 13,
+        "hired": 12,
+        "refused": 1,
+        "interrupted_applications": 0,
+        "failed_applications": 0,
+        "semantic_changes": 166,
+        "reviews": 200,
+        "reopened": 102,
+        "target_changes": 91
+      },
+      "initially_unemployed": 4,
+      "initially_unemployed_now_employed": 4,
+      "self": {
+        "outcomes": 13047,
+        "dropped": 0,
+        "integrated": 13047,
+        "recoveries": 23,
+        "pending": 0,
+        "retained_decisions": 216413,
+        "executed_decisions": 47048,
+        "fruitless_decisions": 18227
+      },
+      "end_money": {
+        "min": 18.830394923871324,
+        "mean": 132.72823711331017,
+        "max": 474.49240135207083
+      },
+      "failure_reasons": {
+        "attempt_failed": 2
+      }
+    },
+    {
+      "variant": "on",
+      "seed": 101,
+      "alive": 16,
+      "physical_failures": 3,
+      "critical_union_actor_seconds": 0,
+      "state_hash": "2249b4256bd7c9d289658577bcaddd3641ca4cf36525cceea878c7bbd42222ea",
+      "binary_sha256": "67e5a33412cba9314fd98eec1bd4a1ce5c83391e24cf62053f45d965f5c13429",
+      "execution_directory": "release_final_self_on_101",
+      "critical_total_seconds": [
+        0,
+        0,
+        0
+      ],
+      "critical_max_episode_seconds": [
+        0,
+        0,
+        0
+      ],
+      "time_hours_per_actor_day": {
+        "idle": 2.86597984375,
+        "travel": 0.805701884920635,
+        "eating": 0.059821428571428574,
+        "drinking": 0.03876488095238095,
+        "sleep": 7.693586165674603,
+        "rest": 0.0,
+        "leisure": 6.0611437624007936,
+        "social": 1.2174164632936508,
+        "private": 0.33035714285714285,
+        "work": 4.0532116220238095,
+        "study": 0.7053571428571428,
+        "other": 0.16865966269841268
+      },
+      "career": {
+        "inquiry_starts": 26,
+        "inquiries": 26,
+        "application_starts": 11,
+        "applications": 11,
+        "hired": 11,
+        "refused": 0,
+        "interrupted_applications": 0,
+        "failed_applications": 0,
+        "semantic_changes": 130,
+        "reviews": 163,
+        "reopened": 66,
+        "target_changes": 73
+      },
+      "initially_unemployed": 4,
+      "initially_unemployed_now_employed": 4,
+      "self": {
+        "outcomes": 16355,
+        "dropped": 0,
+        "integrated": 16352,
+        "recoveries": 22,
+        "pending": 3,
+        "retained_decisions": 210618,
+        "executed_decisions": 47476,
+        "fruitless_decisions": 20191
+      },
+      "end_money": {
+        "min": 41.599460696910825,
+        "mean": 113.18834437798515,
+        "max": 388.1753761419559
+      },
+      "failure_reasons": {
+        "attempt_failed": 3
+      }
+    },
+    {
+      "variant": "off",
+      "seed": 42,
+      "alive": 16,
+      "physical_failures": 1,
+      "critical_union_actor_seconds": 3171.542,
+      "state_hash": "4f812726d19128f948196e20a75f1596f124f058495b1d91c21bcf8c012c7f42",
+      "binary_sha256": "67e5a33412cba9314fd98eec1bd4a1ce5c83391e24cf62053f45d965f5c13429",
+      "execution_directory": "release_final_self_off_42",
+      "critical_total_seconds": [
+        3171.541999999987,
+        0,
+        0
+      ],
+      "critical_max_episode_seconds": [
+        3171.541999999987,
+        0,
+        0
+      ],
+      "time_hours_per_actor_day": {
+        "idle": 2.299845880456349,
+        "travel": 0.781039650297619,
+        "eating": 0.05758928571428572,
+        "drinking": 0.03729821676587302,
+        "sleep": 7.873848896329364,
+        "rest": 0.0,
+        "leisure": 5.652333663194445,
+        "social": 1.600134990079365,
+        "private": 0.2767857142857143,
+        "work": 4.054262537202381,
+        "study": 1.15625,
+        "other": 0.2106111656746032
+      },
+      "career": {
+        "inquiry_starts": 33,
+        "inquiries": 33,
+        "application_starts": 18,
+        "applications": 18,
+        "hired": 16,
+        "refused": 2,
+        "interrupted_applications": 0,
+        "failed_applications": 0,
+        "semantic_changes": 171,
+        "reviews": 214,
+        "reopened": 107,
+        "target_changes": 111
+      },
+      "initially_unemployed": 4,
+      "initially_unemployed_now_employed": 4,
+      "self": {
+        "outcomes": 19258,
+        "dropped": 133,
+        "integrated": 19117,
+        "recoveries": 39,
+        "pending": 8,
+        "retained_decisions": 227790,
+        "executed_decisions": 50431,
+        "fruitless_decisions": 11928
+      },
+      "end_money": {
+        "min": 0,
+        "mean": 120.18937237217048,
+        "max": 519.12886120189
+      },
+      "failure_reasons": {
+        "attempt_failed": 1
+      }
+    },
+    {
+      "variant": "off",
+      "seed": 7,
+      "alive": 16,
+      "physical_failures": 1,
+      "critical_union_actor_seconds": 10165.354,
+      "state_hash": "e1e4ea497b506fc84ea8607d66a6a8bf7be1a5b0c3aed799569be83698ddf9c8",
+      "binary_sha256": "67e5a33412cba9314fd98eec1bd4a1ce5c83391e24cf62053f45d965f5c13429",
+      "execution_directory": "release_final_self_off_7",
+      "critical_total_seconds": [
+        0,
+        7103.354000000025,
+        3062.0000000000045
+      ],
+      "critical_max_episode_seconds": [
+        0,
+        7103.354000000025,
+        3004.0000000000036
+      ],
+      "time_hours_per_actor_day": {
+        "idle": 2.5273722891865082,
+        "travel": 0.8806786383928572,
+        "eating": 0.05915178571428572,
+        "drinking": 0.04055059523809524,
+        "sleep": 7.686776103670636,
+        "rest": 0.0,
+        "leisure": 5.624013529265873,
+        "social": 1.5730740947420634,
+        "private": 0.2019672693452381,
+        "work": 3.986948834325397,
+        "study": 1.1964285714285714,
+        "other": 0.2230382886904762
+      },
+      "career": {
+        "inquiry_starts": 34,
+        "inquiries": 34,
+        "application_starts": 15,
+        "applications": 15,
+        "hired": 14,
+        "refused": 1,
+        "interrupted_applications": 0,
+        "failed_applications": 0,
+        "semantic_changes": 178,
+        "reviews": 219,
+        "reopened": 114,
+        "target_changes": 117
+      },
+      "initially_unemployed": 4,
+      "initially_unemployed_now_employed": 4,
+      "self": {
+        "outcomes": 18867,
+        "dropped": 191,
+        "integrated": 18670,
+        "recoveries": 44,
+        "pending": 6,
+        "retained_decisions": 219186,
+        "executed_decisions": 54823,
+        "fruitless_decisions": 14878
+      },
+      "end_money": {
+        "min": 0,
+        "mean": 111.35246697049875,
+        "max": 582.5664638520707
+      },
+      "failure_reasons": {
+        "attempt_failed": 1
+      }
+    },
+    {
+      "variant": "off",
+      "seed": 101,
+      "alive": 16,
+      "physical_failures": 0,
+      "critical_union_actor_seconds": 17063,
+      "state_hash": "2b9aeeb98d584acb9095f569306aa15df80695c6d95147c06412a3b77c32325e",
+      "binary_sha256": "67e5a33412cba9314fd98eec1bd4a1ce5c83391e24cf62053f45d965f5c13429",
+      "execution_directory": "release_final_self_off_101",
+      "critical_total_seconds": [
+        0,
+        12004.108000000275,
+        9815.999999999825
+      ],
+      "critical_max_episode_seconds": [
+        0,
+        12004.108000000275,
+        9815.999999999825
+      ],
+      "time_hours_per_actor_day": {
+        "idle": 2.4744085342261903,
+        "travel": 0.8646999007936508,
+        "eating": 0.059821428571428574,
+        "drinking": 0.03846726190476191,
+        "sleep": 7.7405644221230165,
+        "rest": 0.0,
+        "leisure": 5.6953971999007935,
+        "social": 1.4794532738095236,
+        "private": 0.3125,
+        "work": 3.915710865575397,
+        "study": 1.1830357142857144,
+        "other": 0.2359413988095238
+      },
+      "career": {
+        "inquiry_starts": 40,
+        "inquiries": 40,
+        "application_starts": 18,
+        "applications": 18,
+        "hired": 18,
+        "refused": 0,
+        "interrupted_applications": 0,
+        "failed_applications": 0,
+        "semantic_changes": 175,
+        "reviews": 228,
+        "reopened": 111,
+        "target_changes": 118
+      },
+      "initially_unemployed": 4,
+      "initially_unemployed_now_employed": 4,
+      "self": {
+        "outcomes": 18446,
+        "dropped": 321,
+        "integrated": 18115,
+        "recoveries": 26,
+        "pending": 14,
+        "retained_decisions": 234675,
+        "executed_decisions": 51227,
+        "fruitless_decisions": 15627
+      },
+      "end_money": {
+        "min": 43.53863221445221,
+        "mean": 109.69566753770738,
+        "max": 433.9988414197338
+      },
+      "failure_reasons": {}
+    }
+  ],
+  "behavior": {
+    "opportunities": 100,
+    "same_external_inputs": true,
+    "variants": [
+      {
+        "variant": "before",
+        "initiatives": 0,
+        "non_social_choices": 100,
+        "mean_operations": 8,
+        "charged_operation_seconds": 1.3355290637386654,
+        "efficacy": 0.16428999314971196,
+        "control": 0.32310647655628183
+      },
+      {
+        "variant": "self_attributed_success",
+        "initiatives": 21,
+        "non_social_choices": 79,
+        "mean_operations": 8,
+        "charged_operation_seconds": 1.3355290637386654,
+        "efficacy": 0.8009727901629036,
+        "control": 0.789534709143109
+      },
+      {
+        "variant": "luck_attributed_success",
+        "initiatives": 0,
+        "non_social_choices": 100,
+        "mean_operations": 8,
+        "charged_operation_seconds": 1.3355290637386654,
+        "efficacy": 0.1832918393044902,
+        "control": 0.20349407904098377
+      }
+    ],
+    "discordant_improved": 21,
+    "discordant_worsened": 0
+  },
+  "checks": {
+    "release_final_ctest": {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "/mnt/data/self01_build",
+        "--output-on-failure",
+        "--parallel",
+        "2"
+      ],
+      "started_utc": "2026-09-12T21:40:20Z",
+      "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+      "binary_sha256": null,
+      "returncode": 0,
+      "wall_seconds": 111.91023480199965
+    },
+    "release_all_cases": {
+      "command": [
+        "/mnt/data/self01_build/life_tests"
+      ],
+      "started_utc": "2026-09-12T21:40:18Z",
+      "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+      "binary_sha256": "d1f8ef5fd9776a78211d7ba94814ec3068fc7f44517bcb5502e798025998a300",
+      "returncode": 0,
+      "wall_seconds": 187.4365870720003
+    },
+    "asan_final_ctest": {
+      "command": [
+        "env",
+        "ASAN_OPTIONS=detect_leaks=1:halt_on_error=1",
+        "UBSAN_OPTIONS=halt_on_error=1",
+        "ctest",
+        "--test-dir",
+        "/mnt/data/self01_asan",
+        "--output-on-failure",
+        "--parallel",
+        "1",
+        "-E",
+        "^(world|community_long|life11_long)$"
+      ],
+      "started_utc": "2026-09-12T21:41:38Z",
+      "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+      "binary_sha256": null,
+      "returncode": 0,
+      "wall_seconds": 101.2079963340002
+    },
+    "release_final_behavior": {
+      "command": [
+        "/mnt/data/self01_build/self_behavior_scenario"
+      ],
+      "started_utc": "2026-09-12T21:40:19Z",
+      "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+      "binary_sha256": "e84426cc38d868f6519ad916dba853fa42755c8f6829ec5e11824e820b50671a",
+      "returncode": 0,
+      "wall_seconds": 0.04992540700004611
+    },
+    "delivery_clean_configure": {
+      "command": [
+        "cmake",
+        "-S",
+        "/mnt/data/self01_delivery_check/source",
+        "-B",
+        "/mnt/data/self01_delivery_check/build",
+        "-DCMAKE_BUILD_TYPE=Release"
+      ],
+      "started_utc": "2026-09-12T21:49:53Z",
+      "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+      "binary_sha256": null,
+      "returncode": 0,
+      "wall_seconds": 0.3679099339997265
+    },
+    "delivery_clean_build": {
+      "command": [
+        "cmake",
+        "--build",
+        "/mnt/data/self01_delivery_check/build",
+        "--parallel",
+        "2"
+      ],
+      "started_utc": "2026-09-12T21:49:54Z",
+      "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+      "binary_sha256": null,
+      "returncode": 0,
+      "wall_seconds": 58.57713690200035
+    },
+    "delivery_clean_ctest": {
+      "command": [
+        "ctest",
+        "--test-dir",
+        "/mnt/data/self01_delivery_check/build",
+        "--output-on-failure",
+        "--parallel",
+        "2"
+      ],
+      "started_utc": "2026-09-12T21:50:53Z",
+      "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+      "binary_sha256": null,
+      "returncode": 0,
+      "wall_seconds": 52.74161363999974
+    }
+  },
+  "conclusions_limited_to_tested_profiles": true
+}

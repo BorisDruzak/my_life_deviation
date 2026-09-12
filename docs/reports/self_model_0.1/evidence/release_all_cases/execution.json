@@ -1,0 +1,10 @@
+{
+  "command": [
+    "/mnt/data/self01_build/life_tests"
+  ],
+  "started_utc": "2026-09-12T21:40:18Z",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "binary_sha256": "d1f8ef5fd9776a78211d7ba94814ec3068fc7f44517bcb5502e798025998a300",
+  "returncode": 0,
+  "wall_seconds": 187.4365870720003
+}

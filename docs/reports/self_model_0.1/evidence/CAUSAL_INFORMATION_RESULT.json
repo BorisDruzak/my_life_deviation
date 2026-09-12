@@ -1,0 +1,295 @@
+{
+  "actor": 2,
+  "actual_world_both": {
+    "job_2_hourly": 40
+  },
+  "different_known_fact": {
+    "source": 900001,
+    "old_belief_hourly": 10,
+    "new_report_hourly": 40
+  },
+  "control": {
+    "id": 2,
+    "employed": true,
+    "organization": 1,
+    "hourly": 12.5,
+    "inquiries": 0,
+    "applications": 0,
+    "hired": 0,
+    "refused": 0,
+    "interrupted": 0,
+    "application_starts": 0,
+    "inquiry_starts": 0,
+    "interrupted_applications": 0,
+    "failed_applications": 0,
+    "semantic_changes": 5,
+    "reviews": 1,
+    "reopened": 0,
+    "target_changes": 0,
+    "active_target": 0,
+    "questions": [
+      {
+        "organization": 1,
+        "stage": "deferred",
+        "basis": 308,
+        "reviews": 0,
+        "reason": "no_known_opportunity"
+      },
+      {
+        "organization": 2,
+        "stage": "deferred",
+        "basis": 900000,
+        "reviews": 1,
+        "reason": "no_known_income_improvement"
+      },
+      {
+        "organization": 3,
+        "stage": "deferred",
+        "basis": 310,
+        "reviews": 0,
+        "reason": "no_known_opportunity"
+      },
+      {
+        "organization": 4,
+        "stage": "deferred",
+        "basis": 311,
+        "reviews": 0,
+        "reason": "no_known_opportunity"
+      }
+    ],
+    "evidence": [
+      {
+        "ms": 0,
+        "org": 1,
+        "source": 308,
+        "action": 0,
+        "changed_fields": 3,
+        "kind": "new_information",
+        "before_wage": 0,
+        "after_wage": 12.5
+      },
+      {
+        "ms": 0,
+        "org": 2,
+        "source": 309,
+        "action": 0,
+        "changed_fields": 3,
+        "kind": "new_information",
+        "before_wage": 0,
+        "after_wage": 15
+      },
+      {
+        "ms": 0,
+        "org": 3,
+        "source": 310,
+        "action": 0,
+        "changed_fields": 3,
+        "kind": "new_information",
+        "before_wage": 0,
+        "after_wage": 18
+      },
+      {
+        "ms": 0,
+        "org": 4,
+        "source": 311,
+        "action": 0,
+        "changed_fields": 3,
+        "kind": "new_information",
+        "before_wage": 0,
+        "after_wage": 21
+      },
+      {
+        "ms": 32400000,
+        "org": 2,
+        "source": 900000,
+        "action": 0,
+        "changed_fields": 30,
+        "kind": "new_information",
+        "before_wage": 15,
+        "after_wage": 10
+      },
+      {
+        "ms": 32692412,
+        "org": 2,
+        "source": 900000,
+        "action": 0,
+        "changed_fields": 0,
+        "kind": "review_to_deferred",
+        "before_wage": 12.5,
+        "after_wage": 10
+      }
+    ]
+  },
+  "informed": {
+    "id": 2,
+    "employed": true,
+    "organization": 2,
+    "hourly": 40,
+    "inquiries": 0,
+    "applications": 1,
+    "hired": 1,
+    "refused": 0,
+    "interrupted": 0,
+    "application_starts": 1,
+    "inquiry_starts": 0,
+    "interrupted_applications": 0,
+    "failed_applications": 0,
+    "semantic_changes": 6,
+    "reviews": 4,
+    "reopened": 0,
+    "target_changes": 1,
+    "active_target": 0,
+    "questions": [
+      {
+        "organization": 1,
+        "stage": "deferred",
+        "basis": 355,
+        "reviews": 1,
+        "reason": "no_known_income_improvement"
+      },
+      {
+        "organization": 2,
+        "stage": "hired",
+        "basis": 355,
+        "reviews": 1,
+        "reason": "known_advantage_apply_not_assume_hired"
+      },
+      {
+        "organization": 3,
+        "stage": "deferred",
+        "basis": 355,
+        "reviews": 1,
+        "reason": "no_known_income_improvement"
+      },
+      {
+        "organization": 4,
+        "stage": "deferred",
+        "basis": 355,
+        "reviews": 1,
+        "reason": "no_known_income_improvement"
+      }
+    ],
+    "evidence": [
+      {
+        "ms": 0,
+        "org": 1,
+        "source": 308,
+        "action": 0,
+        "changed_fields": 3,
+        "kind": "new_information",
+        "before_wage": 0,
+        "after_wage": 12.5
+      },
+      {
+        "ms": 0,
+        "org": 2,
+        "source": 309,
+        "action": 0,
+        "changed_fields": 3,
+        "kind": "new_information",
+        "before_wage": 0,
+        "after_wage": 15
+      },
+      {
+        "ms": 0,
+        "org": 3,
+        "source": 310,
+        "action": 0,
+        "changed_fields": 3,
+        "kind": "new_information",
+        "before_wage": 0,
+        "after_wage": 18
+      },
+      {
+        "ms": 0,
+        "org": 4,
+        "source": 311,
+        "action": 0,
+        "changed_fields": 3,
+        "kind": "new_information",
+        "before_wage": 0,
+        "after_wage": 21
+      },
+      {
+        "ms": 32400000,
+        "org": 2,
+        "source": 900000,
+        "action": 0,
+        "changed_fields": 30,
+        "kind": "new_information",
+        "before_wage": 15,
+        "after_wage": 10
+      },
+      {
+        "ms": 32400000,
+        "org": 2,
+        "source": 900001,
+        "action": 0,
+        "changed_fields": 2,
+        "kind": "new_information",
+        "before_wage": 10,
+        "after_wage": 40
+      },
+      {
+        "ms": 32692412,
+        "org": 2,
+        "source": 900001,
+        "action": 0,
+        "changed_fields": 0,
+        "kind": "review_to_apply",
+        "before_wage": 12.5,
+        "after_wage": 40
+      },
+      {
+        "ms": 32696471,
+        "org": 2,
+        "source": 900001,
+        "action": 346,
+        "changed_fields": 0,
+        "kind": "application_started",
+        "before_wage": 0,
+        "after_wage": 0
+      },
+      {
+        "ms": 33086471,
+        "org": 2,
+        "source": 355,
+        "action": 346,
+        "changed_fields": 0,
+        "kind": "employment_contract_accepted",
+        "before_wage": 0,
+        "after_wage": 40
+      },
+      {
+        "ms": 33480653,
+        "org": 1,
+        "source": 355,
+        "action": 0,
+        "changed_fields": 0,
+        "kind": "review_to_deferred",
+        "before_wage": 40,
+        "after_wage": 12.5
+      },
+      {
+        "ms": 33483315,
+        "org": 3,
+        "source": 355,
+        "action": 0,
+        "changed_fields": 0,
+        "kind": "review_to_deferred",
+        "before_wage": 40,
+        "after_wage": 18
+      },
+      {
+        "ms": 33485977,
+        "org": 4,
+        "source": 355,
+        "action": 0,
+        "changed_fields": 0,
+        "kind": "review_to_deferred",
+        "before_wage": 40,
+        "after_wage": 21
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "command": [
+    "/mnt/data/self01_build/self_behavior_scenario"
+  ],
+  "started_utc": "2026-09-12T21:40:19Z",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "binary_sha256": "e84426cc38d868f6519ad916dba853fa42755c8f6829ec5e11824e820b50671a",
+  "returncode": 0,
+  "wall_seconds": 0.04992540700004611
+}

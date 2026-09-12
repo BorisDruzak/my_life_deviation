@@ -1,0 +1,31 @@
+{
+  "name": "mixed-day",
+  "scene": "mixed",
+  "population": 16,
+  "seconds": 86400,
+  "seed": 42,
+  "trace_actor": 1,
+  "command": [
+    "/mnt/data/build09/life_sim",
+    "--population",
+    "16",
+    "--seed",
+    "42",
+    "--seconds",
+    "86400",
+    "--social-scene",
+    "mixed",
+    "--summary",
+    "/mnt/data/runs09/final/mixed-day/summary.json",
+    "--social-state",
+    "/mnt/data/runs09/final/mixed-day/social-state.json",
+    "--thoughts",
+    "/mnt/data/runs09/final/mixed-day/thoughts.jsonl",
+    "--trace",
+    "/mnt/data/runs09/final/mixed-day/events.jsonl",
+    "--trace-actor",
+    "1"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 3.9748987050002142
+}

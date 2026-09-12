@@ -1,0 +1,8 @@
+{
+  "archive": "my_life_deviation_SELF01_verified_0.12.0.zip",
+  "sha256": "B038460398AA82FD8652B820718B721E2B73DFA4D5B979B3E770A75061B37C4",
+  "files": 722,
+  "source_manifest_entries": 569,
+  "source_manifest_validation": "passed before extraction",
+  "note": "The SELF01_from_0.11.patch is retained as evidence and was not applied to this repository."
+}

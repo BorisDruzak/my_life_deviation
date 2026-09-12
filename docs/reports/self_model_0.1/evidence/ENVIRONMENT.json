@@ -1,0 +1,70 @@
+{
+  "compiler": "c++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "cmake": "cmake version 3.31.6\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).\n",
+  "platform": "Linux localhost 6.18.35 #1 SMP Mon Aug 31 18:10:37 UTC 2026 x86_64 GNU/Linux\n",
+  "binaries": [
+    {
+      "file": "/mnt/data/self01_build/cognitive_scenarios",
+      "sha256": "987a0cf595f4761db2389916a6bb6a7b03b1449696c7d3e6f7fb2000adb7ca5b",
+      "bytes": 1194408
+    },
+    {
+      "file": "/mnt/data/self01_build/community_scenarios",
+      "sha256": "24488ab5d8da9d31629d4f6e3b4f7273e1fbeb26e765b79535367023f99948ab",
+      "bytes": 1194656
+    },
+    {
+      "file": "/mnt/data/self01_build/diagnose_actor",
+      "sha256": "dc332bd28263f73dc7bd05479350ac4aee160980336c47e357474106d2bdf380",
+      "bytes": 1186704
+    },
+    {
+      "file": "/mnt/data/self01_build/life_sim",
+      "sha256": "67e5a33412cba9314fd98eec1bd4a1ce5c83391e24cf62053f45d965f5c13429",
+      "bytes": 1218104
+    },
+    {
+      "file": "/mnt/data/self01_build/life_tests",
+      "sha256": "d1f8ef5fd9776a78211d7ba94814ec3068fc7f44517bcb5502e798025998a300",
+      "bytes": 2056088
+    },
+    {
+      "file": "/mnt/data/self01_build/self_behavior_scenario",
+      "sha256": "e84426cc38d868f6519ad916dba853fa42755c8f6829ec5e11824e820b50671a",
+      "bytes": 1184952
+    },
+    {
+      "file": "/mnt/data/self01_asan/cognitive_scenarios",
+      "sha256": "10f2d6c3f0225529a4ad6c0c13a53f4f4a9d61579353a25e40e85568bc2885a4",
+      "bytes": 69761296
+    },
+    {
+      "file": "/mnt/data/self01_asan/community_scenarios",
+      "sha256": "cd30b3004a99963569a6a0d8192360f218b668a2fa049f101c305c813cb787cb",
+      "bytes": 69844096
+    },
+    {
+      "file": "/mnt/data/self01_asan/diagnose_actor",
+      "sha256": "386086df10a10ddde51b35cbc29bdda40c7ecafa934bcd6b8222ee189e1437d9",
+      "bytes": 69536744
+    },
+    {
+      "file": "/mnt/data/self01_asan/life_sim",
+      "sha256": "8e9643d957e8495a15b1f55e7192ada1bc0e7754e7381dd017848cc2efb72672",
+      "bytes": 71666720
+    },
+    {
+      "file": "/mnt/data/self01_asan/life_tests",
+      "sha256": "b4dc6b7e172687597c73633ffefac9dd5ff58374ff2f47a992f1c9bec8652bc5",
+      "bytes": 115289504
+    },
+    {
+      "file": "/mnt/data/self01_asan/self_behavior_scenario",
+      "sha256": "d673e29ddfb8cd7ba5e0fdb24cbb983d6c3ec6c1ca0e38c02c24c0928ab5808c",
+      "bytes": 69348936
+    }
+  ],
+  "source_manifest": "SOURCE_MANIFEST.json",
+  "simulator_weekly_binary_sha256": "67e5a33412cba9314fd98eec1bd4a1ce5c83391e24cf62053f45d965f5c13429",
+  "notes": "Release -O3 -DNDEBUG; ASan/UBSan Debug with -O1 sanitizer target flags. Multiple processes ran concurrently; wall times are not clean benchmarks."
+}

@@ -1,0 +1,18 @@
+[  3%] Built target examples
+[  6%] Built target contract_tests
+[ 10%] Building CXX object CMakeFiles/life_core.dir/src/life/mind.cpp.o
+[ 10%] Building CXX object CMakeFiles/life_core.dir/src/life/experience.cpp.o
+[ 12%] Linking CXX static library liblife_core.a
+[ 53%] Built target life_core
+[ 55%] Linking CXX executable community_scenarios
+[ 56%] Linking CXX executable cognitive_scenarios
+[ 58%] Linking CXX executable life_sim
+[ 60%] Linking CXX executable life_tests
+[ 62%] Built target community_scenarios
+[ 63%] Built target cognitive_scenarios
+[ 65%] Built target life_sim
+[ 67%] Linking CXX executable self_behavior_scenario
+[ 94%] Built target life_tests
+[ 96%] Linking CXX executable diagnose_actor
+[ 98%] Built target self_behavior_scenario
+[100%] Built target diagnose_actor

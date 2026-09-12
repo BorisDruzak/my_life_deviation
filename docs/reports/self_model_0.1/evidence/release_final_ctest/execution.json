@@ -1,0 +1,15 @@
+{
+  "command": [
+    "ctest",
+    "--test-dir",
+    "/mnt/data/self01_build",
+    "--output-on-failure",
+    "--parallel",
+    "2"
+  ],
+  "started_utc": "2026-09-12T21:40:20Z",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "binary_sha256": null,
+  "returncode": 0,
+  "wall_seconds": 111.91023480199965
+}

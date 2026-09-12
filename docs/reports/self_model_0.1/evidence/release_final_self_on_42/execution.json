@@ -1,0 +1,27 @@
+{
+  "command": [
+    "/mnt/data/self01_build/life_sim",
+    "--adaptive-life",
+    "--population",
+    "16",
+    "--seed",
+    "42",
+    "--days",
+    "7",
+    "--summary",
+    "/mnt/data/self01_evidence/release_final_self_on_42/summary.json",
+    "--self-state",
+    "/mnt/data/self01_evidence/release_final_self_on_42/self.json",
+    "--career-state",
+    "/mnt/data/self01_evidence/release_final_self_on_42/career.json",
+    "--community-state",
+    "/mnt/data/self01_evidence/release_final_self_on_42/community.json",
+    "--life-state",
+    "/mnt/data/self01_evidence/release_final_self_on_42/life.json"
+  ],
+  "started_utc": "2026-09-12T21:40:19Z",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "binary_sha256": "67e5a33412cba9314fd98eec1bd4a1ce5c83391e24cf62053f45d965f5c13429",
+  "returncode": 0,
+  "wall_seconds": 103.88795863499945
+}

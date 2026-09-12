@@ -1,0 +1,15 @@
+{
+  "command": [
+    "cmake",
+    "-S",
+    "/mnt/data/self01_delivery_check/source",
+    "-B",
+    "/mnt/data/self01_delivery_check/build",
+    "-DCMAKE_BUILD_TYPE=Release"
+  ],
+  "started_utc": "2026-09-12T21:49:53Z",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "binary_sha256": null,
+  "returncode": 0,
+  "wall_seconds": 0.3679099339997265
+}

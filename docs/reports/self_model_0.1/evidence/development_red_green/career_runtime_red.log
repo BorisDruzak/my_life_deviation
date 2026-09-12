@@ -1,0 +1,2 @@
+FAIL real_information_to_employment_pipeline_required: /mnt/data/self01_work/tests/test_career_runtime.cpp:51: false && "No runtime career pipeline"
+RESULT 1 cases, 1 failures

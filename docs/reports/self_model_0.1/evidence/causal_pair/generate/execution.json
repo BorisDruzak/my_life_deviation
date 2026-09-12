@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/mnt/data/self01_evidence/causal_pair/fixture",
+    "/mnt/data/self01_evidence/causal_pair"
+  ],
+  "started_utc": "2026-09-12T21:46:45Z",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "binary_sha256": "c829f42d6a5e1a51b57ddc79ca2111c8c6caf0ca33f718a335bc5133cb57ddaa",
+  "returncode": 0,
+  "wall_seconds": 0.26798544700068305
+}

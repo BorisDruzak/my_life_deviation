@@ -1,0 +1,24 @@
+PASS neutral_without_experience
+PASS self_attributed_success_increases_efficacy
+PASS luck_attributed_success_barely_changes_efficacy
+PASS external_failure_does_not_destroy_efficacy
+PASS failure_without_recovery_does_not_fake_coping
+PASS failure_can_increase_coping_after_observed_recovery
+PASS early_or_unobserved_recovery_is_rejected
+PASS forecast_and_unperceived_episode_never_update_self
+PASS duplicate_source_not_reinforced_even_with_new_episode_id
+PASS retired_source_cannot_reinforce_after_hot_cache_rotates
+PASS domain_specificity_and_weak_generalization
+PASS acceptance_is_separate_from_success
+PASS known_control_can_survive_failure
+PASS tolerance_requires_remembered_uncertainty
+PASS same_failure_different_recovery
+PASS invalid_inputs_fail_before_mutating_any_belief
+PASS self_model_roundtrip_and_bounded_provenance
+PASS diagnostics_do_not_change_learning
+PASS old_unseen_source_rejection_is_transactional
+PASS calm_without_functioning_does_not_fake_recovery
+FAIL unseen_retired_root_cannot_invent_recovery: /mnt/data/self01_work/tests/test_self_model.cpp:130: !m.integrate(e,Cognitive{},.5)
+FAIL recovery_cannot_change_unrelated_domain: /mnt/data/self01_work/tests/test_self_model.cpp:135: !m.integrate(e,Cognitive{},.5)
+FAIL recovery_requires_elapsed_real_timestamp: /mnt/data/self01_work/tests/test_self_model.cpp:140: !m.integrate(e,Cognitive{},.5)
+RESULT 23 cases, 3 failures
