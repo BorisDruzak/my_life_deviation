@@ -1,0 +1,27 @@
+name: C++ SELF simulation core
+on:
+  push:
+    branches: [main, 'sim/**']
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Required Release build
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build -j 2
+      - name: Required tests
+        run: ctest --test-dir build --output-on-failure --no-tests=error
+      - name: Numerical specification checks
+        run: |
+          python3 "docs/verification/behavior_0.3/Проверка_редакции_поведения_v0.3.py"
+          python3 "docs/verification/behavior_0.3/Проверка_уточнений_внутренней_симуляции_v0.2.py"
+          python3 "docs/verification/behavior_0.3/Проверка_отношений_и_морали_v0.1.py"
+      - name: SELF behaviour scenario
+        run: |
+          ./build/self_behavior_scenario
