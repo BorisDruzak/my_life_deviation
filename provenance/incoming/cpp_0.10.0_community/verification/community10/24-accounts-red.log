@@ -1,0 +1,4 @@
+FAIL failed_job_attempt_does_not_count_as_work: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:92: std::abs((s.actors[0].economy.work_today)-(0))<=(0)
+RESULT 1 cases, 1 failures
+FAIL spending_policy_reserves_weekend_food_and_rent: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:93: p->price==0
+RESULT 1 cases, 1 failures

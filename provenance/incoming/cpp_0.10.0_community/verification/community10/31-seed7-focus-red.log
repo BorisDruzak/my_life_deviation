@@ -1,0 +1,3 @@
+probe water=0 place=4 money=60.6005
+FAIL seed7_available_water_does_not_lose_to_failed_sleep_forecast: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:112: a.body.water>.1
+RESULT 1 cases, 1 failures

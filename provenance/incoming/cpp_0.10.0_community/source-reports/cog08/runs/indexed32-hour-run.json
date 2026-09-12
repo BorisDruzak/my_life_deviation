@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-f",
+    "elapsed=%e max_rss_kb=%M",
+    "-o",
+    "/mnt/data/results08/final/indexed32-hour.time",
+    "/mnt/data/build08/life_sim",
+    "--population",
+    "32",
+    "--seconds",
+    "3600",
+    "--summary",
+    "/mnt/data/results08/final/indexed32-hour.json",
+    "--actors",
+    "/mnt/data/results08/final/indexed32-hour-actors.csv"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 0.3654156409997995
+}

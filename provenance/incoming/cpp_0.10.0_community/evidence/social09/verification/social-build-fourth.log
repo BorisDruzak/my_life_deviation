@@ -1,0 +1,22 @@
+[  6%] Built target contract_tests
+[ 10%] Building CXX object CMakeFiles/life_core.dir/src/life/social.cpp.o
+[ 16%] Built target examples
+[ 20%] Building CXX object CMakeFiles/life_core.dir/src/life/social_world.cpp.o
+/mnt/data/dev09/my_life_deviation/src/life/social_world.cpp: In member function 'const life::SocialEvent* life::World::social_event(uint64_t) const':
+/mnt/data/dev09/my_life_deviation/src/life/social_world.cpp:22:5: error: this 'if' clause does not guard... [-Werror=misleading-indentation]
+   22 |     if(!id)return nullptr;const auto& events=state_.social.events;
+      |     ^~
+/mnt/data/dev09/my_life_deviation/src/life/social_world.cpp:22:27: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   22 |     if(!id)return nullptr;const auto& events=state_.social.events;
+      |                           ^~~~~
+/mnt/data/dev09/my_life_deviation/src/life/social_world.cpp: In lambda function:
+/mnt/data/dev09/my_life_deviation/src/life/social_world.cpp:108:9: error: this 'if' clause does not guard... [-Werror=misleading-indentation]
+  108 |         if(e->kind==Interaction::RomanticTouch)primary*=who.social_traits.attraction[unsigned(other.mind.social.gender)];return signed_unit(primary);};
+      |         ^~
+/mnt/data/dev09/my_life_deviation/src/life/social_world.cpp:108:122: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  108 |         if(e->kind==Interaction::RomanticTouch)primary*=who.social_traits.attraction[unsigned(other.mind.social.gender)];return signed_unit(primary);};
+      |                                                                                                                          ^~~~~~
+cc1plus: all warnings being treated as errors
+gmake[2]: *** [CMakeFiles/life_core.dir/build.make:247: CMakeFiles/life_core.dir/src/life/social_world.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:121: CMakeFiles/life_core.dir/all] Error 2
+gmake: *** [Makefile:101: all] Error 2

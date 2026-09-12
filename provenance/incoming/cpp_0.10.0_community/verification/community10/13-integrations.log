@@ -1,0 +1,97 @@
+PASS budget_four_can_choose
+PASS profile_has_four_jobs
+PASS profile_has_six_leisure_variants
+PASS community_is_real_serialized_state
+PASS appearance_is_seeded
+PASS initial_information_is_not_all_to_all
+PASS community_costs_known_not_free
+PASS message_does_not_transfer_before_completion
+PASS heard_content_is_reported_not_world_truth
+PASS group_listeners_receive_one_shared_utterance
+PASS late_listener_cannot_hear_past_utterance
+PASS lost_listener_parent_invalidates_delivery
+2000 0 0  0
+2123 8 0 own_input_changed 0
+2290 1 0  0.849789
+2457 2 6 известная_процедура 0
+2624 3 6 ожидаемый_исход_из_личной_модели 0.190955
+2791 4 6  0.190955
+2958 2 6 известная_процедура 0
+3125 3 6 ожидаемый_исход_из_личной_модели 0.190885
+3292 4 6  0.190955
+3459 2 6 известная_процедура 0
+3626 3 6 ожидаемый_исход_из_личной_модели 0.190816
+3793 4 6  0.190955
+3960 5 6 текущее_действие_сохранено 0.190955
+4167 7 0 согласился_на_контакт;_результат_разговора_ещё_не_получен 0
+35372 1 0  0.846512
+35539 2 6 известная_процедура 0
+35706 3 6 ожидаемый_исход_из_личной_модели 0.190419
+35873 4 6  0.190419
+36040 2 6 известная_процедура 0
+36207 3 6 ожидаемый_исход_из_личной_модели 0.190349
+36374 4 6  0.190419
+36541 2 6 известная_процедура 0
+36708 3 6 ожидаемый_исход_из_личной_модели 0.190279
+36875 4 6  0.190419
+37042 5 6 текущее_действие_сохранено 0.190419
+65372 1 0  0.843551
+65539 2 6 известная_процедура 0
+65706 3 6 ожидаемый_исход_из_личной_модели 0.189933
+65873 4 6  0.189933
+66040 2 6 известная_процедура 0
+66207 3 6 ожидаемый_исход_из_личной_модели 0.189863
+66374 4 6  0.189933
+66541 2 6 известная_процедура 0
+66708 3 6 ожидаемый_исход_из_личной_модели 0.189793
+66875 4 6  0.189933
+67042 5 6 текущее_действие_сохранено 0.189933
+95372 1 0  0.840602
+95539 2 6 известная_процедура 0
+95706 3 6 ожидаемый_исход_из_личной_модели 0.189449
+95873 4 6  0.189449
+96040 2 6 известная_процедура 0
+96207 3 6 ожидаемый_исход_из_личной_модели 0.189379
+96374 4 6  0.189449
+96541 2 6 известная_процедура 0
+96708 3 6 ожидаемый_исход_из_личной_модели 0.189309
+96875 4 6  0.189449
+97042 5 6 текущее_действие_сохранено 0.189449
+125372 1 0  0.837664
+125539 2 6 известная_процедура 0
+125706 3 6 ожидаемый_исход_из_личной_модели 0.188966
+125873 4 6  0.188966
+126040 2 6 известная_процедура 0
+126207 3 6 ожидаемый_исход_из_личной_модели 0.188896
+126374 4 6  0.188966
+126541 2 6 известная_процедура 0
+126708 3 6 ожидаемый_исход_из_личной_модели 0.188826
+126875 4 6  0.188966
+127042 5 6 текущее_действие_сохранено 0.188966
+142000 0 0  0
+142167 1 0  0.836024
+142334 2 6 известная_процедура 0
+142501 3 6 ожидаемый_исход_из_личной_модели 0.188697
+142668 4 6  0.188697
+142835 2 6 известная_процедура 0
+143002 3 6 ожидаемый_исход_из_личной_модели 0.188627
+143169 4 6  0.188697
+143336 2 6 известная_процедура 0
+143503 3 6 ожидаемый_исход_из_личной_модели 0.188556
+143670 4 6  0.188697
+143837 5 6 текущее_действие_сохранено 0.188697
+FAIL secret_cost_changes_autonomous_choice: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:69: low.state().community.disclosures>0
+PASS news_save_mid_speech_preserves_future
+PASS community_worker_and_reference_equivalence
+PASS community_logging_does_not_create_events
+PASS known_kin_cost_is_finite_and_subjective
+PASS stranger_romance_is_cost_not_physical_gate
+PASS food_price_transfers_exactly_once
+PASS paid_leisure_is_charged_on_entry_once
+PASS qualification_not_unlocked_by_gossip_count
+PASS study_teaches_content_not_gossip
+PASS qualified_job_pays_higher_wage
+PASS interrupted_work_keeps_earned_credit
+PASS accounting_is_exclusive
+PASS unknown_balance_not_in_other_opinion
+RESULT 26 cases, 1 failures

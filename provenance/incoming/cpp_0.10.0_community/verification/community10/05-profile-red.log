@@ -1,0 +1,8 @@
+PASS budget_four_can_choose
+FAIL profile_has_four_jobs: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:39: jobs==4
+FAIL profile_has_six_leisure_variants: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:40: count==6
+FAIL community_is_real_serialized_state: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:41: w.state().community.enabled
+FAIL appearance_is_seeded: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:42: a.state().actors[0].appearance.height_cm!=a.state().actors[1].appearance.height_cm
+FAIL initial_information_is_not_all_to_all: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:43: w.state().actors[0].mind.social.community.entries.size()>0
+FAIL community_costs_known_not_free: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:44: p.economy.enabled
+RESULT 7 cases, 6 failures

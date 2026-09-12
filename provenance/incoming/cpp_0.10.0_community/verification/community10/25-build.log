@@ -1,0 +1,9 @@
+[  5%] Built target contract_tests
+[ 51%] Built target life_core
+[ 56%] Built target examples
+[ 59%] Building CXX object CMakeFiles/life_tests.dir/tests/test_world.cpp.o
+[ 64%] Built target life_sim
+[ 70%] Built target cognitive_scenarios
+[ 75%] Built target community_progress
+[ 78%] Linking CXX executable life_tests
+[100%] Built target life_tests

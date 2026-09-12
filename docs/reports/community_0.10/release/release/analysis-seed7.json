@@ -1,0 +1,149 @@
+{
+  "scenario": "normal",
+  "seed": 7,
+  "population": 16,
+  "days": 7.0,
+  "alive": 16,
+  "person_days": 112.0,
+  "critical_actor_seconds": 909.688,
+  "max_damage": 6.761806167e-05,
+  "invariant_errors": [],
+  "pilot_warnings": [
+    "critical_needs_nonzero",
+    "social_plus_leisure_outside_authored_3_6h",
+    "accelerated_qualification_not_realistic_career_duration"
+  ],
+  "time_hours_per_person_day": {
+    "idle": {
+      "n": 16,
+      "mean": 1.7657588938492064,
+      "median": 1.6590580357142857,
+      "min": 1.1197059920634922,
+      "max": 3.0810934920634923
+    },
+    "travel": {
+      "n": 16,
+      "mean": 1.2630755679563492,
+      "median": 1.2307539682539683,
+      "min": 0.8757936507936508,
+      "max": 1.7699206349206347
+    },
+    "eating": {
+      "n": 16,
+      "mean": 0.05892857142857143,
+      "median": 0.05714285714285715,
+      "min": 0.05,
+      "max": 0.06785714285714285
+    },
+    "drinking": {
+      "n": 16,
+      "mean": 0.05386904761904762,
+      "median": 0.05178571428571428,
+      "min": 0.036904761904761905,
+      "max": 0.08095238095238096
+    },
+    "sleep": {
+      "n": 16,
+      "mean": 7.811850461309524,
+      "median": 7.737953273809524,
+      "min": 7.265042936507936,
+      "max": 8.423766785714285
+    },
+    "rest": {
+      "n": 16,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    },
+    "leisure": {
+      "n": 16,
+      "mean": 3.803668325892857,
+      "median": 3.8544484920634923,
+      "min": 2.2452837301587305,
+      "max": 5.417594246031746
+    },
+    "social": {
+      "n": 16,
+      "mean": 3.8968421130952384,
+      "median": 3.686049107142857,
+      "min": 2.8394081746031747,
+      "max": 5.596386865079365
+    },
+    "private": {
+      "n": 16,
+      "mean": 0.9765014062499999,
+      "median": 0.8571428571428572,
+      "min": 0.42857142857142855,
+      "max": 1.5654992063492064
+    },
+    "work": {
+      "n": 16,
+      "mean": 2.7872720287698414,
+      "median": 2.7695980952380954,
+      "min": 2.084922698412698,
+      "max": 3.674451865079365
+    },
+    "study": {
+      "n": 16,
+      "mean": 1.3839285714285714,
+      "median": 1.3571428571428572,
+      "min": 0.9285714285714286,
+      "max": 2.0
+    },
+    "other": {
+      "n": 16,
+      "mean": 0.19830501240079365,
+      "median": 0.1792217261904762,
+      "min": 0.10591912698412699,
+      "max": 0.4202130158730159
+    }
+  },
+  "max_abs_time_residual_ms": 0.0,
+  "max_abs_cash_residual": 2.000319909711834e-10,
+  "jobs": {
+    "2": 5,
+    "3": 11
+  },
+  "cash": {
+    "n": 16,
+    "mean": 263.5540495875625,
+    "median": 239.115967708,
+    "min": 66.2186496528,
+    "max": 564.373985069
+  },
+  "rent_debt": 0,
+  "promotions": 43,
+  "studies": 310,
+  "leisure_paid": 64,
+  "food_paid": 2976,
+  "utterances": 5429,
+  "deliveries": 11045,
+  "group_deliveries": 6016,
+  "speech_minutes_per_person_day": 52.044642857142854,
+  "third_party_minutes_per_person_day": 31.651785714285715,
+  "disclosures": 1,
+  "memory_count": {
+    "n": 16,
+    "mean": 828.4375,
+    "median": 860.0,
+    "min": 599,
+    "max": 1032
+  },
+  "received_total": 22663,
+  "forgotten_total": 1010,
+  "location_erased": 13060,
+  "time_erased": 12837,
+  "sources_erased": 840,
+  "honesty_other_known": 1,
+  "helpfulness_known": 0,
+  "hash": "71dc4e79c9231d5c937784b9a1239f0f38f2051d570eed002e67dfcea1846151",
+  "hours_on_days_with_any_work": {
+    "n": 80,
+    "mean": 3.902180840277778,
+    "median": 4.000293888888889,
+    "min": 0.5,
+    "max": 8.0
+  },
+  "total_wall_seconds": 39.55186981000088
+}

@@ -1,0 +1,7 @@
+normal16-day-thoughts.jsonl: 19486 rows, 2258 intents checked, 0 errors
+all8-tenminutes-thoughts.jsonl: 1786 rows, 204 intents checked, 0 errors
+income-thoughts.jsonl: 2256 rows, 364 intents checked, 0 errors
+busy-low-bias.jsonl: 7 rows, 1 intents checked, 0 errors
+busy-high-bias.jsonl: 7 rows, 1 intents checked, 0 errors
+slow-processing.jsonl: 5 rows, 1 intents checked, 0 errors
+fast-processing.jsonl: 8 rows, 1 intents checked, 0 errors

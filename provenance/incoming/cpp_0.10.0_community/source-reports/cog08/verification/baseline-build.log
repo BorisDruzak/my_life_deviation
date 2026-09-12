@@ -1,0 +1,20 @@
+[  5%] Building CXX object CMakeFiles/life_core.dir/src/life/seed.cpp.o
+[ 11%] Building CXX object CMakeFiles/life_core.dir/src/life/numeric.cpp.o
+[ 17%] Building CXX object CMakeFiles/life_core.dir/src/life/mind.cpp.o
+[ 23%] Building CXX object CMakeFiles/life_core.dir/src/life/world.cpp.o
+[ 29%] Building CXX object CMakeFiles/life_core.dir/src/life/executor.cpp.o
+[ 35%] Building CXX object CMakeFiles/life_core.dir/src/life/generation.cpp.o
+[ 41%] Building CXX object CMakeFiles/life_core.dir/src/life/validation.cpp.o
+[ 47%] Building CXX object CMakeFiles/life_core.dir/src/life/persistence.cpp.o
+[ 52%] Linking CXX static library liblife_core.a
+[ 52%] Built target life_core
+[ 58%] Building CXX object CMakeFiles/life_tests.dir/tests/main.cpp.o
+[ 64%] Building CXX object CMakeFiles/life_sim.dir/app/main.cpp.o
+[ 70%] Building CXX object CMakeFiles/life_tests.dir/tests/test_numeric.cpp.o
+[ 76%] Building CXX object CMakeFiles/life_tests.dir/tests/test_seed.cpp.o
+[ 82%] Linking CXX executable life_sim
+[ 82%] Built target life_sim
+[ 88%] Building CXX object CMakeFiles/life_tests.dir/tests/test_mind.cpp.o
+[ 94%] Building CXX object CMakeFiles/life_tests.dir/tests/test_world.cpp.o
+[100%] Linking CXX executable life_tests
+[100%] Built target life_tests

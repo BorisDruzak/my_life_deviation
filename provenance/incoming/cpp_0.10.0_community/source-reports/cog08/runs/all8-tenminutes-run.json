@@ -1,0 +1,24 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-f",
+    "elapsed=%e max_rss_kb=%M",
+    "-o",
+    "/mnt/data/results08/final/all8-tenminutes.time",
+    "/mnt/data/build08/life_sim",
+    "--population",
+    "8",
+    "--seconds",
+    "600",
+    "--thoughts",
+    "/mnt/data/results08/final/all8-tenminutes-thoughts.jsonl",
+    "--trace",
+    "/mnt/data/results08/final/all8-tenminutes-actions.jsonl",
+    "--summary",
+    "/mnt/data/results08/final/all8-tenminutes.json",
+    "--actors",
+    "/mnt/data/results08/final/all8-tenminutes-actors.csv"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 0.0642066350001187
+}

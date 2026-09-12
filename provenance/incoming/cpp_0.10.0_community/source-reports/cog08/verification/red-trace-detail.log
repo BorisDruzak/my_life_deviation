@@ -1,0 +1,2 @@
+FAIL forecast_trace_exposes_target_and_cost_components: /mnt/data/work_08/my_life_deviation/tests/test_cognition.cpp:69: row.find("\"destination\":")!=std::string::npos
+RESULT 1 cases, 1 failures

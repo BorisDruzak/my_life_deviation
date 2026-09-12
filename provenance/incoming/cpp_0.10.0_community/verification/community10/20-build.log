@@ -1,0 +1,22 @@
+[  5%] Built target contract_tests
+[  8%] Building CXX object CMakeFiles/life_core.dir/src/life/mind.cpp.o
+[ 14%] Built target examples
+[ 17%] Building CXX object CMakeFiles/life_core.dir/src/life/social.cpp.o
+/mnt/data/work_010/my_life_deviation/src/life/social.cpp: In function 'std::vector<life::SocialChoice> life::social_choices(const SocialView&)':
+/mnt/data/work_010/my_life_deviation/src/life/social.cpp:206:48: error: 'set' is not a member of 'std'
+  206 |         std::vector<SocialChoice> diverse;std::set<Interaction> seen;
+      |                                                ^~~
+/mnt/data/work_010/my_life_deviation/src/life/social.cpp:8:1: note: 'std::set' is defined in header '<set>'; this is probably fixable by adding '#include <set>'
+    7 | #include <utility>
+  +++ |+#include <set>
+    8 | #include <limits>
+/mnt/data/work_010/my_life_deviation/src/life/social.cpp:206:63: error: expected primary-expression before '>' token
+  206 |         std::vector<SocialChoice> diverse;std::set<Interaction> seen;
+      |                                                               ^
+/mnt/data/work_010/my_life_deviation/src/life/social.cpp:206:65: error: 'seen' was not declared in this scope
+  206 |         std::vector<SocialChoice> diverse;std::set<Interaction> seen;
+      |                                                                 ^~~~
+gmake[2]: *** [CMakeFiles/life_core.dir/build.make:233: CMakeFiles/life_core.dir/src/life/social.cpp.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+gmake[1]: *** [CMakeFiles/Makefile2:121: CMakeFiles/life_core.dir/all] Error 2
+gmake: *** [Makefile:101: all] Error 2

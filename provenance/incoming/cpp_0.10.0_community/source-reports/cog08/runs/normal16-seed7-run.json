@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-f",
+    "elapsed=%e max_rss_kb=%M",
+    "-o",
+    "/mnt/data/results08/final/normal16-seed7.time",
+    "/mnt/data/build08/life_sim",
+    "--population",
+    "16",
+    "--days",
+    "1",
+    "--seed",
+    "7",
+    "--summary",
+    "/mnt/data/results08/final/normal16-seed7.json",
+    "--actors",
+    "/mnt/data/results08/final/normal16-seed7-actors.csv"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 2.872491144000378
+}

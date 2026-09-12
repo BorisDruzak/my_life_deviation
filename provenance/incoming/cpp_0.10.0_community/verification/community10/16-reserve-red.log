@@ -1,0 +1,4 @@
+FAIL learning_preserves_known_weekend_living_reserve: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:85: v.economy.study_budget==0
+RESULT 1 cases, 1 failures
+FAIL thirst_focus_retrieves_known_water_before_leisure_variants: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:86: ideas.front().method==Method::Drink
+RESULT 1 cases, 1 failures

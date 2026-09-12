@@ -1,0 +1,26 @@
+Internal ctest changing into directory: /mnt/data/build09-asan
+Test project /mnt/data/build09-asan
+      Start  1: numeric
+ 1/10 Test  #1: numeric ..........................   Passed    0.02 sec
+      Start  2: seed
+ 2/10 Test  #2: seed .............................   Passed    0.04 sec
+      Start  3: mind
+ 3/10 Test  #3: mind .............................   Passed    0.04 sec
+      Start  4: cli_invalid_argument
+ 4/10 Test  #4: cli_invalid_argument .............   Passed    0.02 sec
+      Start  5: cli_smoke
+ 5/10 Test  #5: cli_smoke ........................   Passed    0.15 sec
+      Start  6: cognition_world
+ 6/10 Test  #6: cognition_world ..................   Passed    2.11 sec
+      Start  7: social_world
+ 7/10 Test  #7: social_world .....................   Passed    3.76 sec
+      Start  8: social_contracts
+ 8/10 Test  #8: social_contracts .................   Passed    0.04 sec
+      Start  9: cognition_contracts
+ 9/10 Test  #9: cognition_contracts ..............   Passed    0.01 sec
+      Start 10: numerical_examples
+10/10 Test #10: numerical_examples ...............   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 10
+
+Total Test time (real) =   6.18 sec

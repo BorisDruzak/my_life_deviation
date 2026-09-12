@@ -1,0 +1,2 @@
+FAIL budget_four_can_choose: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:11: w.state().actors[0].completed[std::size_t(Method::Eat)]>0
+RESULT 1 cases, 1 failures

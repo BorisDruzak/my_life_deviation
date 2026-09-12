@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-f",
+    "elapsed=%e max_rss_kb=%M",
+    "-o",
+    "/mnt/data/results08/final/scarcity16-twodays.time",
+    "/mnt/data/build08/life_sim",
+    "--population",
+    "16",
+    "--days",
+    "2",
+    "--scenario",
+    "scarcity",
+    "--summary",
+    "/mnt/data/results08/final/scarcity16-twodays.json",
+    "--actors",
+    "/mnt/data/results08/final/scarcity16-twodays-actors.csv"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 6.333734162000155
+}

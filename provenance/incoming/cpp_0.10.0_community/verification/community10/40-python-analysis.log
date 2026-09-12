@@ -1,0 +1,13 @@
+test_cash_does_not_appear (__main__.AnalysisContracts.test_cash_does_not_appear) ... ok
+test_critical_not_hidden_by_alive (__main__.AnalysisContracts.test_critical_not_hidden_by_alive) ... ok
+test_dead_not_full_day_denominator (__main__.AnalysisContracts.test_dead_not_full_day_denominator) ... ok
+test_distribution_not_only_average (__main__.AnalysisContracts.test_distribution_not_only_average) ... ok
+test_double_count_rejected (__main__.AnalysisContracts.test_double_count_rejected) ... ok
+test_empty_not_success (__main__.AnalysisContracts.test_empty_not_success) ... ok
+test_listener_copies_not_speech (__main__.AnalysisContracts.test_listener_copies_not_speech) ... ok
+test_valid_ledger (__main__.AnalysisContracts.test_valid_ledger) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.001s
+
+OK

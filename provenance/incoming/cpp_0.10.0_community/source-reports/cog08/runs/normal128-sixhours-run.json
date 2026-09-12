@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-f",
+    "elapsed=%e max_rss_kb=%M",
+    "-o",
+    "/mnt/data/results08/final/normal128-sixhours.time",
+    "/mnt/data/build08/life_sim",
+    "--population",
+    "128",
+    "--seconds",
+    "21600",
+    "--summary",
+    "/mnt/data/results08/final/normal128-sixhours.json",
+    "--actors",
+    "/mnt/data/results08/final/normal128-sixhours-actors.csv"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 30.303541360000054
+}

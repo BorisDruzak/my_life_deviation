@@ -1,0 +1,22 @@
+FAIL memory_half_life: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:18: std::abs((d.at(7200000))-(.5))<=(1e-12)
+PASS read_does_not_reinforce
+FAIL negative_memory_time_rejected: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:20: threw
+FAIL delivery_idempotent: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:21: m.receive(example_news(),1,50,100)
+FAIL late_delivery_not_time_reversal: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:22: m.receive(f,1,50,100000)
+FAIL event_in_future_rejected: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:23: threw
+FAIL detail_fades_before_gist: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:24: f.has_value()
+PASS forgetting_keeps_delivery_protection
+PASS no_reputation_without_evidence
+FAIL job_evidence_changes_material_not_honesty: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:27: m.opinion(2,0).material.has_value()
+PASS walking_is_not_romance_or_badness
+FAIL private_information_finite_cost: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:29: c>0&&std::isfinite(c)
+PASS open_not_globally_known
+FAIL confidentiality_changes_price: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:31: a.disclosure_cost(f)<b.disclosure_cost(f)
+FAIL same_claim_not_independent_evidence: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:32: m.entries.size()==1
+FAIL source_forgetting_not_firsthand: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:33: m.entries.size()==1
+FAIL candidate_bound: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:34: m.candidates(0,16).size()==16
+FAIL rehearsal_not_truth_update: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:35: m.recall(10,0)
+FAIL job_rates_increasing: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:36: j[i].hourly>j[i-1].hourly
+FAIL free_and_paid_recreation: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:37: r[5].fee>r[1].fee
+FAIL appearance_preferences_not_uniform: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:38: attraction(a,p)>attraction(b,p)
+RESULT 21 cases, 16 failures

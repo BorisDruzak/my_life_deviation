@@ -1,0 +1,8 @@
+PASS budget_four_can_choose
+PASS profile_has_four_jobs
+PASS profile_has_six_leisure_variants
+PASS community_is_real_serialized_state
+PASS appearance_is_seeded
+PASS initial_information_is_not_all_to_all
+PASS community_costs_known_not_free
+RESULT 7 cases, 0 failures

@@ -1,0 +1,16 @@
+[  6%] Built target contract_tests
+[  9%] Building CXX object CMakeFiles/life_core.dir/src/life/social.cpp.o
+[ 15%] Built target examples
+[ 18%] Building CXX object CMakeFiles/life_core.dir/src/life/social_world.cpp.o
+[ 21%] Building CXX object CMakeFiles/life_core.dir/src/life/social_diagnostics.cpp.o
+[ 25%] Linking CXX static library liblife_core.a
+[ 59%] Built target life_core
+[ 62%] Linking CXX executable life_sim
+[ 65%] Building CXX object CMakeFiles/life_tests.dir/tests/test_social.cpp.o
+[ 68%] Built target life_sim
+[ 71%] Linking CXX executable cognitive_scenarios
+[ 75%] Built target cognitive_scenarios
+[ 78%] Building CXX object CMakeFiles/life_tests.dir/tests/test_social_unit.cpp.o
+gmake[2]: *** [CMakeFiles/life_tests.dir/build.make:163: CMakeFiles/life_tests.dir/tests/test_social.cpp.o] Terminated
+gmake[1]: *** [CMakeFiles/Makefile2:153: CMakeFiles/life_tests.dir/all] Terminated
+gmake: *** [Makefile:101: all] Terminated

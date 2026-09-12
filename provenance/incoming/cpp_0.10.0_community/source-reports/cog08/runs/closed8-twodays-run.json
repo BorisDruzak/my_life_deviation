@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-f",
+    "elapsed=%e max_rss_kb=%M",
+    "-o",
+    "/mnt/data/results08/final/closed8-twodays.time",
+    "/mnt/data/build08/life_sim",
+    "--population",
+    "8",
+    "--days",
+    "2",
+    "--scenario",
+    "closed-road",
+    "--summary",
+    "/mnt/data/results08/final/closed8-twodays.json",
+    "--actors",
+    "/mnt/data/results08/final/closed8-twodays-actors.csv"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 2.4271949610001684
+}

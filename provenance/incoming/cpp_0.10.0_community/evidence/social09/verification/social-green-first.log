@@ -1,0 +1,2 @@
+PASS conversation_has_nested_content
+RESULT 1 cases, 0 failures

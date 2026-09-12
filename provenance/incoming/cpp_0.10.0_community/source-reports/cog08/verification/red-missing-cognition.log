@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/mnt/data/results08/probe_cli.py", line 5, in <module>
+    assert r.returncode == 0, 'Cognitive trace CLI must run: '+r.stderr
+           ^^^^^^^^^^^^^^^^^
+AssertionError: Cognitive trace CLI must run: ERROR: unknown argument: --thoughts

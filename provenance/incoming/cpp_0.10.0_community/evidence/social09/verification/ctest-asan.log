@@ -1,0 +1,9 @@
+Internal ctest changing into directory: /mnt/data/build09-asan
+Test project /mnt/data/build09-asan
+      Start  1: numeric
+ 1/11 Test  #1: numeric ..........................   Passed    0.04 sec
+      Start  2: seed
+ 2/11 Test  #2: seed .............................   Passed    0.04 sec
+      Start  3: mind
+ 3/11 Test  #3: mind .............................   Passed    0.04 sec
+      Start  4: world

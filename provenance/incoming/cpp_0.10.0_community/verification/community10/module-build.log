@@ -1,0 +1,14 @@
+[  5%] Built target contract_tests
+[  8%] Building CXX object CMakeFiles/life_core.dir/src/life/community.cpp.o
+[ 14%] Built target examples
+/mnt/data/work_010/my_life_deviation/src/life/community.cpp: In member function 'life::ReputationView life::CommunityMemory::opinion(life::Id, life::Tick) const':
+/mnt/data/work_010/my_life_deviation/src/life/community.cpp:88:5: error: this 'if' clause does not guard... [-Werror=misleading-indentation]
+   88 |     if(wm)out.material=sm/wm;if(wh)out.helpfulness=sh/wh;if(wo)out.honesty=so/wo;
+      |     ^~
+/mnt/data/work_010/my_life_deviation/src/life/community.cpp:88:30: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   88 |     if(wm)out.material=sm/wm;if(wh)out.helpfulness=sh/wh;if(wo)out.honesty=so/wo;
+      |                              ^~
+cc1plus: all warnings being treated as errors
+gmake[2]: *** [CMakeFiles/life_core.dir/build.make:275: CMakeFiles/life_core.dir/src/life/community.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:121: CMakeFiles/life_core.dir/all] Error 2
+gmake: *** [Makefile:101: all] Error 2

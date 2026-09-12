@@ -1,0 +1,6 @@
+FAIL remembered_dishonesty_changes_disclosure_risk: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:94: bad.moral>good.moral
+RESULT 1 cases, 1 failures
+FAIL bad_serialized_economy_rejected: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:95: threw
+RESULT 1 cases, 1 failures
+FAIL bad_serialized_memory_rejected: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:96: threw
+RESULT 1 cases, 1 failures

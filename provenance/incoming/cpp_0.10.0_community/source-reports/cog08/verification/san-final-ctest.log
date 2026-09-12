@@ -1,0 +1,22 @@
+Internal ctest changing into directory: /mnt/data/build08-san
+Test project /mnt/data/build08-san
+    Start 1: numeric
+1/8 Test #1: numeric ..........................   Passed    0.02 sec
+    Start 2: seed
+2/8 Test #2: seed .............................   Passed    0.05 sec
+    Start 3: mind
+3/8 Test #3: mind .............................   Passed    0.03 sec
+    Start 4: cli_invalid_argument
+4/8 Test #4: cli_invalid_argument .............   Passed    0.01 sec
+    Start 5: cli_smoke
+5/8 Test #5: cli_smoke ........................   Passed    0.17 sec
+    Start 6: cognition_world
+6/8 Test #6: cognition_world ..................   Passed    2.59 sec
+    Start 7: cognition_contracts
+7/8 Test #7: cognition_contracts ..............   Passed    0.03 sec
+    Start 8: numerical_examples
+8/8 Test #8: numerical_examples ...............   Passed    0.01 sec
+
+100% tests passed, 0 tests failed out of 8
+
+Total Test time (real) =   2.92 sec

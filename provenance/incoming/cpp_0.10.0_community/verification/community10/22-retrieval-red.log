@@ -1,0 +1,4 @@
+FAIL many_claims_do_not_hide_other_social_ways_in_planner: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:90: xs[1].interaction==Interaction::DiscussTopic
+RESULT 1 cases, 1 failures
+FAIL appearance_preference_invalid_rejected: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:91: threw
+RESULT 1 cases, 1 failures

@@ -1,0 +1,3 @@
+probe water=0.312704 place=127 money=104.987
+PASS seed7_available_water_does_not_lose_to_failed_sleep_forecast
+RESULT 1 cases, 0 failures

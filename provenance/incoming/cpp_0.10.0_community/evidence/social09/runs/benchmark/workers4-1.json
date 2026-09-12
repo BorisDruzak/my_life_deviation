@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/mnt/data/build09/life_sim",
+    "--population",
+    "32",
+    "--seconds",
+    "3600",
+    "--social-scene",
+    "mixed",
+    "--workers",
+    "4",
+    "--work-chunk",
+    "2"
+  ],
+  "exit_code": 0,
+  "wall": 0.7536791279999306,
+  "stdout": "{\"version\":\"0.9.0\",\"balance\":\"balance-cpp-0.9.0-social1\",\"catalogue\":\"46438075fdf1c1b3bab455cc13bd5cb597e51821bc95d42e995e0f69535a704c\",\"seed\":42,\"scenario\":\"normal\",\"seconds\":3600,\"population\":32,\"alive\":32,\"hash\":\"21612e013da4e28ded3a3015f3ba6293dcb09f24558ed65e44de65cb3b548be5\",\"actions\":{\"idle\":249,\"eat\":0,\"drink\":0,\"sleep\":0,\"rest\":0,\"leisure\":0,\"talk\":36,\"private_intimacy\":18,\"acquire_food\":0,\"take_food\":0,\"work\":0,\"inspect\":0,\"shelter\":0,\"social\":0,\"use_object\":0},\"failures\":95,\"unpermitted_takes\":0,\"critical_actor_seconds\":0,\"min_energy\":0.758750290693,\"min_water\":0.746110570824,\"max_damage\":0,\"means\":{\"energy\":0.762974814321,\"water\":0.751675934878,\"sleep_pressure\":0.209105917979,\"leisure\":0.784580406499,\"social\":0.37899232176,\"desire\":0.239087359418},\"acquired_pairs\":907,\"learning_episodes\":1360,\"social_degree\":{\"min\":9,\"mean\":11.25,\"max\":15},\"body_steps\":213629,\"perception_candidates\":1713788,\"decision_count\":3876,\"institutional_fines\":0,\"cognition\":{\"thoughts\":39951,\"started_ops\":38807,\"completed_ops\":38329,\"stale_ops\":477,\"focus_switches\":1306,\"max_slots\":4,\"kinds\": {\"notice\":1394,\"interpret\":4311,\"recall\":10068,\"forecast\":9523,\"compare\":9453,\"intent\":3876,\"question\":357,\"interpret_reply\":492,\"stale\":477,\"pause_project\":0,\"resume_project\":0}},\"social_events\":{\"completed\":{\"friendly_touch\":75,\"romantic_touch\":0,\"compliment\":12,\"ask_information\":0,\"show_item\":4,\"borrow_item\":0,\"return_item\":0,\"claim_item\":0,\"use_item\":0},\"declined\":{\"friendly_touch\":0,\"romantic_touch\":0,\"compliment\":0,\"ask_information\":0,\"show_item\":0,\"borrow_item\":0,\"return_item\":0,\"claim_item\":0,\"use_item\":0},\"cancelled\":0,\"loans\":0,\"uses\":0,\"item_memories\":12,\"learned_outcomes\":182},\"mode\":\"indexed\",\"setup_seconds\":0.003261,\"wall_seconds\":0.742541}\n",
+  "stderr": ""
+}

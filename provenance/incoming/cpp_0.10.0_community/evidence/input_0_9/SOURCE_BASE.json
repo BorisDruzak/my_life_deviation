@@ -1,0 +1,9 @@
+{
+  "base_archive": "my_life_deviation_cpp_0.7.0.zip",
+  "cognitive_archive": "COG_0_4_specification_and_reference.zip",
+  "upstream_specification_base": "fa3aec539055cafdf520d558b0e97537dcf9435b",
+  "local_import_commit": "dde39ef33f826e306f3fc4d1aadac4faf4968491",
+  "note": "local import commit identifies the supplied archive, not a new upstream GitHub commit",
+  "base_archive_sha256": "124ba84cded1747cd6e9a9515657ed404909a50921818d9c0df547e938bbb80b",
+  "cognitive_archive_sha256": "11aeb60b73a14a1d0cefbe06dd858b7ef03f9479c55f8e14382256739bbd3b79"
+}

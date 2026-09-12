@@ -1,0 +1,25 @@
+PASS memory_half_life
+PASS read_does_not_reinforce
+PASS negative_memory_time_rejected
+PASS delivery_idempotent
+PASS late_delivery_not_time_reversal
+PASS event_in_future_rejected
+PASS detail_fades_before_gist
+PASS forgetting_keeps_delivery_protection
+PASS no_reputation_without_evidence
+PASS job_evidence_changes_material_not_honesty
+PASS walking_is_not_romance_or_badness
+PASS private_information_finite_cost
+PASS open_not_globally_known
+PASS confidentiality_changes_price
+PASS same_claim_not_independent_evidence
+PASS source_forgetting_not_firsthand
+PASS candidate_bound
+PASS rehearsal_not_truth_update
+PASS job_rates_increasing
+PASS free_and_paid_recreation
+PASS appearance_preferences_not_uniform
+PASS memory_payload_invalid_rejected
+PASS study_thought_has_russian_localization
+PASS many_news_do_not_erase_known_discussion
+RESULT 24 cases, 0 failures

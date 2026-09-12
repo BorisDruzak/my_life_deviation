@@ -1,0 +1,2 @@
+FAIL ordinary_conversation_considers_multiple_known_people: /mnt/data/dev09/my_life_deviation/tests/test_social_unit.cpp:43: two&&three
+RESULT 1 cases, 1 failures

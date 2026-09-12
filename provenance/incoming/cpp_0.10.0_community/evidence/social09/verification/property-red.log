@@ -1,0 +1,2 @@
+FAIL property_norm_affects_lending_something_believed_owned_by_a_third_person: /mnt/data/dev09/my_life_deviation/tests/test_social_unit.cpp:49: b.moral>a.moral&&b.score<a.score
+RESULT 1 cases, 1 failures

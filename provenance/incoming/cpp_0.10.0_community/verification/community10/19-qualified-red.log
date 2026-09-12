@@ -1,0 +1,4 @@
+FAIL qualified_opportunity_survives_bounded_retrieval: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:88: x[0].place==7
+RESULT 1 cases, 1 failures
+FAIL many_news_do_not_erase_known_discussion: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:89: std::any_of(choices.begin(),choices.end(),[](auto& x){return x.kind==Interaction::DiscussTopic;})
+RESULT 1 cases, 1 failures

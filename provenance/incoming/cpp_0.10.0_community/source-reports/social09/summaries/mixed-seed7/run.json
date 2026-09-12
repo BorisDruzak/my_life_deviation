@@ -1,0 +1,31 @@
+{
+  "name": "mixed-seed7",
+  "scene": "mixed",
+  "population": 16,
+  "seconds": 7200,
+  "seed": 7,
+  "trace_actor": 1,
+  "command": [
+    "/mnt/data/build09/life_sim",
+    "--population",
+    "16",
+    "--seed",
+    "7",
+    "--seconds",
+    "7200",
+    "--social-scene",
+    "mixed",
+    "--summary",
+    "/mnt/data/runs09/final/mixed-seed7/summary.json",
+    "--social-state",
+    "/mnt/data/runs09/final/mixed-seed7/social-state.json",
+    "--thoughts",
+    "/mnt/data/runs09/final/mixed-seed7/thoughts.jsonl",
+    "--trace",
+    "/mnt/data/runs09/final/mixed-seed7/events.jsonl",
+    "--trace-actor",
+    "1"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 0.36472672000036255
+}

@@ -1,0 +1,2 @@
+FAIL conversation_content_not_hidden_by_talk_destinations: /mnt/data/work_010/my_life_deviation/tests/test_community.cpp:83: std::none_of(ideas.begin(),ideas.end(),[](auto& x){return x.method==Method::Talk;})
+RESULT 1 cases, 1 failures

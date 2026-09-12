@@ -1,0 +1,56 @@
+{
+  "version": "0.10.0",
+  "profile": "community-0.10-test2",
+  "binary_sha256": "6ea80a783f0e56734216077a2c4dd3c109d277dd4c2ed5cf467ab5d7e3e7d2df",
+  "gcc_ctest": {
+    "registered": 14,
+    "passed": 14
+  },
+  "clang_ctest": {
+    "registered": 14,
+    "passed": 14
+  },
+  "asan_ubsan": {
+    "passed": 12,
+    "excluded": [
+      "world",
+      "community_long"
+    ],
+    "complete_suite": false
+  },
+  "life_tests": 254,
+  "new_life_tests": 63,
+  "reference_tests": 69,
+  "python_analyzer_tests": 8,
+  "logs": {
+    "gcc_ctest": {
+      "path": "verification/community10/34-gcc-full.log",
+      "sha256": "d506f979528b08fe603152a791ca00ea5865ca01e9d532e8a722c283bab5dc44"
+    },
+    "clang_ctest": {
+      "path": "verification/community10/36-clang-full.log",
+      "sha256": "a9306b92186828f4be4989ecf7e82664cadd163724e955af2cf77f03828bdfa1"
+    },
+    "sanitizers_selected": {
+      "path": "verification/community10/38-asan-selected.log",
+      "sha256": "7f4a2a7479071270faf649022aff757177138dac46f9ff0e54f8706dc41a245e"
+    },
+    "all_life_tests": {
+      "path": "verification/community10/41-all-named-tests.log",
+      "sha256": "4c11235bddb1912b6358c836bd2fdf3978cc9befe0f8ee7d7d2950f157a26393"
+    },
+    "cog_reference": {
+      "path": "verification/community10/41-cog-reference.log",
+      "sha256": "648af5b704354f15d63f6a2dba643aa9ecd8a026694cce3b03a41bf0e1caea1b"
+    },
+    "python_analyzer": {
+      "path": "verification/community10/40-python-analysis.log",
+      "sha256": "a4aaf93e9473f7705d2724e5d943632ac5b857baa623426501bb8fe6c2336036"
+    }
+  },
+  "simulation_binary_matches": {
+    "42": true,
+    "7": true,
+    "101": true
+  }
+}

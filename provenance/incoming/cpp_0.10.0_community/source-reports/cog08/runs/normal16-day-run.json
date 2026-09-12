@@ -1,0 +1,26 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-f",
+    "elapsed=%e max_rss_kb=%M",
+    "-o",
+    "/mnt/data/results08/final/normal16-day.time",
+    "/mnt/data/build08/life_sim",
+    "--population",
+    "16",
+    "--days",
+    "1",
+    "--thoughts",
+    "/mnt/data/results08/final/normal16-day-thoughts.jsonl",
+    "--trace-actor",
+    "1",
+    "--trace",
+    "/mnt/data/results08/final/normal16-day-actions.jsonl",
+    "--summary",
+    "/mnt/data/results08/final/normal16-day.json",
+    "--actors",
+    "/mnt/data/results08/final/normal16-day-actors.csv"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 3.225905443999636
+}

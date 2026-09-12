@@ -1,0 +1,28 @@
+[  6%] Built target contract_tests
+[  9%] Building CXX object CMakeFiles/life_core.dir/src/life/mind.cpp.o
+[ 16%] Built target examples
+[ 19%] Building CXX object CMakeFiles/life_core.dir/src/life/world.cpp.o
+[ 22%] Building CXX object CMakeFiles/life_core.dir/src/life/executor.cpp.o
+[ 25%] Building CXX object CMakeFiles/life_core.dir/src/life/generation.cpp.o
+[ 29%] Building CXX object CMakeFiles/life_core.dir/src/life/validation.cpp.o
+[ 32%] Building CXX object CMakeFiles/life_core.dir/src/life/persistence.cpp.o
+[ 35%] Building CXX object CMakeFiles/life_core.dir/src/life/cognition.cpp.o
+[ 38%] Building CXX object CMakeFiles/life_core.dir/src/life/cognitive_world.cpp.o
+[ 41%] Building CXX object CMakeFiles/life_core.dir/src/life/worker.cpp.o
+[ 45%] Building CXX object CMakeFiles/life_core.dir/src/life/social.cpp.o
+[ 48%] Building CXX object CMakeFiles/life_core.dir/src/life/social_world.cpp.o
+[ 51%] Linking CXX static library liblife_core.a
+[ 58%] Built target life_core
+[ 61%] Building CXX object CMakeFiles/life_sim.dir/app/main.cpp.o
+[ 64%] Building CXX object CMakeFiles/life_tests.dir/tests/test_cognition.cpp.o
+[ 67%] Linking CXX executable life_sim
+[ 67%] Built target life_sim
+[ 70%] Building CXX object CMakeFiles/cognitive_scenarios.dir/tools/cognitive_scenarios.cpp.o
+[ 74%] Linking CXX executable cognitive_scenarios
+[ 74%] Built target cognitive_scenarios
+[ 77%] Building CXX object CMakeFiles/life_tests.dir/tests/test_mind.cpp.o
+[ 80%] Building CXX object CMakeFiles/life_tests.dir/tests/test_social.cpp.o
+[ 83%] Building CXX object CMakeFiles/life_tests.dir/tests/test_social_unit.cpp.o
+[ 87%] Building CXX object CMakeFiles/life_tests.dir/tests/test_world.cpp.o
+[ 90%] Linking CXX executable life_tests
+[100%] Built target life_tests

@@ -1,0 +1,18 @@
+[  6%] Built target contract_tests
+[ 10%] Building CXX object CMakeFiles/life_core.dir/src/life/mind.cpp.o
+[ 16%] Built target examples
+[ 20%] Building CXX object CMakeFiles/life_core.dir/src/life/world.cpp.o
+/mnt/data/dev09/my_life_deviation/src/life/mind.cpp: In static member function 'static life::Decision life::Planner::forecast(const life::PersonalView&, const life::PlanOption&)':
+/mnt/data/dev09/my_life_deviation/src/life/mind.cpp:293:9: error: this 'if' clause does not guard... [-Werror=misleading-indentation]
+  293 |         if(e.known)d.path={v.place};return d;
+      |         ^~
+/mnt/data/dev09/my_life_deviation/src/life/mind.cpp:293:37: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  293 |         if(e.known)d.path={v.place};return d;
+      |                                     ^~~~~~
+[ 23%] Building CXX object CMakeFiles/life_core.dir/src/life/executor.cpp.o
+[ 26%] Building CXX object CMakeFiles/life_core.dir/src/life/generation.cpp.o
+cc1plus: all warnings being treated as errors
+gmake[2]: *** [CMakeFiles/life_core.dir/build.make:107: CMakeFiles/life_core.dir/src/life/mind.cpp.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+gmake[1]: *** [CMakeFiles/Makefile2:121: CMakeFiles/life_core.dir/all] Error 2
+gmake: *** [Makefile:101: all] Error 2

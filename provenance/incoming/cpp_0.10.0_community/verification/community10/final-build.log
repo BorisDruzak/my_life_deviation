@@ -1,0 +1,10 @@
+[  5%] Built target contract_tests
+[ 48%] Built target life_core
+[ 53%] Built target examples
+[ 79%] Built target life_tests
+[ 84%] Built target life_sim
+[ 89%] Built target cognitive_scenarios
+[ 94%] Built target community_progress
+[ 97%] Building CXX object CMakeFiles/community_scenarios.dir/tools/community_scenarios.cpp.o
+[100%] Linking CXX executable community_scenarios
+[100%] Built target community_scenarios

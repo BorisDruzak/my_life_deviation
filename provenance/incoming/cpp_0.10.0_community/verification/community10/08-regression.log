@@ -1,0 +1,72 @@
+Internal ctest changing into directory: /mnt/data/work_010/my_life_deviation/build
+Test project /mnt/data/work_010/my_life_deviation/build
+      Start  4: world
+      Start  8: social_world
+ 1/13 Test  #8: social_world .....................***Failed    0.35 sec
+PASS conversation_has_nested_content
+PASS autonomous_friendly_touch_survives_personal_romance_norm
+PASS same_gender_contact_is_possible_in_neutral_profile
+PASS own_finite_norm_changes_autonomous_choice
+PASS receiver_refusal_prevents_contact_effect
+PASS private_receiver_norm_not_leaked_in_requester_forecast
+PASS real_pleasantness_can_disagree_with_expected_pleasantness
+PASS nested_interaction_does_not_cancel_parent_conversation
+PASS proposal_cannot_complete_before_receiver_thinks
+PASS consent_scope_cannot_be_replaced_with_another_action
+PASS withdrawal_before_answer_has_no_completed_effect
+PASS stopped_parent_invalidates_pending_proposal
+PASS process_pause_does_not_republish_old_result
+PASS nested_save_before_answer_preserves_future
+PASS nested_save_after_consent_preserves_future
+PASS social_workers_preserve_exact_thoughts
+PASS social_index_matches_reference
+PASS social_logging_cannot_change_learning
+FAIL full_information_borrow_use_return_chain: /mnt/data/work_010/my_life_deviation/tests/test_social.cpp:39: completions(w,Interaction::UseItem)>=2
+FAIL text_experience_unlocks_known_method_without_fake_practice: /mnt/data/work_010/my_life_deviation/tests/test_social.cpp:40: m.items.size()>0&&m.item(2000)->uses>=2
+PASS information_answer_comes_from_personal_memory_not_world_truth
+PASS uninvolved_actor_does_not_receive_private_object_information
+PASS high_honesty_norm_blocks_false_status_claim_not_physics
+PASS showing_previously_unknown_item_can_be_understood
+PASS a_claim_is_a_report_not_a_change_in_ownership
+PASS learning_item_use_does_not_reveal_hidden_owner
+PASS response_holds_offer_and_known_method_in_shared_context
+PASS interrupted_accepted_contact_keeps_partial_real_experience
+PASS losing_item_during_read_does_not_teach_or_count_completion
+PASS objective_item_unavailable_does_not_reveal_hidden_owner
+PASS friendly_chosen_while_known_pleasant_romance_is_personally_rejected
+PASS diagnostic_export_does_not_change_personal_knowledge
+PASS book_can_teach_initially_unknown_content_without_scripted_unlock
+PASS perceived_disapproval_affects_shame_without_automatic_global_reputation
+RESULT 34 cases, 2 failures
+
+      Start  7: cognition_world
+ 2/13 Test  #7: cognition_world ..................   Passed    0.23 sec
+      Start  6: cli_smoke
+ 3/13 Test  #6: cli_smoke ........................   Passed    0.01 sec
+      Start  2: seed
+ 4/13 Test  #2: seed .............................   Passed    0.00 sec
+      Start  3: mind
+ 5/13 Test  #3: mind .............................   Passed    0.00 sec
+      Start  9: social_contracts
+ 6/13 Test  #9: social_contracts .................   Passed    0.00 sec
+      Start 12: cognition_contracts
+ 7/13 Test #12: cognition_contracts ..............   Passed    0.00 sec
+      Start  1: numeric
+ 8/13 Test  #1: numeric ..........................   Passed    0.00 sec
+      Start 13: numerical_examples
+ 9/13 Test #13: numerical_examples ...............   Passed    0.00 sec
+      Start  5: cli_invalid_argument
+10/13 Test  #5: cli_invalid_argument .............   Passed    0.00 sec
+      Start 10: community
+11/13 Test #10: community ........................   Passed    0.02 sec
+      Start 11: community_unit
+12/13 Test #11: community_unit ...................   Passed    0.00 sec
+13/13 Test  #4: world ............................   Passed    5.42 sec
+
+92% tests passed, 1 tests failed out of 13
+
+Total Test time (real) =   5.42 sec
+
+The following tests FAILED:
+	  8 - social_world (Failed)
+Errors while running CTest

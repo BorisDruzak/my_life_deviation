@@ -1,0 +1,2 @@
+FAIL perceived_disapproval_affects_shame_without_automatic_global_reputation: /mnt/data/dev09/my_life_deviation/tests/test_social.cpp:57: shame>.05
+RESULT 1 cases, 1 failures

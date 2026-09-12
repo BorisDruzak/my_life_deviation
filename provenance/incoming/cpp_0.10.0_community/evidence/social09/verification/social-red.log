@@ -1,0 +1,2 @@
+FAIL conversation_has_nested_content: /mnt/data/dev09/my_life_deviation/tests/test_social.cpp:12: nested
+RESULT 1 cases, 1 failures

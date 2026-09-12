@@ -1,0 +1,5 @@
+busy-low-bias bias=0.1 stored_unpleasantness=0.0124501618689463
+busy-high-bias bias=0.9 stored_unpleasantness=0.0290503776942079
+income actor1: work=4 food=2 purchases=2 alive=1
+slow-processing speed=0.1 first_intent_ms=3764
+fast-processing speed=0.9 first_intent_ms=2933

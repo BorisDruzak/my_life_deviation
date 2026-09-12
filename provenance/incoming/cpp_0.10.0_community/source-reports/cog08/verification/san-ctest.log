@@ -1,0 +1,9 @@
+Internal ctest changing into directory: /mnt/data/build08-san
+Test project /mnt/data/build08-san
+    Start 1: numeric
+1/9 Test #1: numeric ..........................   Passed    0.02 sec
+    Start 2: seed
+2/9 Test #2: seed .............................   Passed    0.05 sec
+    Start 3: mind
+3/9 Test #3: mind .............................   Passed    0.04 sec
+    Start 4: world

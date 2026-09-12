@@ -1,0 +1,18 @@
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /mnt/data/work_010/my_life_deviation/build
+[  5%] Built target contract_tests
+[  8%] Building CXX object CMakeFiles/life_core.dir/src/life/validation.cpp.o
+[ 13%] Built target examples
+[ 16%] Building CXX object CMakeFiles/life_core.dir/src/life/social.cpp.o
+[ 18%] Building CXX object CMakeFiles/life_core.dir/src/life/social_diagnostics.cpp.o
+[ 21%] Linking CXX static library liblife_core.a
+[ 56%] Built target life_core
+[ 59%] Linking CXX executable life_sim
+[ 62%] Linking CXX executable life_tests
+[ 64%] Built target life_sim
+[ 89%] Built target life_tests
+[ 91%] Linking CXX executable cognitive_scenarios
+[ 94%] Linking CXX executable community_progress
+[ 97%] Built target cognitive_scenarios
+[100%] Built target community_progress
