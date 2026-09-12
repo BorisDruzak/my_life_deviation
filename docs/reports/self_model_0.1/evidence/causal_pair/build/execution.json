@@ -1,0 +1,20 @@
+{
+  "command": [
+    "c++",
+    "-std=c++20",
+    "-O2",
+    "-I/mnt/data/self01_work/include",
+    "-I/mnt/data/self01_work/\u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430\u0446\u0438\u044f/\u041f\u0440\u043e\u0432\u0435\u0440\u043a\u0438/cognition_0_4",
+    "-I/mnt/data/self01_build/cog_reference",
+    "/mnt/data/self01_evidence/causal_pair/fixture.cpp",
+    "/mnt/data/self01_build/liblife_core.a",
+    "-pthread",
+    "-o",
+    "/mnt/data/self01_evidence/causal_pair/fixture"
+  ],
+  "started_utc": "2026-09-12T21:46:42Z",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "binary_sha256": null,
+  "returncode": 0,
+  "wall_seconds": 2.4722198769995885
+}
