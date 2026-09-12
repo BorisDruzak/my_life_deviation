@@ -1,0 +1,25 @@
+{
+  "archive_root": "my_life_deviation",
+  "source_version": "0.10.0",
+  "entries": [
+    {
+      "source": "DELIVERY_MANIFEST.json",
+      "target": "provenance/incoming/cpp_0.10.0_community/DELIVERY_MANIFEST.json",
+      "sha256": "3763037cd12c0d2da92a2c0b11d7b2091571add084b3a466eb2a71835dc32242",
+      "role": "source-manifest"
+    },
+    {
+      "source": "SOURCE_VERSION.json",
+      "target": "provenance/incoming/cpp_0.10.0_community/SOURCE_VERSION.json",
+      "sha256": "af9681c1e5fa49c5633274c7c80d9371320d474675fb1bff3d50eb4fd5d981ea",
+      "role": "source-version"
+    },
+    {
+      "source": "src/persistence.cpp",
+      "target": "provenance/incoming/cpp_0.10.0_community/unbuilt-src/persistence.cpp",
+      "sha256": "e98e3f70975704b581fdb0d41da9fe22635c94b400477567461b414ceee8a6fe",
+      "role": "unbuilt-source",
+      "reason": "The supplied root CMakeLists.txt does not list this file in life_core."
+    }
+  ]
+}
