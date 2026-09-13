@@ -28,6 +28,23 @@ ctest --test-dir build -C Release --output-on-failure --parallel 2
 ./build/self_behavior_scenario
 ```
 
+### Windows (MSVC x64)
+
+The repository includes the `windows-msvc-release` CMake preset. After
+installing CMake 3.20+ and Visual Studio 2022 Build Tools with the C++
+workload, run these commands from PowerShell; no Developer Prompt is needed:
+
+```powershell
+cmake --preset windows-msvc-release
+cmake --build --preset windows-msvc-release --parallel 2
+ctest --preset windows-msvc-release --parallel 2
+& .\out\build\windows-msvc-release\Release\life_sim.exe --recovery --population 8 --seed 42 --days 1 --summary summary.json
+```
+
+Build products are placed below `out/`, which Git ignores. The release preset
+uses standard MSVC and Windows SDK components only; the optional sanitizer
+configuration remains for GCC/Clang environments.
+
 ## RECOVERY scenario
 
 ```sh
