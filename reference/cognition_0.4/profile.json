@@ -1,0 +1,9 @@
+{
+  "id": "cog-0.4-test-1",
+  "fusion_prior_weight": 0.5,
+  "fusion_conflict_gap": 0.35,
+  "fusion_reliable_quality": 0.6,
+  "category_hysteresis": 0.04,
+  "discomfort_quadratic": 0.5,
+  "discount_per_day": 0.01
+}
