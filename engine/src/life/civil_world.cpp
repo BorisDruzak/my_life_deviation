@@ -121,6 +121,7 @@ void World::civil_tick(){
     }
 }
 void World::populate_civil_view(const Actor& a,PersonalView& v)const{
+    v.civil.profile=state_.civil.profile;
     if(!state_.civil.enabled)return;
     auto& c=v.civil;c.enabled=true;c.memory=a.mind.civil;c.memory.trace.clear();c.memory.lessons.lessons.clear();
     c.budget=civil_budget(a.mind.civil,v.money,v.food,state_.now);v.need[7]=c.budget.pressure;
@@ -158,7 +159,10 @@ bool World::complete_civil_cognition(Actor& a,Operation op,Tick started){
     Thought t;t.started=started;t.basis=q->basis;t.debug_knowledge_source=q->basis;t.metric=q->kind==QuestionKind::Contact?5:7;t.origin=Origin::Inferred;t.status=Truth::Unknown;
     if(op==Operation::RecallCivilFacts){t.kind=ThoughtKind::Recall;t.detail="recall_personal_question_and_accessible_facts";emit_thought(a,t);cognition_start(a,Operation::CompareCivilFacts);return true;}
     q->pending=false;q->reviewed_basis=q->basis;++m.questions.reviews;q->actionable=false;
-    if(q->kind==QuestionKind::Clothing)q->actionable=m.garment_condition<.4||m.desired_tier>m.garment_tier;
+    if(q->kind==QuestionKind::Clothing){
+        const bool normative=norm_effects_active(state_.norm_profile.mode)&&std::any_of(a.mind.norm_context.questions.begin(),a.mind.norm_context.questions.end(),[](const auto& question){return question.active&&(question.key.practice==practice_id(NormPractice::ClothingCondition)||question.key.practice==practice_id(NormPractice::ClothingTier));});
+        q->actionable=m.garment_condition<.4||m.desired_tier>m.garment_tier||normative;
+    }
     else if(q->kind==QuestionKind::Money)q->actionable=a.mind.believed_money<civil_budget(m,a.mind.believed_money,a.mind.believed_food,state_.now).protected_cash&&a.mind.social.community.resources.assess(q->target,state_.now).may_have_spare_money;
     else if(q->kind==QuestionKind::Contact){
         const bool nearby=std::find(c.snapshot.perceived_people.begin(),c.snapshot.perceived_people.end(),q->target)!=c.snapshot.perceived_people.end();
@@ -220,13 +224,13 @@ void World::validate_civil()const{
         require_range(m.garment_condition,0,1);civil_budget(m,a.mind.believed_money,a.mind.believed_food,state_.now);
         if(const auto* g=item(s,a.equipment.garment);!g||g->wearer!=a.id)throw std::runtime_error("equipment garment link");
         std::set<Id> contacts;for(const auto& c:m.contacts)if(!c.person||!c.number||!c.source||c.at>s.now||!contacts.insert(c.person).second)throw std::runtime_error("contact knowledge provenance");
-        std::set<Id> drafts;for(const auto& draft:m.drafts)if(!draft.id||draft.id>=m.next_draft||!draft.person||draft.person>s.actors.size()||!draft.basis||draft.created>s.now||draft.retry_at<0||unsigned(draft.content.kind)>3||!drafts.insert(draft.id).second)throw std::runtime_error("draft invariant");
+        std::set<Id> drafts;for(const auto& draft:m.drafts)if(!draft.id||draft.id>=m.next_draft||!draft.person||draft.person>s.actors.size()||!draft.basis||draft.created>s.now||draft.retry_at<0||unsigned(draft.content.kind)>unsigned(LetterKind::NormPractice)||!drafts.insert(draft.id).second)throw std::runtime_error("draft invariant");
         for(const auto& lesson:m.lessons.lessons){if(!lesson.content.root||!lesson.content.teacher||lesson.at>s.now)throw std::runtime_error("lesson provenance");require_range(lesson.understanding,0,1);ProjectMemory check;check.procedures={lesson.content.procedure};check.validate(s.now);}
         if(a.equipment.side_action&&(a.equipment.side_action>=s.next_id||a.equipment.side_started>s.now))throw std::runtime_error("phone action chronology");
         if(a.equipment.side_action&&a.equipment.side_end<s.now)throw std::runtime_error("past phone action");
     }
     if(s.civil.messages.size()>512)throw std::runtime_error("phone transport capacity");
-    std::set<std::uint64_t> messages;for(const auto& e:s.civil.messages)if(unsigned(e.content.kind)>3||!e.from_number||!e.number||!e.id||!messages.insert(e.id).second||!e.sender||e.sender>s.actors.size()||e.receiver>s.actors.size()||e.sent_at>s.now||e.deliver_at<e.sent_at||(!e.delivered&&e.read))throw std::runtime_error("phone envelope invariant");
+    std::set<std::uint64_t> messages;for(const auto& e:s.civil.messages)if(unsigned(e.content.kind)>unsigned(LetterKind::NormPractice)||!e.from_number||!e.number||!e.id||!messages.insert(e.id).second||!e.sender||e.sender>s.actors.size()||e.receiver>s.actors.size()||e.sent_at>s.now||e.deliver_at<e.sent_at||(!e.delivered&&e.read))throw std::runtime_error("phone envelope invariant");
 }
 std::string World::recovery_report_json()const{
     std::ostringstream o;o.precision(17);const auto& s=state_;const auto& c=s.civil;

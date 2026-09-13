@@ -75,8 +75,9 @@ struct Ledger {
     template<class A> void fields(A& a){a(initial_food,supplied_food,eaten_food,initial_water,supplied_water,drunk_water,initial_money,wages,supplies);}
 };
 struct State {
+    NormProfile norm_profile;
     CivilRuntime civil;
-    std::string format="LIFE-0.13.0-recovery1",balance="balance-cpp-0.9.0-social1",scenario="normal";
+    std::string format="LIFE-0.14.0-norm01",balance="balance-cpp-0.9.0-social1",scenario="normal";
     SocialWorldState social;CommunityState community;LifeRuntime life;
     Seed random;Tick now=0,next_supply=86400000,next_physical=0;
     std::uint64_t next_id=1;
@@ -89,7 +90,7 @@ struct State {
     std::vector<Edge> edges;
     std::vector<Actor> actors;
     Ledger ledger;
-    template<class A> void fields(A& a){a(civil,adaptive_life,hiring,self_enabled,self_effects,format,balance,scenario,random,now,next_supply,next_physical,next_id,autonomy,people,history,roles,places,edges,actors,ledger,social,community,life);}
+    template<class A> void fields(A& a){a(norm_profile,civil,adaptive_life,hiring,self_enabled,self_effects,format,balance,scenario,random,now,next_supply,next_physical,next_id,autonomy,people,history,roles,places,edges,actors,ledger,social,community,life);}
 };
 struct EventLog {
     Tick time;Id actor;std::uint64_t event;Method method;
@@ -103,6 +104,17 @@ struct Metrics {
 };
 class World {
     State state_;
+    NormTraceSink norm_logger_;
+    void norm_tick();
+    void populate_norm_view(const Actor&,PersonalView&)const;
+    void append_norm_topics(const Actor&,std::vector<AttentionTopic>&)const;
+    bool start_norm_cognition(Actor&);
+    bool start_norm_context(Actor&,Operation resume=Operation::Recall);
+    bool complete_norm_cognition(Actor&,Operation,Tick);
+    void publish_norm_observation(Actor&,const NormObservation&);
+    void receive_norm_request(Actor&,const InteractionObservation&);
+    void validate_norm_runtime()const;
+
     void civil_tick();
     void civil_physical(Actor&,Tick elapsed);
     void populate_civil_view(const Actor&,PersonalView&)const;
@@ -205,6 +217,14 @@ class World {
     void step();
     void emit(const Actor& a,const char* kind,const char* result,const Decision* d=nullptr);
 public:
+    void configure_norm_memory(NormProfile profile={});
+    void configure_civil_budget(CivilProfile profile);
+    void bootstrap_norm_history(Id actor,const std::vector<NormObservation>& history);
+    void set_norm_logger(NormTraceSink logger){norm_logger_=std::move(logger);}
+    std::string norm_report_json()const;
+    void norm_observation_for_test(Id actor,const NormObservation& observation){publish_norm_observation(state_.actors.at(actor-1),observation);}
+    void norm_context_for_test(Id actor);
+    void propose_norm_for_test(Id actor,Interaction kind,Id other,const NormPayload& payload){Decision d;d.method=Method::Social;d.interaction=kind;d.partner=other;d.norm_payload=payload;start_social(state_.actors.at(actor-1),d);}
     void configure_recovery(bool self_effects=true);
     std::string recovery_report_json()const;
     void buy_clothes_for_test(Id actor,Id sku);
@@ -226,7 +246,7 @@ public:
     void configure_social_scene(const std::string& scene);
     void configure_community();
     std::string community_report_json()const;
-    void propose_social_for_test(Id actor,Interaction kind,Id other,Id object=0);
+    void propose_social_for_test(Id actor,Interaction kind,Id other,Id object=0,NormPayload payload={});
     void withdraw_social_for_test(Id actor);
     void use_object_for_test(Id actor,Id object);
     static World generate(std::uint64_t seed,std::size_t population=128,const std::string& scenario="normal");

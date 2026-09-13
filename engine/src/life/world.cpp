@@ -67,7 +67,7 @@ void World::project(Actor& a){
 PersonalView World::personal_view(Id id){
     rebuild_index();auto& a=state_.actors.at(id-1);project(a);auto c=capability(a.body,a.mind.cognition,a.action.phase==Phase::Asleep);
     std::vector<Id> visible;for(const auto& p:a.cog.percepts)if(p.recognized&&p.last>=state_.now-1000)visible.push_back(p.token);
-    auto view=a.mind.view(a.id,a.place,a.home,state_.now,c,perceived_needs(a,c),visible);populate_social_view(a,view);populate_economy(a,view);populate_life_view(a,view);populate_career_view(a,view);populate_civil_view(a,view);view.self_enabled=state_.self_enabled&&state_.self_effects;return view;
+    auto view=a.mind.view(a.id,a.place,a.home,state_.now,c,perceived_needs(a,c),visible);populate_social_view(a,view);populate_economy(a,view);populate_life_view(a,view);populate_career_view(a,view);populate_civil_view(a,view);populate_norm_view(a,view);view.self_enabled=state_.self_enabled&&state_.self_effects;return view;
 }
 void World::emit(const Actor& a,const char* kind,const char* result,const Decision* d){
     if(!logger_)return;
@@ -199,7 +199,7 @@ void World::process_boundary(){
     }
     if(physical_tick)community_tick();
     employment_tick();
-    civil_tick();phone_tick();
+    civil_tick();phone_tick();norm_tick();
     process_social();
     life_conversation_tick();
     // These jobs only use frozen PERSONAL inputs. Publication waits for the whole due batch.

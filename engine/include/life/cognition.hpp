@@ -7,9 +7,9 @@
 
 namespace life {
 enum class TopicKind:std::uint8_t {Internal,External,Memory,Thought,Project};
-enum class ThoughtKind:std::uint8_t {Notice,Interpret,Recall,Forecast,Compare,Intent,Question,Reply,Stale,Pause,Resume,InterpretOutcome,Attribute,SelfUpdate,Recovery,Count};
+enum class ThoughtKind:std::uint8_t {Notice,Interpret,Recall,Forecast,Compare,Intent,Question,Reply,Stale,Pause,Resume,InterpretOutcome,Attribute,SelfUpdate,Recovery,NormInterpret,NormIntegrate,NormRecall,NormCompare,NormReflect,Count};
 enum class Origin:std::uint8_t {Observed,Reported,Inferred,Imagined};
-enum class Operation:std::uint8_t {None,Interpret,Recall,Forecast,Compare,Commit,Recognize,Reply,SocialReply,SocialObserve,InterpretOutcome,AttributeOutcome,RecallCareerFacts,CompareCareerFacts,RecallCivilFacts,CompareCivilFacts};
+enum class Operation:std::uint8_t {None,Interpret,Recall,Forecast,Compare,Commit,Recognize,Reply,SocialReply,SocialObserve,InterpretOutcome,AttributeOutcome,RecallCareerFacts,CompareCareerFacts,RecallCivilFacts,CompareCivilFacts,InterpretNormObservation,IntegrateNormEvidence,RecallNormContext,CompareNormAlternatives,ReflectPersonalPrinciple};
 struct SubjectiveNeed {
     Truth status=Truth::Unknown;double mean=0,confidence=0,prior=0,prior_quality=0;
     double observation=0,quality=0;std::uint64_t source=0,prior_source=0;Tick at=0;
@@ -52,6 +52,7 @@ struct SocialExpectation {
     template<class A> void fields(A& a){a(person,accepted,refused,unpleasantness,last_reply,next_opportunity,last_event,message);}
 };
 struct CognitiveState {
+    NormCognitiveState norm;
     OpenQuestion civil_question;
     JobKnowledge career_input;CareerAssessment career_assessment;double career_own_hourly=0,career_mastery=0;bool career_employed=false;
     std::vector<OutcomeSignal> outcome_inbox;
@@ -84,7 +85,7 @@ struct CognitiveState {
     std::uint64_t current_thought=0,best_thought=0,project_id=0;bool project_paused=false;
     std::array<std::uint64_t,std::size_t(ThoughtKind::Count)> counts{};
     std::uint64_t operation_starts=0,completed_ops=0,stale_ops=0,focus_switches=0,pressure_events=0;
-    template<class A> void fields(A& a){a(civil_question,career_input,career_assessment,career_own_hourly,career_mastery,career_employed,retained_decisions,executed_decisions,fruitless_decisions,outcome_inbox,self_input,self_interpreted,recoveries,decision_experiences,outcome_published,outcome_dropped,self_integrations,recovery_integrations,observed_functioning,observed_activities,needs,no_continuation_until,candidates,context,percepts,inbox,contacts,recent,last_signal_band,episode,next_thought,situation_version,captured_mind,captured_situation,observation_sequence,focus,focus_basis,focus_kind,focus_metric,focus_person,emergency,active,operation,review_at,focus_since,rebuild_until,op_started,op_last,due,focus_priority,work,rate,rejection_bias,budget,spent,peak_slots,alternatives,cursor,social_input,snapshot,options,current,best,current_thought,best_thought,project_id,project_paused,counts,operation_starts,completed_ops,stale_ops,focus_switches,pressure_events);}
+    template<class A> void fields(A& a){a(norm,civil_question,career_input,career_assessment,career_own_hourly,career_mastery,career_employed,retained_decisions,executed_decisions,fruitless_decisions,outcome_inbox,self_input,self_interpreted,recoveries,decision_experiences,outcome_published,outcome_dropped,self_integrations,recovery_integrations,observed_functioning,observed_activities,needs,no_continuation_until,candidates,context,percepts,inbox,contacts,recent,last_signal_band,episode,next_thought,situation_version,captured_mind,captured_situation,observation_sequence,focus,focus_basis,focus_kind,focus_metric,focus_person,emergency,active,operation,review_at,focus_since,rebuild_until,op_started,op_last,due,focus_priority,work,rate,rejection_bias,budget,spent,peak_slots,alternatives,cursor,social_input,snapshot,options,current,best,current_thought,best_thought,project_id,project_paused,counts,operation_starts,completed_ops,stale_ops,focus_switches,pressure_events);}
 };
 const char* thought_kind_name(ThoughtKind kind);
 const char* metric_name(std::uint8_t metric);

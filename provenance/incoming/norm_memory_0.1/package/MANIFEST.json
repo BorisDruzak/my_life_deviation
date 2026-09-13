@@ -1,0 +1,70 @@
+{
+  "status": "implementation_plan_not_cpp_patch",
+  "files": [
+    {
+      "path": "NORM_MEMORY_0_1_IMPLEMENTATION_PLAN_RU.md",
+      "bytes": 61407,
+      "sha256": "8abe9d7cbe2e9923e4866c1acca3b475996b013adfc1c48542fd832e2fdf4995"
+    },
+    {
+      "path": "NORM_MEMORY_0_1_PROFILE.json",
+      "bytes": 1586,
+      "sha256": "1df1b7daff976ed78d9208e3ebf60a6e41fee86b210e3a115498418777fb3afc"
+    },
+    {
+      "path": "NORM_MEMORY_0_1_SPEC_RU.md",
+      "bytes": 59087,
+      "sha256": "67a471b260a3b3e966d16017787197133559e8c21feebd7efbcb986f22bc67ab"
+    },
+    {
+      "path": "NORM_MEMORY_0_1_TEST_MATRIX.json",
+      "bytes": 51530,
+      "sha256": "f5f2fd47ad4f61ef2957f8d00ea6f3006e0714a1e680c84431af2c41f354782d"
+    },
+    {
+      "path": "README_RU.md",
+      "bytes": 2884,
+      "sha256": "13ab62dbda5ae71c3bee58b207c4f2a0b5ef770468742d6eadd37d57aa217c27"
+    },
+    {
+      "path": "evidence/PLAN_VERIFICATION.json",
+      "bytes": 823,
+      "sha256": "6a949d2efc16389e38d1a2f8f92768b754a0a33f1dd198572900fd4a3a7d665b"
+    },
+    {
+      "path": "evidence/REFERENCE_RED.log",
+      "bytes": 252,
+      "sha256": "59d00bb24491dd80a1b16dab1861fec763a46320fc2f6aa1195ff162e767d85b"
+    },
+    {
+      "path": "evidence/REFERENCE_TESTS.log",
+      "bytes": 4329,
+      "sha256": "93ecb5c1f553a7a7dbc5182163197c6b6804c39b5a4cb83fa87dded637a8a701"
+    },
+    {
+      "path": "evidence/SOURCE_AUDIT.json",
+      "bytes": 4539,
+      "sha256": "0725832a8c70a07fb8b73a0ee12ccbd4a36981cbb0adf721fc8ee537eaf4351d"
+    },
+    {
+      "path": "make_matrix.py",
+      "bytes": 21254,
+      "sha256": "75cc0ddada997f88b126c0a803f3e6d6acb65bbd2f663c9058b0de085e1f2722"
+    },
+    {
+      "path": "reference/norm_math_reference.py",
+      "bytes": 7576,
+      "sha256": "b1df78556e0353d9050d37842de5a1fe84b88547db06596ecb81b5bf444ea9aa"
+    },
+    {
+      "path": "reference/test_norm_math_reference.py",
+      "bytes": 5989,
+      "sha256": "3779dd390a77f51c72b60376badcd8d4dd4619858f65274079e8fdfa359b709d"
+    },
+    {
+      "path": "verify_plan.py",
+      "bytes": 2777,
+      "sha256": "e82641d3e37435292b627b71b835a010334a915e80643980edbb9b195f735c63"
+    }
+  ]
+}

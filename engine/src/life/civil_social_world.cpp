@@ -3,6 +3,7 @@
 namespace life {
 namespace {
 const WorldObject* object(const State& s,Id id){auto i=std::lower_bound(s.social.objects.begin(),s.social.objects.end(),id,[](const auto& x,Id n){return x.id<n;});return i!=s.social.objects.end()&&i->id==id?&*i:nullptr;}
+bool civil_interaction(Interaction kind){return kind==Interaction::AskMoney||kind==Interaction::AskPhone||kind==Interaction::ExplainProcedure;}
 std::uint16_t known_steps(const Actor& a){
     std::uint16_t mask=1u<<unsigned(StepKind::Finish);
     auto add=[&](StepKind step,bool known){if(known)mask|=std::uint16_t(1u<<unsigned(step));};
@@ -17,7 +18,7 @@ std::uint16_t known_steps(const Actor& a){
 }
 }
 bool World::civil_social_transaction(SocialEvent& e){
-    if(e.kind<Interaction::AskMoney)return true;
+    if(!civil_interaction(e.kind))return true;
     if(!state_.civil.enabled)return false;
     auto& a=state_.actors.at(e.initiator-1);auto& b=state_.actors.at(e.receiver-1);
     if(e.kind==Interaction::AskMoney){

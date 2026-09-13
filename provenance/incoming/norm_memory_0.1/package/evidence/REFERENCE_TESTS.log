@@ -1,0 +1,41 @@
+test_01_empty_is_unknown (test_norm_math_reference.NormMathTests.test_01_empty_is_unknown) ... ok
+test_02_eight_of_ten (test_norm_math_reference.NormMathTests.test_02_eight_of_ten) ... ok
+test_03_uniform_scaling_changes_certainty_not_ratio_blindly (test_norm_math_reference.NormMathTests.test_03_uniform_scaling_changes_certainty_not_ratio_blindly) ... ok
+test_04_approval_has_three_outcomes (test_norm_math_reference.NormMathTests.test_04_approval_has_three_outcomes) ... ok
+test_05_explicit_prior_is_known (test_norm_math_reference.NormMathTests.test_05_explicit_prior_is_known) ... ok
+test_06_weight_only_once (test_norm_math_reference.NormMathTests.test_06_weight_only_once) ... ok
+test_07_decay_half_life (test_norm_math_reference.NormMathTests.test_07_decay_half_life) ... ok
+test_08_decay_partition (test_norm_math_reference.NormMathTests.test_08_decay_partition) ... ok
+test_09_no_clock_no_decay (test_norm_math_reference.NormMathTests.test_09_no_clock_no_decay) ... ok
+test_10_personal_principle_existing_equation (test_norm_math_reference.NormMathTests.test_10_personal_principle_existing_equation) ... ok
+test_11_no_new_reason_no_personal_learning (test_norm_math_reference.NormMathTests.test_11_no_new_reason_no_personal_learning) ... ok
+test_12_sanction (test_norm_math_reference.NormMathTests.test_12_sanction) ... ok
+test_13_unknown_sanction_is_not_zero (test_norm_math_reference.NormMathTests.test_13_unknown_sanction_is_not_zero) ... ok
+test_14_invisible_audience (test_norm_math_reference.NormMathTests.test_14_invisible_audience) ... ok
+test_15_unimportant_group (test_norm_math_reference.NormMathTests.test_15_unimportant_group) ... ok
+test_16_group_goals_not_personality (test_norm_math_reference.NormMathTests.test_16_group_goals_not_personality) ... ok
+test_17_no_group_goal (test_norm_math_reference.NormMathTests.test_17_no_group_goal) ... ok
+test_18_tension_does_not_override_hysteresis (test_norm_math_reference.NormMathTests.test_18_tension_does_not_override_hysteresis) ... ok
+test_19_hysteresis_repeat (test_norm_math_reference.NormMathTests.test_19_hysteresis_repeat) ... ok
+test_20_buffer_spending_above_reserve (test_norm_math_reference.NormMathTests.test_20_buffer_spending_above_reserve) ... ok
+test_21_buffer_new_shortfall (test_norm_math_reference.NormMathTests.test_21_buffer_new_shortfall) ... ok
+test_22_buffer_already_short_counts_increment (test_norm_math_reference.NormMathTests.test_22_buffer_already_short_counts_increment) ... ok
+test_23_subjective_money_does_not_enable_unaffordable_payment (test_norm_math_reference.NormMathTests.test_23_subjective_money_does_not_enable_unaffordable_payment) ... ok
+test_24_discount_once (test_norm_math_reference.NormMathTests.test_24_discount_once) ... ok
+test_25_specific_experience_displaces_group (test_norm_math_reference.NormMathTests.test_25_specific_experience_displaces_group) ... ok
+test_26_self_is_weak_prior_not_extra_reward (test_norm_math_reference.NormMathTests.test_26_self_is_weak_prior_not_extra_reward) ... ok
+test_27_duplicate_known_root_no_reinforcement (test_norm_math_reference.NormMathTests.test_27_duplicate_known_root_no_reinforcement) ... ok
+test_28_revision_replaces_not_adds (test_norm_math_reference.NormMathTests.test_28_revision_replaces_not_adds) ... ok
+test_29_delivery_duplicate (test_norm_math_reference.NormMathTests.test_29_delivery_duplicate) ... ok
+test_30_inconsistent_same_revision_rejected (test_norm_math_reference.NormMathTests.test_30_inconsistent_same_revision_rejected) ... ok
+test_31_invalid_input_does_not_change_evidence (test_norm_math_reference.NormMathTests.test_31_invalid_input_does_not_change_evidence) ... ok
+test_32_ledger_duplicate_rejected (test_norm_math_reference.NormMathTests.test_32_ledger_duplicate_rejected) ... ok
+test_33_ledger_present_value_not_discounted_again (test_norm_math_reference.NormMathTests.test_33_ledger_present_value_not_discounted_again) ... ok
+test_34_ledger_single_squash (test_norm_math_reference.NormMathTests.test_34_ledger_single_squash) ... ok
+test_35_validation (test_norm_math_reference.NormMathTests.test_35_validation) ... ok
+test_36_norm_tension_is_not_in_ledger (test_norm_math_reference.NormMathTests.test_36_norm_tension_is_not_in_ledger) ... ok
+
+----------------------------------------------------------------------
+Ran 36 tests in 0.001s
+
+OK

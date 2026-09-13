@@ -61,7 +61,7 @@ std::vector<Id> route(Id from,Id goal,const std::vector<KnownEdge>& edges,double
 }
 }
 namespace {
-void apply_self_forecast(const PersonalView& v,const PlanOption& idea,Decision& d){
+double prepare_self_forecast(const PersonalView& v,const PlanOption& idea,Decision& d,double detailed_coverage=0){
     d.self_domain=idea.method==Method::Social?domain_of(idea.interaction):domain_of(idea.method);
     d.self_prediction=v.self_predictions[std::size_t(d.self_domain)];
     d.goal_importance=std::max(.2,idea.method==Method::Work||idea.method==Method::Study?v.need[7]:d.self_domain==SelfDomain::Romance?v.need[6]:v.need[5]);
@@ -79,8 +79,13 @@ void apply_self_forecast(const PersonalView& v,const PlanOption& idea,Decision& 
     if(idea.method==Method::InquireJob||idea.method==Method::ApplyJob){d.uncertainty=idea.method==Method::ApplyJob?.35:.15;exposure=.3;d.goal_importance=std::max(.3,v.need[7]);}
     if(idea.method==Method::Eat||idea.method==Method::Drink||idea.method==Method::Sleep||idea.method==Method::Rest||idea.method==Method::AcquireFood||idea.method==Method::Shelter){exposure=0;d.uncertainty=.05;}
     for(const auto& project:v.life.projects)if(project.id==idea.project)d.goal_importance=project.goal.importance;
+    specific=std::max(specific,detailed_coverage);
+    if(v.self_enabled&&!d.path.empty())d.self_costs=self_cost(d.self_prediction,d.goal_importance,d.uncertainty,exposure,specific);
+    return specific;
+}
+void apply_self_forecast(const PersonalView& v,const PlanOption& idea,Decision& d){
+    const double specific=prepare_self_forecast(v,idea,d);
     if(!v.self_enabled||d.path.empty()||std::abs(d.score)>=1)return;
-    d.self_costs=self_cost(d.self_prediction,d.goal_importance,d.uncertainty,exposure,specific);
     double raw=d.score/(1-std::abs(d.score));
     if(idea.method==Method::Talk||idea.method==Method::Social){
         // A generalized acceptance belief supplies a weak prior only where
@@ -92,12 +97,85 @@ void apply_self_forecast(const PersonalView& v,const PlanOption& idea,Decision& 
     }
     d.score=cog04::squash(raw-d.self_costs.total());
 }
+std::size_t norm_index(const PersonalView& v,const NormKey& key){
+    for(std::size_t i=0;i<v.norms_view.count;++i)if(v.norms_view.considered[i].key==key)return i;
+    return v.norms_view.count;
+}
+bool new_ledger_owner(NormMode mode){return mode!=NormMode::Legacy&&mode!=NormMode::Shadow;}
+const NormPrediction* norm_prediction(const PersonalView& v,const NormPayload& payload){
+    if(!payload.present)return nullptr;const auto i=norm_index(v,payload.key);
+    return i<v.norms_view.count?&v.norms_view.considered[i]:nullptr;
+}
+NormPayload paid_payload(const PersonalView& v,NormPractice practice){
+    NormPayload payload;if(!norm_effects_active(v.norms_view.mode))return payload;
+    for(std::size_t i=0;i<v.norms_view.count;++i)if(v.norms_view.considered[i].key.practice==practice_id(practice)){
+        payload.present=true;payload.key=v.norms_view.considered[i].key;payload.evidence.key=payload.key;return payload;
+    }
+    return payload;
+}
+const NormPrediction* generic_principle_prediction(const PersonalView& v,NormPractice practice,std::uint32_t variant=0){
+    for(std::size_t i=0;i<v.norms_view.count;++i){const auto& p=v.norms_view.considered[i];
+        if(p.key.practice==practice_id(practice)&&p.key.local_group==0&&p.key.context==0&&p.key.actor_role==0&&p.key.variant==variant&&p.personal_principle_known)return &p;}
+    return nullptr;
+}
+void add_term(DecisionLedger& ledger,ConsequenceKind kind,ForecastOwner owner,double amount,Id target=0,Id object=0,std::uint64_t horizon=0,double probability=1,double time_hours=0,bool present=false,std::uint64_t revision=0,ConsequenceKnownness knownness=ConsequenceKnownness::Known,NormKey norm_key={}){
+    if(amount==0)return;ConsequenceTerm term{{kind,target,object,horizon},owner,amount,probability,time_hours,present,revision,knownness,norm_key};ledger.insert_unique(term);
+}
+ConsequenceKnownness knownness(NormOrigin origin){return origin==NormOrigin::Assumed?ConsequenceKnownness::Assumed:ConsequenceKnownness::Known;}
+int clothing_approval_order(const PersonalView& v,const PlanOption& idea){
+    if(!norm_effects_active(v.norms_view.mode)||idea.method!=Method::BuyClothes||!idea.norm_payload.present)return 0;
+    if(idea.norm_payload.key.practice!=practice_id(NormPractice::ClothingTier))return 0;
+    const auto i=norm_index(v,idea.norm_payload.key);if(i>=v.norms_view.count||v.norm_context.effects[i].group_significance<=0)return 0;
+    const auto& prediction=v.norms_view.considered[i];if(!prediction.approval_known)return 0;
+    const auto& effect=v.norm_context.effects[i];
+    const double applies=effect.applicability*(1-effect.exception);
+    const double seen=effect.audience_known?1:(prediction.seen_known?prediction.seen:0);
+    const auto sanction_cost=prediction.sanction_cost();
+    // Bounded attention must not prefer a SKU for an unavailable social outcome.
+    // Rank only the sign of its already paid, applicable normative consequence.
+    const double expected=applies*(effect.group_significance*seen*(prediction.approve*effect.approval_value-
+        (sanction_cost?0:prediction.disapprove*effect.disapproval_value))-sanction_cost.value_or(0));
+    return expected>0?1:expected<0?-1:0;
+}
+double social_specific_coverage(const PersonalView& v,const PlanOption& idea,double& approve,double& disapprove,std::uint64_t& source){
+    approve=disapprove=0;source=0;const auto* past=v.social.memory.experience(idea.interaction,idea.partner,idea.object,v.social.known_audience>0);
+    if(!past||past->approval.count<=0)return 0;
+    source=past->last_event;const double confidence=past->approval.confidence();approve=std::max(0.,past->approval.mean);disapprove=std::max(0.,-past->approval.mean);return confidence;
+}
+double add_contextual_norm_effects(const PersonalView& v,const PlanOption& idea,const SelfPrediction& self,DecisionLedger& ledger){
+    const auto* prediction=norm_prediction(v,idea.norm_payload);if(!prediction)return 0;
+    const auto i=norm_index(v,idea.norm_payload.key);const auto& effect=v.norm_context.effects[i];
+    require_range(effect.group_significance,0,1);require_range(effect.approval_value,0,1);require_range(effect.disapproval_value,0,1);require_range(effect.applicability,0,1);require_range(effect.exception,0,1);
+    const double applies=effect.applicability*(1-effect.exception);
+    double specific_approve=0,specific_disapprove=0;std::uint64_t specific_source=0;
+    const double c_specific=idea.method==Method::Social?social_specific_coverage(v,idea,specific_approve,specific_disapprove,specific_source):0;
+    const double c_norm=prediction->approval_known?prediction->approval_coverage:0;
+    const double p_norm=prediction->approval_known?prediction->approve:1./3;
+    const double self_confidence=self.axis_confidence[std::size_t(SelfAxis::Acceptance)];
+    const double approve=blend_social_outcome_probability(specific_approve,c_specific,p_norm,c_norm,self.acceptance,self_confidence);
+    const double context_disapprove=c_specific*specific_disapprove+(1-c_specific)*(prediction->approval_known?prediction->disapprove:1./3);
+    const double self_weight=.25*(1-c_specific)*(1-c_norm)*self_confidence;
+    const double disapprove=(1-self_weight)*context_disapprove;
+    const auto sanction_cost=prediction->sanction_cost();
+    const double seen=effect.audience_known?1:(prediction->seen_known?prediction->seen:0);
+    if(applies>0&&effect.group_significance>0&&seen>0){
+        const double value=applies*effect.group_significance*seen*(approve*effect.approval_value-(sanction_cost?0:disapprove*effect.disapproval_value));
+        const auto owner=c_specific>0?ForecastOwner::DirectExperience:(prediction->approval_known?ForecastOwner::NormPrior:ForecastOwner::SelfPrior);
+        const auto revision=c_specific>0?specific_source:prediction->own_revision;
+        const auto source_knownness=c_specific>0?ConsequenceKnownness::Known:knownness(prediction->approval_origin);
+        add_term(ledger,ConsequenceKind::SocialAcceptance,owner,value,effect.audience,idea.norm_payload.key.practice,1,1,0,true,revision,source_knownness,idea.norm_payload.key);
+    }
+    if(applies>0&&sanction_cost)add_term(ledger,ConsequenceKind::ExternalSanction,ForecastOwner::NormPrior,-applies * *sanction_cost,effect.audience,idea.norm_payload.key.practice,1,1,0,true,prediction->own_revision,knownness(prediction->sanction_origin),idea.norm_payload.key);
+    return std::max(c_specific,c_norm);
+}
+void finish_norm_ledger(Decision& d,DecisionLedger& ledger){d.norm_raw=ledger.present_value(cog04::cfg::discount_per_hour);d.norm_ledger=ledger.terms();d.score=ledger.score(cog04::cfg::discount_per_hour);}
 }
 const char* method_name(Method m){auto i=std::size_t(m);if(i>=method_count)throw std::invalid_argument("unknown method");return names[i];}
 const MethodSpec& method_spec(Method m){auto i=std::size_t(m);if(i>=method_count)throw std::invalid_argument("unknown method");return specs[i];}
 std::string catalogue_hash(){
-    std::string bytes="LIFE-0.9.0;BEHAVIOR-0.3;COG-0.4;balance-cpp-0.9.0-social1;graph-seconds;expected-sanctions;";
+    std::string bytes="LIFE-0.14.0-norm01;BEHAVIOR-0.3;COG-0.4;balance-cpp-0.9.0-social1;graph-seconds;expected-sanctions;";
     for(std::size_t i=0;i<method_count;++i){bytes+=names[i];bytes+=':';bytes+=std::to_string(specs[i].seconds);bytes+=':';bytes+=std::to_string(std::bit_cast<std::uint64_t>(specs[i].load));bytes+=':';bytes+=std::to_string(std::bit_cast<std::uint64_t>(specs[i].pleasure));bytes+=';';}
+    for(std::size_t i=0;i<interaction_count;++i){const auto kind=Interaction(i);bytes+=interaction_name(kind);bytes+=':';bytes+=std::to_string(interaction_duration(kind));bytes+=';';}
     return hex_sha256(bytes);
 }
 std::string baseline_catalogue_hash(){
@@ -241,7 +319,7 @@ double moral_cost(const std::vector<Aspect>& aspects){std::map<Id,double> groups
 Decision Planner::choose(const PersonalView& v,const Seed& random){
     Decision best;best.place=v.place;
     if(v.capability.gate==0)return best;
-    if(v.self_enabled){
+    if(v.self_enabled||new_ledger_owner(v.norms_view.mode)){
         Budget budget(v.capability);budget.hold(1);int considered=0;
         for(const auto& option:ideas(v,random)){
             if(considered>=v.capability.alternatives||!budget.pay(4))break;
@@ -357,7 +435,17 @@ std::vector<PlanOption> Planner::ideas(const PersonalView& v,const Seed& random)
         for(const auto& x:social_choices(v.social)){
             Method m=x.kind==Interaction::UseItem?Method::UseObject:Method::Social;
             if(!v.known[std::size_t(m)])continue;
-            PlanOption p{m,v.place,x.other,x.priority};p.interaction=x.kind;p.object=x.object;ideas.push_back(p);
+            PlanOption p{m,v.place,x.other,x.priority};p.interaction=x.kind;p.object=x.object;p.norm_payload=x.norm_payload;ideas.push_back(p);
+        }
+        if(norm_effects_active(v.norms_view.mode)&&!v.social.in_conversation&&v.known[std::size_t(Method::Talk)]){
+            // A question first proposes ordinary contact; the in-conversation
+            // pass later proposes AskPractice under the normal consent contract.
+            for(const auto& payload:v.social.norm_options){
+                if(!payload.present||!payload.question||payload.explanation||payload.key.practice==0)continue;
+                const auto ni=norm_index(v,payload.key);if(ni>=v.norms_view.count)continue;
+                const double norm_salience=v.norm_context.effects[ni].group_significance;if(norm_salience<=0)continue;
+                for(const auto& person:v.social.perceived){PlanOption p{Method::Talk,v.place,person.id,norm_salience};p.interaction=Interaction::AskPractice;p.norm_payload=payload;ideas.push_back(p);}
+            }
         }
         // An instrumental conversation can be initiated even without social hunger.
         if(!v.social.in_conversation&&v.social.memory.goal_object&&v.known[std::size_t(Method::Talk)]){
@@ -372,6 +460,7 @@ std::vector<PlanOption> Planner::ideas(const PersonalView& v,const Seed& random)
     }
     if(v.civil.enabled){auto extra=civil_options(v);ideas.insert(ideas.end(),extra.begin(),extra.end());}
     if(v.life.enabled){auto extra=project_options(v);ideas.insert(ideas.end(),extra.begin(),extra.end());}
+    if(norm_effects_active(v.norms_view.mode))for(auto& idea:ideas)if(idea.method==Method::Work&&!idea.norm_payload.present)idea.norm_payload=paid_payload(v,NormPractice::Work);
     if(v.career.enabled&&v.now>=v.career.retry_at){
         const auto stage=v.career.stage;const auto& offer=v.career.offer;
         const bool office_open=(v.now/86400000)%7<5&&v.now%86400000>=9*3600000&&v.now%86400000<17*3600000-300000;
@@ -411,7 +500,11 @@ std::vector<PlanOption> Planner::ideas(const PersonalView& v,const Seed& random)
             if(relevant)idea.salience+=.5;
         }
     }
-    std::stable_sort(ideas.begin(),ideas.end(),[](const auto&a,const auto&b){return a.salience!=b.salience?a.salience>b.salience:std::tie(a.method,a.place,a.partner,a.interaction,a.object)<std::tie(b.method,b.place,b.partner,b.interaction,b.object);});
+    std::stable_sort(ideas.begin(),ideas.end(),[&](const auto&a,const auto&b){
+        if(a.salience!=b.salience)return a.salience>b.salience;
+        if(a.method==Method::BuyClothes&&b.method==Method::BuyClothes){const auto ar=clothing_approval_order(v,a),br=clothing_approval_order(v,b);if(ar!=br)return ar>br;}
+        return std::tie(a.method,a.place,a.partner,a.interaction,a.object)<std::tie(b.method,b.place,b.partner,b.interaction,b.object);
+    });
     if(v.economy.enabled){
         std::vector<PlanOption> picked;std::set<std::pair<Method,Interaction>> represented;
         for(const auto& x:ideas)if(represented.insert({x.method,x.method==Method::Social?x.interaction:Interaction::Count}).second){picked.push_back(x);if(picked.size()==8)break;}
@@ -423,12 +516,47 @@ std::vector<PlanOption> Planner::ideas(const PersonalView& v,const Seed& random)
 }
 Decision Planner::forecast(const PersonalView& v,const PlanOption& idea){
     Decision d;d.method=idea.method;d.place=idea.place;d.partner=idea.partner;d.score=-1;
-    d.interaction=idea.interaction;d.object=idea.object;d.project=idea.project;d.project_step=idea.project_step;d.meeting=idea.meeting;
+    d.interaction=idea.interaction;d.object=idea.object;d.project=idea.project;d.project_step=idea.project_step;d.meeting=idea.meeting;d.norm_payload=idea.norm_payload;
     if(idea.method==Method::Social||idea.method==Method::UseObject){
         if(!v.known[std::size_t(idea.method)]||v.capability.gate==0)return d;
-        auto social=v.social;social.proposal=idea.meeting;const auto e=evaluate_social(social,idea.interaction,idea.partner,idea.object);
+        auto social=v.social;social.proposal=idea.meeting;social.norms_view=v.norms_view;social.norm_context=v.norm_context;social.norm_payload=idea.norm_payload;const auto e=evaluate_social(social,idea.interaction,idea.partner,idea.object);
         d.social_evaluation=e;d.score=e.score;d.moral=e.moral;d.risk=e.devaluation*.35;
         if(e.known){d.path={v.place};}
+        if(new_ledger_owner(v.norms_view.mode)&&e.known){
+            validate_social_evaluation(e);
+            const double hours=double(interaction_duration(idea.interaction))/3600000.;
+            prepare_self_forecast(v,idea,d);
+            DecisionLedger ledger;
+            const double detailed=norm_effects_active(v.norms_view.mode)?add_contextual_norm_effects(v,idea,d.self_prediction,ledger):0;
+            prepare_self_forecast(v,idea,d,detailed);
+            const double benefit=.35*e.pleasure+.30*v.need[5]+(.40*v.social.memory.status_importance*e.status_gain)+.65*e.instrumental;
+            const double expected=e.acceptance*benefit;
+            const bool project_continuation=v.life.enabled&&idea.project;
+            double personal_expected=0;
+            if(!project_continuation)for(std::size_t j=0;j<e.normative_effect_count;++j)
+                personal_expected+=e.acceptance*.65*e.normative_effects[j].instrumental_value;
+            if(project_continuation){const double atomic_now=expected*std::exp(-cog04::cfg::discount_per_hour*hours);add_term(ledger,ConsequenceKind::Enjoyment,ForecastOwner::Procedure,std::max(atomic_now,project_forecast(v,idea)),idea.partner,idea.object,0,1,0,true);}
+            else {
+                add_term(ledger,ConsequenceKind::Enjoyment,ForecastOwner::DirectExperience,expected-personal_expected,idea.partner,idea.object,0,1,hours,false);
+            }
+            if(norm_effects_active(v.norms_view.mode)){
+                for(std::size_t j=0;j<e.normative_effect_count;++j){const auto& component=e.normative_effects[j];
+                    double amount=-component.moral_cost-component.repetition_cost;
+                    if(!project_continuation)amount+=e.acceptance*.65*component.instrumental_value*std::exp(-cog04::cfg::discount_per_hour*hours);
+                    add_term(ledger,ConsequenceKind::PersonalPrinciple,ForecastOwner::NormPrior,amount,v.self,component.key.practice,0,1,0,true,component.source_revision,knownness(component.origin),component.key);
+                }
+                add_term(ledger,ConsequenceKind::PersonalPrinciple,ForecastOwner::Procedure,-e.assumed_normative_moral,v.self,std::uint32_t(idea.interaction)+1,0,1,0,true,e.assumed_normative_source_version,ConsequenceKnownness::Assumed);
+            }
+            add_term(ledger,ConsequenceKind::ResidualUncertainty,ForecastOwner::Procedure,-e.practical_moral,v.self,idea.object?idea.object:std::uint32_t(idea.interaction)+1,0,1,0,true,e.practical_moral_source_revision,ConsequenceKnownness::Assumed);
+            double normative_repetition=0;for(std::size_t j=0;j<e.normative_effect_count;++j)normative_repetition+=e.normative_effects[j].repetition_cost;
+            add_term(ledger,ConsequenceKind::Switching,ForecastOwner::DirectExperience,-std::max(0.,e.repetition-normative_repetition),idea.partner,std::uint32_t(idea.interaction)+1,0);
+            const double refusal=(1-e.acceptance)*(.03+.1*v.social.memory.rejection_sensitivity);
+            add_term(ledger,ConsequenceKind::ResidualUncertainty,ForecastOwner::DirectExperience,-refusal,idea.partner,std::uint32_t(idea.interaction)+1,0);
+            add_term(ledger,ConsequenceKind::Time,ForecastOwner::PhysicalModel,-hours/24*.10,v.self,0,0,1,0,true);
+            add_term(ledger,ConsequenceKind::ResidualUncertainty,ForecastOwner::SelfPrior,-d.self_costs.total(),v.self,std::uint32_t(d.self_domain)+1,1);
+            finish_norm_ledger(d,ledger);d.risk=0;for(const auto& term:d.norm_ledger)if(term.key.kind==ConsequenceKind::ExternalSanction)d.risk-=term.amount;
+            return d;
+        }
         if(e.known&&v.life.enabled&&idea.project){const double continuation=project_forecast(v,idea);
             d.score=std::max(d.score,cog04::squash(continuation-e.moral-e.repetition-e.devaluation*.35));}
         apply_self_forecast(v,idea,d);return d;
@@ -478,12 +606,44 @@ Decision Planner::forecast(const PersonalView& v,const PlanOption& idea){
     }
 
     const double hours=(travel+method_spec(idea.method).seconds)/3600.;
-    d.moral=cog04::norm_response(v.norms[i],1,1,0,1,0,1).resistance;
-    d.risk=v.risks[i];d.resource_cost=idea.method==Method::AcquireFood?place->price/(v.economy.enabled?100.:25.):0;
+    const bool norm_effects=norm_effects_active(v.norms_view.mode);
+    const bool use_norm_ledger=new_ledger_owner(v.norms_view.mode);
+    if(!use_norm_ledger){
+        d.moral=cog04::norm_response(v.norms[i],1,1,0,1,0,1).resistance;
+        d.risk=v.risks[i];
+    }
+    d.resource_cost=idea.method==Method::AcquireFood?place->price/(v.economy.enabled?100.:25.):0;
     if(v.economy.enabled&&idea.method==Method::Leisure)d.resource_cost=place->price/100.;
     if(v.economy.enabled&&idea.method==Method::Study)d.resource_cost=4./100.;
     if(v.civil.enabled&&idea.method==Method::BuyClothes)for(const auto& shop:v.civil.memory.shops)if(shop.place==idea.place)for(const auto& offer:shop.offers)if(offer.sku==idea.object)d.resource_cost=offer.price/300.;
     d.time_cost=hours/24*.10;
+    if(use_norm_ledger){
+        const NormPrediction* personal_prediction=nullptr;
+        if(norm_effects&&idea.method==Method::TakeFood)personal_prediction=generic_principle_prediction(v,NormPractice::Property,1);
+        if(norm_effects&&idea.method==Method::PrivateIntimacy)personal_prediction=generic_principle_prediction(v,NormPractice::PersonalRomance,1);
+        if(personal_prediction)d.moral=personal_prediction->personal_resistance;
+        prepare_self_forecast(v,idea,d);
+        DecisionLedger norm_ledger;
+        const double detailed=norm_effects?add_contextual_norm_effects(v,idea,d.self_prediction,norm_ledger):0;
+        prepare_self_forecast(v,idea,d,detailed);
+        ConsequenceKind benefit_kind=ConsequenceKind::Enjoyment;
+        if(idea.method==Method::Eat||idea.method==Method::Drink||idea.method==Method::Sleep||idea.method==Method::Rest||idea.method==Method::Shelter)benefit_kind=ConsequenceKind::BodilyRelief;
+        if(idea.method==Method::AcquireFood||idea.method==Method::BuyClothes)benefit_kind=ConsequenceKind::MaterialAccess;
+        if(v.life.enabled&&idea.project){const double atomic_now=expected*std::exp(-cog04::cfg::discount_per_hour*hours);add_term(norm_ledger,benefit_kind,ForecastOwner::Procedure,std::max(atomic_now,project_forecast(v,idea)),idea.partner,idea.object,0,1,0,true);}
+        else add_term(norm_ledger,benefit_kind,ForecastOwner::DirectExperience,expected,idea.partner,idea.object,0,1,hours,false);
+        add_term(norm_ledger,ConsequenceKind::Resource,ForecastOwner::PhysicalModel,-d.resource_cost,v.self,idea.object,0);
+        if(idea.method==Method::BuyClothes&&v.civil.profile.budget_policy==BudgetPolicy::Deliberative){
+            double price=0;for(const auto& shop:v.civil.memory.shops)if(shop.place==idea.place)for(const auto& offer:shop.offers)if(offer.sku==idea.object)price=offer.price;
+            const double reserve=v.civil.budget.protected_cash;const double before=std::max(0.,reserve-v.money);const double after=std::max(0.,reserve-(v.money-price));
+            const double buffer=v.civil.profile.risk_importance*(after-before)/std::max(1.,reserve);
+            add_term(norm_ledger,ConsequenceKind::Resource,ForecastOwner::PhysicalModel,-buffer,v.self,idea.object,1);
+        }
+        if(personal_prediction)add_term(norm_ledger,ConsequenceKind::PersonalPrinciple,ForecastOwner::NormPrior,-d.moral,v.self,personal_prediction->key.practice,0,1,0,true,personal_prediction->own_revision,knownness(personal_prediction->personal_origin),personal_prediction->key);
+        add_term(norm_ledger,ConsequenceKind::Time,ForecastOwner::PhysicalModel,-d.time_cost,v.self,0,0,1,0,true);
+        add_term(norm_ledger,ConsequenceKind::ResidualUncertainty,ForecastOwner::SelfPrior,-d.self_costs.total(),v.self,std::uint32_t(d.self_domain)+1,1);
+        finish_norm_ledger(d,norm_ledger);for(const auto& term:d.norm_ledger)if(term.key.kind==ConsequenceKind::ExternalSanction)d.risk-=term.amount;
+        return d;
+    }
     cog04::Ledger ledger;
     if(v.life.enabled&&idea.project){
         // The goal continuation is already valued at NOW. Compare it with the

@@ -10,9 +10,9 @@
 
 namespace life {
 void World::validate()const{
-    const auto& s=state_;validate_social_world();validate_life();validate_self_runtime();validate_career();validate_civil();
+    const auto& s=state_;validate_social_world();validate_life();validate_self_runtime();validate_career();validate_civil();validate_norm_runtime();
     auto ensure=[](bool condition,const std::string& what){if(!condition)throw std::runtime_error("world invariant: "+what);};
-    ensure(s.format=="LIFE-0.13.0-recovery1"&&(s.balance=="balance-cpp-0.9.0-social1"||s.balance=="community-0.10-test2"||s.balance=="life-projects-0.11-experimental1"||s.balance=="self01-adaptive-1"||s.balance=="recovery-0.13-1"),"unsupported format or balance");
+    ensure(s.format=="LIFE-0.14.0-norm01"&&(s.balance=="balance-cpp-0.9.0-social1"||s.balance=="community-0.10-test2"||s.balance=="life-projects-0.11-experimental1"||s.balance=="self01-adaptive-1"||s.balance=="recovery-0.13-1"),"unsupported format or balance");
     ensure(s.random.catalog==catalogue_hash(),"catalogue mismatch");
     ensure(s.scenario=="normal"||s.scenario=="scarcity"||s.scenario=="closed-road","unsupported scenario");
     ensure(s.now>=0,"clock must be nonnegative");
@@ -92,7 +92,7 @@ std::string World::summary_json()const{
         min_degree=std::min(min_degree,a.mind.relations.size());max_degree=std::max(max_degree,a.mind.relations.size());degree_sum+=a.mind.relations.size();
     }
     const double n=double(s.actors.size());std::ostringstream out;out.precision(12);
-    out<<"{\"version\":\"0.13.0-recovery1\",\"balance\":\""<<s.balance<<"\",\"catalogue\":\""<<s.random.catalog<<"\",\"seed\":"<<s.random.value<<",\"scenario\":\""<<s.scenario<<"\",\"seconds\":"<<s.now/1000<<",\"population\":"<<s.actors.size()<<",\"alive\":"<<alive<<",\"hash\":\""<<hash()<<"\",\"actions\":{";
+    out<<"{\"version\":\"0.14.0-norm01\",\"balance\":\""<<s.balance<<"\",\"catalogue\":\""<<s.random.catalog<<"\",\"seed\":"<<s.random.value<<",\"scenario\":\""<<s.scenario<<"\",\"seconds\":"<<s.now/1000<<",\"population\":"<<s.actors.size()<<",\"alive\":"<<alive<<",\"hash\":\""<<hash()<<"\",\"actions\":{";
     for(std::size_t i=0;i<method_count;++i){if(i)out<<',';out<<'\"'<<method_name(Method(i))<<"\":"<<actions[i];}
     out<<"},\"failures\":"<<failures<<",\"unpermitted_takes\":"<<violations<<",\"critical_actor_seconds\":"<<critical<<",\"min_energy\":"<<min_energy<<",\"min_water\":"<<min_water<<",\"max_damage\":"<<max_damage;
     out<<",\"means\":{\"energy\":"<<energy/n<<",\"water\":"<<water/n<<",\"sleep_pressure\":"<<sleep/n<<",\"leisure\":"<<leisure/n<<",\"social\":"<<social/n<<",\"desire\":"<<desire/n<<"},\"acquired_pairs\":"<<weights<<",\"learning_episodes\":"<<episodes;

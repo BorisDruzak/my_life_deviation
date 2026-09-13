@@ -11,7 +11,7 @@ namespace life {
 // known/self-described attribute; it does NOT encode preference or morality.
 enum class Gender:std::uint8_t {Unknown,Woman,Man};
 enum class Interaction:std::uint8_t {
-    FriendlyTouch,RomanticTouch,Compliment,AskInfo,ShowItem,BorrowItem,ReturnItem,ClaimItem,UseItem,ShareNews,DiscussTopic,Introduce,InviteMeeting,PartnerIntimacy,RequestWork,PraiseWork,AskMoney,AskPhone,ExplainProcedure,Count
+    FriendlyTouch,RomanticTouch,Compliment,AskInfo,ShowItem,BorrowItem,ReturnItem,ClaimItem,UseItem,ShareNews,DiscussTopic,Introduce,InviteMeeting,PartnerIntimacy,RequestWork,PraiseWork,AskMoney,AskPhone,ExplainProcedure,AskPractice,ExplainPractice,ApprovePractice,DisapprovePractice,Count
 };
 constexpr std::size_t interaction_count=std::size_t(Interaction::Count);
 enum class SocialNorm:std::uint8_t {Boundary,Privacy,Property,Modesty,PersonalRomance,Honesty,Promise,Count};
@@ -64,6 +64,7 @@ struct ContextExperience {
     template<class A>void fields(A& a){a(kind,person,object,public_context,pleasure,approval,accepted,refused,attempts,boundaries,incoming,issued_boundaries,last,last_event);}
 };
 struct InteractionObservation {
+    NormPayload norm_payload;
     std::uint64_t phone_number=0;bool procedure_present=false;ProcedureLesson procedure;
     std::uint64_t delivery=0,event=0,parent=0;Id other=0,object=0;
     Interaction kind=Interaction::FriendlyTouch;SocialStage stage=SocialStage::Offer;
@@ -73,7 +74,7 @@ struct InteractionObservation {
     MethodBelief lesson;Interaction lesson_kind=Interaction::FriendlyTouch;bool lesson_present=false;
     Information information;bool information_present=false;
     MeetingProposal meeting;std::uint64_t project=0,outcome_source=0;
-    template<class A>void fields(A& a){a(phone_number,procedure_present,procedure,delivery,event,parent,other,object,kind,stage,reason,public_context,initiated,pleasure,primary_pleasure,approval,dose,pleasure_observed,approval_observed,at,item,item_present,lesson,lesson_kind,lesson_present,information,information_present,meeting,project,outcome_source);}
+    template<class A>void fields(A& a){a(norm_payload,phone_number,procedure_present,procedure,delivery,event,parent,other,object,kind,stage,reason,public_context,initiated,pleasure,primary_pleasure,approval,dose,pleasure_observed,approval_observed,at,item,item_present,lesson,lesson_kind,lesson_present,information,information_present,meeting,project,outcome_source);}
 };
 struct SocialMemory {
     CommunityMemory community;
@@ -109,6 +110,7 @@ struct SocialTraits {
     template<class A>void fields(A& a){a(pleasure,attraction,admiration,preference);}
 };
 struct SocialView {
+    NormDecisionView norms_view;NormPlanContext norm_context;NormPayload norm_payload;std::vector<NormPayload> norm_options;
     bool civil_enabled=false,has_phone=false;double help_budget=0;
     std::vector<Id> help_people,unknown_numbers,teachable;
     bool enabled=false,in_conversation=false,occupied=false;Id self=0,partner=0,place=0;
@@ -124,15 +126,25 @@ struct SocialView {
     bool life_enabled=false;double need_desire=0;
     Id supervisor=0;bool employed=false;
     MeetingProposal proposal;
-    template<class A>void fields(A& a){a(civil_enabled,has_phone,help_budget,help_people,unknown_numbers,teachable,enabled,in_conversation,occupied,self,partner,place,now,parent,known_audience,memory,perceived,familiarities,need_social,need_leisure,life_enabled,need_desire,supervisor,employed,proposal);}
+    template<class A>void fields(A& a){a(norms_view,norm_context,norm_payload,norm_options,civil_enabled,has_phone,help_budget,help_people,unknown_numbers,teachable,enabled,in_conversation,occupied,self,partner,place,now,parent,known_audience,memory,perceived,familiarities,need_social,need_leisure,life_enabled,need_desire,supervisor,employed,proposal);}
+};
+struct NormativeEffectComponent {
+    NormKey key{};std::uint64_t source_revision=0;NormOrigin origin{};
+    double moral_cost=0,repetition_cost=0,instrumental_value=0;
+    template<class A>void fields(A& a){a(key,source_revision,origin,moral_cost,repetition_cost,instrumental_value);}
 };
 struct SocialEvaluation {
     bool known=false;double score=0,pleasure=0,acceptance=.5,moral=0,devaluation=0,status_gain=0;
     double instrumental=0,repetition=0;std::uint64_t basis=0;
-    template<class A>void fields(A& a){a(known,score,pleasure,acceptance,moral,devaluation,status_gain,instrumental,repetition,basis);}
+    double personal_instrumental=0;NormKey personal_instrumental_key{};std::uint64_t personal_instrumental_revision=0;
+    std::array<NormativeEffectComponent,4> normative_effects{};std::uint8_t normative_effect_count=0;
+    double practical_moral=0;std::uint64_t practical_moral_source_revision=0;
+    double assumed_normative_moral=0;std::uint64_t assumed_normative_source_version=0;
+    template<class A>void fields(A& a){a(known,score,pleasure,acceptance,moral,devaluation,status_gain,instrumental,repetition,basis,personal_instrumental,personal_instrumental_key,personal_instrumental_revision,normative_effects,normative_effect_count,practical_moral,practical_moral_source_revision,assumed_normative_moral,assumed_normative_source_version);}
 };
+void validate_social_evaluation(const SocialEvaluation& evaluation);
 SocialEvaluation evaluate_social(const SocialView& view,Interaction kind,Id partner,Id object,bool receiving=false);
-struct SocialChoice {Interaction kind;Id other=0,object=0;double priority=0;};
+struct SocialChoice {Interaction kind;Id other=0,object=0;double priority=0;NormPayload norm_payload;};
 std::vector<SocialChoice> social_choices(const SocialView& view);
 
 struct WorldObject {
@@ -148,6 +160,7 @@ struct Loan {
     template<class A>void fields(A& a){a(id,object,lender,borrower,due,returned);}
 };
 struct SocialEvent {
+    NormPayload norm_payload;
     bool procedure_present=false;ProcedureLesson procedure;
     std::uint64_t id=0,parent=0;Id initiator=0,receiver=0,object=0;
     Interaction kind=Interaction::FriendlyTouch;SocialPhase phase=SocialPhase::Proposed;
@@ -157,7 +170,7 @@ struct SocialEvent {
     double primary_a=0,primary_b=0,pleasure_a=0,pleasure_b=0,approval_a=0,approval_b=0;
     SocialEvaluation response;Information information;bool information_present=false;std::vector<Id> listeners;std::vector<std::uint64_t> listener_parents;
     MeetingProposal meeting;std::uint64_t project=0,outcome_source=0;
-    template<class A>void fields(A& a){a(procedure_present,procedure,id,parent,initiator,receiver,object,kind,phase,reason,proposed_at,answered_at,ends,public_a,public_b,primary_a,primary_b,pleasure_a,pleasure_b,approval_a,approval_b,response,information,information_present,listeners,listener_parents,meeting,project,outcome_source);}
+    template<class A>void fields(A& a){a(norm_payload,procedure_present,procedure,id,parent,initiator,receiver,object,kind,phase,reason,proposed_at,answered_at,ends,public_a,public_b,primary_a,primary_b,pleasure_a,pleasure_b,approval_a,approval_b,response,information,information_present,listeners,listener_parents,meeting,project,outcome_source);}
 };
 struct SocialWorldState {
     std::vector<WorldObject> objects;

@@ -1,12 +1,20 @@
-# My Life Deviation — RECOVERY 0.13
+# My Life Deviation — NORM-MEMORY 0.14
 
-Headless C++20 NPC simulation without LLM. The active RECOVERY 0.13 engine
+Headless C++20 NPC simulation without LLM. NORM-MEMORY 0.14 adds subjective
+practice evidence, explicit personal principles, paid norm deliberation, typed
+conversations and phone messages, and a unique consequence ledger. Legacy mode
+remains the default. The underlying RECOVERY 0.13 engine
 extends SELF 0.12 with subjective resource facts, owned clothing and funded
 exchange, protected budgets and monetary help, learned procedures, and delayed
 private text communication. The complete former active release remains under
 `legacy/cpp_0.12/`.
 
 Primary references:
+
+- [NORM-MEMORY specification](docs/rules/norm_memory_0.1/SPEC_RU.md)
+- [NORM-MEMORY implementation plan](docs/superpowers/plans/2026-09-13-norm-memory-0.1.md)
+- [NORM-MEMORY architecture](docs/architecture/norm_memory_0.1/IMPLEMENTATION.md)
+- [NORM-MEMORY implementation and verification status](docs/verification/norm_memory_0.1/IMPLEMENTATION_STATUS.md)
 
 - [RECOVERY rules](docs/rules/recovery_0.13/SPEC_RU.md)
 - [implementation plan](docs/architecture/recovery_0.13/PLAN_RU.md)
@@ -59,6 +67,19 @@ adaptive-employment mechanics. It keeps NPC knowledge distinct from objective
 state: a visible garment is not proof of ownership, and another NPC's balance
 is unavailable unless learned through an allowed information path.
 
-Save format: `LIFE-SAVE-0.13.0-recovery1-r1`. Older saves are rejected
+Save format: `LIFE-SAVE-0.14.0-norm01-r2`. Older saves are rejected
 explicitly; no hidden migration reinterprets psychological history or item
 ownership.
+
+## Norm memory scenario
+
+```powershell
+& .\out\build\windows-msvc-release\Release\life_sim.exe --norm-mode enabled --population 16 --seed 42 --days 1 --norm-state norms.json --norm-trace norms.jsonl --summary summary.json
+```
+
+`--norm-mode` supports `legacy`, `shadow`, `enabled`, `frozen-learning`, and
+`no-effects`. It includes the recovery scenario. `--budget-policy guarded`
+preserves protected cash; `deliberative` prices the incremental reserve shortfall.
+The profile JSON documents compiled defaults; it is not an arbitrary runtime JSON
+loader. Saved worlds carry their complete profile and cannot be reconfigured by
+these CLI flags during load. All modes use the new save format.

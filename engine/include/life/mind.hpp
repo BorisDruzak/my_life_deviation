@@ -1,5 +1,7 @@
 #pragma once
 #include "life/numeric.hpp"
+#include "life/norm_runtime.hpp"
+#include "life/decision_ledger.hpp"
 #include "life/self_model.hpp"
 #include "life/career.hpp"
 #include "life/seed.hpp"
@@ -122,6 +124,7 @@ struct KnownPlace {
 };
 constexpr std::uint32_t service(Method m){return 1u<<std::uint8_t(m);}
 struct Decision {
+    NormPayload norm_payload;std::vector<ConsequenceTerm> norm_ledger;double norm_raw=0;
     SelfDomain self_domain=SelfDomain::General; SelfCost self_costs{};
     double uncertainty=0,goal_importance=0; SelfPrediction self_prediction{};
     Method method=Method::Idle;Id place=0,partner=0;std::vector<Id> path;
@@ -129,9 +132,10 @@ struct Decision {
     int operations=0,peak_slots=0,alternatives=0;
     Interaction interaction=Interaction::FriendlyTouch;Id object=0;SocialEvaluation social_evaluation;
     std::uint64_t project=0;StepKind project_step=StepKind::Visit;MeetingProposal meeting{};
-    template<class A> void fields(A& a){a(self_domain,self_costs.failure_exposure,self_costs.uncertainty_cost,self_costs.helplessness_cost,uncertainty,goal_importance,self_prediction,method,place,partner,path,score,moral,risk,resource_cost,time_cost,operations,peak_slots,alternatives,interaction,object,social_evaluation,project,project_step,meeting);}
+    template<class A> void fields(A& a){a(norm_payload,norm_ledger,norm_raw,self_domain,self_costs.failure_exposure,self_costs.uncertainty_cost,self_costs.helplessness_cost,uncertainty,goal_importance,self_prediction,method,place,partner,path,score,moral,risk,resource_cost,time_cost,operations,peak_slots,alternatives,interaction,object,social_evaluation,project,project_step,meeting);}
 };
 struct PersonalView {
+    NormDecisionView norms_view;NormPlanContext norm_context;
     CivilPlanView civil;
     CareerPlanView career;
     bool self_enabled=false;
@@ -149,12 +153,13 @@ struct PersonalView {
     std::vector<KnownEdge> map;
     std::vector<Id> perceived_people;
     SocialView social;EconomyView economy;LifePlanView life;int focus_metric=-1;
-    template<class A> void fields(A& a){a(civil,career,self_enabled,self_predictions,self,place,home,now,episode,capability,need,money,food,known,forecasts,norms,risks,places,map,perceived_people,social,economy,life,focus_metric);}
+    template<class A> void fields(A& a){a(norms_view,norm_context,civil,career,self_enabled,self_predictions,self,place,home,now,episode,capability,need,money,food,known,forecasts,norms,risks,places,map,perceived_people,social,economy,life,focus_metric);}
 };
 struct PlanOption {
     Method method=Method::Idle; Id place=0,partner=0; double salience=0;Interaction interaction=Interaction::FriendlyTouch;Id object=0;
     std::uint64_t project=0;StepKind project_step=StepKind::Visit;MeetingProposal meeting{};
-    template<class A> void fields(A& a){a(method,place,partner,salience,interaction,object,project,project_step,meeting);}
+    NormPayload norm_payload;
+    template<class A> void fields(A& a){a(method,place,partner,salience,interaction,object,project,project_step,meeting,norm_payload);}
 };
 std::vector<PlanOption> project_options(const PersonalView& view);
 double project_forecast(const PersonalView& view,const PlanOption& option);
@@ -165,6 +170,7 @@ public:
     static Decision forecast(const PersonalView& view,const PlanOption& option);
 };
 struct Mind {
+    NormMemory norm_memory;NormContextMemory norm_context;
     CivilMemory civil;
     CareerMemory career;
     SelfModel self;
@@ -185,6 +191,6 @@ struct Mind {
     const Relation* relation(Id id)const;
     bool experience_contact(Id person,std::uint64_t episode,Tick now,double seconds,double pleasure,Id place,bool introduced=false);
     PersonalView view(Id self,Id place,Id home,Tick now,const Capability& c,const Outcomes& need,const std::vector<Id>& visible)const;
-    template<class A> void fields(A& a){a(civil,career,self,cognition,attention,learning,knowledge,relations,places,map,known,priors,norms,risks,decisions,version,believed_food,believed_money,social,projects);}
+    template<class A> void fields(A& a){a(norm_memory,norm_context,civil,career,self,cognition,attention,learning,knowledge,relations,places,map,known,priors,norms,risks,decisions,version,believed_food,believed_money,social,projects);}
 };
 } // namespace life

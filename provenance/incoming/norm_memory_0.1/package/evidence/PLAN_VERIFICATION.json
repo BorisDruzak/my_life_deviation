@@ -1,0 +1,24 @@
+{
+  "created_at_utc": "2026-09-13T08:23:22.639646+00:00",
+  "kind": "verification_of_plan_and_pure_formula_reference",
+  "future_cpp_acceptance_cases": 87,
+  "implementation_stages": 12,
+  "math_reference_tests": 36,
+  "math_reference_returncode": 0,
+  "command": [
+    "/opt/pyvenv/bin/python",
+    "-m",
+    "unittest",
+    "-v",
+    "test_norm_math_reference"
+  ],
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "seconds": 0.864859,
+  "cpp_tests_executed": false,
+  "future_norm_worlds_executed": false,
+  "inspected_source_files_unchanged": 586,
+  "markdown_fences_balanced": true,
+  "planned_test_ids_and_stage_ranges_match": true,
+  "reference_scope": "selected equations, known-source revision and unique-consequence ledger; not all new runtime semantics",
+  "package_status": "plan_not_patch"
+}

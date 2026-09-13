@@ -1,5 +1,6 @@
 #pragma once
 #include "life/community.hpp"
+#include "life/norm_runtime.hpp"
 #include "life/projects.hpp"
 #include "life/activity_resources.hpp"
 #include <optional>
@@ -23,12 +24,12 @@ struct LessonMemory {
     template<class A>void fields(A& a){a(lessons,retired_root,received);}
 };
 bool learn_procedure(ProjectMemory&,LessonMemory&,const ProcedureLesson&,std::uint16_t known_steps,double understanding,Tick now);
-enum class LetterKind:std::uint8_t {Greeting,Information,Procedure,CancelMeeting};
+enum class LetterKind:std::uint8_t {Greeting,Information,Procedure,CancelMeeting,NormPractice};
 struct LetterContent {
-    LetterKind kind=LetterKind::Greeting;
+    LetterKind kind=LetterKind::Greeting;NormPayload norm_payload;
     Information information;ProcedureLesson lesson;
     std::uint64_t appointment=0;bool reply=false;
-    template<class A>void fields(A& a){a(kind,information,lesson,appointment,reply);}
+    template<class A>void fields(A& a){a(kind,information,lesson,appointment,reply,norm_payload);}
 };
 struct PhoneAddress {Id person=0;std::uint64_t number=0,source=0;Tick at=0;template<class A>void fields(A& a){a(person,number,source,at);}};
 struct Draft {
@@ -63,10 +64,13 @@ struct CivilEquipment {
     Tick side_started=0,side_end=0;bool reading=false;
     template<class A>void fields(A& a){a(garment,phone,side_action,message,draft,side_started,side_end,reading);}
 };
+enum class BudgetPolicy:std::uint8_t {GuardedBaseline,Deliberative};
+struct CivilProfile {BudgetPolicy budget_policy=BudgetPolicy::GuardedBaseline;double risk_importance=1;template<class A>void fields(A& a){a(budget_policy,risk_importance);}};
 struct CivilPlanView {
+    CivilProfile profile;
     bool enabled=false,can_text=false;CivilMemory memory;CivilBudget budget;
     std::vector<Id> help_candidates;
-    template<class A>void fields(A& a){a(enabled,can_text,memory,budget.protected_cash,budget.clothing_goal,budget.leisure_goal,budget.target,budget.pressure,help_candidates);}
+    template<class A>void fields(A& a){a(profile,enabled,can_text,memory,budget.protected_cash,budget.clothing_goal,budget.leisure_goal,budget.target,budget.pressure,help_candidates);}
 };
 struct RetailStock {Id object=0,place=0,sku=0;double price=0;bool sold=false;template<class A>void fields(A& a){a(object,place,sku,price,sold);}};
 struct RetailShop {Id place=0,organization=0;std::vector<RetailOffer> catalogue;template<class A>void fields(A& a){a(place,organization,catalogue);}};
@@ -76,11 +80,12 @@ struct Envelope {
     template<class A>void fields(A& a){a(id,number,source_action,from_number,sender,receiver,content,sent_at,deliver_at,delivered,read,failed);}
 };
 struct CivilRuntime {
+    CivilProfile profile;
     bool enabled=false;Tick next_supply=86400000,next_observe=0;
     std::vector<RetailShop> shops;std::vector<RetailStock> stock;std::vector<Envelope> messages;
     std::uint64_t garments_initial=0,garments_supplied=0,purchases=0,sends=0,deliveries=0,reads=0,failed_messages=0,gifts=0,lessons=0;
     double money_transferred=0;std::vector<CivilTrace> trace;
-    template<class A>void fields(A& a){a(enabled,next_supply,next_observe,shops,stock,messages,garments_initial,garments_supplied,purchases,sends,deliveries,reads,failed_messages,gifts,lessons,money_transferred,trace);}
+    template<class A>void fields(A& a){a(profile,enabled,next_supply,next_observe,shops,stock,messages,garments_initial,garments_supplied,purchases,sends,deliveries,reads,failed_messages,gifts,lessons,money_transferred,trace);}
 };
 struct PersonalView;struct PlanOption;struct Decision;
 std::vector<PlanOption> civil_options(const PersonalView&);

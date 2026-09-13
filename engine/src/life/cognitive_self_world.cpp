@@ -41,6 +41,13 @@ void World::configure_self_model(bool effects){
     validate_self_runtime();
 }
 void World::capture_self_decision(Actor& a,std::uint64_t action,const Decision& d){
+    if(norm_logger_&&state_.norm_profile.mode!=NormMode::Legacy){NormTrace row;row.at=state_.now;row.actor=a.id;row.kind="action";row.reason=method_name(d.method);row.key=d.norm_payload.key;row.action=action;row.question=a.cog.norm.plan_context.question_id;row.own_revision=a.mind.norm_memory.revision();row.value=d.norm_raw;norm_logger_(row);}
+    if(norm_effects_active(state_.norm_profile.mode)){
+        if(d.method==Method::BuyClothes)for(const auto& shop:a.mind.civil.shops)for(const auto& offer:shop.offers)if(offer.sku==d.object)a.mind.civil.desired_tier=offer.tier;
+        if(d.method==Method::Social&&d.norm_payload.question)for(auto& q:a.mind.norm_context.questions)if(q.key==d.norm_payload.key){q.waiting=true;q.pending=false;++a.mind.norm_context.revision;}
+        if(d.method==Method::Social&&d.norm_payload.explanation){a.cog.norm.request.question=false;++a.cog.situation_version;}
+        if(d.method==Method::Social&&d.norm_payload.present&&!d.norm_payload.question)std::erase_if(a.cog.norm.outbound,[&](const auto& p){return p.key==d.norm_payload.key&&p.subject==d.norm_payload.subject;});
+    }
     if(!state_.self_enabled)return;
     DecisionExperience e;e.action=action;e.at=state_.now;e.domain=d.self_domain;
     e.predicted_uncertainty=d.uncertainty;e.predicted_risk=d.risk;e.importance=d.goal_importance;
@@ -104,6 +111,8 @@ void World::publish_action_outcome(Actor& a,bool completed,bool blocked,const Ou
     publish_outcome(a,s);
 }
 void World::publish_social_outcome(Actor& a,const InteractionObservation& o){
+    const bool norm_reaction=o.norm_payload.present&&(o.kind==Interaction::ApprovePractice||o.kind==Interaction::DisapprovePractice);
+    if(o.norm_payload.present&&!o.initiated&&(!norm_reaction||o.norm_payload.subject!=a.id))return;
     // Watching someone else is information, not evidence that my initiative succeeded.
     if(o.information_present&&o.parent==0&&!o.initiated)return;
     if(!state_.self_enabled||(o.stage!=SocialStage::Completed&&o.stage!=SocialStage::Declined&&o.stage!=SocialStage::Cancelled))return;
@@ -113,6 +122,7 @@ void World::publish_social_outcome(Actor& a,const InteractionObservation& o){
     s.goal_importance=o.initiated?.65:.35;s.directness=capability(a.body,a.mind.cognition,false).gate;
     s.action_feedback=s.completed?.7:.15;s.other_decision=.8;
     if(o.stage!=SocialStage::Cancelled){s.acceptance_observed=true;s.accepted=s.completed?1:0;}
+    if(norm_reaction&&!o.initiated){s.acceptance_observed=true;s.accepted=o.kind==Interaction::ApprovePractice?1:0;s.action_feedback=s.accepted;if(o.norm_payload.observed_action)s.action=o.norm_payload.observed_action;}
     if(o.pleasure_observed){s.observed_mask=1u<<std::size_t(Metric::Pleasantness);s.observed[std::size_t(Metric::Pleasantness)]=o.pleasure;}
     publish_outcome(a,s);
 }

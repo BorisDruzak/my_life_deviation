@@ -15,10 +15,10 @@ std::ofstream output(const std::string& path){std::ofstream out(path,std::ios::b
 int main(int argc,char** argv){
     try{
         std::locale::global(std::locale::classic());
-        const std::string help="life_sim [--seed N] [--population 8..4096] [--days N | --seconds N] [--scenario normal|scarcity|closed-road] [--recovery] [--recovery-state JSON] [--adaptive-life] [--career-state JSON] [--self-model] [--no-self-effects] [--self-state JSON] [--self-updates JSONL] [--community] [--life-projects] [--no-satiation-forecast] [--life-state FILE] [--community-state FILE] [--reference] [--load FILE] [--save FILE] [--summary FILE] [--actors CSV] [--social-state JSON] [--trace JSONL] [--trace-actor ID] [--social-scene mixed|friendly|personal-boundaries|romantic|romantic-norm|recipient-refuses|pleasure-mismatch|borrow|borrow-novice|information|status|status-norm] [--thoughts JSONL] [--workers 1..32] [--work-chunk N]\n";
+        const std::string help="life_sim [--seed N] [--population 8..4096] [--days N | --seconds N] [--scenario normal|scarcity|closed-road] [--norm-memory (alias --norm-mode) legacy|shadow|enabled|frozen-learning|no-effects] [--norm-state JSON] [--norm-trace JSONL] [--budget-policy guarded|deliberative] [--recovery] [--recovery-state JSON] [--adaptive-life] [--career-state JSON] [--self-model] [--no-self-effects] [--self-state JSON] [--self-updates JSONL] [--community] [--life-projects] [--no-satiation-forecast] [--life-state FILE] [--community-state FILE] [--reference] [--load FILE] [--save FILE] [--summary FILE] [--actors CSV] [--social-state JSON] [--trace JSONL] [--trace-actor ID] [--social-scene mixed|friendly|personal-boundaries|romantic|romantic-norm|recipient-refuses|pleasure-mismatch|borrow|borrow-novice|information|status|status-norm] [--thoughts JSONL] [--workers 1..32] [--work-chunk N]\n";
         std::map<std::string,std::string> options;bool reference=false,community=false,life_projects=false,satiation=true,self_model=false,self_effects=true,adaptive=false,recovery=false;
-        for(int i=1;i<argc;++i){std::string key=argv[i];if(key=="--recovery"){recovery=true;continue;}if(key=="--adaptive-life"){adaptive=true;continue;}if(key=="--self-model"){self_model=true;continue;}if(key=="--no-self-effects"){self_effects=false;continue;}if(key=="--help"){std::cout<<help;return 0;}if(key=="--reference"){reference=true;continue;}if(key=="--community"){community=true;continue;}if(key=="--life-projects"){life_projects=true;continue;}if(key=="--no-satiation-forecast"){satiation=false;continue;}
-            if(key!="--recovery-state"&&key!="--career-state"&&key!="--self-state"&&key!="--self-updates"&&key!="--life-state"&&key!="--community-state"&&key!="--seed"&&key!="--population"&&key!="--days"&&key!="--seconds"&&key!="--scenario"&&key!="--load"&&key!="--save"&&key!="--summary"&&key!="--actors"&&key!="--social-state"&&key!="--trace"&&key!="--trace-actor"&&key!="--thoughts"&&key!="--workers"&&key!="--social-scene"&&key!="--work-chunk")throw std::invalid_argument("unknown argument: "+key);
+        for(int i=1;i<argc;++i){std::string key=argv[i];if(key=="--norm-memory")key="--norm-mode";if(key=="--recovery"){recovery=true;continue;}if(key=="--adaptive-life"){adaptive=true;continue;}if(key=="--self-model"){self_model=true;continue;}if(key=="--no-self-effects"){self_effects=false;continue;}if(key=="--help"){std::cout<<help;return 0;}if(key=="--reference"){reference=true;continue;}if(key=="--community"){community=true;continue;}if(key=="--life-projects"){life_projects=true;continue;}if(key=="--no-satiation-forecast"){satiation=false;continue;}
+            if(key!="--norm-mode"&&key!="--norm-state"&&key!="--norm-trace"&&key!="--budget-policy"&&key!="--recovery-state"&&key!="--career-state"&&key!="--self-state"&&key!="--self-updates"&&key!="--life-state"&&key!="--community-state"&&key!="--seed"&&key!="--population"&&key!="--days"&&key!="--seconds"&&key!="--scenario"&&key!="--load"&&key!="--save"&&key!="--summary"&&key!="--actors"&&key!="--social-state"&&key!="--trace"&&key!="--trace-actor"&&key!="--thoughts"&&key!="--workers"&&key!="--social-scene"&&key!="--work-chunk")throw std::invalid_argument("unknown argument: "+key);
             if(i+1>=argc||options.contains(key))throw std::invalid_argument("missing or duplicated argument: "+key);
             options[key]=argv[++i];
         }
@@ -36,13 +36,21 @@ int main(int argc,char** argv){
         if(self_model&&!adaptive&&!recovery){if(options.contains("--load"))throw std::invalid_argument("cannot reconfigure loaded self model");world.configure_self_model(self_effects);}
         if(adaptive&&!recovery){if(options.contains("--load"))throw std::invalid_argument("cannot reconfigure loaded adaptive world");world.configure_adaptive_life(self_effects);}
         if(recovery){if(options.contains("--load"))throw std::invalid_argument("cannot reconfigure loaded recovery world");world.configure_recovery(self_effects);}
+        if(options.contains("--norm-mode")){if(options.contains("--load"))throw std::invalid_argument("cannot reconfigure loaded norm memory");life::NormProfile profile;profile.mode=life::parse_norm_mode(options["--norm-mode"]);world.configure_norm_memory(profile);}
+        if(options.contains("--budget-policy")){if(options.contains("--load"))throw std::invalid_argument("cannot reconfigure loaded budget policy");life::CivilProfile p;const auto& policy=options["--budget-policy"];if(policy=="deliberative")p.budget_policy=life::BudgetPolicy::Deliberative;else if(policy!="guarded")throw std::invalid_argument("unknown budget policy");world.configure_civil_budget(p);}
         world.set_indexed(!reference);
         const auto worker_count=options.contains("--workers")?number(options["--workers"]):1;
         if(worker_count<1||worker_count>32)throw std::invalid_argument("workers must be 1..32");
         world.set_workers(unsigned(worker_count),options.contains("--work-chunk")?number(options["--work-chunk"]):64);
-        std::optional<std::ofstream> trace,thoughts,self_updates;
+        std::optional<std::ofstream> trace,thoughts,self_updates,norm_trace;
         const auto trace_actor=options.contains("--trace-actor")?number(options["--trace-actor"]):0;
         if(trace_actor>world.state().actors.size())throw std::invalid_argument("trace actor outside population");
+        if(options.contains("--norm-trace")){
+            norm_trace.emplace(output(options["--norm-trace"]));world.set_norm_logger([&](const life::NormTrace& t){
+                if(trace_actor&&t.actor!=trace_actor)return;
+                *norm_trace<<life::norm_trace_json(t)<<'\n';
+            });
+        }
         if(options.contains("--self-updates")){
             self_updates.emplace(output(options["--self-updates"]));world.set_self_logger([&](const life::SelfUpdateTrace& t){
               *self_updates<<"{\"actor\":"<<t.actor<<",\"episode\":"<<t.episode<<",\"source\":"<<t.source<<",\"domain\":\""<<life::self_domain_name(t.domain)<<"\",\"axis\":\""<<life::self_axis_name(t.axis)<<"\",\"before\":"<<t.before<<",\"after\":"<<t.after<<",\"observation\":"<<t.observation<<",\"quality\":"<<t.quality<<",\"attribution_self\":"<<t.attribution_self<<",\"stage\":"<<unsigned(t.stage)<<"}\n";
@@ -59,6 +67,7 @@ int main(int argc,char** argv){
         const auto started=std::chrono::steady_clock::now();world.run_seconds(seconds);const auto finished=std::chrono::steady_clock::now();
         auto summary=world.summary_json();summary.pop_back();summary+=",\"mode\":\""+std::string(reference?"reference":"indexed")+"\",\"setup_seconds\":"+std::to_string(std::chrono::duration<double>(started-setup_start).count())+",\"wall_seconds\":"+std::to_string(std::chrono::duration<double>(finished-started).count())+"}";
         std::cout<<summary<<'\n';if(options.contains("--summary")){auto out=output(options["--summary"]);out<<summary<<'\n';}
+        if(options.contains("--norm-state")){auto out=output(options["--norm-state"]);out<<world.norm_report_json()<<'\n';}
         if(options.contains("--save"))world.save(options["--save"]);
         if(options.contains("--recovery-state")){auto out=output(options["--recovery-state"]);out<<world.recovery_report_json()<<'\n';}
         if(options.contains("--career-state")){auto out=output(options["--career-state"]);out<<world.career_report_json()<<'\n';}

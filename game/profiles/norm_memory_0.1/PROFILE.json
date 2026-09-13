@@ -1,0 +1,65 @@
+{
+  "schema": "NORM-MEMORY-0.1",
+  "status": "compiled_profile",
+  "base_commit": "d89ec4abf91f7d2f0febb290ef6849008003831a",
+  "modes": [
+    "legacy",
+    "shadow",
+    "enabled",
+    "frozen-learning",
+    "no-effects"
+  ],
+  "default_mode": "legacy",
+  "budget_policies": [
+    "guarded",
+    "deliberative"
+  ],
+  "evidence": {
+    "binary_prior": [
+      1,
+      1
+    ],
+    "approval_prior": [
+      1,
+      1,
+      1
+    ],
+    "coverage_kappa": 4,
+    "half_life_days": 30,
+    "max_person_practice_context_day_dose": 1,
+    "unknown_independence_pool_max_dose": 1,
+    "unknown_sanction_policy": "require_explicit_personal_assumption_or_question",
+    "no_response_is_observation": false
+  },
+  "personal_principle": {
+    "learning_rate_factor": 0.02,
+    "requires_accepted_argument": true,
+    "automatic_prevalence_to_endorsement": false
+  },
+  "motivation": {
+    "on": 0.12,
+    "off": 0.07,
+    "tension_is_utility_reward": false,
+    "group_significance": "max_active_goal_importance_times_known_relevance"
+  },
+  "limits": {
+    "inbox": 32,
+    "hot_records": 128,
+    "norm_candidate_ids": 32,
+    "deep_norms_per_episode": 4,
+    "relevant_groups_per_episode": 4,
+    "new_norm_options": 2,
+    "total_plan_options": 8,
+    "procedure_steps": 16
+  },
+  "duration_seconds": {
+    "ask_practice": 30,
+    "explain_practice": 60,
+    "approve_practice": 15,
+    "disapprove_practice": 15
+  },
+  "self_acceptance_blend_max": 0.25,
+  "sanctions": "expected_only_no_automatic_institutions",
+  "new_save_format": "LIFE-SAVE-0.14.0-norm01-r2",
+  "engine_version": "0.14.0-norm01"
+}

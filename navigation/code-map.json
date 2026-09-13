@@ -24,6 +24,9 @@
     {"id":"legacy_cpp_0_10","path":"legacy/cpp_0.10/README.md","status":"historical"},
     {"id":"legacy_cpp_0_6","path":"legacy/cpp_0.6/README.md","status":"historical"},
     {"id":"legacy_world_0_5","path":"legacy/world_0.5.1-t1/README.md","status":"historical"},
-    {"id":"navigation_validator","path":"tools/verify_navigation.py","status":"implemented"}
+    {"id":"navigation_validator","path":"tools/verify_navigation.py","status":"implemented"},
+    {"id":"life_norm_memory","path":"engine/src/life/norm_memory.cpp","status":"implemented","depends_on":["life_core"]},
+    {"id":"life_norm_cognition","path":"engine/src/life/norm_world.cpp","status":"implemented","depends_on":["life_norm_memory","life_cognition","life_phone"]},
+    {"id":"life_decision_ledger","path":"engine/src/life/decision_ledger.cpp","status":"implemented","depends_on":["life_norm_memory"]}
   ]
 }

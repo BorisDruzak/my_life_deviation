@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(my_life_deviation VERSION 0.13.0 LANGUAGES CXX)
+project(my_life_deviation VERSION 0.14.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -77,3 +77,34 @@ add_test(NAME career_runtime COMMAND life_tests career_runtime)
 foreach(group resources civil_unit civil_world phone civil_social)
  add_test(NAME ${group} COMMAND life_tests ${group})
 endforeach()
+
+# NORM-MEMORY 0.1: bounded cognition, subjective evidence and unique consequences.
+target_sources(life_core PRIVATE engine/src/life/norm_memory.cpp engine/src/life/norm_world.cpp engine/src/life/decision_ledger.cpp)
+target_sources(life_tests PRIVATE engine/tests/life/test_norm_memory.cpp engine/tests/life/test_norm_ledger.cpp engine/tests/life/test_norm_social.cpp engine/tests/life/test_norm_phone.cpp)
+foreach(group norm_memory norm_ledger norm_social norm_phone)
+ add_test(NAME ${group} COMMAND life_tests ${group})
+endforeach()
+
+target_sources(life_tests PRIVATE engine/tests/life/test_norm_runtime.cpp engine/tests/life/test_norm_persistence.cpp engine/tests/life/test_norm_planner.cpp)
+foreach(group norm_runtime norm_persistence)
+ add_test(NAME ${group} COMMAND life_tests ${group})
+endforeach()
+
+add_executable(norm_behavior_scenarios tools/norm_behavior_scenarios.cpp)
+target_link_libraries(norm_behavior_scenarios PRIVATE life_core)
+
+target_sources(life_tests PRIVATE engine/tests/life/test_norm_conformance.cpp)
+add_test(NAME norm_conformance COMMAND life_tests norm_conformance)
+
+add_test(NAME norm_cli_alias COMMAND life_sim --norm-memory enabled --population 8 --seconds 1)
+add_test(NAME norm_cli_invalid_mode COMMAND life_sim --norm-memory invalid)
+add_test(NAME norm_cli_invalid_budget COMMAND life_sim --budget-policy invalid)
+set_tests_properties(norm_cli_invalid_mode norm_cli_invalid_budget PROPERTIES WILL_FAIL TRUE)
+
+add_test(NAME norm_choices COMMAND life_tests norm_planner)
+add_test(NAME norm_scenarios COMMAND norm_behavior_scenarios --case privacy_history_pair --seed 42 --seconds 600 --out ${CMAKE_CURRENT_BINARY_DIR}/norm-scenario-smoke)
+add_test(NAME norm_long COMMAND norm_behavior_scenarios --case work_history_pair --seed 42 --out ${CMAKE_CURRENT_BINARY_DIR}/norm-scenario-long)
+set_tests_properties(norm_long PROPERTIES LABELS "long")
+
+add_executable(norm_perf_probe tools/norm_perf_probe.cpp)
+target_link_libraries(norm_perf_probe PRIVATE life_core)

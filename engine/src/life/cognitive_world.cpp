@@ -94,7 +94,7 @@ void World::cognition_tick(Actor& a){
   if(c.work<1)c.due=now+Tick(std::ceil(1000*(1-c.work)/c.rate));
  }
  const bool new_basis=c.captured_mind!=a.mind.version||c.captured_situation!=c.situation_version;
- if(!c.active&&now<c.review_at&&!new_basis&&c.inbox.empty()&&a.mind.social.inbox.empty())return;
+ if(!c.active&&now<c.review_at&&!new_basis&&c.inbox.empty()&&a.mind.social.inbox.empty()&&c.norm.inbox.empty())return;
  // Rebuild candidates from accessible cues, not from a global planning search.
  const auto raw=signals(a.body,a.biology);std::array<double,9> cues{};
  for(unsigned j=0;j<4;++j)cues[j]=raw[j];
@@ -153,7 +153,7 @@ void World::cognition_tick(Actor& a){
    input.push_back({(4ull<<48)+p.id,TopicKind::Project,metric,p.goal.target,pr,.2,now,now+31000,a.mind.projects.revision,p.goal.basis,false});
   }
  }
- append_self_topics(a,input);append_career_topics(a,input);append_civil_topics(a,input);
+ append_self_topics(a,input);append_career_topics(a,input);append_civil_topics(a,input);append_norm_topics(a,input);
  c.candidates=bounded_topics(input,now,c.focus);
  if(c.candidates.empty())return;
  auto best=std::max_element(c.candidates.begin(),c.candidates.end(),[](const auto& x,const auto& y){
@@ -175,7 +175,7 @@ void World::cognition_tick(Actor& a){
  if(now<c.rebuild_until||c.operation!=Operation::None)return;
  if(c.active&&c.budget==0){c.active=false;a.review=c.review_at;return;}
  if(!c.active){
-  if(now<c.review_at&&!new_basis&&c.inbox.empty()&&a.mind.social.inbox.empty())return;
+  if(now<c.review_at&&!new_basis&&c.inbox.empty()&&a.mind.social.inbox.empty()&&c.norm.inbox.empty())return;
   c.active=true;++c.episode;++a.mind.decisions;c.budget=cog04::operation_budget(cap.current[4],true);c.spent=0;c.cursor=0;c.peak_slots=1;
   c.alternatives=std::max(1,cap.alternatives);c.options.clear();c.best=Decision{};c.best.place=a.place;c.best.path.clear();c.best.path.push_back(a.place);c.best_thought=0;
   c.context.clear();c.context.push_back({c.focus,c.focus_basis,ThoughtKind::Notice,c.focus_metric,c.focus_person,c.focus_priority,1,Truth::Confirmed});
@@ -183,9 +183,10 @@ void World::cognition_tick(Actor& a){
  }
  c.snapshot=personal_view(a.id);c.snapshot.episode=c.episode;
  // The snapshot initially contains sensations, not facts from the hidden body.
- if(start_self_cognition(a)||start_career_cognition(a)||start_civil_cognition(a))return;
+ if(start_norm_cognition(a)||start_self_cognition(a)||start_career_cognition(a)||start_civil_cognition(a))return;
  if(c.focus>=(1ull<<48)&&c.focus<(2ull<<48)&&!a.mind.social.inbox.empty()){
   c.social_input=a.mind.social.inbox.front();
+  if(c.social_input.stage==SocialStage::Offer&&start_norm_context(a,Operation::SocialReply))return;
   cognition_start(a,c.social_input.stage==SocialStage::Offer?Operation::SocialReply:Operation::SocialObserve);
  }
  else if(c.focus>=reply_base&&c.focus<(1ull<<48)&&!c.inbox.empty())cognition_start(a,Operation::Reply);
@@ -203,14 +204,15 @@ void World::cognition_complete(Actor& a,const Decision* forecast){
    c.snapshot=personal_view(a.id);c.snapshot.episode=c.episode;c.options.clear();c.cursor=0;
    c.best=Decision{};c.best.place=a.place;c.best.path.clear();c.best.path.push_back(a.place);c.best_thought=0;
    c.context.resize(std::min(std::size_t(1),c.context.size()));
-   if(start_self_cognition(a)||start_career_cognition(a)||start_civil_cognition(a))return;
+   if(start_norm_cognition(a)||start_self_cognition(a)||start_career_cognition(a)||start_civil_cognition(a))return;
    if(!a.mind.social.inbox.empty()){
-    c.social_input=a.mind.social.inbox.front();cognition_start(a,c.social_input.stage==SocialStage::Offer?Operation::SocialReply:Operation::SocialObserve);
+    c.social_input=a.mind.social.inbox.front();if(c.social_input.stage==SocialStage::Offer&&start_norm_context(a,Operation::SocialReply))return;
+  cognition_start(a,c.social_input.stage==SocialStage::Offer?Operation::SocialReply:Operation::SocialObserve);
    }else cognition_start(a,Operation::Interpret);
   }return;
  }
  ++c.completed_ops;
- if(complete_civil_cognition(a,op,started))return;
+ if(complete_norm_cognition(a,op,started)||complete_civil_cognition(a,op,started))return;
  if(complete_self_cognition(a,op,started)||complete_career_cognition(a,op,started))return;
  Thought t;t.started=started;t.metric=c.focus_metric;t.person=c.focus_person;t.basis=c.focus_basis;t.status=Truth::Confirmed;t.confidence=.8;
  auto finish=[&]{c.active=false;c.operation=Operation::None;a.review=c.review_at;c.captured_mind=a.mind.version;c.captured_situation=c.situation_version;};
@@ -223,7 +225,8 @@ void World::cognition_complete(Actor& a,const Decision* forecast){
   if(op==Operation::SocialReply){
    auto personal=c.snapshot.social;
    if(message.item_present){personal.memory.report_item(message.item,message.other,message.delivery,message.at,true,FactOrigin::Observed);}
-   personal.proposal=message.meeting;
+   personal.proposal=message.meeting;personal.norm_payload=message.norm_payload;
+   if(message.kind==Interaction::AskMoney){personal.norm_payload={};for(unsigned i=0;i<personal.norms_view.count;++i)if(personal.norms_view.considered[i].key.practice==practice_id(NormPractice::Help)){personal.norm_payload.present=true;personal.norm_payload.key=personal.norms_view.considered[i].key;break;}}
    auto evaluation=evaluate_social(personal,message.kind,message.other,message.object,true);
    if(state_.life.enabled&&message.kind==Interaction::InviteMeeting){
     const auto& offer=message.meeting;
@@ -277,6 +280,7 @@ void World::cognition_complete(Actor& a,const Decision* forecast){
    }
   }
   if(estimate.status==Truth::Conflicting){t.kind=ThoughtKind::Question;t.detail="ощущение_и_ожидание_расходятся";emit_thought(a,t);finish();return;}
+  if(start_norm_context(a))return;
   if(c.budget>0)cognition_start(a,Operation::Recall);else finish();return;
  }
  if(op==Operation::Recognize){
@@ -356,7 +360,20 @@ void World::cognition_complete(Actor& a,const Decision* forecast){
  }
  if(op==Operation::Forecast){
   if(!forecast)throw std::logic_error("missing pure forecast");
-  c.current=*forecast;t.debug_interaction=c.current.interaction;t.debug_object=c.current.object;
+  c.current=*forecast;
+  if(norm_logger_&&state_.norm_profile.mode!=NormMode::Legacy){
+   for(const auto& term:c.current.norm_ledger){
+    NormTrace row;row.at=state_.now;row.actor=a.id;row.kind="ledger";row.reason=std::to_string(unsigned(term.key.kind));
+    row.key=term.norm_key;row.source_revision=term.source_revision;row.own_revision=a.mind.norm_memory.revision();
+    row.question=c.norm.plan_context.question_id;row.value=term.amount;
+    row.ledger_owner=std::uint8_t(term.owner);row.consequence_kind=std::uint8_t(term.key.kind);
+    row.consequence_target=term.key.target;row.consequence_object=term.key.object;row.consequence_horizon=term.key.horizon;
+    row.probability=term.probability;row.time_hours=term.time_hours;row.present_value=term.present_value;row.knownness=std::uint8_t(term.knownness);
+    row.candidate_method=std::uint32_t(c.current.method);row.candidate_interaction=std::uint32_t(c.current.interaction);row.candidate_object=c.current.object;
+    norm_logger_(row);
+   }
+  }
+  t.debug_interaction=c.current.interaction;t.debug_object=c.current.object;
   t.debug_pleasure=c.current.social_evaluation.pleasure;t.debug_acceptance=c.current.social_evaluation.acceptance;t.debug_status_gain=c.current.social_evaluation.status_gain;t.debug_knowledge_source=c.current.social_evaluation.basis;
   t.debug_destination=c.current.place;t.debug_moral=c.current.moral;t.debug_risk=c.current.risk;t.debug_resource=c.current.resource_cost;t.debug_time=c.current.time_cost;
   t.kind=ThoughtKind::Forecast;t.origin=Origin::Imagined;t.method=c.current.method;t.person=c.current.partner;t.value=c.current.score;t.basis=c.next_thought-1;
@@ -424,6 +441,7 @@ void World::cognition_complete(Actor& a,const Decision* forecast){
   if(interruptible&&!parallel&&!nested)t.detail+=std::string(";")+switch_reason_name(assessment.reason);
   if(!change)++c.retained_decisions;else ++c.executed_decisions;
   emit_thought(a,t);++metrics_.decisions;
+  if(norm_logger_&&state_.norm_profile.mode!=NormMode::Legacy){NormTrace row;row.at=state_.now;row.actor=a.id;row.kind="intent";row.reason=change?"switch":"retain";row.key=d.norm_payload.key;row.question=c.norm.plan_context.question_id;row.own_revision=a.mind.norm_memory.revision();row.value=d.score;norm_logger_(row);}
   if(change){
    if(state_.self_enabled&&state_.self_effects){
     const auto app=self_appraisal(d.self_prediction,d.goal_importance,unit(d.risk+d.uncertainty*.3),d.uncertainty);

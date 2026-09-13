@@ -16,6 +16,16 @@ bool text_fits(const Actor& a){
     return combine_resources(primary,text).allowed;
 }
 void stop_phone(CivilEquipment& e){e.side_action=0;e.message=0;e.draft=0;e.side_started=0;e.side_end=0;e.reading=false;}
+bool valid_norm_text(const NormPayload& payload){return payload.present&&payload.key.practice!=0;}
+Interaction norm_text_interaction(const NormPayload& payload){
+    if(payload.question)return Interaction::AskPractice;
+    if(payload.explanation)return Interaction::ExplainPractice;
+    if(payload.evidence.channel==NormChannel::Approval){
+        if(payload.evidence.approval==ApprovalValue::Approve)return Interaction::ApprovePractice;
+        if(payload.evidence.approval==ApprovalValue::Disapprove)return Interaction::DisapprovePractice;
+    }
+    return Interaction::ExplainPractice;
+}
 }
 bool World::phone_command(Actor& a,const Decision& d){
     if(d.method!=Method::SendMessage&&d.method!=Method::ReadMessage)return false;
@@ -27,6 +37,7 @@ bool World::phone_command(Actor& a,const Decision& d){
         if(it->content.kind==LetterKind::CancelMeeting&&std::find(memory.cancelled_meetings.begin(),memory.cancelled_meetings.end(),it->content.appointment)==memory.cancelled_meetings.end())return true;
         if(it->content.kind==LetterKind::Information&&!a.mind.social.community.recall(it->content.information.id,state_.now))return true;
         if(it->content.kind==LetterKind::Procedure){const auto* known=a.mind.projects.known(it->content.lesson.procedure.id);if(!known||known->mastery<.6)return true;}
+        if(it->content.kind==LetterKind::NormPractice&&!valid_norm_text(it->content.norm_payload))return true;
         a.equipment.draft=it->id;a.equipment.reading=false;
     }else{
         auto it=std::find_if(state_.civil.messages.begin(),state_.civil.messages.end(),[&](const auto& x){return x.id==d.object;});
@@ -93,6 +104,7 @@ void World::phone_tick(){
                     bool content_available=true;
                     if(envelope.content.kind==LetterKind::Information){auto fact=a.mind.social.community.recall(it->content.information.id,s.now);if(!fact)content_available=false;else envelope.content.information=*fact;}
                     if(envelope.content.kind==LetterKind::Procedure){auto* known=a.mind.projects.known(it->content.lesson.procedure.id);if(!known||known->mastery<.6)content_available=false;else envelope.content.lesson={envelope.id,a.id,*known};}
+                    if(envelope.content.kind==LetterKind::NormPractice&&!valid_norm_text(envelope.content.norm_payload))content_available=false;
                     if(content_available){transport.messages.push_back(envelope);civil_record(a,"message_sent_not_yet_delivered",envelope.id,action,it->person);++transport.sends;++memory.sent;memory.drafts.erase(it);completed=true;}
                 }
             }
@@ -106,11 +118,12 @@ void World::phone_tick(){
                 if(it->content.kind==LetterKind::CancelMeeting){
                     auto appointment=std::find_if(a.appointments.begin(),a.appointments.end(),[&](const auto& x){return x.id==it->content.appointment&&((x.a==a.id&&x.b==it->sender)||(x.b==a.id&&x.a==it->sender));});
                     if(appointment!=a.appointments.end()){const auto id=appointment->id;a.appointments.erase(appointment);for(auto& p:a.mind.projects.projects)if(p.live()&&p.appointment==id)a.mind.projects.abandon(p.id,s.now);civil_record(a,"meeting_cancelled_after_reading",it->id,action,it->sender);}
-                }else if(it->content.kind==LetterKind::Information||it->content.kind==LetterKind::Procedure){
-                    InteractionObservation observation;observation.event=it->id;observation.parent=it->id;observation.outcome_source=it->id;observation.other=it->sender;observation.stage=SocialStage::Completed;observation.at=s.now;observation.dose=.25;
-                    observation.kind=it->content.kind==LetterKind::Information?Interaction::ShareNews:Interaction::ExplainProcedure;
+                }else if(it->content.kind==LetterKind::Information||it->content.kind==LetterKind::Procedure||it->content.kind==LetterKind::NormPractice){
+                    InteractionObservation observation;observation.delivery=it->id;observation.event=it->id;observation.parent=it->id;observation.outcome_source=it->id;observation.other=it->sender;observation.stage=SocialStage::Completed;observation.at=s.now;observation.dose=.25;
+                    observation.kind=it->content.kind==LetterKind::Information?Interaction::ShareNews:it->content.kind==LetterKind::Procedure?Interaction::ExplainProcedure:norm_text_interaction(it->content.norm_payload);
                     observation.information_present=it->content.kind==LetterKind::Information;observation.information=it->content.information;
                     observation.procedure_present=it->content.kind==LetterKind::Procedure;observation.procedure=it->content.lesson;
+                    if(it->content.kind==LetterKind::NormPractice)observation.norm_payload=it->content.norm_payload;
                     social_deliver(a,std::move(observation));
                 }else{
                     const double gain=std::min(.04,1-a.social);a.social+=gain;a.mind.experience_contact(it->sender,it->id,s.now,20,.2,0);

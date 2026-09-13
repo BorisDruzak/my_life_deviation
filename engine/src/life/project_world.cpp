@@ -18,6 +18,13 @@ const RelationshipView* person(const LifePlanView& v,Id id){
 }
 StepKind current_step(const ProjectMemory& m,const PersonalProject& p){return m.known(p.procedure)->steps.at(p.step).kind;}
 void outcome(ProjectMemory& m,PersonalProject& p,StepOutcome value,std::uint64_t event,Tick now){m.observe(p.id,value,event,now);}
+bool life_interaction(Interaction kind){
+    switch(kind){
+    case Interaction::Introduce:case Interaction::InviteMeeting:case Interaction::PartnerIntimacy:
+    case Interaction::RequestWork:case Interaction::PraiseWork:return true;
+    default:return false;
+    }
+}
 }
 bool Mind::experience_contact(Id other,std::uint64_t event,Tick now,double seconds,double pleasure,Id place,bool introduced){
     if(!other||!event||now<0||seconds<0||!std::isfinite(seconds))throw std::invalid_argument("contact identity/time");
@@ -53,9 +60,9 @@ void World::configure_life_projects(bool satiation){
         for(unsigned k=0;k<unsigned(GoalKind::Count);++k)m.procedures.push_back(familiar_procedure(GoalKind(k),s.next_id++));
         a.mind.known[std::size_t(Method::Visit)]=true;
         for(auto& r:a.mind.relations){r.introduced=true;r.last_seen=0;}
-        for(unsigned k=unsigned(Interaction::Introduce);k<unsigned(Interaction::AskMoney);++k){
-            auto& b=a.mind.social.methods[k];b.mastery=.85;b.expected_acceptance=.65;b.confidence=.6;b.source=s.next_id++;
-            b.expected_pleasure=k==unsigned(Interaction::PartnerIntimacy)?.7:.25;
+        for(auto kind:{Interaction::Introduce,Interaction::InviteMeeting,Interaction::PartnerIntimacy,Interaction::RequestWork,Interaction::PraiseWork}){
+            const auto k=std::size_t(kind);auto& b=a.mind.social.methods[k];b.mastery=.85;b.expected_acceptance=.65;b.confidence=.6;b.source=s.next_id++;
+            b.expected_pleasure=kind==Interaction::PartnerIntimacy?.7:.25;
             a.social_traits.pleasure[k]=b.expected_pleasure;
         }
         auto& e=a.employment;e.active=true;e.organization=1;e.workplace=5;e.supervisor=1;e.rank=a.id==1?2:0;
@@ -241,7 +248,7 @@ void World::life_action_result(Actor& a,StepOutcome value){
     if(a.action.method==Method::Study&&step==StepKind::Study)outcome(m,*p,value,a.action.id,state_.now);
 }
 void World::life_social_result(Actor& a,const InteractionObservation& o){
-    if(!state_.life.enabled||o.kind<Interaction::Introduce)return;
+    if(!state_.life.enabled||!life_interaction(o.kind))return;
     auto& m=a.mind.projects;
     if(o.kind==Interaction::RequestWork&&o.stage==SocialStage::Completed&&!o.initiated){
         if(a.employment.receive_request(o.event,o.other,.8,state_.now))++state_.life.work_requests;

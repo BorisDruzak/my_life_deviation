@@ -9,7 +9,7 @@
 
 namespace life {
 const char* thought_kind_name(ThoughtKind k){
- static constexpr const char* n[]={"notice","interpret","recall","forecast","compare","intent","question","interpret_reply","stale","pause_project","resume_project","interpret_outcome","attribute_outcome","self_update","recovery"};
+ static constexpr const char* n[]={"notice","interpret","recall","forecast","compare","intent","question","interpret_reply","stale","pause_project","resume_project","interpret_outcome","attribute_outcome","self_update","recovery","norm_interpret","norm_integrate","norm_recall","norm_compare","norm_reflect"};
  if(std::size_t(k)>=std::size(n))throw std::invalid_argument("thought kind");
  return n[std::size_t(k)];
 }
@@ -61,6 +61,7 @@ std::string thought_text(const Thought& t){
  case ThoughtKind::InterpretOutcome:s<<"Интерпретирую собственный наблюдённый результат: "<<t.detail;break;
  case ThoughtKind::Attribute:s<<"Предполагаю причины результата: "<<t.detail<<"; собственный вклад "<<t.value;break;
  case ThoughtKind::SelfUpdate:s<<"Изменение убеждения "<<t.detail<<": "<<t.prior<<" → "<<t.value<<"; источник "<<t.basis;break;
+ case ThoughtKind::NormInterpret:case ThoughtKind::NormIntegrate:case ThoughtKind::NormRecall:case ThoughtKind::NormCompare:case ThoughtKind::NormReflect:s<<t.detail<<"; source "<<t.basis<<"; value "<<t.value;break;
  case ThoughtKind::Recovery:s<<"Оцениваю пережитое восстановление: "<<t.detail;break;
  case ThoughtKind::Notice:s<<"Заметил присутствие человека; личность ещё не установлена.";break;
  case ThoughtKind::Interpret:s<<"Оцениваю собственное состояние: "<<metric_name(t.metric)<<"; ";
@@ -118,7 +119,7 @@ void validate_cognition(const CognitiveState& c,Tick now){
  ok(c.candidates.size()<=32&&c.context.size()<=12&&c.options.size()<=8&&c.recent.size()<=8,"capacity");
  ok(c.budget>=0&&c.budget<=32&&c.spent>=0&&c.spent<=32&&c.budget+c.spent<=32,"budget");
  ok(c.focus_metric<metric_count&&c.cursor<=c.options.size(),"cursor");
- ok(unsigned(c.operation)<=unsigned(Operation::CompareCivilFacts)&&unsigned(c.focus_kind)<=unsigned(TopicKind::Project),"enum");
+ ok(unsigned(c.operation)<=unsigned(Operation::ReflectPersonalPrinciple)&&unsigned(c.focus_kind)<=unsigned(TopicKind::Project),"enum");
  require_range(c.work,0,1);require_range(c.rate,0,8);require_range(c.rejection_bias,0,1);
  if(c.operation!=Operation::None){ok(c.active&&c.due>=now&&c.op_last<=now&&c.op_started<=now,"operation clock");}
  for(auto until:c.no_continuation_until)ok(until>=0,"negative topic reconsideration time");

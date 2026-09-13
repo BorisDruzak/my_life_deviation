@@ -1,0 +1,1620 @@
+{
+  "document": "NORM-MEMORY-0.1",
+  "status": "implementation_acceptance_plan",
+  "base_commit": "36dc381b121e552fd4c961d8a2a90fd48a2a09d0",
+  "case_count": 87,
+  "cases": [
+    {
+      "id": "NM-001",
+      "stage": "S1",
+      "layer": "unit",
+      "title": "Нейтральность",
+      "given": "Нет источников и явного prior",
+      "when": "Прочитать прогноз",
+      "expected": "Unknown; техническое p=.5, coverage=0; нет команды соблюдать",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-002",
+      "stage": "S1",
+      "layer": "unit",
+      "title": "Раздельные слои",
+      "given": "Есть только описательные наблюдения",
+      "when": "Обновить описательную практику",
+      "expected": "Одобрение и личное принятие не изменились",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-003",
+      "stage": "S1",
+      "layer": "unit",
+      "title": "Три оценки",
+      "given": "5 одобрений,2 неодобрения,1 явное безразличие",
+      "when": "Рассчитать прогноз",
+      "expected": "p=(6,3,2)/11; p_disapprove не равно 1-p_approve",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-004",
+      "stage": "S1",
+      "layer": "unit",
+      "title": "Валидация",
+      "given": "NaN,inf,отрицательный вес,некорректный enum",
+      "when": "Применить данные",
+      "expected": "Исключение до мутации; прежнее состояние сохранено",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-005",
+      "stage": "S1",
+      "layer": "architecture",
+      "title": "Граница типов",
+      "given": "NormDecisionView и NormObservation",
+      "when": "Проверить зависимости и поля",
+      "expected": "Нет World pointer, world_root и скрытого мнения другого",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-006",
+      "stage": "S2",
+      "layer": "unit",
+      "title": "Частота",
+      "given": "8 соответствующих и2 иных полных случая",
+      "when": "Посчитать binary estimate",
+      "expected": "p=.75,coverage=10/14",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-007",
+      "stage": "S2",
+      "layer": "unit",
+      "title": "Качество",
+      "given": "Качества .8,.7,.6 и доза .5",
+      "when": "Вычислить q",
+      "expected": "Вес .168 применяется один раз",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-008",
+      "stage": "S2",
+      "layer": "unit",
+      "title": "Дубликат доставки",
+      "given": "Одна и та же delivery доставлена повторно",
+      "when": "Вызвать apply дважды",
+      "expected": "Один вклад и одна semantic revision",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-009",
+      "stage": "S2",
+      "layer": "unit",
+      "title": "Общий известный источник",
+      "given": "100 сообщений об одном known_root",
+      "when": "Обработать все",
+      "expected": "Один независимый вклад, не100",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-010",
+      "stage": "S2",
+      "layer": "unit",
+      "title": "Скрытая общность",
+      "given": "Личные данные идентичны, разные скрытые graphs",
+      "when": "Обработать одинаковые проекции",
+      "expected": "Одинаковые убеждения и стоимость мысли",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-011",
+      "stage": "S2",
+      "layer": "unit",
+      "title": "Пересмотр",
+      "given": "Один root раньше y=1, новая интерпретация y=0",
+      "when": "Применить revision+1",
+      "expected": "Старый вклад заменён; количество случаев не удвоилось",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-012",
+      "stage": "S2",
+      "layer": "unit",
+      "title": "Неправильная revision",
+      "given": "То же revision с иным payload",
+      "when": "Применить",
+      "expected": "Явная ошибка; не скрытый новый факт",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-013",
+      "stage": "S2",
+      "layer": "unit",
+      "title": "Разбиение экспозиции",
+      "given": "300 секунд одним куском и300 секунд по1",
+      "when": "Обновить наблюдение одежды",
+      "expected": "Одинаковая полная доза и posterior",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-014",
+      "stage": "S2",
+      "layer": "unit",
+      "title": "Повторный взгляд",
+      "given": "Один распознанный человек/практика/день в100 кадрах",
+      "when": "Повторить наблюдение",
+      "expected": "Не более одной полной экспозиции этого ключа",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-015",
+      "stage": "S2",
+      "layer": "unit",
+      "title": "Распад",
+      "given": "Вес8,полупериод30 дней",
+      "when": "Продвинуть на30 дней",
+      "expected": "Вес4; сам prior не стал новым фактом",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-016",
+      "stage": "S2",
+      "layer": "unit",
+      "title": "Чтение не учит",
+      "given": "Неподвижное личное состояние",
+      "when": "100 раз прочитать predict",
+      "expected": "Хеш памяти одинаков; время происхождения не меняется",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-017",
+      "stage": "S2",
+      "layer": "unit",
+      "title": "Молчание",
+      "given": "Есть нарушение, но исход реакции не наблюдён",
+      "when": "Продвинуть часы и прочитать лог",
+      "expected": "Нет добавленного approval/indifference/no-sanction",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-018",
+      "stage": "S2",
+      "layer": "unit",
+      "title": "Старый пересказ",
+      "given": "Известный факт имеет старую дату",
+      "when": "Получить его сегодняшнюю копию",
+      "expected": "Известное основание не омолаживается",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-019",
+      "stage": "S3",
+      "layer": "runtime",
+      "title": "Скрытая вещь",
+      "given": "Разные невидимые вещи в двух мирах",
+      "when": "Сделать одинаковый личный шаг",
+      "expected": "NormMemory обеих копий одинакова",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-020",
+      "stage": "S3",
+      "layer": "runtime",
+      "title": "Gate0",
+      "given": "Есть поступившее наблюдение, сознательный gate закрыт",
+      "when": "Продвинуть время",
+      "expected": "Нет завершённой интерпретации и обучения",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-021",
+      "stage": "S3",
+      "layer": "runtime",
+      "title": "Autonomy off",
+      "given": "NPC не думает, но действие другого видно",
+      "when": "Завершить физическое действие",
+      "expected": "Есть допустимая запись/очередь; belief не изменился напрямую",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-022",
+      "stage": "S3",
+      "layer": "runtime",
+      "title": "Цена интерпретации",
+      "given": "Новая запись и бюджет2",
+      "when": "Выполнить две операции",
+      "expected": "Две оплаченные операции; обновление только после второй",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-023",
+      "stage": "S3",
+      "layer": "runtime",
+      "title": "Нехватка бюджета",
+      "given": "Бюджет1, требуется2",
+      "when": "Начать обработку",
+      "expected": "Запись сохранена без бесплатной интеграции",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-024",
+      "stage": "S3",
+      "layer": "runtime",
+      "title": "Stale snapshot",
+      "given": "Основание изменилось во время операции",
+      "when": "Завершить старую операцию",
+      "expected": "Старый результат не записан поверх новой revision",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-025",
+      "stage": "S3",
+      "layer": "runtime",
+      "title": "Физический свидетель",
+      "given": "Человек в радиусе, но признаки не распознаны",
+      "when": "Запустить sensing",
+      "expected": "Нет выдуманного clothing tier или group membership",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-026",
+      "stage": "S3",
+      "layer": "runtime",
+      "title": "Окно без реакции",
+      "given": "NPC знает начало и имеет полный доступный исход окна",
+      "when": "Завершить проверку",
+      "expected": "Допустим именно наблюдённый отрицательный результат, не автоматическая мораль",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-027",
+      "stage": "S3",
+      "layer": "runtime",
+      "title": "Выключенный институт",
+      "given": "Нет симуляции института",
+      "when": "Проходит несколько дней",
+      "expected": "Нет обучения нулевой вероятности санкции из выключенного мира",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-028",
+      "stage": "S3",
+      "layer": "runtime",
+      "title": "Отсутствующий участник",
+      "given": "NPC не видел члена группы",
+      "when": "Подсчитать личные возможности",
+      "expected": "Отсутствующий не добавлен в знаменатель как нарушитель",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-029",
+      "stage": "S3",
+      "layer": "runtime",
+      "title": "Чужое не своё",
+      "given": "NPC наблюдает дорогую одежду другого",
+      "when": "Обработать NormObservation",
+      "expected": "Свой Social.Acceptance/Efficacy не получает ложный успех",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-030",
+      "stage": "S3",
+      "layer": "runtime",
+      "title": "Реальный личный исход",
+      "given": "NPC сам получил выраженное одобрение",
+      "when": "Завершить обычный SELF-процесс",
+      "expected": "SelfModel может измениться через свой OutcomeSignal",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-031",
+      "stage": "S3",
+      "layer": "runtime",
+      "title": "Однократное пробуждение",
+      "given": "Inbox непуст и пока не выбран",
+      "when": "100 секунд работы",
+      "expected": "Наличие записи не вызывает новый decision каждую секунду",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-032",
+      "stage": "S4",
+      "layer": "social",
+      "title": "Рассказ против наблюдения",
+      "given": "Собеседник сообщил норму",
+      "when": "Слушатель интерпретирует",
+      "expected": "Reported и источник сохранены; не становится direct observation",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-033",
+      "stage": "S4",
+      "layer": "social",
+      "title": "Отказ слушателя",
+      "given": "Слушатель занят/отказался от объяснения",
+      "when": "Попытка объяснить",
+      "expected": "Его память не обновлена непрослушанным содержимым",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-034",
+      "stage": "S4",
+      "layer": "social",
+      "title": "Добровольная реакция",
+      "given": "Свидетель не считает группу важной, выгода вмешательства низкая",
+      "when": "Увидеть нарушение",
+      "expected": "Нет обязательной команды осуждения",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-035",
+      "stage": "S4",
+      "layer": "social",
+      "title": "Самостоятельное одобрение",
+      "given": "Известен способ и доступен значимый личный мотив",
+      "when": "Пройти обычный выбор",
+      "expected": "Реальная реакция может возникнуть без сценарного назначения",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-036",
+      "stage": "S4",
+      "layer": "social",
+      "title": "Ложное правило",
+      "given": "Рассказчик говорит неверную норму, слушатель доверяет",
+      "when": "Доступная интерпретация",
+      "expected": "Допускается ошибочное убеждение, не исправленное World",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-037",
+      "stage": "S4",
+      "layer": "phone",
+      "title": "Доставка не знание",
+      "given": "Текст доставлен, не прочитан",
+      "when": "Проверить NormMemory",
+      "expected": "Нет усвоения",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-038",
+      "stage": "S4",
+      "layer": "phone",
+      "title": "Чтение не интеграция",
+      "given": "Прочитан payload, когнитивная обработка не закончена",
+      "when": "Проверить NormMemory",
+      "expected": "Прежнее состояние до платной обработки",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-039",
+      "stage": "S4",
+      "layer": "phone",
+      "title": "Нет номера",
+      "given": "Есть желание спросить, нет известного контакта",
+      "when": "Создать варианты",
+      "expected": "Нет связи по одному скрытому ID жителя",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-040",
+      "stage": "S4",
+      "layer": "social",
+      "title": "Копия реплики",
+      "given": "Одна реплика попала через повтор транспорта",
+      "when": "Завершить две доставки",
+      "expected": "Социальный эффект/нормативный вклад не дублируются",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-041",
+      "stage": "S4",
+      "layer": "social",
+      "title": "Говорящий не вся группа",
+      "given": "Один коллега высказал своё мнение",
+      "when": "Обновить знания",
+      "expected": "Не возникает доказанного согласия всех членов группы",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-042",
+      "stage": "S5",
+      "layer": "unit",
+      "title": "Конечное табу",
+      "given": "w=1 и полный аспект",
+      "when": "Посчитать moral cost",
+      "expected": "Конечная цена; физическая возможность не удаляется самой моралью",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-043",
+      "stage": "S5",
+      "layer": "choice",
+      "title": "Принцип без аудитории",
+      "given": "Лично принято вернуть предмет, никто не наблюдает",
+      "when": "Сравнить вернуть/оставить",
+      "expected": "Личное сопротивление сохраняется",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-044",
+      "stage": "S5",
+      "layer": "unit",
+      "title": "Unknown permission",
+      "given": "Нет сведений о разрешении",
+      "when": "Квалифицировать присвоение",
+      "expected": "Неизвестность не приравнена к доказанному отсутствию разрешения",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-045",
+      "stage": "S5",
+      "layer": "unit",
+      "title": "Исключение не принцип",
+      "given": "Получено известное разрешение владельца",
+      "when": "Переоценить конкретный вариант",
+      "expected": "Применимость меняется; w собственности не падает автоматически",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-046",
+      "stage": "S5",
+      "layer": "unit",
+      "title": "Частота не w",
+      "given": "Много известных нарушений без личного довода",
+      "when": "Интегрировать описательные данные",
+      "expected": "PersonalPrinciple w неизменен",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-047",
+      "stage": "S5",
+      "layer": "unit",
+      "title": "Принятый довод",
+      "given": "w=.8,h=.2,plasticity=.5,q=1,dose=1",
+      "when": "ReflectPersonalPrinciple",
+      "expected": "w=.7940299002495008",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-048",
+      "stage": "S5",
+      "layer": "choice",
+      "title": "Один источник морали",
+      "given": "Enabled и старый массив-сентинел",
+      "when": "Считать кандидат",
+      "expected": "Прочитан новый owner; старый штраф не добавлен",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-049",
+      "stage": "S5",
+      "layer": "runtime",
+      "title": "Согласие независимо",
+      "given": "Высокая выгода и низкое w у инициатора, адресат не согласен",
+      "when": "Исполнить совместное действие",
+      "expected": "Действие не завершается без участия адресата",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-050",
+      "stage": "S6",
+      "layer": "unit",
+      "title": "Повтор ConsequenceKey",
+      "given": "Две статьи одного исхода",
+      "when": "Вставить обе в ledger",
+      "expected": "Явная ошибка, не сумма",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-051",
+      "stage": "S6",
+      "layer": "unit",
+      "title": "Одно squash",
+      "given": "Raw .8-.2",
+      "when": "Завершить оценку",
+      "expected": "Score=.6/1.6,не сумма отдельно сжатых частей",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-052",
+      "stage": "S6",
+      "layer": "unit",
+      "title": "Условная санкция",
+      "given": "p=.4,.8,.5;severity=.6",
+      "when": "Оценить риск",
+      "expected": ".096,реальный кошелёк неизменен",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-053",
+      "stage": "S6",
+      "layer": "unit",
+      "title": "Unknown sanction",
+      "given": "Один компонент не известен",
+      "when": "Вызвать прогноз",
+      "expected": "Unknown/Assumed с источником; не0 автоматически",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-054",
+      "stage": "S6",
+      "layer": "unit",
+      "title": "PV не дважды",
+      "given": "Continuation уже PV(.8,5ч,.035)",
+      "when": "Внести в ledger",
+      "expected": "Нет дополнительного exp(-.175)",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-055",
+      "stage": "S6",
+      "layer": "choice",
+      "title": "Опыт важнее обобщения",
+      "given": "Есть надёжный специфический опыт, групповое мнение иное",
+      "when": "Оценить тот же исход",
+      "expected": "Групповое обобщение не прибавлено вторым результатом",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-056",
+      "stage": "S6",
+      "layer": "choice",
+      "title": "Self один раз",
+      "given": "Один исход отказа покрыт подробным прогнозом",
+      "when": "Добавить SelfPrediction",
+      "expected": "Нет второй полной цены того же отказа",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-057",
+      "stage": "S6",
+      "layer": "unit",
+      "title": "Человек в двух группах",
+      "given": "Знакомый одновременно коллега и друг",
+      "when": "Оценить его один возможный ответ",
+      "expected": "Один итоговый эффект",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-058",
+      "stage": "S6",
+      "layer": "choice",
+      "title": "Сильная тема не разрешение",
+      "given": "Текущее Work лучше предлагаемого досуга",
+      "when": "Нормативная тема получила высокий приоритет",
+      "expected": "Работа не прерывается ради заведомо худшего варианта",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-059",
+      "stage": "S6",
+      "layer": "unit",
+      "title": "Напряжение не награда",
+      "given": "Tension=.8 без исполненного действия",
+      "when": "Повторно прочитать и оценить",
+      "expected": "Ни reward,ни SelfUpdate,ни деньги не начислены",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-060",
+      "stage": "S7",
+      "layer": "choice",
+      "title": "Несколько SKU",
+      "given": "Известны0/35,1/95,2/180 и достаточно денег",
+      "when": "Сформировать варианты Enabled",
+      "expected": "Не оставлен только desired_tier",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-061",
+      "stage": "S7",
+      "layer": "choice",
+      "title": "Состояние не цена",
+      "given": "Норма исправности и исправная базовая вещь",
+      "when": "Сравнить сохранить/дорогая",
+      "expected": "Цена/престиж не трактуются как обязательная исправность",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-062",
+      "stage": "S7",
+      "layer": "choice",
+      "title": "Накопление",
+      "given": "Дорогая цель известна, сейчас денег мало",
+      "when": "Рассмотреть способ",
+      "expected": "Нет невозможной немедленной покупки; допустим план накопления",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-063",
+      "stage": "S7",
+      "layer": "choice",
+      "title": "Guarded",
+      "given": "Покупка нарушает резерв",
+      "when": "Запустить GuardedBaseline",
+      "expected": "Прежний фильтр сохранён и указан в trace",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-064",
+      "stage": "S7",
+      "layer": "choice",
+      "title": "Deliberative",
+      "given": "220 денег,резерв200,цена95,risk_importance=.8",
+      "when": "Рассмотреть трату",
+      "expected": "Дополнительная цена буфера .3,без магического запрета",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-065",
+      "stage": "S7",
+      "layer": "choice",
+      "title": "Нет двойного будущего голода",
+      "given": "Нехватка питания уже включена подробно",
+      "when": "Добавить fallback буфера",
+      "expected": "Один ущерб не посчитан второй раз",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-066",
+      "stage": "S7",
+      "layer": "runtime",
+      "title": "Waiting не Idle всей жизни",
+      "given": "Одежду сейчас не купить, есть работа/еда/досуг",
+      "when": "Обычный когнитивный цикл",
+      "expected": "Проект ждёт, другие действия доступны",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-067",
+      "stage": "S7",
+      "layer": "runtime",
+      "title": "Повтор revision",
+      "given": "Вопрос уже рассмотрен по basis42",
+      "when": "То же основание приходит повторно",
+      "expected": "Не создаёт новый экземпляр цели",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-068",
+      "stage": "S7",
+      "layer": "runtime",
+      "title": "Новое условие",
+      "given": "Появилось доступное обновление цены/правила",
+      "when": "Интегрировать",
+      "expected": "Возвращается только связанный вопрос",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-069",
+      "stage": "S7",
+      "layer": "runtime",
+      "title": "Норма против критического голода",
+      "given": "Нормативный фокус, уже замеченный критический голод",
+      "when": "Сформировать remedies",
+      "expected": "Еда/покупка/доступный путь помощи не исчезают из-за фокуса",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-070",
+      "stage": "S7",
+      "layer": "runtime",
+      "title": "Спонтанный контакт",
+      "given": "Доступен знакомый рядом, есть вопрос",
+      "when": "Сформировать действие",
+      "expected": "Можно обратиться без предварительного назначения встречи",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-071",
+      "stage": "S8",
+      "layer": "choice",
+      "title": "Другая группа",
+      "given": "Одна и та же одежда, разные известные аудитории",
+      "when": "Переключить контекст",
+      "expected": "Выбран подходящий контекст,старые убеждения не удалены",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-072",
+      "stage": "S8",
+      "layer": "runtime",
+      "title": "Скрытое членство",
+      "given": "Другой сменил работу, NPC не узнал",
+      "when": "Продвинуть мир",
+      "expected": "Личная группа не обновляется из скрытого реестра",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-073",
+      "stage": "S8",
+      "layer": "choice",
+      "title": "Нет цели принадлежать",
+      "given": "Норма уверенная, G=0",
+      "when": "Оценить соответствие",
+      "expected": "Нет обязательной выгоды подражания,личное w остаётся отдельно",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-074",
+      "stage": "S8",
+      "layer": "choice",
+      "title": "Разный SelfModel",
+      "given": "Одинаковая норма/возможности, разные истории Coping/Acceptance",
+      "when": "Сравнить пары",
+      "expected": "Изменяется остаточная субъективная цена/выбор,не факт нормы",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-075",
+      "stage": "S8",
+      "layer": "unit",
+      "title": "История не случайное posterior",
+      "given": "Первоначально разные исторические проекции",
+      "when": "Bootstrap",
+      "expected": "У каждого belief есть источник; числовой prior явно помечен",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-076",
+      "stage": "S8",
+      "layer": "choice",
+      "title": "Многие нарушают и осуждают",
+      "given": "Частые нарушения + выраженное осуждение",
+      "when": "Обучить слои",
+      "expected": "Высокая описательная частота может сосуществовать с неодобрением",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-077",
+      "stage": "S8",
+      "layer": "runtime",
+      "title": "Переобучение без стирания",
+      "given": "Старая норма и новые противоречащие события",
+      "when": "Интегрировать несколько новых оснований",
+      "expected": "Постепенная смена в нужной области; не reset всей личности",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-078",
+      "stage": "S8",
+      "layer": "choice",
+      "title": "Допустимая ошибка",
+      "given": "Малая выборка и известное ошибочное правило обобщения",
+      "when": "Сформировать субъективную гипотезу",
+      "expected": "Возможна ошибка без телепатической коррекции",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-079",
+      "stage": "S9",
+      "layer": "persistence",
+      "title": "Между операциями",
+      "given": "Save после Interpret до Integrate",
+      "when": "Restore и продолжить",
+      "expected": "Тот же результат и одна интеграция",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-080",
+      "stage": "S9",
+      "layer": "persistence",
+      "title": "Mid phone",
+      "given": "Save посередине send/read",
+      "when": "Restore и продолжить",
+      "expected": "Нет повторной отправки,награды или обновления",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-081",
+      "stage": "S9",
+      "layer": "persistence",
+      "title": "Hot/cold",
+      "given": "128 горячих и дополнительная холодная запись",
+      "when": "Вытеснить/вернуть",
+      "expected": "Память не исчезает; будущая оплаченная обработка эквивалентна",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-082",
+      "stage": "S9",
+      "layer": "determinism",
+      "title": "Работники",
+      "given": "Один snapshot и seed",
+      "when": "Run workers1/2/4",
+      "expected": "Одинаковое состояние/результат/порядок причинных ID",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-083",
+      "stage": "S9",
+      "layer": "determinism",
+      "title": "Журнал",
+      "given": "Одинаковый запуск trace on/off",
+      "when": "Завершить",
+      "expected": "Одинаковый state hash",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-084",
+      "stage": "S9",
+      "layer": "validation",
+      "title": "Переполнение",
+      "given": "Наблюдений больше32",
+      "when": "Обработать очередь",
+      "expected": "Соблюдены лимиты; deferred/dropped явны; нет бесплатного усвоения",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-085",
+      "stage": "S9",
+      "layer": "validation",
+      "title": "Старое сохранение",
+      "given": "Save0.13",
+      "when": "Загрузить в новый формат без миграции",
+      "expected": "Явное несовпадение версии,не неверные поля",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-086",
+      "stage": "S9",
+      "layer": "determinism",
+      "title": "Порядок completion",
+      "given": "Одинаковые timestamp/ID,разный порядок завершения worker",
+      "when": "Применить",
+      "expected": "Canonical order даёт один результат",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    },
+    {
+      "id": "NM-087",
+      "stage": "S9",
+      "layer": "runtime",
+      "title": "Патологическое повторение",
+      "given": "Нет новых источников/условий,цикл ожидания",
+      "when": "Много обзоров",
+      "expected": "Нет бесконечных нулевых действий/новых обновлений,жизнь продолжается",
+      "blocking": true,
+      "status": "planned_not_run_against_cpp",
+      "evidence_required": [
+        "named_test",
+        "command",
+        "returncode",
+        "source_sha",
+        "log"
+      ]
+    }
+  ],
+  "math_reference_scope": "The 36 Python checks exercise selected formulas, not these C++ integration tests.",
+  "long_runs": [
+    {
+      "population": 16,
+      "days": 14,
+      "seeds": [
+        42,
+        7,
+        101,
+        2026
+      ],
+      "modes": [
+        "legacy",
+        "enabled",
+        "no-effects",
+        "frozen-learning"
+      ],
+      "budget_policy": "guarded",
+      "world_count": 16
+    },
+    {
+      "population": 16,
+      "days": 14,
+      "seeds": [
+        42,
+        7,
+        101,
+        2026
+      ],
+      "modes": [
+        "enabled"
+      ],
+      "budget_policy": "deliberative",
+      "world_count": 4
+    }
+  ],
+  "delivery_checks": [
+    "clean_build",
+    "full_ctest",
+    "explicit_sanitizer_exclusions",
+    "patch_apply_to_pinned_base",
+    "zip_crc",
+    "per_file_sha256",
+    "clean_extracted_rebuild",
+    "source_binary_profile_hash_per_final_run"
+  ]
+}

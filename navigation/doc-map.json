@@ -34,6 +34,9 @@
     {"id": "provenance", "path": "provenance/README.md", "status": "historical"},
     {"id": "navigation_index", "path": "navigation/INDEX.md", "status": "implemented", "depends_on": ["repository_index", "self_model_coverage"]},
     {"id": "game_flow", "path": "navigation/GAME_FLOW.md", "status": "implemented", "depends_on": ["self_model_profile", "self_model_coverage"]},
-    {"id": "maintenance", "path": "navigation/MAINTENANCE_RULES.md", "status": "implemented", "depends_on": ["navigation_index"]}
+    {"id": "maintenance", "path": "navigation/MAINTENANCE_RULES.md", "status": "implemented", "depends_on": ["navigation_index"]},
+    {"id":"norm_rules","path":"docs/rules/norm_memory_0.1/SPEC_RU.md","status":"normative","depends_on":["recovery_rules"]},
+    {"id":"norm_profile","path":"game/profiles/norm_memory_0.1/PROFILE.json","status":"normative","depends_on":["norm_rules"]},
+    {"id":"norm_architecture","path":"docs/architecture/norm_memory_0.1/IMPLEMENTATION.md","status":"implemented","depends_on":["norm_profile"]}
   ]
 }

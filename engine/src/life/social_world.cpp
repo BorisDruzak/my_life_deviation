@@ -1,6 +1,7 @@
 #include "life/world.hpp"
 #include <algorithm>
 #include <cmath>
+#include <optional>
 #include <stdexcept>
 #include <set>
 #include <utility>
@@ -14,6 +15,50 @@ ItemMemory item_description(const WorldObject& o,Tick at,FactOrigin origin,std::
 }
 bool talking_together(const Actor& a,const Actor& b,std::uint64_t parent){
     return conversation_together(a,b,parent);
+}
+bool life_interaction(Interaction kind){
+    switch(kind){
+    case Interaction::Introduce:case Interaction::InviteMeeting:case Interaction::PartnerIntimacy:
+    case Interaction::RequestWork:case Interaction::PraiseWork:return true;
+    default:return false;
+    }
+}
+bool norm_interaction(Interaction kind){
+    switch(kind){
+    case Interaction::AskPractice:case Interaction::ExplainPractice:
+    case Interaction::ApprovePractice:case Interaction::DisapprovePractice:return true;
+    default:return false;
+    }
+}
+bool valid_norm_content(Interaction kind,const NormPayload& payload){
+    if(!payload.present||payload.key.practice==0)return false;
+    if(kind==Interaction::AskPractice)return payload.question;
+    return !payload.question;
+}
+std::optional<NormObservation> received_norm(const InteractionObservation& message){
+    if(message.stage!=SocialStage::Completed||message.initiated||!message.norm_payload.present)return {};
+    if(message.kind==Interaction::AskPractice)return {};
+    if(message.kind!=Interaction::ExplainPractice&&message.kind!=Interaction::ApprovePractice&&message.kind!=Interaction::DisapprovePractice)return {};
+    auto observation=message.norm_payload.evidence;
+    observation.key=message.norm_payload.key;
+    observation.source.delivery=message.delivery;
+    observation.source.speaker=message.other;
+    if(message.kind==Interaction::ExplainPractice){
+        observation.source.origin=NormOrigin::Reported;
+        if(!observation.source.known_root)observation.source.independently_grounded=false;
+    }else{
+        observation.channel=NormChannel::Approval;
+        observation.approval=message.kind==Interaction::ApprovePractice?ApprovalValue::Approve:ApprovalValue::Disapprove;
+        observation.source.known_root=message.event?message.event:message.delivery;
+        observation.source.revision=1;
+        observation.source.origin=NormOrigin::Observed;
+        observation.observed_actor=message.norm_payload.subject;
+        observation.at=message.at;
+        observation.applicable=true;
+        observation.value_known=true;
+        observation.outcome_window_complete=true;
+    }
+    return observation;
 }
 }
 const SocialEvent* World::social_event(std::uint64_t id)const{
@@ -83,7 +128,9 @@ void World::start_social(Actor& a,const Decision& d){
     if(!a.mind.social.enabled||a.mind.social.active_event||d.partner==0||d.partner>state_.actors.size()||d.partner==a.id)return;
     auto& b=state_.actors[d.partner-1];physical_until(a,state_.now);physical_until(b,state_.now);
     if(!talking_together(a,b,conversation_id(a))||!needs_joint_consent(d.interaction))return;
-    if(d.interaction>=Interaction::Introduce&&!state_.life.enabled)return;
+    if(life_interaction(d.interaction)&&!state_.life.enabled)return;
+    if(norm_interaction(d.interaction)&&!valid_norm_content(d.interaction,d.norm_payload))return;
+    if(!norm_interaction(d.interaction)&&d.norm_payload.present)return;
     if(d.interaction==Interaction::PartnerIntimacy){
         // This whole joint activity is exclusive, even though its negotiation
         // used the conversation channel. Neither participant can be working.
@@ -100,13 +147,13 @@ void World::start_social(Actor& a,const Decision& d){
         for(const auto& participant:state_.actors)if(participant.place==a.place)if(const auto* x=social_event(participant.mind.social.active_event);x&&x->kind==Interaction::ShareNews&&(x->phase==SocialPhase::Proposed||x->phase==SocialPhase::Accepted))return;
     }
     SocialEvent e;e.id=state_.next_id++;e.parent=conversation_id(a);e.initiator=a.id;e.receiver=b.id;e.object=d.object;
-    e.kind=d.interaction;e.meeting=d.meeting;e.project=d.project;e.proposed_at=state_.now;e.ends=state_.now+30000;
+    e.kind=d.interaction;e.meeting=d.meeting;e.project=d.project;e.norm_payload=d.norm_payload;e.proposed_at=state_.now;e.ends=state_.now+30000;
     auto av=personal_view(a.id),bv=personal_view(b.id);e.public_a=av.social.known_audience>0;e.public_b=bv.social.known_audience>0;
     capture_self_decision(a,e.id,d);
     state_.social.events.push_back(e);++state_.social.offered[std::size_t(e.kind)];
     a.mind.social.active_event=b.mind.social.active_event=e.id;
     InteractionObservation message;message.event=e.id;message.parent=e.parent;message.other=a.id;message.object=e.object;message.kind=e.kind;
-    message.meeting=e.meeting;message.project=e.project;message.stage=SocialStage::Offer;message.at=state_.now;message.public_context=e.public_b;
+    message.meeting=e.meeting;message.project=e.project;message.norm_payload=e.norm_payload;message.stage=SocialStage::Offer;message.at=state_.now;message.public_context=e.public_b;
     if((e.kind==Interaction::ShowItem||e.kind==Interaction::ClaimItem)){
         if(auto* object=object_by_id(state_,e.object);object&&object->holder==a.id){
             // Presentation exposes observable features only. Cultural valuation is
@@ -125,7 +172,7 @@ void World::social_answer(Actor& b,const InteractionObservation& offer,bool acce
     if(!talking_together(a,b,e->parent)){stop_social(b);return;}
     e->answered_at=state_.now;e->response=evaluation;
     auto message=[&](Actor& recipient,SocialStage stage,SocialReason reason,bool initiated){
-        InteractionObservation o;o.event=e->id;o.outcome_source=e->outcome_source;o.parent=e->parent;o.other=initiated?b.id:a.id;o.object=e->object;o.kind=e->kind;o.meeting=e->meeting;o.project=e->project;o.stage=stage;o.reason=reason;o.initiated=initiated;o.at=state_.now;o.public_context=initiated?e->public_a:e->public_b;social_deliver(recipient,o);
+        InteractionObservation o;o.event=e->id;o.outcome_source=e->outcome_source;o.parent=e->parent;o.other=initiated?b.id:a.id;o.object=e->object;o.kind=e->kind;o.meeting=e->meeting;o.project=e->project;o.norm_payload=e->norm_payload;o.stage=stage;o.reason=reason;o.initiated=initiated;o.at=state_.now;o.public_context=initiated?e->public_a:e->public_b;social_deliver(recipient,o);
     };
     if(!accept){
         e->phase=SocialPhase::Declined;e->outcome_source=state_.self_enabled?state_.next_id++:0;
@@ -168,7 +215,7 @@ void World::stop_social(Actor& actor){
     const double dose=experienced?unit(double(state_.now-e->answered_at)/double(interaction_duration(e->kind))):0;
     e->phase=SocialPhase::Cancelled;e->outcome_source=state_.self_enabled?state_.next_id++:0;if(e->reason==SocialReason::None)e->reason=SocialReason::Withdrawn;++state_.social.cancelled;
     a.mind.social.active_event=b.mind.social.active_event=0;
-    for(Actor* person:{&a,&b}){InteractionObservation o;o.event=e->id;o.outcome_source=e->outcome_source;o.parent=e->parent;o.other=person==&a?b.id:a.id;o.object=e->object;o.kind=e->kind;o.meeting=e->meeting;o.project=e->project;o.stage=SocialStage::Cancelled;o.reason=e->reason;o.at=state_.now;o.initiated=person==&a;o.public_context=person==&a?e->public_a:e->public_b;
+    for(Actor* person:{&a,&b}){InteractionObservation o;o.event=e->id;o.outcome_source=e->outcome_source;o.parent=e->parent;o.other=person==&a?b.id:a.id;o.object=e->object;o.kind=e->kind;o.meeting=e->meeting;o.project=e->project;o.norm_payload=e->norm_payload;o.stage=SocialStage::Cancelled;o.reason=e->reason;o.at=state_.now;o.initiated=person==&a;o.public_context=person==&a?e->public_a:e->public_b;
         if(experienced){o.pleasure_observed=true;o.pleasure=person==&a?e->pleasure_a:e->pleasure_b;o.primary_pleasure=person==&a?e->primary_a:e->primary_b;o.dose=dose;}
         social_deliver(*person,o);person->exposure.clear();}
     emit_social(*e,actor.id,"cancelled");
@@ -203,7 +250,7 @@ void World::process_social(){
         e->phase=SocialPhase::Completed;e->outcome_source=state_.self_enabled?state_.next_id++:0;++state_.social.completed[std::size_t(e->kind)];life_social_completed(*e);
         a.mind.social.active_event=b.mind.social.active_event=0;
         for(Actor* who:{&a,&b}){
-            InteractionObservation o;o.event=e->id;o.outcome_source=e->outcome_source;o.parent=e->parent;o.other=who==&a?b.id:a.id;o.object=e->object;o.kind=e->kind;o.meeting=e->meeting;o.project=e->project;o.stage=SocialStage::Completed;o.initiated=who==&a;o.public_context=who==&a?e->public_a:e->public_b;o.at=state_.now;
+            InteractionObservation o;o.event=e->id;o.outcome_source=e->outcome_source;o.parent=e->parent;o.other=who==&a?b.id:a.id;o.object=e->object;o.kind=e->kind;o.meeting=e->meeting;o.project=e->project;o.norm_payload=e->norm_payload;o.stage=SocialStage::Completed;o.initiated=who==&a;o.public_context=who==&a?e->public_a:e->public_b;o.at=state_.now;
             o.pleasure=who==&a?e->pleasure_a:e->pleasure_b;o.primary_pleasure=who==&a?e->primary_a:e->primary_b;o.pleasure_observed=true;
             o.approval=who==&a?e->approval_a:e->approval_b;o.approval_observed=(e->kind==Interaction::Compliment||e->kind==Interaction::ShowItem||e->kind==Interaction::ClaimItem);
             if(e->kind==Interaction::BorrowItem||e->kind==Interaction::ReturnItem){o.item_present=true;o.item=item_description(*object,state_.now,FactOrigin::Agreement,e->id);}
@@ -247,6 +294,8 @@ double World::social_observe(Actor& a,const InteractionObservation& original){
     const auto cap=capability(a.body,a.mind.cognition,false);
     auto current_learning=a.mind.cognition;current_learning.base=cap.current;
     if(!m.observe(o,current_learning,cap.current[3]))return 0;
+    receive_norm_request(a,o);
+    if(auto norm=received_norm(o))publish_norm_observation(a,*norm);
     life_social_result(a,o);
     if(o.information_present&&o.stage==SocialStage::Completed&&m.community.enabled){
         auto fact=o.information;
@@ -265,7 +314,12 @@ double World::social_observe(Actor& a,const InteractionObservation& original){
         Appraisal app;app.significance=.6;app.pleasantness=o.pleasure;
         if(o.stage==SocialStage::Declined&&o.initiated){app.loss=-std::min(0.,o.pleasure);app.rejection=app.loss;}
         SocialView view;PersonalView full=personal_view(a.id);view=full.social;
-        if(o.stage==SocialStage::Completed){auto e=evaluate_social(view,o.kind,o.other,o.object,!o.initiated);app.violation=e.moral;app.disapproval=e.devaluation;app.responsibility=1;}
+        if(o.stage==SocialStage::Completed){
+            auto e=evaluate_social(view,o.kind,o.other,o.object,!o.initiated);
+            const bool legacy=state_.norm_profile.mode==NormMode::Legacy||state_.norm_profile.mode==NormMode::Shadow;
+            app.violation=legacy?e.moral:std::max(0.,e.moral-e.practical_moral);
+            app.disapproval=e.devaluation;app.responsibility=1;
+        }
         // Only communicated feedback enters the subjective appraisal. No global
         // audience lookup and no automatic physical shame increment.
         if(o.approval_observed)app.disapproval=std::max(app.disapproval,std::max(0.,-o.approval));
@@ -314,8 +368,8 @@ void World::seed_social(){
         auto m=item_description(o,0,FactOrigin::InitialBelief,s.next_id++);a.mind.social.items.push_back(m);
     }
 }
-void World::propose_social_for_test(Id id,Interaction kind,Id other,Id object){
-    auto& a=state_.actors.at(id-1);Decision d;d.method=Method::Social;d.interaction=kind;d.partner=other;d.place=a.place;d.object=object;start_social(a,d);
+void World::propose_social_for_test(Id id,Interaction kind,Id other,Id object,NormPayload payload){
+    auto& a=state_.actors.at(id-1);Decision d;d.method=Method::Social;d.interaction=kind;d.partner=other;d.place=a.place;d.object=object;d.norm_payload=std::move(payload);start_social(a,d);
 }
 void World::use_object_for_test(Id id,Id object){auto& a=state_.actors.at(id-1);Decision d;d.method=Method::UseObject;d.object=object;d.place=a.place;d.path={a.place};start(a,d);}
 void World::withdraw_social_for_test(Id id){stop_social(state_.actors.at(id-1));}

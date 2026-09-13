@@ -1,0 +1,106 @@
+{
+  "kind": "source_inspection_for_plan_not_runtime_validation",
+  "base_commit": "36dc381b121e552fd4c961d8a2a90fd48a2a09d0",
+  "archive_sha256": "1750c0e5764c9fd831309a17eeb3ec9e410eed91165818a4472e604df512c12f",
+  "main_verified_via_connector": [
+    "README.md",
+    "navigation/INDEX.md",
+    "CMakeLists.txt",
+    "engine/src/life/mind.cpp",
+    "docs/rules/behavior_0.3/Нормы_репутация_и_ожидаемые_санкции_v0.2.md"
+  ],
+  "local_inspection": [
+    {
+      "archive_path": "include/life/mind.hpp",
+      "main_path": "engine/include/life/mind.hpp",
+      "sha256": "66a9f61b6c7d0492e4afb498569aca2df3dd530226547ebeee7ec7d1e4ab110f",
+      "git_blob_sha1": "8d272e1318f540fe29682b8d2ad598be7f1c14d1"
+    },
+    {
+      "archive_path": "include/life/social.hpp",
+      "main_path": "engine/include/life/social.hpp",
+      "sha256": "27213234a81a063152a5a22236cc8b2077cbbd268351c7320ccda2c23367cee9",
+      "git_blob_sha1": "0e42584863f230571eb2ff2ce3ec41f90e88b76f"
+    },
+    {
+      "archive_path": "include/life/cognition.hpp",
+      "main_path": "engine/include/life/cognition.hpp",
+      "sha256": "a4bd2d5530880c3f402a41dfd16bbb8273c9397e437c4157534b3c2d19720ba7",
+      "git_blob_sha1": "8fb8d79e154ae0e78a0ff5a0a969fd35bdcdf6b2"
+    },
+    {
+      "archive_path": "include/life/civil.hpp",
+      "main_path": "engine/include/life/civil.hpp",
+      "sha256": "f6c833da6ad20f75e57b62f629b900bc28956b8a9a45a2f2a0a0628758e836ca",
+      "git_blob_sha1": "d5268a93af41a69242a73ba381e66c62a675cbf5"
+    },
+    {
+      "archive_path": "include/life/projects.hpp",
+      "main_path": "engine/include/life/projects.hpp",
+      "sha256": "03ec224ac9e861c562ff63f1067796f63d8dd1cbfa7c235cf5eb95925584b826",
+      "git_blob_sha1": "831f3d73a1df5ccf2388769b1b1084f94ff2d127"
+    },
+    {
+      "archive_path": "include/life/self_model.hpp",
+      "main_path": "engine/include/life/self_model.hpp",
+      "sha256": "851098e8a29b635f915be6d98d6d782c8b9af887904eb28354f862d719c21d08",
+      "git_blob_sha1": "ede35469db00df5534f4a3628fecc2f11bc7ee86"
+    },
+    {
+      "archive_path": "src/life/mind.cpp",
+      "main_path": "engine/src/life/mind.cpp",
+      "sha256": "75d4ad1ff50e8ddc0970977179e3e9da0c48305ff00640ebc0dfaacfd14d9d75",
+      "git_blob_sha1": "7a2b62b70554f50d3fef475ebb1eb4fc96bd3f16"
+    },
+    {
+      "archive_path": "src/life/social.cpp",
+      "main_path": "engine/src/life/social.cpp",
+      "sha256": "ed31631cb568c31d8f6fdf4728c1fe3b7d189d0335cea91a949b642ec55580a2",
+      "git_blob_sha1": "7ce35fdc153457692c39c01f33e48e921ded700f"
+    },
+    {
+      "archive_path": "src/life/civil.cpp",
+      "main_path": "engine/src/life/civil.cpp",
+      "sha256": "54b66afece39a9399a788b32ee39133fae8c604cd85f38cc70427e88fbb7f7be",
+      "git_blob_sha1": "cded9d2a4506d0f7dbd47848735ee5b48641b33a"
+    },
+    {
+      "archive_path": "src/life/civil_world.cpp",
+      "main_path": "engine/src/life/civil_world.cpp",
+      "sha256": "0bb9d5d8b91aa54cebcd7759c133c13e4d62e36da72024f55b710f9ae758fb12",
+      "git_blob_sha1": "ac08051d7f09a42f6f037061f88a1e6605403b3f"
+    },
+    {
+      "archive_path": "src/life/cognitive_self_world.cpp",
+      "main_path": "engine/src/life/cognitive_self_world.cpp",
+      "sha256": "8321f26af80b3d7f54717b8fc4322fe022a433f9ac3746352cdb344836e6e336",
+      "git_blob_sha1": "b7db17318d0b1a7555ce1218331dd753174857b0"
+    },
+    {
+      "archive_path": "src/life/cognitive_world.cpp",
+      "main_path": "engine/src/life/cognitive_world.cpp",
+      "sha256": "8ab0e5cc03f0a86d734f0ffe268e37140972687c7e2e7cdcc6ccee61d9eb8242",
+      "git_blob_sha1": "f20ceafc68ea82fad96da4a54f9ff8fd779947cd"
+    },
+    {
+      "archive_path": "src/life/generation.cpp",
+      "main_path": "engine/src/life/generation.cpp",
+      "sha256": "5f90855b127f518d12759ff7dade91a95bfc1e20b44d1f3e1e8c34b709ac4bbe",
+      "git_blob_sha1": "265cc6730cd1f1dec9790f2c4d2fea1e84e9204d"
+    },
+    {
+      "archive_path": "src/life/executor.cpp",
+      "main_path": "engine/src/life/executor.cpp",
+      "sha256": "2334db3be930b5788cb00c1696060c2879fe20fe6f27467e51c625458137501e",
+      "git_blob_sha1": "6c809ac02ab01c652e70442b108b07231f7a0eda"
+    },
+    {
+      "archive_path": "CMakeLists.txt",
+      "main_path": "CMakeLists.txt",
+      "sha256": "3131b18486e9365b392e12b7ff495dc4aadd13a47aed332b3068b9ef42fd9fb1",
+      "git_blob_sha1": "dd9b23a84ac9872effe1f21f6633891bd1b1b7e1"
+    }
+  ],
+  "full_main_clone": "not_performed_DNS_unavailable",
+  "cpp_tests_run_for_this_plan": false
+}
