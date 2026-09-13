@@ -1,0 +1,13 @@
+{
+  "captured_utc": "2026-09-12T23:46:13Z",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "python": "3.13.5",
+  "compiler": "c++ (Debian 14.2.0-19) 14.2.0",
+  "cmake": "cmake version 3.31.6",
+  "baseline_archive_sha256": "b038460398aa82fd8652b820718b721e2b73dfa4d5b979b3e770a75061b37c4a",
+  "binaries": {
+    "life_sim": "6fa8abb560600e571c024577f57fc74d269a12a3b3049bb88daa19c14f56fbe8",
+    "life_tests": "277fb5bb08cfe67f57419547fb798b4ad3d32bc146bf6452b78972ab8decc7fc",
+    "self_behavior_scenario": "66983bf1f35508ecd67791d99a5f768540f5229401c64d9e8f05fb9c9bb5300b"
+  }
+}

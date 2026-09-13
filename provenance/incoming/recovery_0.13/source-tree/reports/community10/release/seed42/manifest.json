@@ -1,0 +1,178 @@
+{
+  "signature": {
+    "binary_sha256": "6ea80a783f0e56734216077a2c4dd3c109d277dd4c2ed5cf467ab5d7e3e7d2df",
+    "seed": 42,
+    "population": 16,
+    "days": 7,
+    "scenario": "normal"
+  },
+  "runs": [
+    {
+      "day": 1,
+      "command": [
+        "/mnt/data/work_010/my_life_deviation/build/life_sim",
+        "--community",
+        "--seed",
+        "42",
+        "--population",
+        "16",
+        "--scenario",
+        "normal",
+        "--days",
+        "1",
+        "--save",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-01/world.save",
+        "--summary",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-01/summary.json",
+        "--community-state",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-01/community.json",
+        "--actors",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-01/actors.csv"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 2.6211548609999227,
+      "alive": 16,
+      "critical_actor_seconds": 0,
+      "state_hash": "2f86450ee8121145a92875ce96c35bb2de02d4f0683d4bb628344ca4ab94a949"
+    },
+    {
+      "day": 2,
+      "command": [
+        "/mnt/data/work_010/my_life_deviation/build/life_sim",
+        "--load",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-01/world.save",
+        "--days",
+        "1",
+        "--save",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-02/world.save",
+        "--summary",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-02/summary.json",
+        "--community-state",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-02/community.json",
+        "--actors",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-02/actors.csv"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 4.376036883999859,
+      "alive": 16,
+      "critical_actor_seconds": 0,
+      "state_hash": "cdfcc7dc7dbe619ad8cb0a5b0db2b834f54f636b1cd34d34e697c35cf17d4197"
+    },
+    {
+      "day": 3,
+      "command": [
+        "/mnt/data/work_010/my_life_deviation/build/life_sim",
+        "--load",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-02/world.save",
+        "--days",
+        "1",
+        "--save",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-03/world.save",
+        "--summary",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-03/summary.json",
+        "--community-state",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-03/community.json",
+        "--actors",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-03/actors.csv"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 4.477029705999939,
+      "alive": 16,
+      "critical_actor_seconds": 0,
+      "state_hash": "45a9efeecb4a4891cb1337c04f90b0e4393b74ebce26b9e64d0d3d77f0b7bbd1"
+    },
+    {
+      "day": 4,
+      "command": [
+        "/mnt/data/work_010/my_life_deviation/build/life_sim",
+        "--load",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-03/world.save",
+        "--days",
+        "1",
+        "--save",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-04/world.save",
+        "--summary",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-04/summary.json",
+        "--community-state",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-04/community.json",
+        "--actors",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-04/actors.csv"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 4.930803353000101,
+      "alive": 16,
+      "critical_actor_seconds": 2030.211,
+      "state_hash": "a4442ae9f6706fc09f3466c56416d6bf0825e167d212fcfc79a3292dccaddfb6"
+    },
+    {
+      "day": 5,
+      "command": [
+        "/mnt/data/work_010/my_life_deviation/build/life_sim",
+        "--load",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-04/world.save",
+        "--days",
+        "1",
+        "--save",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-05/world.save",
+        "--summary",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-05/summary.json",
+        "--community-state",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-05/community.json",
+        "--actors",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-05/actors.csv"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 5.82873994900001,
+      "alive": 16,
+      "critical_actor_seconds": 2030.211,
+      "state_hash": "4115218c61203082d00f1886315d69dc5fbd794e5cba3dbc7039c63a7cd60ab3"
+    },
+    {
+      "day": 6,
+      "command": [
+        "/mnt/data/work_010/my_life_deviation/build/life_sim",
+        "--load",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-05/world.save",
+        "--days",
+        "1",
+        "--save",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-06/world.save",
+        "--summary",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-06/summary.json",
+        "--community-state",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-06/community.json",
+        "--actors",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-06/actors.csv"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 7.082000191000134,
+      "alive": 16,
+      "critical_actor_seconds": 2030.211,
+      "state_hash": "c711b578747ef538cdb2ae9fcfe670d70e59fdf7ba66063d529bd9dfff89c1f0"
+    },
+    {
+      "day": 7,
+      "command": [
+        "/mnt/data/work_010/my_life_deviation/build/life_sim",
+        "--load",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-06/world.save",
+        "--days",
+        "1",
+        "--save",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-07/world.save",
+        "--summary",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-07/summary.json",
+        "--community-state",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-07/community.json",
+        "--actors",
+        "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-07/actors.csv"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 9.040739678000136,
+      "alive": 16,
+      "critical_actor_seconds": 2030.211,
+      "state_hash": "17b7737cc23ef8020de9b22348921ed4e316ca7fb571948b05cf06297a8f76d6"
+    }
+  ],
+  "finished": true
+}

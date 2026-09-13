@@ -1,0 +1,31 @@
+[
+  {
+    "command": [
+      "/mnt/data/recovery13_build/life_sim",
+      "--recovery",
+      "--population",
+      "16",
+      "--seed",
+      "7",
+      "--days",
+      "7",
+      "--summary",
+      "/mnt/data/recovery13_evidence/acceptance_week_7/summary.json",
+      "--recovery-state",
+      "/mnt/data/recovery13_evidence/acceptance_week_7/recovery.json",
+      "--career-state",
+      "/mnt/data/recovery13_evidence/acceptance_week_7/career.json",
+      "--community-state",
+      "/mnt/data/recovery13_evidence/acceptance_week_7/community.json",
+      "--self-state",
+      "/mnt/data/recovery13_evidence/acceptance_week_7/self.json",
+      "--actors",
+      "/mnt/data/recovery13_evidence/acceptance_week_7/actors.csv"
+    ],
+    "binary_sha256": "4eabad2bf182d29cc1dcd3509008a7ebe16f4ec28b93a2f50857ed5151b46b51",
+    "returncode": 0,
+    "start_utc": "2026-09-12T23:40:04Z",
+    "seconds": 57.72364044189453,
+    "log": "0.log"
+  }
+]

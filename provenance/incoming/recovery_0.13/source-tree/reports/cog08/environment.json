@@ -1,0 +1,8 @@
+{
+  "date": "2026-09-11",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "gcc": "g++ (Debian 14.2.0-19) 14.2.0",
+  "clang": "clang version 17.0.0 (https://github.com/swiftlang/llvm-project.git 10999b6d034fe318f3d56c83bddb6572593a8bb0)",
+  "cpu": "AMD EPYC 7763 64-Core Processor",
+  "measurements": "one run per scenario; wall_seconds excludes setup, /usr/bin/time also captures setup and output; no inference to UE5 or i5-11400"
+}

@@ -1,0 +1,67 @@
+Internal ctest changing into directory: /mnt/data/recovery13_delivery_build
+Test project /mnt/data/recovery13_delivery_build
+      Start  1: numeric
+      Start  2: seed
+      Start  3: mind
+ 1/29 Test  #1: numeric ..........................   Passed    0.00 sec
+      Start  4: world
+ 2/29 Test  #2: seed .............................   Passed    0.00 sec
+      Start  5: cli_invalid_argument
+ 3/29 Test  #3: mind .............................   Passed    0.00 sec
+      Start  6: cli_smoke
+ 4/29 Test  #5: cli_invalid_argument .............   Passed    0.00 sec
+      Start  7: cognition_world
+ 5/29 Test  #6: cli_smoke ........................   Passed    0.01 sec
+      Start  8: social_world
+ 6/29 Test  #7: cognition_world ..................   Passed    0.25 sec
+      Start  9: social_contracts
+ 7/29 Test  #9: social_contracts .................   Passed    0.00 sec
+      Start 10: community
+ 8/29 Test  #8: social_world .....................   Passed    0.46 sec
+      Start 11: community_unit
+ 9/29 Test #11: community_unit ...................   Passed    0.00 sec
+      Start 12: community_long
+10/29 Test #10: community ........................   Passed    0.23 sec
+      Start 13: life11
+11/29 Test #13: life11 ...........................   Passed    2.55 sec
+      Start 14: projects
+12/29 Test #14: projects .........................   Passed    0.00 sec
+      Start 15: life_contracts
+13/29 Test #15: life_contracts ...................   Passed    0.00 sec
+      Start 16: life11_long
+14/29 Test  #4: world ............................   Passed    5.39 sec
+      Start 17: self_model
+15/29 Test #17: self_model .......................   Passed    0.00 sec
+      Start 18: self_runtime
+16/29 Test #18: self_runtime .....................   Passed    0.28 sec
+      Start 19: adaptive
+17/29 Test #19: adaptive .........................   Passed    0.06 sec
+      Start 20: self_behavior
+18/29 Test #20: self_behavior ....................   Passed    0.00 sec
+      Start 21: career
+19/29 Test #21: career ...........................   Passed    0.00 sec
+      Start 22: career_runtime
+20/29 Test #22: career_runtime ...................   Passed    1.27 sec
+      Start 23: resources
+21/29 Test #23: resources ........................   Passed    0.00 sec
+      Start 24: civil_unit
+22/29 Test #24: civil_unit .......................   Passed    0.00 sec
+      Start 25: civil_world
+23/29 Test #25: civil_world ......................   Passed    0.05 sec
+      Start 26: phone
+24/29 Test #26: phone ............................   Passed    0.13 sec
+      Start 27: civil_social
+25/29 Test #27: civil_social .....................   Passed    0.04 sec
+      Start 28: cognition_contracts
+26/29 Test #28: cognition_contracts ..............   Passed    0.00 sec
+      Start 29: numerical_examples
+27/29 Test #29: numerical_examples ...............   Passed    0.00 sec
+28/29 Test #12: community_long ...................   Passed   11.83 sec
+29/29 Test #16: life11_long ......................   Passed   35.80 sec
+
+100% tests passed, 0 tests failed out of 29
+
+Label Time Summary:
+long    =  47.63 sec*proc (2 tests)
+
+Total Test time (real) =  38.84 sec

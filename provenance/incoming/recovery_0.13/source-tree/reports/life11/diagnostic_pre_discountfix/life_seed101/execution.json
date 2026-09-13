@@ -1,0 +1,28 @@
+{
+  "variant": "life",
+  "seed": 101,
+  "command": [
+    "/mnt/data/my_life_deviation_0_11/build/life_sim",
+    "--life-projects",
+    "--population",
+    "16",
+    "--days",
+    "7",
+    "--seed",
+    "101",
+    "--summary",
+    "reports/life11/matrix/life_seed101/summary.json",
+    "--life-state",
+    "reports/life11/matrix/life_seed101/life.json",
+    "--community-state",
+    "reports/life11/matrix/life_seed101/community.json",
+    "--social-state",
+    "reports/life11/matrix/life_seed101/social.json",
+    "--actors",
+    "reports/life11/matrix/life_seed101/actors.csv"
+  ],
+  "returncode": 0,
+  "all_alive": true,
+  "completed_duration": true,
+  "elapsed_seconds": 24.6821142040003
+}

@@ -1,0 +1,37 @@
+[
+  {
+    "command": [
+      "/mnt/data/recovery13_build/life_tests"
+    ],
+    "binary_sha256": "277fb5bb08cfe67f57419547fb798b4ad3d32bc146bf6452b78972ab8decc7fc",
+    "returncode": 0,
+    "start_utc": "2026-09-12T23:44:29Z",
+    "seconds": 81.89455080032349,
+    "log": "0.log"
+  },
+  {
+    "command": [
+      "ctest",
+      "--test-dir",
+      "/mnt/data/recovery13_build",
+      "--output-on-failure",
+      "--parallel",
+      "3"
+    ],
+    "binary_sha256": null,
+    "returncode": 0,
+    "start_utc": "2026-09-12T23:45:51Z",
+    "seconds": 37.542705059051514,
+    "log": "1.log"
+  },
+  {
+    "command": [
+      "/mnt/data/recovery13_build/self_behavior_scenario"
+    ],
+    "binary_sha256": "66983bf1f35508ecd67791d99a5f768540f5229401c64d9e8f05fb9c9bb5300b",
+    "returncode": 0,
+    "start_utc": "2026-09-12T23:46:28Z",
+    "seconds": 0.0059130191802978516,
+    "log": "2.log"
+  }
+]

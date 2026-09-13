@@ -1,0 +1,179 @@
+
+### Проверка_редакции_поведения_v0.3.py
+test_01_deficit_accumulates (__main__.FormulaTests.test_01_deficit_accumulates) ... ok
+test_02_deficit_saturated (__main__.FormulaTests.test_02_deficit_saturated) ... ok
+test_03_zero_rate (__main__.FormulaTests.test_03_zero_rate) ... ok
+test_04_zero_interval_exact (__main__.FormulaTests.test_04_zero_interval_exact) ... ok
+test_05_invalid_inputs (__main__.FormulaTests.test_05_invalid_inputs) ... ok
+test_06_deficit_composition (__main__.FormulaTests.test_06_deficit_composition) ... ok
+test_07_refractory_composition (__main__.FormulaTests.test_07_refractory_composition) ... ok
+test_08_satisfaction_values (__main__.FormulaTests.test_08_satisfaction_values) ... ok
+test_09_satisfaction_idempotency (__main__.FormulaTests.test_09_satisfaction_idempotency) ... ok
+test_10_satisfaction_zero (__main__.FormulaTests.test_10_satisfaction_zero) ... ok
+test_11_context_increases_desire (__main__.FormulaTests.test_11_context_increases_desire) ... ok
+test_12_unobserved_trigger_absent (__main__.FormulaTests.test_12_unobserved_trigger_absent) ... ok
+test_13_duplicate_exposure_max (__main__.FormulaTests.test_13_duplicate_exposure_max) ... ok
+test_14_feature_order (__main__.FormulaTests.test_14_feature_order) ... ok
+test_15_primary_training_not_W (__main__.FormulaTests.test_15_primary_training_not_W) ... ok
+test_16_refractory_inhibits (__main__.FormulaTests.test_16_refractory_inhibits) ... ok
+test_17_constant_target_composition (__main__.FormulaTests.test_17_constant_target_composition) ... ok
+test_18_random_bounds (__main__.FormulaTests.test_18_random_bounds) ... ok
+test_19_dependency_example (__main__.FormulaTests.test_19_dependency_example) ... ok
+test_20_unknown_replacement (__main__.FormulaTests.test_20_unknown_replacement) ... ok
+test_21_dependency_coverage (__main__.FormulaTests.test_21_dependency_coverage) ... ok
+test_22_zero_goals (__main__.FormulaTests.test_22_zero_goals) ... ok
+test_23_alternative_reduces_dependency (__main__.FormulaTests.test_23_alternative_reduces_dependency) ... ok
+test_24_taboo_finite (__main__.FormulaTests.test_24_taboo_finite) ... ok
+test_25_moral_duplicates (__main__.FormulaTests.test_25_moral_duplicates) ... ok
+test_26_sanction_example (__main__.FormulaTests.test_26_sanction_example) ... ok
+test_27_unknown_sanction_not_zero (__main__.FormulaTests.test_27_unknown_sanction_not_zero) ... ok
+test_28_norm_slow_update (__main__.FormulaTests.test_28_norm_slow_update) ... ok
+test_29_norm_no_basis (__main__.FormulaTests.test_29_norm_no_basis) ... ok
+test_30_seed_reproducible (__main__.FormulaTests.test_30_seed_reproducible) ... ok
+test_31_seed_order_independent (__main__.FormulaTests.test_31_seed_order_independent) ... ok
+test_32_seed_unicode_normalization (__main__.FormulaTests.test_32_seed_unicode_normalization) ... ok
+test_33_seed_range (__main__.FormulaTests.test_33_seed_range) ... ok
+test_34_social_valid_fixture (__main__.FormulaTests.test_34_social_valid_fixture) ... ok
+test_35_social_rejects_isolate_or_clique (__main__.FormulaTests.test_35_social_rejects_isolate_or_clique) ... ok
+test_36_social_rejects_disconnected (__main__.FormulaTests.test_36_social_rejects_disconnected) ... ok
+test_37_parent_valid_fixture (__main__.FormulaTests.test_37_parent_valid_fixture) ... ok
+test_38_parent_rejects_cycle_self_age (__main__.FormulaTests.test_38_parent_rejects_cycle_self_age) ... ok
+test_39_shared_channel_limits (__main__.FormulaTests.test_39_shared_channel_limits) ... ok
+test_40_profile_no_institution_execution (__main__.FormulaTests.test_40_profile_no_institution_execution) ... ok
+
+----------------------------------------------------------------------
+Ran 40 tests in 0.016s
+
+OK
+
+### Проверка_уточнений_внутренней_симуляции_v0.2.py
+test_association_at_zero_causality (__main__.Checks.test_association_at_zero_causality) ... ok
+test_association_has_no_causality_parameter (__main__.Checks.test_association_has_no_causality_parameter) ... ok
+test_association_memory_zero_still_learns (__main__.Checks.test_association_memory_zero_still_learns) ... ok
+test_association_no_perception_learning_dose_or_consciousness (__main__.Checks.test_association_no_perception_learning_dose_or_consciousness) ... ok
+test_association_variance_bounds (__main__.Checks.test_association_variance_bounds) ... ok
+test_causal_comparison_changes_separate_record (__main__.Checks.test_causal_comparison_changes_separate_record) ... ok
+test_causal_data_not_replaced_by_intelligence (__main__.Checks.test_causal_data_not_replaced_by_intelligence) ... ok
+test_causal_learning_zero_causality (__main__.Checks.test_causal_learning_zero_causality) ... ok
+test_causal_missing_order_rejected (__main__.Checks.test_causal_missing_order_rejected) ... ok
+test_causal_missing_outcome_rejected (__main__.Checks.test_causal_missing_outcome_rejected) ... ok
+test_causal_no_comparable_conditions (__main__.Checks.test_causal_no_comparable_conditions) ... ok
+test_causal_reusing_evidence_does_not_add_support (__main__.Checks.test_causal_reusing_evidence_does_not_add_support) ... ok
+test_causal_unknown_absence_rejected (__main__.Checks.test_causal_unknown_absence_rejected) ... ok
+test_emotion_max_stays_max_not_saturated_sum (__main__.Checks.test_emotion_max_stays_max_not_saturated_sum) ... ok
+test_familiar_activity_pleasure_and_leisure (__main__.Checks.test_familiar_activity_pleasure_and_leisure) ... ok
+test_high_intelligence_no_domain_knowledge (__main__.Checks.test_high_intelligence_no_domain_knowledge) ... ok
+test_invalid_inputs (__main__.Checks.test_invalid_inputs) ... ok
+test_knowledge_advanced_rule_not_in_beginner_core (__main__.Checks.test_knowledge_advanced_rule_not_in_beginner_core) ... ok
+test_knowledge_content_required (__main__.Checks.test_knowledge_content_required) ... ok
+test_knowledge_curriculum_cycle_rejected (__main__.Checks.test_knowledge_curriculum_cycle_rejected) ... ok
+test_knowledge_depth_requires_records (__main__.Checks.test_knowledge_depth_requires_records) ... ok
+test_knowledge_missing_prerequisite_blocks_depth (__main__.Checks.test_knowledge_missing_prerequisite_blocks_depth) ... ok
+test_knowledge_non_nested_core_rejected (__main__.Checks.test_knowledge_non_nested_core_rejected) ... ok
+test_knowledge_repeated_one_rule_not_four_levels (__main__.Checks.test_knowledge_repeated_one_rule_not_four_levels) ... ok
+test_knowledge_unlearned_prerequisite_caps_partial_learning (__main__.Checks.test_knowledge_unlearned_prerequisite_caps_partial_learning) ... ok
+test_leisure_constant_inputs_partition (__main__.Checks.test_leisure_constant_inputs_partition) ... ok
+test_missing_result_does_not_mean_zero (__main__.Checks.test_missing_result_does_not_mean_zero) ... ok
+test_negative_effect_not_softened_by_satiation (__main__.Checks.test_negative_effect_not_softened_by_satiation) ... ok
+test_pleasantness_does_not_depend_on_novelty_or_joy (__main__.Checks.test_pleasantness_does_not_depend_on_novelty_or_joy) ... ok
+test_pleasantness_requires_exposure (__main__.Checks.test_pleasantness_requires_exposure) ... ok
+test_prediction_no_double_count_same_context (__main__.Checks.test_prediction_no_double_count_same_context) ... ok
+test_property_channel_isolation (__main__.Checks.test_property_channel_isolation) ... ok
+test_property_effect_units_and_bounds (__main__.Checks.test_property_effect_units_and_bounds) ... ok
+test_property_global_cap_allows_bounded_weak_eviction (__main__.Checks.test_property_global_cap_allows_bounded_weak_eviction) ... ok
+test_property_global_cap_blocks_new_strong_records (__main__.Checks.test_property_global_cap_blocks_new_strong_records) ... ok
+test_property_limit_of_existing_lookups (__main__.Checks.test_property_limit_of_existing_lookups) ... ok
+test_property_missing_channel_not_extinguished (__main__.Checks.test_property_missing_channel_not_extinguished) ... ok
+test_property_new_links_bounded_for_large_event (__main__.Checks.test_property_new_links_bounded_for_large_event) ... ok
+test_property_no_duplicate_episode (__main__.Checks.test_property_no_duplicate_episode) ... ok
+test_property_no_invented_channels (__main__.Checks.test_property_no_invented_channels) ... ok
+test_property_observed_zero_extinguishes (__main__.Checks.test_property_observed_zero_extinguishes) ... ok
+test_property_order_invariance (__main__.Checks.test_property_order_invariance) ... ok
+test_property_self_response_is_not_teacher (__main__.Checks.test_property_self_response_is_not_teacher) ... ok
+test_property_shared_error_not_full_reward_per_cue (__main__.Checks.test_property_shared_error_not_full_reward_per_cue) ... ok
+test_property_zero_quality_no_new_link (__main__.Checks.test_property_zero_quality_no_new_link) ... ok
+test_reservoir_bounds_and_passive_drift (__main__.Checks.test_reservoir_bounds_and_passive_drift) ... ok
+test_satiation_constant_exposure_partition (__main__.Checks.test_satiation_constant_exposure_partition) ... ok
+test_satiation_rises_and_recovers (__main__.Checks.test_satiation_rises_and_recovers) ... ok
+test_spec_status_and_supersession (__main__.Checks.test_spec_status_and_supersession) ... ok
+
+----------------------------------------------------------------------
+Ran 49 tests in 0.027s
+
+OK
+
+### Проверка_отношений_и_морали_v0.1.py
+01: OK — Нейтральное исходное ожидание
+02: OK — Семь исполнений из восьми
+03: OK — Четыре возврата из четырёх
+04: OK — Конечный опыт не гарантирует успех
+05: OK — Разные тематические основания дают разные ожидания
+06: OK — Смесь оценки сообщения
+07: OK — Качество контакта
+08: OK — Один эпизод сближения
+09: OK — Двадцать независимых эпизодов
+10: OK — Нет пластичности
+11: OK — Нет воспринятого эпизода
+12: OK — Нулевая доза
+13: OK — Нет основания для изменения связи
+14: OK — Разрыв может ослабить связь
+15: OK — Расчёт сопротивления
+16: OK — Непринятая норма
+17: OK — Полное известное исключение
+18: OK — Синонимы не суммируются
+19: OK — Независимые аспекты
+20: OK — Ограничение общей моральной цены
+21: OK — Нет рассмотренных норм
+22: OK — Условные вероятности санкции
+23: OK — Честная частичная информация
+24: OK — Ложь при сильной норме
+25: OK — Ложь при слабой норме
+26: OK — Изменение нормы меняет предпочтение
+27: OK — Медленная переоценка нормы
+28: OK — Без принятого нового основания норма не меняется
+29: OK — Вклад затратной помощи
+30: OK — Скорость получения признаков
+31: OK — Время грубого признака
+32: OK — Время подробного признака
+33: OK — Сон отключает сознательное получение
+34: OK — Нет чувственного доступа
+35: OK — Время полного нейтрального бюджета
+36: OK — Недопустимый диапазон отклоняется
+37: OK — Нулевая сила исходного ожидания отклоняется
+38: OK — 2000 наборов: границы и монотонность
+Итого: 38 проверок. Только формулы, не ядро игры.
+
+### Проверка_формул_внутренней_симуляции.py
+test_baseline_capacities (__main__.FormulaChecks.test_baseline_capacities) ... ok
+test_cognition_bounds_and_no_boost (__main__.FormulaChecks.test_cognition_bounds_and_no_boost) ... ok
+test_context_total_bounds (__main__.FormulaChecks.test_context_total_bounds) ... ok
+test_distinct_knowledge_and_truth (__main__.FormulaChecks.test_distinct_knowledge_and_truth) ... ok
+test_emergency_preempts_dwell (__main__.FormulaChecks.test_emergency_preempts_dwell) ... ok
+test_emotion_base_bounds (__main__.FormulaChecks.test_emotion_base_bounds) ... ok
+test_emotion_decay (__main__.FormulaChecks.test_emotion_decay) ... ok
+test_fear_control_example (__main__.FormulaChecks.test_fear_control_example) ... ok
+test_focus_hysteresis (__main__.FormulaChecks.test_focus_hysteresis) ... ok
+test_food_water_resource_bounds (__main__.FormulaChecks.test_food_water_resource_bounds) ... ok
+test_heat_water_cold_food (__main__.FormulaChecks.test_heat_water_cold_food) ... ok
+test_independent_fear_and_anger (__main__.FormulaChecks.test_independent_fear_and_anger) ... ok
+test_invalid_inputs (__main__.FormulaChecks.test_invalid_inputs) ... ok
+test_key_uniform_never_endpoints (__main__.FormulaChecks.test_key_uniform_never_endpoints) ... ok
+test_learning_convex_and_finite (__main__.FormulaChecks.test_learning_convex_and_finite) ... ok
+test_no_appraisal_no_emotion (__main__.FormulaChecks.test_no_appraisal_no_emotion) ... ok
+test_perception_probability_partition (__main__.FormulaChecks.test_perception_probability_partition) ... ok
+test_relax_bounds_and_monotonicity (__main__.FormulaChecks.test_relax_bounds_and_monotonicity) ... ok
+test_relax_constant_target_partition (__main__.FormulaChecks.test_relax_constant_target_partition) ... ok
+test_rest_not_sleep (__main__.FormulaChecks.test_rest_not_sleep) ... ok
+test_sensation_no_phantom_signal (__main__.FormulaChecks.test_sensation_no_phantom_signal) ... ok
+test_sleep_deficit_example (__main__.FormulaChecks.test_sleep_deficit_example) ... ok
+test_slow_property_can_reverse (__main__.FormulaChecks.test_slow_property_can_reverse) ... ok
+test_stable_property_application (__main__.FormulaChecks.test_stable_property_application) ... ok
+test_switch_price (__main__.FormulaChecks.test_switch_price) ... ok
+test_zero_gate (__main__.FormulaChecks.test_zero_gate) ... ok
+test_zero_time (__main__.FormulaChecks.test_zero_time) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 0.062s
+
+OK
+Контрольный страх через 1 секунду: 0.277172222635

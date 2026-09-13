@@ -1,0 +1,29 @@
+{
+  "name": "recipient-refuses",
+  "scene": "recipient-refuses",
+  "population": 8,
+  "seconds": 900,
+  "seed": 42,
+  "trace_actor": 0,
+  "command": [
+    "/mnt/data/build09/life_sim",
+    "--population",
+    "8",
+    "--seed",
+    "42",
+    "--seconds",
+    "900",
+    "--social-scene",
+    "recipient-refuses",
+    "--summary",
+    "/mnt/data/runs09/final/recipient-refuses/summary.json",
+    "--social-state",
+    "/mnt/data/runs09/final/recipient-refuses/social-state.json",
+    "--thoughts",
+    "/mnt/data/runs09/final/recipient-refuses/thoughts.jsonl",
+    "--trace",
+    "/mnt/data/runs09/final/recipient-refuses/events.jsonl"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 0.03184039899997515
+}

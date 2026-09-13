@@ -1,0 +1,21 @@
+{
+  "command": [
+    "/mnt/data/work_010/my_life_deviation/build/life_sim",
+    "--community",
+    "--seed",
+    "42",
+    "--population",
+    "16",
+    "--seconds",
+    "3600",
+    "--summary",
+    "/mnt/data/work_010/my_life_deviation/reports/community10/release/smoke/indexed16hour/summary.json",
+    "--community-state",
+    "/mnt/data/work_010/my_life_deviation/reports/community10/release/smoke/indexed16hour/community.json",
+    "--actors",
+    "/mnt/data/work_010/my_life_deviation/reports/community10/release/smoke/indexed16hour/actors.csv"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 0.11417993099985324,
+  "binary_sha256": "6ea80a783f0e56734216077a2c4dd3c109d277dd4c2ed5cf467ab5d7e3e7d2df"
+}

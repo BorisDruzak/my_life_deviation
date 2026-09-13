@@ -1,0 +1,36 @@
+[  2%] Built target examples
+[  5%] Built target contract_tests
+[ 53%] Built target life_core
+[ 59%] Built target cognitive_scenarios
+[ 59%] Built target life_sim
+[ 60%] Building CXX object CMakeFiles/life_tests.dir/tests/test_civil_world.cpp.o
+[ 63%] Built target self_behavior_scenario
+[ 66%] Built target community_scenarios
+[ 69%] Built target diagnose_actor
+/mnt/data/recovery13/tests/test_civil_world.cpp: In function ‘void diagnostic_report_exposes_provenance_and_material_conservation()’:
+/mnt/data/recovery13/tests/test_civil_world.cpp:24:22: error: ‘class life::World’ has no member named ‘state_hash’; did you mean ‘life::State life::World::state_’? (not accessible from this context)
+   24 |  const auto before=w.state_hash();const auto json=w.recovery_report_json();
+      |                      ^~~~~~~~~~
+In file included from /mnt/data/recovery13/tests/test_civil_world.cpp:2:
+/mnt/data/recovery13/include/life/world.hpp:105:11: note: declared private here
+  105 |     State state_;
+      |           ^~~~~~
+In file included from /mnt/data/recovery13/tests/test_civil_world.cpp:1:
+/mnt/data/recovery13/tests/test_civil_world.cpp:29:10: error: ‘class life::World’ has no member named ‘state_hash’; did you mean ‘state_’?
+   29 |  CHECK(w.state_hash()==before);
+      |          ^~~~~~~~~~
+/mnt/data/recovery13/tests/test.hpp:15:35: note: in definition of macro ‘CHECK’
+   15 | #define CHECK(X) test::check(bool(X),#X,__FILE__,__LINE__)
+      |                                   ^
+/mnt/data/recovery13/tests/test_civil_world.cpp:29:10: error: ‘life::State life::World::state_’ is private within this context
+   29 |  CHECK(w.state_hash()==before);
+      |          ^~~~~~~~~~
+/mnt/data/recovery13/tests/test.hpp:15:35: note: in definition of macro ‘CHECK’
+   15 | #define CHECK(X) test::check(bool(X),#X,__FILE__,__LINE__)
+      |                                   ^
+/mnt/data/recovery13/include/life/world.hpp:105:11: note: declared private here
+  105 |     State state_;
+      |           ^~~~~~
+gmake[2]: *** [CMakeFiles/life_tests.dir/build.make:345: CMakeFiles/life_tests.dir/tests/test_civil_world.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:162: CMakeFiles/life_tests.dir/all] Error 2
+gmake: *** [Makefile:101: all] Error 2

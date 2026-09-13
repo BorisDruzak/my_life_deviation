@@ -1,0 +1,43 @@
+[
+  {
+    "command": [
+      "cmake",
+      "-S",
+      ".",
+      "-B",
+      "/mnt/data/recovery13_base_build",
+      "-DCMAKE_BUILD_TYPE=Release"
+    ],
+    "returncode": 0,
+    "start_utc": "2026-09-12T22:52:02Z",
+    "seconds": 0.5414526462554932,
+    "log": "0.log"
+  },
+  {
+    "command": [
+      "cmake",
+      "--build",
+      "/mnt/data/recovery13_base_build",
+      "-j",
+      "4"
+    ],
+    "returncode": 0,
+    "start_utc": "2026-09-12T22:52:03Z",
+    "seconds": 27.360376834869385,
+    "log": "1.log"
+  },
+  {
+    "command": [
+      "ctest",
+      "--test-dir",
+      "/mnt/data/recovery13_base_build",
+      "--output-on-failure",
+      "-j",
+      "4"
+    ],
+    "returncode": 0,
+    "start_utc": "2026-09-12T22:52:30Z",
+    "seconds": 36.57203769683838,
+    "log": "2.log"
+  }
+]

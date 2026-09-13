@@ -1,0 +1,29 @@
+{
+  "name": "borrow-novice",
+  "scene": "borrow-novice",
+  "population": 8,
+  "seconds": 3600,
+  "seed": 42,
+  "trace_actor": 0,
+  "command": [
+    "/mnt/data/build09/life_sim",
+    "--population",
+    "8",
+    "--seed",
+    "42",
+    "--seconds",
+    "3600",
+    "--social-scene",
+    "borrow-novice",
+    "--summary",
+    "/mnt/data/runs09/final/borrow-novice/summary.json",
+    "--social-state",
+    "/mnt/data/runs09/final/borrow-novice/social-state.json",
+    "--thoughts",
+    "/mnt/data/runs09/final/borrow-novice/thoughts.jsonl",
+    "--trace",
+    "/mnt/data/runs09/final/borrow-novice/events.jsonl"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 0.11402966500008915
+}

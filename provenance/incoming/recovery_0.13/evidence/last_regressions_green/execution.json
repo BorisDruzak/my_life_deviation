@@ -1,0 +1,33 @@
+[
+  {
+    "command": [
+      "cmake",
+      "--build",
+      "/mnt/data/recovery13_build",
+      "--parallel",
+      "3"
+    ],
+    "binary_sha256": null,
+    "returncode": 0,
+    "start_utc": "2026-09-12T23:43:34Z",
+    "seconds": 4.753175735473633,
+    "log": "0.log"
+  },
+  {
+    "command": [
+      "ctest",
+      "--test-dir",
+      "/mnt/data/recovery13_build",
+      "--output-on-failure",
+      "--parallel",
+      "3",
+      "-R",
+      "^(community|adaptive|civil_unit|civil_social)$"
+    ],
+    "binary_sha256": null,
+    "returncode": 0,
+    "start_utc": "2026-09-12T23:43:39Z",
+    "seconds": 0.22957181930541992,
+    "log": "1.log"
+  }
+]

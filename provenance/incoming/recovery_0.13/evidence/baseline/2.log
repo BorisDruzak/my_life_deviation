@@ -1,0 +1,57 @@
+Internal ctest changing into directory: /mnt/data/recovery13_base_build
+Test project /mnt/data/recovery13_base_build
+      Start  1: numeric
+      Start  2: seed
+      Start  3: mind
+      Start  4: world
+ 1/24 Test  #1: numeric ..........................   Passed    0.00 sec
+      Start  5: cli_invalid_argument
+ 2/24 Test  #3: mind .............................   Passed    0.00 sec
+      Start  6: cli_smoke
+ 3/24 Test  #2: seed .............................   Passed    0.01 sec
+ 4/24 Test  #5: cli_invalid_argument .............   Passed    0.00 sec
+      Start  7: cognition_world
+      Start  8: social_world
+ 5/24 Test  #6: cli_smoke ........................   Passed    0.01 sec
+      Start  9: social_contracts
+ 6/24 Test  #9: social_contracts .................   Passed    0.00 sec
+      Start 10: community
+ 7/24 Test #10: community ........................   Passed    0.20 sec
+      Start 11: community_unit
+ 8/24 Test #11: community_unit ...................   Passed    0.00 sec
+      Start 12: community_long
+ 9/24 Test  #7: cognition_world ..................   Passed    0.22 sec
+      Start 13: life11
+10/24 Test  #8: social_world .....................   Passed    0.46 sec
+      Start 14: projects
+11/24 Test #14: projects .........................   Passed    0.00 sec
+      Start 15: life_contracts
+12/24 Test #15: life_contracts ...................   Passed    0.00 sec
+      Start 16: life11_long
+13/24 Test #13: life11 ...........................   Passed    2.53 sec
+      Start 17: self_model
+14/24 Test #17: self_model .......................   Passed    0.00 sec
+      Start 18: self_runtime
+15/24 Test #18: self_runtime .....................   Passed    0.28 sec
+      Start 19: adaptive
+16/24 Test #19: adaptive .........................   Passed    0.02 sec
+      Start 20: self_behavior
+17/24 Test #20: self_behavior ....................   Passed    0.00 sec
+      Start 21: career
+18/24 Test #21: career ...........................   Passed    0.00 sec
+      Start 22: career_runtime
+19/24 Test #22: career_runtime ...................   Passed    1.21 sec
+      Start 23: cognition_contracts
+20/24 Test #23: cognition_contracts ..............   Passed    0.00 sec
+      Start 24: numerical_examples
+21/24 Test #24: numerical_examples ...............   Passed    0.00 sec
+22/24 Test  #4: world ............................   Passed    5.33 sec
+23/24 Test #12: community_long ...................   Passed   11.50 sec
+24/24 Test #16: life11_long ......................   Passed   36.08 sec
+
+100% tests passed, 0 tests failed out of 24
+
+Label Time Summary:
+long    =  47.58 sec*proc (2 tests)
+
+Total Test time (real) =  36.55 sec

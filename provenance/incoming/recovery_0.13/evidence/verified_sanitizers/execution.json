@@ -1,0 +1,33 @@
+[
+  {
+    "command": [
+      "cmake",
+      "--build",
+      "/mnt/data/recovery13_asan",
+      "--parallel",
+      "2"
+    ],
+    "binary_sha256": null,
+    "returncode": 0,
+    "start_utc": "2026-09-12T23:44:29Z",
+    "seconds": 38.72268557548523,
+    "log": "0.log"
+  },
+  {
+    "command": [
+      "ctest",
+      "--test-dir",
+      "/mnt/data/recovery13_asan",
+      "--output-on-failure",
+      "--parallel",
+      "1",
+      "-E",
+      "^(world|community_long|life11_long)$"
+    ],
+    "binary_sha256": null,
+    "returncode": 0,
+    "start_utc": "2026-09-12T23:45:08Z",
+    "seconds": 66.64849734306335,
+    "log": "1.log"
+  }
+]

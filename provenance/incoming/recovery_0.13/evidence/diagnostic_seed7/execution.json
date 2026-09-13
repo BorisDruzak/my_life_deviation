@@ -1,0 +1,16 @@
+[
+  {
+    "command": [
+      "/mnt/data/recovery13_evidence/diagnostic_seed7/fixture",
+      "7",
+      "3",
+      "168",
+      "/mnt/data/recovery13_evidence/diagnostic_seed7/actor3"
+    ],
+    "binary_sha256": "fced55613fafcc9bfc39cb4ecf6486faff98811308df1381cadf0b6dac62c28b",
+    "returncode": 0,
+    "start_utc": "2026-09-12T23:35:27Z",
+    "seconds": 44.12549591064453,
+    "log": "0.log"
+  }
+]

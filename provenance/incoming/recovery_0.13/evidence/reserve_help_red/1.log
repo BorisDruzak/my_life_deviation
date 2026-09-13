@@ -1,0 +1,12 @@
+PASS wear_is_time_based_and_composable
+PASS chosen_goals_change_financial_reserve
+PASS budget_does_not_invent_income
+PASS phone_address_requires_explicit_source
+PASS procedure_lesson_is_not_practice
+PASS instruction_with_unknown_step_cannot_be_executed
+PASS repeating_lesson_does_not_grant_mastery
+PASS malformed_lesson_is_rejected
+PASS two_stores_are_bindings_not_two_graphs
+PASS future_essentials_respect_known_weekend_pay_gap
+FAIL discretionary_purchase_cannot_consume_precautionary_food_buffer: /mnt/data/recovery13/tests/test_civil_unit.cpp:17: b.protected_cash>=3*(18+3*12)
+RESULT 11 cases, 1 failures

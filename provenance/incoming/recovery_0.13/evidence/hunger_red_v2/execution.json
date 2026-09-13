@@ -1,0 +1,27 @@
+[
+  {
+    "command": [
+      "cmake",
+      "--build",
+      "/mnt/data/recovery13_build",
+      "--parallel",
+      "3"
+    ],
+    "binary_sha256": null,
+    "returncode": 0,
+    "start_utc": "2026-09-12T23:39:15Z",
+    "seconds": 2.1770389080047607,
+    "log": "0.log"
+  },
+  {
+    "command": [
+      "/mnt/data/recovery13_build/life_tests",
+      "adaptive"
+    ],
+    "binary_sha256": "4223a4fead645d7e263b8a7711458a4a12859d0389aa532d4310ea36c94c3d88",
+    "returncode": 1,
+    "start_utc": "2026-09-12T23:39:18Z",
+    "seconds": 0.06111860275268555,
+    "log": "1.log"
+  }
+]

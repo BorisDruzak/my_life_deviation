@@ -1,0 +1,49 @@
+{
+  "id": "community-0.10-test2",
+  "kind": "documentation-only, C++ compiled configuration",
+  "starting_cash": 120,
+  "food_price": 12,
+  "rent_daily": 18,
+  "desired_reserve": 250,
+  "daily_essential_reserve": 54,
+  "study_price": 4,
+  "study_seconds": 1800,
+  "study_max_hours": 2,
+  "work_max_hours": 8,
+  "work_opens_hour": 9,
+  "work_closes_hour": 17,
+  "workdays": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "qualification_ids": [
+    701,
+    702,
+    703,
+    704
+  ],
+  "qualification_threshold": 0.6,
+  "hourly_wages": [
+    12.5,
+    18.75,
+    28.75,
+    42.5
+  ],
+  "leisure_fees": [
+    0,
+    2,
+    5,
+    8,
+    15,
+    25
+  ],
+  "no_continuation_salience_penalty": 0.4,
+  "no_continuation_ms": 60000,
+  "reported_memory_gist_floor": 0.08,
+  "detail_floor": 0.2,
+  "family_romance_cost": "individual finite, known kin only",
+  "same_gender_romance_cost": "individual finite, not world prohibition"
+}

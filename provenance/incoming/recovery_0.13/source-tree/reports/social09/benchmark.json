@@ -1,0 +1,41 @@
+[
+  {
+    "mode": "reference",
+    "times": [
+      0.553522,
+      0.5088,
+      0.506413
+    ],
+    "hashes": [
+      "21612e013da4e28ded3a3015f3ba6293dcb09f24558ed65e44de65cb3b548be5",
+      "21612e013da4e28ded3a3015f3ba6293dcb09f24558ed65e44de65cb3b548be5",
+      "21612e013da4e28ded3a3015f3ba6293dcb09f24558ed65e44de65cb3b548be5"
+    ]
+  },
+  {
+    "mode": "indexed",
+    "times": [
+      0.435638,
+      0.469236,
+      0.435553
+    ],
+    "hashes": [
+      "21612e013da4e28ded3a3015f3ba6293dcb09f24558ed65e44de65cb3b548be5",
+      "21612e013da4e28ded3a3015f3ba6293dcb09f24558ed65e44de65cb3b548be5",
+      "21612e013da4e28ded3a3015f3ba6293dcb09f24558ed65e44de65cb3b548be5"
+    ]
+  },
+  {
+    "mode": "workers4",
+    "times": [
+      0.683017,
+      0.742541,
+      0.807717
+    ],
+    "hashes": [
+      "21612e013da4e28ded3a3015f3ba6293dcb09f24558ed65e44de65cb3b548be5",
+      "21612e013da4e28ded3a3015f3ba6293dcb09f24558ed65e44de65cb3b548be5",
+      "21612e013da4e28ded3a3015f3ba6293dcb09f24558ed65e44de65cb3b548be5"
+    ]
+  }
+]

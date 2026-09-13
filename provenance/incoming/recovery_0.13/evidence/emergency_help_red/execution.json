@@ -1,0 +1,13 @@
+[
+  {
+    "command": [
+      "/mnt/data/recovery13_build/life_tests",
+      "civil_social"
+    ],
+    "binary_sha256": "a25c57cfdfe9806d86af6acc5d999465811cab109e9881aa51d32af85a2465ac",
+    "returncode": 1,
+    "start_utc": "2026-09-12T23:43:19Z",
+    "seconds": 0.04007601737976074,
+    "log": "0.log"
+  }
+]

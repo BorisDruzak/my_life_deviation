@@ -1,0 +1,29 @@
+{
+  "name": "friendly",
+  "scene": "friendly",
+  "population": 8,
+  "seconds": 900,
+  "seed": 42,
+  "trace_actor": 0,
+  "command": [
+    "/mnt/data/build09/life_sim",
+    "--population",
+    "8",
+    "--seed",
+    "42",
+    "--seconds",
+    "900",
+    "--social-scene",
+    "friendly",
+    "--summary",
+    "/mnt/data/runs09/final/friendly/summary.json",
+    "--social-state",
+    "/mnt/data/runs09/final/friendly/social-state.json",
+    "--thoughts",
+    "/mnt/data/runs09/final/friendly/thoughts.jsonl",
+    "--trace",
+    "/mnt/data/runs09/final/friendly/events.jsonl"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 0.06403261000014027
+}

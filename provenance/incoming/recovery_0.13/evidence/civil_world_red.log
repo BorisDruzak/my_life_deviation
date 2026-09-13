@@ -1,0 +1,112 @@
+tests/test_civil_world.cpp: In function 'life::World {anonymous}::shop_world()':
+tests/test_civil_world.cpp:7:36: error: 'class life::World' has no member named 'configure_recovery'
+    7 |     auto w=World::generate(42,8);w.configure_recovery();auto& s=w.edit_for_test();s.autonomy=false;s.now=9*3600000;s.next_physical=s.now;
+      |                                    ^~~~~~~~~~~~~~~~~~
+tests/test_civil_world.cpp: In function 'void initial_profile_is_depleted_but_not_jobless_by_construction()':
+tests/test_civil_world.cpp:13:114: error: 'class life::World' has no member named 'configure_recovery'
+   13 | TEST("civil_world", initial_profile_is_depleted_but_not_jobless_by_construction){auto w=World::generate(42,16);w.configure_recovery();for(const auto& a:w.state().actors){CHECK(a.money>=18&&a.money<=36);CHECK(a.equipment.garment&&a.equipment.phone);}unsigned capacity=0;for(const auto& h:w.state().hiring)capacity+=h.capacity;CHECK(capacity>=16);w.validate();}
+      |                                                                                                                  ^~~~~~~~~~~~~~~~~~
+In file included from tests/test_civil_world.cpp:1:
+tests/test_civil_world.cpp:13:211: error: 'const struct life::Actor' has no member named 'equipment'
+   13 | TEST("civil_world", initial_profile_is_depleted_but_not_jobless_by_construction){auto w=World::generate(42,16);w.configure_recovery();for(const auto& a:w.state().actors){CHECK(a.money>=18&&a.money<=36);CHECK(a.equipment.garment&&a.equipment.phone);}unsigned capacity=0;for(const auto& h:w.state().hiring)capacity+=h.capacity;CHECK(capacity>=16);w.validate();}
+      |                                                                                                                                                                                                                   ^~~~~~~~~
+tests/test.hpp:15:35: note: in definition of macro 'CHECK'
+   15 | #define CHECK(X) test::check(bool(X),#X,__FILE__,__LINE__)
+      |                                   ^
+tests/test_civil_world.cpp:13:232: error: 'const struct life::Actor' has no member named 'equipment'
+   13 | TEST("civil_world", initial_profile_is_depleted_but_not_jobless_by_construction){auto w=World::generate(42,16);w.configure_recovery();for(const auto& a:w.state().actors){CHECK(a.money>=18&&a.money<=36);CHECK(a.equipment.garment&&a.equipment.phone);}unsigned capacity=0;for(const auto& h:w.state().hiring)capacity+=h.capacity;CHECK(capacity>=16);w.validate();}
+      |                                                                                                                                                                                                                                        ^~~~~~~~~
+tests/test.hpp:15:35: note: in definition of macro 'CHECK'
+   15 | #define CHECK(X) test::check(bool(X),#X,__FILE__,__LINE__)
+      |                                   ^
+tests/test_civil_world.cpp: In function 'void retail_purchase_moves_money_and_real_object()':
+tests/test_civil_world.cpp:14:121: error: 'const __gnu_cxx::__alloc_traits<std::allocator<life::Actor>, life::Actor>::value_type' {aka 'const struct life::Actor'} has no member named 'equipment'
+   14 | TEST("civil_world", retail_purchase_moves_money_and_real_object){auto w=shop_world();const auto old=w.state().actors[0].equipment.garment;double money=w.state().actors[0].money;w.buy_clothes_for_test(1,1);w.run_seconds(121);const auto& a=w.state().actors[0];CHECK(a.equipment.garment!=old);NEAR(a.money,money-35,1e-8);CHECK(w.state().civil.purchases==1);w.validate();}
+      |                                                                                                                         ^~~~~~~~~
+tests/test_civil_world.cpp:14:180: error: 'class life::World' has no member named 'buy_clothes_for_test'
+   14 | TEST("civil_world", retail_purchase_moves_money_and_real_object){auto w=shop_world();const auto old=w.state().actors[0].equipment.garment;double money=w.state().actors[0].money;w.buy_clothes_for_test(1,1);w.run_seconds(121);const auto& a=w.state().actors[0];CHECK(a.equipment.garment!=old);NEAR(a.money,money-35,1e-8);CHECK(w.state().civil.purchases==1);w.validate();}
+      |                                                                                                                                                                                    ^~~~~~~~~~~~~~~~~~~~
+tests/test_civil_world.cpp:14:267: error: 'const struct life::Actor' has no member named 'equipment'
+   14 | TEST("civil_world", retail_purchase_moves_money_and_real_object){auto w=shop_world();const auto old=w.state().actors[0].equipment.garment;double money=w.state().actors[0].money;w.buy_clothes_for_test(1,1);w.run_seconds(121);const auto& a=w.state().actors[0];CHECK(a.equipment.garment!=old);NEAR(a.money,money-35,1e-8);CHECK(w.state().civil.purchases==1);w.validate();}
+      |                                                                                                                                                                                                                                                                           ^~~~~~~~~
+tests/test.hpp:15:35: note: in definition of macro 'CHECK'
+   15 | #define CHECK(X) test::check(bool(X),#X,__FILE__,__LINE__)
+      |                                   ^
+tests/test_civil_world.cpp:14:335: error: 'const struct life::State' has no member named 'civil'
+   14 | TEST("civil_world", retail_purchase_moves_money_and_real_object){auto w=shop_world();const auto old=w.state().actors[0].equipment.garment;double money=w.state().actors[0].money;w.buy_clothes_for_test(1,1);w.run_seconds(121);const auto& a=w.state().actors[0];CHECK(a.equipment.garment!=old);NEAR(a.money,money-35,1e-8);CHECK(w.state().civil.purchases==1);w.validate();}
+      |                                                                                                                                                                                                                                                                                                                                               ^~~~~
+tests/test.hpp:15:35: note: in definition of macro 'CHECK'
+   15 | #define CHECK(X) test::check(bool(X),#X,__FILE__,__LINE__)
+      |                                   ^
+tests/test_civil_world.cpp: In function 'void absent_clerk_prevents_purchase()':
+tests/test_civil_world.cpp:15:189: error: 'class life::World' has no member named 'buy_clothes_for_test'
+   15 | TEST("civil_world", absent_clerk_prevents_purchase){auto w=shop_world();auto& s=w.edit_for_test();s.actors[1].action={};s.actors[1].place=s.actors[1].home;double money=s.actors[0].money;w.buy_clothes_for_test(1,1);w.run_seconds(121);NEAR(w.state().actors[0].money,money,1e-8);CHECK(w.state().civil.purchases==0);}
+      |                                                                                                                                                                                             ^~~~~~~~~~~~~~~~~~~~
+tests/test_civil_world.cpp:15:293: error: 'const struct life::State' has no member named 'civil'
+   15 | TEST("civil_world", absent_clerk_prevents_purchase){auto w=shop_world();auto& s=w.edit_for_test();s.actors[1].action={};s.actors[1].place=s.actors[1].home;double money=s.actors[0].money;w.buy_clothes_for_test(1,1);w.run_seconds(121);NEAR(w.state().actors[0].money,money,1e-8);CHECK(w.state().civil.purchases==0);}
+      |                                                                                                                                                                                                                                                                                                     ^~~~~
+tests/test_civil_world.cpp:15:277: note: in expansion of macro 'CHECK'
+   15 | TEST("civil_world", absent_clerk_prevents_purchase){auto w=shop_world();auto& s=w.edit_for_test();s.actors[1].action={};s.actors[1].place=s.actors[1].home;double money=s.actors[0].money;w.buy_clothes_for_test(1,1);w.run_seconds(121);NEAR(w.state().actors[0].money,money,1e-8);CHECK(w.state().civil.purchases==0);}
+      |                                                                                                                                                                                                                                                                                     ^~~~~
+tests/test_civil_world.cpp: In function 'void last_garment_cannot_be_sold_twice()':
+tests/test_civil_world.cpp:16:132: error: 'struct life::State' has no member named 'civil'
+   16 | TEST("civil_world", last_garment_cannot_be_sold_twice){auto w=shop_world();auto& s=w.edit_for_test();bool first=true;for(auto& x:s.civil.stock)if(x.sku==1&&!x.sold){if(first)first=false;else x.sold=true;}s.actors[2].place=7;s.ledger.initial_money+=300-s.actors[2].money;s.actors[2].money=s.actors[2].mind.believed_money=300;w.buy_clothes_for_test(1,1);w.buy_clothes_for_test(3,1);w.run_seconds(121);CHECK(w.state().civil.purchases==1);w.validate();}
+      |                                                                                                                                    ^~~~~
+tests/test_civil_world.cpp:16:327: error: 'class life::World' has no member named 'buy_clothes_for_test'
+   16 | TEST("civil_world", last_garment_cannot_be_sold_twice){auto w=shop_world();auto& s=w.edit_for_test();bool first=true;for(auto& x:s.civil.stock)if(x.sku==1&&!x.sold){if(first)first=false;else x.sold=true;}s.actors[2].place=7;s.ledger.initial_money+=300-s.actors[2].money;s.actors[2].money=s.actors[2].mind.believed_money=300;w.buy_clothes_for_test(1,1);w.buy_clothes_for_test(3,1);w.run_seconds(121);CHECK(w.state().civil.purchases==1);w.validate();}
+      |                                                                                                                                                                                                                                                                                                                                       ^~~~~~~~~~~~~~~~~~~~
+tests/test_civil_world.cpp:16:355: error: 'class life::World' has no member named 'buy_clothes_for_test'
+   16 | TEST("civil_world", last_garment_cannot_be_sold_twice){auto w=shop_world();auto& s=w.edit_for_test();bool first=true;for(auto& x:s.civil.stock)if(x.sku==1&&!x.sold){if(first)first=false;else x.sold=true;}s.actors[2].place=7;s.ledger.initial_money+=300-s.actors[2].money;s.actors[2].money=s.actors[2].mind.believed_money=300;w.buy_clothes_for_test(1,1);w.buy_clothes_for_test(3,1);w.run_seconds(121);CHECK(w.state().civil.purchases==1);w.validate();}
+      |                                                                                                                                                                                                                                                                                                                                                                   ^~~~~~~~~~~~~~~~~~~~
+tests/test_civil_world.cpp:16:416: error: 'const struct life::State' has no member named 'civil'
+   16 | TEST("civil_world", last_garment_cannot_be_sold_twice){auto w=shop_world();auto& s=w.edit_for_test();bool first=true;for(auto& x:s.civil.stock)if(x.sku==1&&!x.sold){if(first)first=false;else x.sold=true;}s.actors[2].place=7;s.ledger.initial_money+=300-s.actors[2].money;s.actors[2].money=s.actors[2].mind.believed_money=300;w.buy_clothes_for_test(1,1);w.buy_clothes_for_test(3,1);w.run_seconds(121);CHECK(w.state().civil.purchases==1);w.validate();}
+      |                                                                                                                                                                                                                                                                                                                                                                                                                                ^~~~~
+tests/test.hpp:15:35: note: in definition of macro 'CHECK'
+   15 | #define CHECK(X) test::check(bool(X),#X,__FILE__,__LINE__)
+      |                                   ^
+tests/test_civil_world.cpp: In function 'void cancel_purchase_has_no_payment_or_reward()':
+tests/test_civil_world.cpp:17:122: error: 'class life::World' has no member named 'buy_clothes_for_test'
+   17 | TEST("civil_world", cancel_purchase_has_no_payment_or_reward){auto w=shop_world();auto money=w.state().actors[0].money;w.buy_clothes_for_test(1,1);w.run_seconds(30);w.command_for_test(1,Method::Idle,7);w.run_seconds(121);NEAR(w.state().actors[0].money,money,1e-8);CHECK(w.state().civil.purchases==0);}
+      |                                                                                                                          ^~~~~~~~~~~~~~~~~~~~
+tests/test_civil_world.cpp:17:281: error: 'const struct life::State' has no member named 'civil'
+   17 | TEST("civil_world", cancel_purchase_has_no_payment_or_reward){auto w=shop_world();auto money=w.state().actors[0].money;w.buy_clothes_for_test(1,1);w.run_seconds(30);w.command_for_test(1,Method::Idle,7);w.run_seconds(121);NEAR(w.state().actors[0].money,money,1e-8);CHECK(w.state().civil.purchases==0);}
+      |                                                                                                                                                                                                                                                                                         ^~~~~
+tests/test.hpp:15:35: note: in definition of macro 'CHECK'
+   15 | #define CHECK(X) test::check(bool(X),#X,__FILE__,__LINE__)
+      |                                   ^
+tests/test_civil_world.cpp: In function 'void purchase_does_not_directly_modify_self()':
+tests/test_civil_world.cpp:18:154: error: 'class life::World' has no member named 'buy_clothes_for_test'
+   18 | TEST("civil_world", purchase_does_not_directly_modify_self){auto w=shop_world();auto before=w.state().actors[0].mind.self.predict(SelfDomain::General);w.buy_clothes_for_test(1,1);w.run_seconds(121);auto after=w.state().actors[0].mind.self.predict(SelfDomain::General);NEAR(before.efficacy,after.efficacy,0);CHECK(w.state().actors[0].cog.outcome_published>0);}
+      |                                                                                                                                                          ^~~~~~~~~~~~~~~~~~~~
+tests/test_civil_world.cpp: In function 'void recovery_profile_save_restore()':
+tests/test_civil_world.cpp:19:74: error: 'class life::World' has no member named 'buy_clothes_for_test'
+   19 | TEST("civil_world", recovery_profile_save_restore){auto w=shop_world();w.buy_clothes_for_test(1,1);w.run_seconds(45);auto p=(std::filesystem::temp_directory_path()/"life_civil13.save").string();w.save(p);auto r=World::load(p);w.run_seconds(600);r.run_seconds(600);CHECK(w.hash()==r.hash());std::filesystem::remove(p);}
+      |                                                                          ^~~~~~~~~~~~~~~~~~~~
+tests/test_civil_world.cpp: In function 'void no_wallet_leak_in_personal_forecast()':
+tests/test_civil_world.cpp:20:89: error: 'class life::World' has no member named 'configure_recovery'
+   20 | TEST("civil_world", no_wallet_leak_in_personal_forecast){auto w=World::generate(42,8);w.configure_recovery();auto a=w.personal_view(1);auto& s=w.edit_for_test();s.ledger.initial_money+=1000;s.actors[1].money+=1000;auto b=w.personal_view(1);CHECK(a.civil.help_candidates==b.civil.help_candidates);CHECK(a.social.memory.community.resources.revision==b.social.memory.community.resources.revision);}
+      |                                                                                         ^~~~~~~~~~~~~~~~~~
+tests/test_civil_world.cpp:20:249: error: 'struct life::PersonalView' has no member named 'civil'
+   20 | TEST("civil_world", no_wallet_leak_in_personal_forecast){auto w=World::generate(42,8);w.configure_recovery();auto a=w.personal_view(1);auto& s=w.edit_for_test();s.ledger.initial_money+=1000;s.actors[1].money+=1000;auto b=w.personal_view(1);CHECK(a.civil.help_candidates==b.civil.help_candidates);CHECK(a.social.memory.community.resources.revision==b.social.memory.community.resources.revision);}
+      |                                                                                                                                                                                                                                                         ^~~~~
+tests/test.hpp:15:35: note: in definition of macro 'CHECK'
+   15 | #define CHECK(X) test::check(bool(X),#X,__FILE__,__LINE__)
+      |                                   ^
+tests/test_civil_world.cpp:20:274: error: 'struct life::PersonalView' has no member named 'civil'
+   20 | TEST("civil_world", no_wallet_leak_in_personal_forecast){auto w=World::generate(42,8);w.configure_recovery();auto a=w.personal_view(1);auto& s=w.edit_for_test();s.ledger.initial_money+=1000;s.actors[1].money+=1000;auto b=w.personal_view(1);CHECK(a.civil.help_candidates==b.civil.help_candidates);CHECK(a.social.memory.community.resources.revision==b.social.memory.community.resources.revision);}
+      |                                                                                                                                                                                                                                                                                  ^~~~~
+tests/test.hpp:15:35: note: in definition of macro 'CHECK'
+   15 | #define CHECK(X) test::check(bool(X),#X,__FILE__,__LINE__)
+      |                                   ^
+tests/test_civil_world.cpp:20:329: error: 'struct life::CommunityMemory' has no member named 'resources'
+   20 | TEST("civil_world", no_wallet_leak_in_personal_forecast){auto w=World::generate(42,8);w.configure_recovery();auto a=w.personal_view(1);auto& s=w.edit_for_test();s.ledger.initial_money+=1000;s.actors[1].money+=1000;auto b=w.personal_view(1);CHECK(a.civil.help_candidates==b.civil.help_candidates);CHECK(a.social.memory.community.resources.revision==b.social.memory.community.resources.revision);}
+      |                                                                                                                                                                                                                                                                                                                                         ^~~~~~~~~
+tests/test.hpp:15:35: note: in definition of macro 'CHECK'
+   15 | #define CHECK(X) test::check(bool(X),#X,__FILE__,__LINE__)
+      |                                   ^
+tests/test_civil_world.cpp:20:375: error: 'struct life::CommunityMemory' has no member named 'resources'
+   20 | TEST("civil_world", no_wallet_leak_in_personal_forecast){auto w=World::generate(42,8);w.configure_recovery();auto a=w.personal_view(1);auto& s=w.edit_for_test();s.ledger.initial_money+=1000;s.actors[1].money+=1000;auto b=w.personal_view(1);CHECK(a.civil.help_candidates==b.civil.help_candidates);CHECK(a.social.memory.community.resources.revision==b.social.memory.community.resources.revision);}
+      |                                                                                                                                                                                                                                                                                                                                                                                       ^~~~~~~~~
+tests/test.hpp:15:35: note: in definition of macro 'CHECK'
+   15 | #define CHECK(X) test::check(bool(X),#X,__FILE__,__LINE__)
+      |                                   ^

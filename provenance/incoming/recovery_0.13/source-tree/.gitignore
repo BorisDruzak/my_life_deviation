@@ -1,0 +1,10 @@
+/build*/
+/reports/runs/
+*.save
+__pycache__/
+*.pyc
+
+gmon.out
+
+# Full thought traces travel in the delivery archive, not in source commits.
+/reports/cog08/**/*.jsonl

@@ -1,0 +1,31 @@
+{
+  "patch_commands": [
+    {
+      "command": [
+        "git",
+        "apply",
+        "--check",
+        "/mnt/data/RECOVERY_0.13_from_SELF01_0.12.patch"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "seconds": 0.0036585330963134766
+    },
+    {
+      "command": [
+        "git",
+        "apply",
+        "/mnt/data/RECOVERY_0.13_from_SELF01_0.12.patch"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "seconds": 0.003787994384765625
+    }
+  ],
+  "applied_tree_matches": true,
+  "files_compared": 586,
+  "patch_sha256": "2a1fa7b9c811e34894cfc36bb880457b0e5272fb2bf61e884c2704797e630349",
+  "commit": "95ffc8d745986deda16d18684dcc9f148c477a57"
+}

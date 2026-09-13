@@ -1,0 +1,14 @@
+/mnt/data/recovery13/tests/test_civil_unit.cpp: In function 'void future_essentials_respect_known_weekend_pay_gap()':
+/mnt/data/recovery13/tests/test_civil_unit.cpp:13:108: error: too many arguments to function 'life::CivilBudget life::civil_budget(const CivilMemory&, double, int)'
+   13 | TEST("civil_unit", future_essentials_respect_known_weekend_pay_gap){CivilMemory m;auto weekday=civil_budget(m,100,0,1*86400000+18*3600000);auto friday=civil_budget(m,100,0,4*86400000+18*3600000);CHECK(friday.protected_cash>weekday.protected_cash);CHECK(friday.pressure>weekday.pressure);}
+      |                                                                                                ~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /mnt/data/recovery13/tests/test_civil_unit.cpp:2:
+/mnt/data/recovery13/include/life/civil.hpp:59:13: note: declared here
+   59 | CivilBudget civil_budget(const CivilMemory&,double known_money,int known_food);
+      |             ^~~~~~~~~~~~
+/mnt/data/recovery13/tests/test_civil_unit.cpp:13:164: error: too many arguments to function 'life::CivilBudget life::civil_budget(const CivilMemory&, double, int)'
+   13 | TEST("civil_unit", future_essentials_respect_known_weekend_pay_gap){CivilMemory m;auto weekday=civil_budget(m,100,0,1*86400000+18*3600000);auto friday=civil_budget(m,100,0,4*86400000+18*3600000);CHECK(friday.protected_cash>weekday.protected_cash);CHECK(friday.pressure>weekday.pressure);}
+      |                                                                                                                                                        ~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/mnt/data/recovery13/include/life/civil.hpp:59:13: note: declared here
+   59 | CivilBudget civil_budget(const CivilMemory&,double known_money,int known_food);
+      |             ^~~~~~~~~~~~

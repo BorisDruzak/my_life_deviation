@@ -1,0 +1,270 @@
+{
+  "scenes": [
+    {
+      "scene": "borrow",
+      "seconds": 900,
+      "trace_actor": 0,
+      "thought_rows": 2627,
+      "intents_checked": 272,
+      "social_intents_checked": 10,
+      "scoped_answers_checked": 4,
+      "events": 4,
+      "completed": {
+        "ask_information": 1,
+        "borrow_item": 1,
+        "return_item": 1
+      },
+      "debug_false_claims": 0,
+      "max_context_slots": 4,
+      "max_spent": 19,
+      "errors": []
+    },
+    {
+      "scene": "borrow-novice",
+      "seconds": 3600,
+      "trace_actor": 0,
+      "thought_rows": 8918,
+      "intents_checked": 991,
+      "social_intents_checked": 38,
+      "scoped_answers_checked": 2,
+      "events": 2,
+      "completed": {
+        "ask_information": 1,
+        "borrow_item": 1
+      },
+      "debug_false_claims": 0,
+      "max_context_slots": 4,
+      "max_spent": 19,
+      "errors": []
+    },
+    {
+      "scene": "friendly",
+      "seconds": 900,
+      "trace_actor": 0,
+      "thought_rows": 2659,
+      "intents_checked": 278,
+      "social_intents_checked": 8,
+      "scoped_answers_checked": 8,
+      "events": 8,
+      "completed": {
+        "friendly_touch": 8
+      },
+      "debug_false_claims": 0,
+      "max_context_slots": 4,
+      "max_spent": 19,
+      "errors": []
+    },
+    {
+      "scene": "information",
+      "seconds": 900,
+      "trace_actor": 0,
+      "thought_rows": 2207,
+      "intents_checked": 270,
+      "social_intents_checked": 1,
+      "scoped_answers_checked": 1,
+      "events": 1,
+      "completed": {
+        "ask_information": 1
+      },
+      "debug_false_claims": 0,
+      "max_context_slots": 4,
+      "max_spent": 19,
+      "errors": []
+    },
+    {
+      "scene": "mixed",
+      "seconds": 900,
+      "trace_actor": 0,
+      "thought_rows": 3211,
+      "intents_checked": 254,
+      "social_intents_checked": 14,
+      "scoped_answers_checked": 14,
+      "events": 14,
+      "completed": {
+        "friendly_touch": 12,
+        "show_item": 2
+      },
+      "debug_false_claims": 0,
+      "max_context_slots": 4,
+      "max_spent": 15,
+      "errors": []
+    },
+    {
+      "scene": "mixed-day",
+      "seconds": 86400,
+      "trace_actor": 1,
+      "thought_rows": 26092,
+      "intents_checked": 2185,
+      "social_intents_checked": 115,
+      "scoped_answers_checked": 65,
+      "events": 1133,
+      "completed": {
+        "friendly_touch": 645,
+        "show_item": 120,
+        "compliment": 358,
+        "claim_item": 6,
+        "romantic_touch": 3
+      },
+      "debug_false_claims": 0,
+      "max_context_slots": 4,
+      "max_spent": 24,
+      "errors": []
+    },
+    {
+      "scene": "mixed-seed101",
+      "seconds": 7200,
+      "trace_actor": 1,
+      "thought_rows": 2700,
+      "intents_checked": 244,
+      "social_intents_checked": 4,
+      "scoped_answers_checked": 5,
+      "events": 77,
+      "completed": {
+        "friendly_touch": 62,
+        "compliment": 9,
+        "show_item": 2
+      },
+      "debug_false_claims": 0,
+      "max_context_slots": 4,
+      "max_spent": 19,
+      "errors": []
+    },
+    {
+      "scene": "mixed-seed7",
+      "seconds": 7200,
+      "trace_actor": 1,
+      "thought_rows": 2790,
+      "intents_checked": 241,
+      "social_intents_checked": 7,
+      "scoped_answers_checked": 2,
+      "events": 76,
+      "completed": {
+        "friendly_touch": 58,
+        "compliment": 17,
+        "show_item": 1
+      },
+      "debug_false_claims": 0,
+      "max_context_slots": 4,
+      "max_spent": 21,
+      "errors": []
+    },
+    {
+      "scene": "personal-boundaries",
+      "seconds": 900,
+      "trace_actor": 0,
+      "thought_rows": 2766,
+      "intents_checked": 285,
+      "social_intents_checked": 8,
+      "scoped_answers_checked": 8,
+      "events": 8,
+      "completed": {
+        "friendly_touch": 8
+      },
+      "debug_false_claims": 0,
+      "max_context_slots": 4,
+      "max_spent": 19,
+      "errors": []
+    },
+    {
+      "scene": "pleasure-mismatch",
+      "seconds": 900,
+      "trace_actor": 0,
+      "thought_rows": 2670,
+      "intents_checked": 285,
+      "social_intents_checked": 10,
+      "scoped_answers_checked": 10,
+      "events": 10,
+      "completed": {
+        "romantic_touch": 10
+      },
+      "debug_false_claims": 0,
+      "max_context_slots": 4,
+      "max_spent": 19,
+      "errors": []
+    },
+    {
+      "scene": "recipient-refuses",
+      "seconds": 900,
+      "trace_actor": 0,
+      "thought_rows": 2311,
+      "intents_checked": 271,
+      "social_intents_checked": 2,
+      "scoped_answers_checked": 2,
+      "events": 2,
+      "completed": {},
+      "debug_false_claims": 0,
+      "max_context_slots": 4,
+      "max_spent": 19,
+      "errors": []
+    },
+    {
+      "scene": "romantic",
+      "seconds": 900,
+      "trace_actor": 0,
+      "thought_rows": 2589,
+      "intents_checked": 285,
+      "social_intents_checked": 9,
+      "scoped_answers_checked": 9,
+      "events": 9,
+      "completed": {
+        "romantic_touch": 9
+      },
+      "debug_false_claims": 0,
+      "max_context_slots": 4,
+      "max_spent": 19,
+      "errors": []
+    },
+    {
+      "scene": "romantic-norm",
+      "seconds": 900,
+      "trace_actor": 0,
+      "thought_rows": 2314,
+      "intents_checked": 272,
+      "social_intents_checked": 2,
+      "scoped_answers_checked": 2,
+      "events": 2,
+      "completed": {},
+      "debug_false_claims": 0,
+      "max_context_slots": 4,
+      "max_spent": 19,
+      "errors": []
+    },
+    {
+      "scene": "status",
+      "seconds": 900,
+      "trace_actor": 0,
+      "thought_rows": 2660,
+      "intents_checked": 285,
+      "social_intents_checked": 9,
+      "scoped_answers_checked": 9,
+      "events": 9,
+      "completed": {
+        "claim_item": 9
+      },
+      "debug_false_claims": 5,
+      "max_context_slots": 4,
+      "max_spent": 19,
+      "errors": []
+    },
+    {
+      "scene": "status-norm",
+      "seconds": 900,
+      "trace_actor": 0,
+      "thought_rows": 2510,
+      "intents_checked": 275,
+      "social_intents_checked": 4,
+      "scoped_answers_checked": 4,
+      "events": 4,
+      "completed": {
+        "claim_item": 4
+      },
+      "debug_false_claims": 0,
+      "max_context_slots": 4,
+      "max_spent": 19,
+      "errors": []
+    }
+  ],
+  "thought_rows": 69024,
+  "intents_checked": 6693,
+  "errors": 0
+}

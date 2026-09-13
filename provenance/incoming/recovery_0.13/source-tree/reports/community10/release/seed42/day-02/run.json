@@ -1,0 +1,23 @@
+{
+  "day": 2,
+  "command": [
+    "/mnt/data/work_010/my_life_deviation/build/life_sim",
+    "--load",
+    "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-01/world.save",
+    "--days",
+    "1",
+    "--save",
+    "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-02/world.save",
+    "--summary",
+    "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-02/summary.json",
+    "--community-state",
+    "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-02/community.json",
+    "--actors",
+    "/mnt/data/work_010/my_life_deviation/reports/community10/release/seed42/day-02/actors.csv"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 4.376036883999859,
+  "alive": 16,
+  "critical_actor_seconds": 0,
+  "state_hash": "cdfcc7dc7dbe619ad8cb0a5b0db2b834f54f636b1cd34d34e697c35cf17d4197"
+}

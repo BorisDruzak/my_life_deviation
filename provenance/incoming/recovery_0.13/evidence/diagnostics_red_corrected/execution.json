@@ -1,0 +1,25 @@
+[
+  {
+    "command": [
+      "cmake",
+      "--build",
+      "/mnt/data/recovery13_build",
+      "--parallel",
+      "3"
+    ],
+    "returncode": 0,
+    "start_utc": "2026-09-12T23:31:55Z",
+    "seconds": 2.053838014602661,
+    "log": "0.log"
+  },
+  {
+    "command": [
+      "/mnt/data/recovery13_build/life_tests",
+      "civil_world"
+    ],
+    "returncode": 1,
+    "start_utc": "2026-09-12T23:31:57Z",
+    "seconds": 0.04139375686645508,
+    "log": "1.log"
+  }
+]

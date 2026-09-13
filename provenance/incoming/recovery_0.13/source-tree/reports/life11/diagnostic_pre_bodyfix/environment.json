@@ -1,0 +1,15 @@
+{
+  "binary_sha256": "f824b8a3182b25fb8c8483c22e7c66a00c2cef5c623cc0b66349bf78aa4e70ce",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "logical_cpus": 5,
+  "population": 16,
+  "days": 7,
+  "seeds": [
+    42,
+    7,
+    101
+  ],
+  "concurrent_processes": 3,
+  "control": "same executable, --community; familiarity fix shared",
+  "warning": "wall time includes contention; coefficients are experimental"
+}

@@ -1,0 +1,112 @@
+<mxfile host="Electron">
+  <diagram name="Страница-1" id="5iNjccEYVe6xShCmYKpX">
+    <mxGraphModel dx="3142" dy="1869" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="5000" pageHeight="5000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="zD4nTeiAzaAa0_kfJTWI-25" edge="1" parent="1" source="zD4nTeiAzaAa0_kfJTWI-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="zD4nTeiAzaAa0_kfJTWI-26">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1285" y="1200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aPfJ42vkN6LIO1LG62Q2-5" edge="1" parent="1" source="zD4nTeiAzaAa0_kfJTWI-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="zD4nTeiAzaAa0_kfJTWI-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zD4nTeiAzaAa0_kfJTWI-23" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Внимание - внимаение механизм как оптимизации расчётов так и инструмент для планирования, мыслей, действий НПС" vertex="1">
+          <mxGeometry height="100" width="250" x="1160" y="1500" as="geometry" />
+        </mxCell>
+        <mxCell id="zD4nTeiAzaAa0_kfJTWI-27" edge="1" parent="1" source="zD4nTeiAzaAa0_kfJTWI-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="zD4nTeiAzaAa0_kfJTWI-28">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2360" y="1389.9999999999995" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aPfJ42vkN6LIO1LG62Q2-7" edge="1" parent="1" source="zD4nTeiAzaAa0_kfJTWI-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="aPfJ42vkN6LIO1LG62Q2-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zD4nTeiAzaAa0_kfJTWI-24" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="мышление - результат как внешнего внимания так и внутреннего" vertex="1">
+          <mxGeometry height="70" width="340" x="2195" y="1515" as="geometry" />
+        </mxCell>
+        <mxCell id="zD4nTeiAzaAa0_kfJTWI-26" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Персонаж среди фокуса ищет приоритет на объект для оптимизации удв.потребностей - то есть фактически рассматривает объекты в очереди субъективной оценки значимости исходя их опыта, памяти, знаний, субъективного показателя потребностей.&lt;br&gt;Причём при учёте того что НПС не знает о конкретных показателях, думаю о системе общего состояния -&amp;nbsp; которое выборочно создаёт субъективный показатель характеристики, суьъективное значит низко высоко средне.&lt;br&gt;Получается, что условно субъект видит 40 объектов перед собой - и его внимание по очереди распределяется на объекты в поиска - удв.потребностей субъективных - в очереди сразу рассматривается Как смена фокуса исхдя из показателей интелекта так и поиск действия.&amp;nbsp; - НО учитываются и ограничения,штрафы - условно объект с самым высоким средним удв.потребностей может не рассматриваться если штрафы очень высокие, но рассматривается если есть возможность.&lt;br&gt;Пример.&lt;br&gt;Увидел машину - Опыт показывает и статус, и фин полоэение от обладангия - захотел обладать - нашёл ограничения в виде собственности в памяти, наказания и тд - не взял во внимание.&lt;br&gt;&amp;nbsp;&lt;br&gt;ТАким образом одновременно выстраивается внимание и к внутреннему миру и к внешнему, для рассмотрения внутренних мыслей и потребностей - у НПС не должно быть внешнего высокого стимула, условно для вокуса и внимания на внутренних субъективных потребностях НПС требуется, условно - если внутрення мысль Одиноко(низкий уровень социального взаимодействия), или Я бедный у меня нету денег(у меня низкий социальный статус) - имеет более высокую потребность(субъективное высчисление потребностей выше чем остальные и внешние стимулы) НПС будет фокусироваться на этом." vertex="1">
+          <mxGeometry height="630" width="310" x="1130" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="zD4nTeiAzaAa0_kfJTWI-29" edge="1" parent="1" source="zD4nTeiAzaAa0_kfJTWI-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="zD4nTeiAzaAa0_kfJTWI-30">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2360" y="1060" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zD4nTeiAzaAa0_kfJTWI-28" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Многошаговое рассуждение строиться на основе действий - последствий - проблемы - решения - последствия - проблема - решение - последствия проблема решения" vertex="1">
+          <mxGeometry height="110" width="350" x="2185" y="1310" as="geometry" />
+        </mxCell>
+        <mxCell id="aPfJ42vkN6LIO1LG62Q2-1" edge="1" parent="1" source="zD4nTeiAzaAa0_kfJTWI-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="aPfJ42vkN6LIO1LG62Q2-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2720" y="970" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aPfJ42vkN6LIO1LG62Q2-3" edge="1" parent="1" source="zD4nTeiAzaAa0_kfJTWI-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="aPfJ42vkN6LIO1LG62Q2-4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2360" y="599.9999999999998" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zD4nTeiAzaAa0_kfJTWI-30" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Цепочка построения строится атомарном действии и рассматривания последствий исходя и полученного опыта и последствий - субъективного опыта.&lt;br&gt;&lt;br&gt;Условно если в памяти персонажа нету цепочки Воровства - то есть последовательного действия увидел объект - рассмотрел действия - взять - расчитал штрафы - субъективно вывел что штраф маленький - украл&lt;br&gt;То НПС в расчёте планировании не выстраивает цепочку в результате которой последствия будут плохими т оесть условно предсказанные цифры состояния будущего не сильно изменятся.&lt;br&gt;&lt;br&gt;соотсветственно в базовой цепочке памяти должны быть действия - и последствия. Цепочка рассмотрения рассуждений&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="240" width="350" x="2185" y="850" as="geometry" />
+        </mxCell>
+        <mxCell id="aPfJ42vkN6LIO1LG62Q2-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Внутренний диалог, последствия вычислений." vertex="1">
+          <mxGeometry height="150" width="210" x="2660" y="895" as="geometry" />
+        </mxCell>
+        <mxCell id="aPfJ42vkN6LIO1LG62Q2-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Рассуждения - цепочка действия последствия." vertex="1">
+          <mxGeometry height="60" width="120" x="2300" y="569.9999999999998" as="geometry" />
+        </mxCell>
+        <mxCell id="aPfJ42vkN6LIO1LG62Q2-9" edge="1" parent="1" source="aPfJ42vkN6LIO1LG62Q2-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="aPfJ42vkN6LIO1LG62Q2-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="3035" y="1250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aPfJ42vkN6LIO1LG62Q2-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Сохранения цепочки рассуждений&amp;nbsp; -в игровом условно числом виде для быстрых вычислений." vertex="1">
+          <mxGeometry height="145" width="290" x="2890" y="1477.5" as="geometry" />
+        </mxCell>
+        <mxCell id="aPfJ42vkN6LIO1LG62Q2-11" edge="1" parent="1" source="aPfJ42vkN6LIO1LG62Q2-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="aPfJ42vkN6LIO1LG62Q2-12">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="3270" y="1225" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aPfJ42vkN6LIO1LG62Q2-10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Рассмотрение цепочки является субъективным ОПЫТОМ нпс" vertex="1">
+          <mxGeometry height="110" width="175" x="2947.5" y="1170" as="geometry" />
+        </mxCell>
+        <mxCell id="aPfJ42vkN6LIO1LG62Q2-12" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Рассматривается не конкретная цепочка действий а КОНТЕКСТ/РЕЗУЛЬТАТ&lt;br&gt;&lt;br&gt;Условно&lt;br&gt;Цепочка из - потребность в близости/общении - действие, сходить в клуб(опыт нпс из прошлого) + действие разговор(результат)/результат повышение уровня потребностей." vertex="1">
+          <mxGeometry height="197.5" width="220" x="3210" y="1100" as="geometry" />
+        </mxCell>
+        <mxCell id="aPfJ42vkN6LIO1LG62Q2-14" edge="1" parent="1" source="aPfJ42vkN6LIO1LG62Q2-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="zD4nTeiAzaAa0_kfJTWI-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aPfJ42vkN6LIO1LG62Q2-18" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="aPfJ42vkN6LIO1LG62Q2-20">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="670" y="1500" as="sourcePoint" />
+            <mxPoint x="810" y="1710" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aPfJ42vkN6LIO1LG62Q2-13" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Восприятие -&amp;nbsp; механизм описывающий внешний и внутренний мир для НПС, описание проходит по средства передачи свойств объектов/событий из памяти НПС, вактическая передача субъективных результатов.&amp;nbsp;&lt;br&gt;Учитывает контекст." vertex="1">
+          <mxGeometry height="155" width="300" x="370" y="1472.5" as="geometry" />
+        </mxCell>
+        <mxCell id="aPfJ42vkN6LIO1LG62Q2-16" edge="1" parent="1" source="aPfJ42vkN6LIO1LG62Q2-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="aPfJ42vkN6LIO1LG62Q2-17">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="460" y="2470" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aPfJ42vkN6LIO1LG62Q2-15" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Мысль - возникающая из контекста ситуации(включая внутреннию ситуацию с потребностями), передача данных пропускаемых через память в НПС, процесс передаёт НПС данные о состоянии потребности или группы потребностей/характеристик" vertex="1">
+          <mxGeometry height="160" width="300" x="310" y="2580" as="geometry" />
+        </mxCell>
+        <mxCell id="aPfJ42vkN6LIO1LG62Q2-19" edge="1" parent="1" source="aPfJ42vkN6LIO1LG62Q2-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="aPfJ42vkN6LIO1LG62Q2-20">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="810" y="1830" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aPfJ42vkN6LIO1LG62Q2-17" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Процесс формирования мысли - пропускает переданную информацию через восприятия" vertex="1">
+          <mxGeometry height="120" width="320" x="300" y="2380" as="geometry" />
+        </mxCell>
+        <mxCell id="aPfJ42vkN6LIO1LG62Q2-20" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Механизм восприятие данных. Очередь Отвлечение.&lt;br&gt;&lt;br&gt;Условно НПС А - Взаимодействует с НПС Б, в процессе - это однопоточный механизм в рамках которого НПС не передаются другие мысли из-за постонной необходимости взаимодействия и просчитывания на объекте ФОКУСА(то есть НПС взаимодействую с другим объектом выстраивает цепочку только для этого объекта -паралельность просчётов, учитывается лишь при высоком показатели интелекта но чем бльше фокус(заинтересовонность стимул исходя из субъективного восприятия количественного повышения потребностей) тем менше НПС выстраивает очередь мыслей), при этом очередь не является статичной, условное попадание в очередь, не запускает процесс - для этого фактически нужен расчёт, если НПС не может посчитать(условно посчитать имеется ввиду механизм Внимания для просчёта дайствий цепочки построения действий, для простого действия Общаться(по причине уточнения дороги, может просчитаться быстро, поэтому пока персонаж условно Идёт до обекта/события точки запуска другого действия, общение может быть инициированно и не прервёт процесс Идёт, просто остановит выполнение)), после чего механизм внимания снова может начать считать процесс изначальный.&lt;br&gt;Очередь динамически выстраивается из объектов взаимодействия субъективно просчитаных по результату - при том резульатт просчитывается и с учётом Интересов. При этом условный механизм Отвлечения - строится на более высоком стимуле - учитывая что стимул высоким может быть и у другого НПС, факт инициации так-же сместит фокус на Выолнении.&lt;br&gt;Таким образом Динамическая очередь состоит из объекта фокуса, объекта отвлечения, объекты отвлечения могут статус объектом фокуса или исчезнуть из очереди в следствии отсуствия достаточно выского стимула - из-за появления другого или исчезании самого стимула(если НПС ушёл из места где был стимул в следтсвии более выского фокуса на другом объекте или НПС который был в объекте отвлечения ушёл) -&amp;nbsp;" vertex="1">
+          <mxGeometry height="520" width="380" x="740" y="1740" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

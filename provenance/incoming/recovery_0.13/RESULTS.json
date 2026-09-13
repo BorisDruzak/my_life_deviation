@@ -1,0 +1,335 @@
+{
+  "version": "0.13.0-recovery1",
+  "baseline_archive": "my_life_deviation_SELF01_verified_0.12.0.zip",
+  "baseline_sha256": "b038460398aa82fd8652b820718b721e2b73dfa4d5b979b3e770a75061b37c4a",
+  "release_cases": 445,
+  "new_cases_over_0_12": 58,
+  "release_ctest": {
+    "passed": 29,
+    "total": 29
+  },
+  "sanitizer_ctest": {
+    "passed": 26,
+    "total": 26,
+    "excluded": [
+      "world",
+      "community_long",
+      "life11_long"
+    ]
+  },
+  "verified_commands": {
+    "verified_release": [
+      {
+        "command": [
+          "/mnt/data/recovery13_build/life_tests"
+        ],
+        "binary_sha256": "277fb5bb08cfe67f57419547fb798b4ad3d32bc146bf6452b78972ab8decc7fc",
+        "returncode": 0,
+        "start_utc": "2026-09-12T23:44:29Z",
+        "seconds": 81.89455080032349,
+        "log": "0.log"
+      },
+      {
+        "command": [
+          "ctest",
+          "--test-dir",
+          "/mnt/data/recovery13_build",
+          "--output-on-failure",
+          "--parallel",
+          "3"
+        ],
+        "binary_sha256": null,
+        "returncode": 0,
+        "start_utc": "2026-09-12T23:45:51Z",
+        "seconds": 37.542705059051514,
+        "log": "1.log"
+      },
+      {
+        "command": [
+          "/mnt/data/recovery13_build/self_behavior_scenario"
+        ],
+        "binary_sha256": "66983bf1f35508ecd67791d99a5f768540f5229401c64d9e8f05fb9c9bb5300b",
+        "returncode": 0,
+        "start_utc": "2026-09-12T23:46:28Z",
+        "seconds": 0.0059130191802978516,
+        "log": "2.log"
+      }
+    ],
+    "verified_sanitizers": [
+      {
+        "command": [
+          "cmake",
+          "--build",
+          "/mnt/data/recovery13_asan",
+          "--parallel",
+          "2"
+        ],
+        "binary_sha256": null,
+        "returncode": 0,
+        "start_utc": "2026-09-12T23:44:29Z",
+        "seconds": 38.72268557548523,
+        "log": "0.log"
+      },
+      {
+        "command": [
+          "ctest",
+          "--test-dir",
+          "/mnt/data/recovery13_asan",
+          "--output-on-failure",
+          "--parallel",
+          "1",
+          "-E",
+          "^(world|community_long|life11_long)$"
+        ],
+        "binary_sha256": null,
+        "returncode": 0,
+        "start_utc": "2026-09-12T23:45:08Z",
+        "seconds": 66.64849734306335,
+        "log": "1.log"
+      }
+    ]
+  },
+  "environment": {
+    "captured_utc": "2026-09-12T23:46:13Z",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "python": "3.13.5",
+    "compiler": "c++ (Debian 14.2.0-19) 14.2.0",
+    "cmake": "cmake version 3.31.6",
+    "baseline_archive_sha256": "b038460398aa82fd8652b820718b721e2b73dfa4d5b979b3e770a75061b37c4a",
+    "binaries": {
+      "life_sim": "6fa8abb560600e571c024577f57fc74d269a12a3b3049bb88daa19c14f56fbe8",
+      "life_tests": "277fb5bb08cfe67f57419547fb798b4ad3d32bc146bf6452b78972ab8decc7fc",
+      "self_behavior_scenario": "66983bf1f35508ecd67791d99a5f768540f5229401c64d9e8f05fb9c9bb5300b"
+    }
+  },
+  "free_worlds": [
+    {
+      "seed": 42,
+      "days": 7,
+      "population": 16,
+      "alive": 16,
+      "failures": 1,
+      "critical_actor_seconds": 0,
+      "critical_seconds_by_need": {
+        "food": 0,
+        "water": 0,
+        "sleep": 0
+      },
+      "purchases": 2,
+      "paid_leisure": 10,
+      "sends": 216,
+      "deliveries": 216,
+      "reads": 214,
+      "learned_number_actions": 40,
+      "lessons": 23,
+      "procedures_acquired": 3,
+      "gifts": 0,
+      "money_transferred": 0,
+      "garments_initial": 45,
+      "garments_supplied": 14,
+      "garments_in_world": 59,
+      "garments_on_sale": 41,
+      "application_starts": 8,
+      "applications": 8,
+      "hired": 8,
+      "refused": 0,
+      "employed_at_end": 16,
+      "initially_unemployed_hired": 4,
+      "idle_hours_per_actor_day": 3.047635753968254,
+      "work_hours_per_actor_day": 4.174908735119048,
+      "fruitless_decisions": 16762,
+      "retained_decisions": 201432,
+      "resource_facts_at_end": 1948,
+      "resource_hypotheses_in_retained_trace": 0,
+      "self_integrated": 14585,
+      "binary_sha256": "6fa8abb560600e571c024577f57fc74d269a12a3b3049bb88daa19c14f56fbe8",
+      "execution": [
+        {
+          "command": [
+            "/mnt/data/recovery13_build/life_sim",
+            "--recovery",
+            "--population",
+            "16",
+            "--seed",
+            "42",
+            "--days",
+            "7",
+            "--summary",
+            "/mnt/data/recovery13_evidence/verified_week_42/summary.json",
+            "--recovery-state",
+            "/mnt/data/recovery13_evidence/verified_week_42/recovery.json",
+            "--career-state",
+            "/mnt/data/recovery13_evidence/verified_week_42/career.json",
+            "--community-state",
+            "/mnt/data/recovery13_evidence/verified_week_42/community.json",
+            "--self-state",
+            "/mnt/data/recovery13_evidence/verified_week_42/self.json",
+            "--actors",
+            "/mnt/data/recovery13_evidence/verified_week_42/actors.csv"
+          ],
+          "binary_sha256": "6fa8abb560600e571c024577f57fc74d269a12a3b3049bb88daa19c14f56fbe8",
+          "returncode": 0,
+          "start_utc": "2026-09-12T23:44:29Z",
+          "seconds": 56.82016611099243,
+          "log": "0.log"
+        }
+      ],
+      "state_hash": "b34319f8bc68201d8440bc18f8dbb83ae64e4fdb3e200c3f27ed633fd16737cb"
+    },
+    {
+      "seed": 7,
+      "days": 7,
+      "population": 16,
+      "alive": 16,
+      "failures": 1,
+      "critical_actor_seconds": 0,
+      "critical_seconds_by_need": {
+        "food": 0,
+        "water": 0,
+        "sleep": 0
+      },
+      "purchases": 1,
+      "paid_leisure": 10,
+      "sends": 167,
+      "deliveries": 167,
+      "reads": 166,
+      "learned_number_actions": 42,
+      "lessons": 17,
+      "procedures_acquired": 2,
+      "gifts": 0,
+      "money_transferred": 0,
+      "garments_initial": 45,
+      "garments_supplied": 14,
+      "garments_in_world": 59,
+      "garments_on_sale": 42,
+      "application_starts": 16,
+      "applications": 16,
+      "hired": 14,
+      "refused": 2,
+      "employed_at_end": 16,
+      "initially_unemployed_hired": 4,
+      "idle_hours_per_actor_day": 2.987111579861111,
+      "work_hours_per_actor_day": 4.195085376984127,
+      "fruitless_decisions": 16484,
+      "retained_decisions": 206127,
+      "resource_facts_at_end": 1868,
+      "resource_hypotheses_in_retained_trace": 0,
+      "self_integrated": 14370,
+      "binary_sha256": "6fa8abb560600e571c024577f57fc74d269a12a3b3049bb88daa19c14f56fbe8",
+      "execution": [
+        {
+          "command": [
+            "/mnt/data/recovery13_build/life_sim",
+            "--recovery",
+            "--population",
+            "16",
+            "--seed",
+            "7",
+            "--days",
+            "7",
+            "--summary",
+            "/mnt/data/recovery13_evidence/verified_week_7/summary.json",
+            "--recovery-state",
+            "/mnt/data/recovery13_evidence/verified_week_7/recovery.json",
+            "--career-state",
+            "/mnt/data/recovery13_evidence/verified_week_7/career.json",
+            "--community-state",
+            "/mnt/data/recovery13_evidence/verified_week_7/community.json",
+            "--self-state",
+            "/mnt/data/recovery13_evidence/verified_week_7/self.json",
+            "--actors",
+            "/mnt/data/recovery13_evidence/verified_week_7/actors.csv"
+          ],
+          "binary_sha256": "6fa8abb560600e571c024577f57fc74d269a12a3b3049bb88daa19c14f56fbe8",
+          "returncode": 0,
+          "start_utc": "2026-09-12T23:44:29Z",
+          "seconds": 56.14191913604736,
+          "log": "0.log"
+        }
+      ],
+      "state_hash": "365f52a254bf9a6f5351ea18e6737c9fe5168865cc8fb981fbd396eea8e4c4df"
+    },
+    {
+      "seed": 101,
+      "days": 7,
+      "population": 16,
+      "alive": 16,
+      "failures": 1,
+      "critical_actor_seconds": 0,
+      "critical_seconds_by_need": {
+        "food": 0,
+        "water": 0,
+        "sleep": 0
+      },
+      "purchases": 1,
+      "paid_leisure": 11,
+      "sends": 170,
+      "deliveries": 170,
+      "reads": 166,
+      "learned_number_actions": 47,
+      "lessons": 35,
+      "procedures_acquired": 2,
+      "gifts": 0,
+      "money_transferred": 0,
+      "garments_initial": 45,
+      "garments_supplied": 14,
+      "garments_in_world": 59,
+      "garments_on_sale": 42,
+      "application_starts": 10,
+      "applications": 10,
+      "hired": 10,
+      "refused": 0,
+      "employed_at_end": 16,
+      "initially_unemployed_hired": 4,
+      "idle_hours_per_actor_day": 2.847775200892857,
+      "work_hours_per_actor_day": 4.252708256448413,
+      "fruitless_decisions": 16900,
+      "retained_decisions": 211508,
+      "resource_facts_at_end": 1977,
+      "resource_hypotheses_in_retained_trace": 0,
+      "self_integrated": 15501,
+      "binary_sha256": "6fa8abb560600e571c024577f57fc74d269a12a3b3049bb88daa19c14f56fbe8",
+      "execution": [
+        {
+          "command": [
+            "/mnt/data/recovery13_build/life_sim",
+            "--recovery",
+            "--population",
+            "16",
+            "--seed",
+            "101",
+            "--days",
+            "7",
+            "--summary",
+            "/mnt/data/recovery13_evidence/verified_week_101/summary.json",
+            "--recovery-state",
+            "/mnt/data/recovery13_evidence/verified_week_101/recovery.json",
+            "--career-state",
+            "/mnt/data/recovery13_evidence/verified_week_101/career.json",
+            "--community-state",
+            "/mnt/data/recovery13_evidence/verified_week_101/community.json",
+            "--self-state",
+            "/mnt/data/recovery13_evidence/verified_week_101/self.json",
+            "--actors",
+            "/mnt/data/recovery13_evidence/verified_week_101/actors.csv"
+          ],
+          "binary_sha256": "6fa8abb560600e571c024577f57fc74d269a12a3b3049bb88daa19c14f56fbe8",
+          "returncode": 0,
+          "start_utc": "2026-09-12T23:44:29Z",
+          "seconds": 68.26408123970032,
+          "log": "0.log"
+        }
+      ],
+      "state_hash": "d517b2167b6d76a6303c5df94cdd20f7e47ea96093baf42a6599aa62575745bc"
+    }
+  ],
+  "social_self_behavior_output": "{\"opportunities\":100,\"same_external_inputs\":true,\"variants\":[{\"variant\":\"before\",\"initiatives\":0,\"non_social_choices\":100,\"mean_operations\":8,\"charged_operation_seconds\":1.3355290637386654,\"efficacy\":0.16428999314971196,\"control\":0.32310647655628183},{\"variant\":\"self_attributed_success\",\"initiatives\":21,\"non_social_choices\":79,\"mean_operations\":8,\"charged_operation_seconds\":1.3355290637386654,\"efficacy\":0.80097279016290357,\"control\":0.78953470914310897},{\"variant\":\"luck_attributed_success\",\"initiatives\":0,\"non_social_choices\":100,\"mean_operations\":8,\"charged_operation_seconds\":1.3355290637386654,\"efficacy\":0.1832918393044902,\"control\":0.20349407904098377}],\"discordant_improved\":21,\"discordant_worsened\":0}\n",
+  "limits": [
+    "bounded known-procedure transmission; no arbitrary plan synthesis",
+    "text messaging only; no voice call session",
+    "one staffed external-supply store; no checkout queue or closed manufacturing economy",
+    "conservative protected expenditure buffer; deliberate status spending into essentials not simulated",
+    "no spontaneous monetary gifts in this three-seed series; independent causal request test passes",
+    "memory claims and audit traces bounded; not full permanent biographies"
+  ]
+}

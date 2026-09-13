@@ -1,0 +1,14 @@
+Internal ctest changing into directory: /mnt/data/recovery13_build
+Test project /mnt/data/recovery13_build
+    Start 10: community
+    Start 27: civil_social
+    Start 19: adaptive
+1/4 Test #27: civil_social .....................   Passed    0.04 sec
+    Start 24: civil_unit
+2/4 Test #24: civil_unit .......................   Passed    0.00 sec
+3/4 Test #19: adaptive .........................   Passed    0.06 sec
+4/4 Test #10: community ........................   Passed    0.22 sec
+
+100% tests passed, 0 tests failed out of 4
+
+Total Test time (real) =   0.22 sec

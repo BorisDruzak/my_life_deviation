@@ -1,0 +1,31 @@
+{
+  "model": "SELF-0.1",
+  "version": "0.12.0-self01",
+  "chosen_implementation_parameters_not_physiological_constants": true,
+  "domains": 8,
+  "axes": 5,
+  "generalization_quality": 0.2,
+  "general_prior_weight": 0.1,
+  "root_hot_capacity": 128,
+  "outcome_inbox_capacity": 32,
+  "recovery_slots": 8,
+  "recovery_delay_ms": 1800000,
+  "recovery_expiry_ms": 604800000,
+  "critical_thresholds": {
+    "food": "body.energy < 0.1",
+    "water": "body.water < 0.1",
+    "sleep": "body.sleep > 0.95",
+    "sampling": "physical integration boundaries, not continuous exact threshold-crossing times"
+  },
+  "scarce_profile": {
+    "cash": [
+      18,
+      36
+    ],
+    "initial_food_portions": 2,
+    "population": 16,
+    "days": 7,
+    "jobs_capacity": 40,
+    "initial_unemployed": 4
+  }
+}

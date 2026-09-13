@@ -1,0 +1,4 @@
+tests/test_resources.cpp:2:10: fatal error: life/resources.hpp: No such file or directory
+    2 | #include "life/resources.hpp"
+      |          ^~~~~~~~~~~~~~~~~~~~
+compilation terminated.

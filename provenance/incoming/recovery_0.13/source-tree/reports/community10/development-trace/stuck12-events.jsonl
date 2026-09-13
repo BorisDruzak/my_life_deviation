@@ -1,0 +1,6 @@
+{"ms":259228296,"actor":12,"event":124808,"method":"idle","kind":"action","result":"completed","place":4,"partner":0,"object":0,"parent":0,"interaction":"friendly_touch","score":0,"moral":0,"risk":0,"operations":0,"slots":0}
+{"ms":259230016,"actor":12,"event":124822,"method":"idle","kind":"intention","result":"selected","place":4,"partner":0,"object":0,"parent":0,"interaction":"friendly_touch","score":0,"moral":0,"risk":0,"operations":5,"slots":3}
+{"ms":259260016,"actor":12,"event":124822,"method":"idle","kind":"action","result":"completed","place":4,"partner":0,"object":0,"parent":0,"interaction":"friendly_touch","score":0,"moral":0,"risk":0,"operations":0,"slots":0}
+{"ms":259261736,"actor":12,"event":124830,"method":"idle","kind":"intention","result":"selected","place":4,"partner":0,"object":0,"parent":0,"interaction":"friendly_touch","score":0,"moral":0,"risk":0,"operations":5,"slots":3}
+{"ms":259291736,"actor":12,"event":124830,"method":"idle","kind":"action","result":"completed","place":4,"partner":0,"object":0,"parent":0,"interaction":"friendly_touch","score":0,"moral":0,"risk":0,"operations":0,"slots":0}
+{"ms":259292768,"actor":12,"event":124838,"method":"idle","kind":"intention","result":"selected","place":4,"partner":0,"object":0,"parent":0,"interaction":"friendly_touch","score":0,"moral":0,"risk":0,"operations":8,"slots":3}

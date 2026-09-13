@@ -1,0 +1,8 @@
+{
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+  "cmake": "cmake version 3.31.6",
+  "cpu": [
+    "model name\t: INTEL(R) XEON(R) PLATINUM 8573C"
+  ]
+}

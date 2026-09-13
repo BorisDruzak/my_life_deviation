@@ -1,0 +1,15 @@
+[
+  {
+    "command": [
+      "cmake",
+      "--build",
+      "/mnt/data/recovery13_build",
+      "--parallel",
+      "3"
+    ],
+    "returncode": 2,
+    "start_utc": "2026-09-12T23:31:43Z",
+    "seconds": 1.0506136417388916,
+    "log": "0.log"
+  }
+]
