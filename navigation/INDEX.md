@@ -26,6 +26,7 @@
 | Архивные результаты COMMUNITY-0.10 | `docs/reports/community_0.10/` | historical |
 | Архивные результаты SELF-0.1 | `docs/reports/self_model_0.1/` | historical |
 | Поставленные результаты RECOVERY-0.13 | `docs/reports/recovery_0.13/` | historical |
+| Проверка миграции RECOVERY-0.13 | `docs/reports/migration/2026-09-13-recovery-0.13-verification.md` | implemented |
 | SELF 0.12 legacy engine | `legacy/cpp_0.12/` | historical |
 | C++0.10 COMMUNITY core | `legacy/cpp_0.10/` | historical |
 | C++ 0.6 laboratory core | `legacy/cpp_0.6/` и `docs/history/cpp_0.6/` | historical |

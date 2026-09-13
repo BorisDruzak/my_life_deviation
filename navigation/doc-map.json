@@ -20,6 +20,7 @@
     {"id": "recovery_architecture", "path": "docs/architecture/recovery_0.13/PLAN_RU.md", "status": "implemented", "depends_on": ["recovery_profile"]},
     {"id": "recovery_reports", "path": "docs/reports/recovery_0.13/REPORT_RU.md", "status": "historical", "depends_on": ["recovery_architecture"]},
     {"id": "recovery_provenance", "path": "provenance/incoming/recovery_0.13/DELIVERY.json", "status": "historical", "depends_on": ["recovery_reports"]},
+    {"id": "recovery_migration_verification", "path": "docs/reports/migration/2026-09-13-recovery-0.13-verification.md", "status": "implemented", "depends_on": ["recovery_provenance"]},
     {"id": "behavior_verification", "path": "docs/verification/behavior_0.3/Проверка_редакции_поведения_v0.3.py", "status": "implemented", "depends_on": ["behavior_revision"]},
     {"id": "community_verification", "path": "docs/verification/community_0.10/README.md", "status": "implemented", "depends_on": ["community_implementation"]},
     {"id": "community_reports", "path": "docs/reports/community_0.10/README.md", "status": "historical", "depends_on": ["community_implementation"]},
