@@ -1,0 +1,14 @@
+{
+  "version": "0.13.0-recovery1",
+  "activation": "--recovery",
+  "save_format": "LIFE-SAVE-0.13.0-recovery1-r1",
+  "mechanics": {
+    "resource_facts": "typed subjective facts; no hidden-wallet access",
+    "clothing": "owned, finite and exchanged atomically with a staffed store",
+    "budget": "protected cash plus selected clothing and leisure goals",
+    "help": "request and answer precede a conserved transfer",
+    "procedures": "known graph transfer; unknown atomic steps are not synthesized",
+    "phone": "separate send, delivery, read and paid processing time"
+  },
+  "source_spec": "docs/rules/recovery_0.13/SPEC_RU.md"
+}

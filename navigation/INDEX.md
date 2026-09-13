@@ -11,6 +11,9 @@
 | Когнитивные правила COG-0.4 | `docs/rules/cognition_0.4/README.md` | normative |
 | Правила COMMUNITY-0.10 | `docs/rules/community_0.10/README.md` | normative |
 | Спецификация SELF-MODEL-0.1 | `docs/rules/self_model_0.1/SELF-MODEL-0.1.md` | normative |
+| Правила RECOVERY-0.13 | `docs/rules/recovery_0.13/SPEC_RU.md` | normative |
+| Профиль RECOVERY-0.13 | `game/profiles/recovery_0.13/PROFILE.json` | normative |
+| Граница реализации RECOVERY-0.13 | `docs/architecture/recovery_0.13/PLAN_RU.md` | implemented |
 | Профили поведения/COG/community | `game/profiles/` | normative |
 | Профиль SELF-0.1 | `game/profiles/self_model_0.1/profile.json` | normative |
 | Исполняемая граница SELF-0.1 | `docs/architecture/self_model_0.1/IMPLEMENTATION_AND_COVERAGE_RU.md` | implemented |
@@ -22,6 +25,8 @@
 | Численные проверки механик | `docs/verification/behavior_0.3/` | implemented |
 | Архивные результаты COMMUNITY-0.10 | `docs/reports/community_0.10/` | historical |
 | Архивные результаты SELF-0.1 | `docs/reports/self_model_0.1/` | historical |
+| Поставленные результаты RECOVERY-0.13 | `docs/reports/recovery_0.13/` | historical |
+| SELF 0.12 legacy engine | `legacy/cpp_0.12/` | historical |
 | C++0.10 COMMUNITY core | `legacy/cpp_0.10/` | historical |
 | C++ 0.6 laboratory core | `legacy/cpp_0.6/` и `docs/history/cpp_0.6/` | historical |
 | WORLD-0.5.1-t1 | `legacy/world_0.5.1-t1/` и `docs/history/world_0.5.1-t1/` | historical |

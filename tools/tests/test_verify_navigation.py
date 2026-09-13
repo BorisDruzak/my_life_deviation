@@ -66,6 +66,16 @@ class Self01NavigationTests(unittest.TestCase):
         self.assertEqual(doc_paths["self_model_rules"], "docs/rules/self_model_0.1/SELF-MODEL-0.1.md")
         self.assertEqual(doc_paths["self_model_profile"], "game/profiles/self_model_0.1/profile.json")
 
+    def test_current_maps_identify_recovery_entrypoints(self) -> None:
+        code_map = json.loads((ROOT / "navigation" / "code-map.json").read_text(encoding="utf-8"))
+        doc_map = json.loads((ROOT / "navigation" / "doc-map.json").read_text(encoding="utf-8"))
+        code_paths = {node["id"]: node["path"] for node in code_map["nodes"]}
+        doc_paths = {node["id"]: node["path"] for node in doc_map["nodes"]}
+
+        self.assertEqual(code_paths["life_resources"], "engine/src/life/resources.cpp")
+        self.assertEqual(code_paths["life_phone"], "engine/src/life/phone_world.cpp")
+        self.assertEqual(doc_paths["recovery_rules"], "docs/rules/recovery_0.13/SPEC_RU.md")
+
 
 if __name__ == "__main__":
     unittest.main()
